@@ -1,4 +1,5 @@
-@ -0,0 +1,21 @@
+import './App.css';
+
 const Header = () => {
     return(
         <>

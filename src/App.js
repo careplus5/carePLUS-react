@@ -2,6 +2,7 @@ import './App.css';
 import Header from './resource/Header';
 import NurPatientList from './resource/NurPatientList';
 import Sidebar from './resource/Sidebar';
+import Login from './resource/Login';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Header/>
       <Sidebar/>
       <NurPatientList/>
+      <Login/>
     </div>
   );
 }

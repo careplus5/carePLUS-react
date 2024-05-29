@@ -1,0 +1,104 @@
+@ -0,0 +1,103 @@
+@font-face {
+    /* 내용, 프리텐더드체 */
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.body{
+    position: absolute;
+    /* background-image: url('/public/img/main.png');
+     */
+     background-color: gainsboro;
+    background-size:100%;
+    width:1920px;
+    height:100vh;
+    
+}
+
+.loginBox{
+    margin: 16.6% auto;
+    width: 780px;
+    height: 440px;
+    background-color: #FBF9F2;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 2px gray;
+}
+.loginBoxTop{
+    width:780px;
+    height: 155px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #0081B4;
+    box-shadow: 0px 2px 5px 1px lightslategray;
+}
+#loginLogoImg{
+width:230px;
+margin-left: 275px;
+margin-top: 100px;
+}
+
+#leftEmpty{
+    position: absolute;
+    margin-left:65px;
+    width: 350px;
+    height:275px;
+}
+.rightLogin{
+    width:300px;
+    height:275px;
+    float: right;
+    margin-right:65px;
+}
+.loginId, .loginPw{
+    font-family: 'Pretendard-Regular';
+    color: #427889;
+    font-weight: bold;
+    font-size:20px;
+}
+#id{
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px dashed #427889;
+    width: 200px;
+    height: 20px;
+    font-size:20px;
+    color: lightslategray;
+}
+
+#password{
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid #427889;
+    width:192px;
+    height: 20px;
+    font-size:20px;
+    color: lightslategray;
+    
+}
+.loginButton{
+    margin-top:10px;
+    float: right;
+    margin-right: 63px;
+}
+
+button{
+    border: none;
+    color: white;
+    border-radius: 10px;
+    height:25px;
+    font-weight: bold;
+    box-shadow: 0 1px 2px 0 lightgray;
+    width:80px;
+    font-family: 'Pretendard-Regular';
+}
+
+#loginSuccess{
+    background-color: #AAD7D9;
+}
+
+#rePw{
+    background-color: #4593C0;
+}

@@ -1,0 +1,108 @@
+.leftBox{
+    float: left;
+    width: 640px;
+    margin-left:20px;
+}
+
+.rightBox{
+    background-color:  #FBF9F2;
+    width:900px;
+    box-shadow: 0px 1px 2px 0 lightgray;
+    height:610px;
+    border-radius: 10px;
+    float: right;
+    padding: 10px;
+}
+
+#admDailyWrite{
+    width: 890px;
+}
+
+#dailyContent{
+    background-color: white;
+    box-shadow: 1px 0 2px 0 lightgray inset;
+    position: absolute;
+    border:none;
+    border-radius: 10px;
+    width: 880px;
+    height: 120px;
+}
+#docContent{
+    background-color: white;
+    box-shadow: 1px 0 2px 0 lightgray inset;
+    position: absolute;
+    border:none;
+    border-radius: 10px;
+    width: 1545px;
+    height: 120px;
+}
+
+.patProfile{
+    background-color:  white;
+    width:640px;
+    box-shadow: 0px 1px 2px 0 lightgray;
+    height:300px;
+    border-radius: 10px;
+    float: left;
+    padding: 10px;
+}
+
+.docOpinion{
+    margin-top:10px;
+    background-color:  white;
+    width:640px;
+    box-shadow: 0px 1px 2px 0 lightgray;
+    height:280px;
+    border-radius: 10px;
+    float: left;
+    padding: 10px;
+}
+
+
+#patName, #patBirth{
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0 lightgray inset;
+    height: 20px;
+}
+
+#patNum, #patContent, #patDis, #patMemo{
+    width: 375px;
+    border: none;
+    height: 200px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0 lightgray inset;
+    height: 20px;
+}
+#docOpin{
+    margin:15px;
+    border:none;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0 lightgray inset;
+    height: 180px;
+    border-radius: 10px;
+    width:600px;
+}
+
+.dailyList{
+    position: relative;
+    top:120px;
+}
+
+.longBox{
+    width:1600px;
+    border-radius: 10px;
+    box-shadow: 1px 0 2px 0 lightgray;
+    height: 330px;
+padding: 15px;
+background-color: #f9f6e9;
+}
+
+.bottomBox{
+    margin-top:20px;
+    margin-left:20px;
+    position: relative;
+   float:left;
+}

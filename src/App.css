@@ -1,0 +1,265 @@
+@ -0,0 +1,264 @@
+/* ---- 공통 ---- */
+#Lbox{
+  position: absolute;
+  background-color: #FBF9F2;
+  margin-left: 30px;
+  margin-top:30px;
+  width: 1500px;
+  height: 960px;
+  border-radius: 10px;
+  box-shadow: 2px 1px 3px 1px lightgray;
+  padding: 30px;
+}
+
+
+/* 폰트 종류 */
+@font-face {
+  /* 내용, 프리텐더드체 */
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  /* 박스 헤더, 메뉴, 잠실체(볼드) */
+  font-family: 'TheJamsil5Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  /* 내용, 잠실체(중간) */
+  font-family: 'TheJamsil54Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ------------- */
+
+/* ---- 헤더 ---- */
+ 
+/* 헤더 배경 */
+.header{
+  background-color: #0081B4;
+  width:1920px;
+  height:60px;
+}
+
+/* 헤더 왼쪽 메뉴들 */
+.headerLMenu{
+  display: flex;
+  float: left;
+  color: white;
+  font-family: 'Pretendard-Regular';
+}
+h4{
+  margin-left:150px;
+}
+
+/* 헤더 오른쪽 메뉴들 */
+.headerRMenu{
+  display: flex;
+  float: right;
+  margin-top:20px;
+  color: white;
+  font-family: 'Pretendard-Regular';
+}
+
+/* 헤더 로고 */
+.headerLogo{
+  float:left;
+  width:250px;
+}
+
+/* 헤더 오른쪽 메뉴 내 아이콘들 */
+.headerIcon {
+  width:20px;
+  margin-right:10px;
+}
+
+.headerLogout{
+  margin-right:20px;
+}
+
+/* --------------- */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* ---- 사이드바 ---- */
+
+/* 사이드바-뒷배경 */
+.sideBar{
+  position: absolute;
+  width:300px;
+  min-height: 100vh;
+  background-color: #FFFDF8;
+  box-shadow: 2px 1px 5px 0 lightgray;
+}
+
+/* 사이드바-구분선 */
+.line{
+  margin: 0 auto;
+  margin-top: 5px;
+  width:250px;
+  background-color:lightgray;
+  height:1px;
+}
+
+/* 사이드바 버튼*/
+#button1{
+  font-family: 'TheJamsil5Bold';
+  margin-left:210px;
+width: 75px;
+height:25px;
+background-color: #F7CE7E;
+border:none;
+border-radius:10px;
+}
+
+
+#button2{
+  font-family: 'TheJamsil5Bold';
+  margin-left: 10px;
+  margin-top:25px;
+width: 25px;
+height:25px;
+background-color: #427889;
+color: white;
+border:none;
+border-radius:10px;
+}
+
+
+/* 사이드바-박스 내 제목*/
+#boxHeader{
+  display:inline-block;
+  font-family: 'TheJamsil54Medium';
+  margin-left:10px;
+  font-size: 23px;
+}
+.boxHeader{
+  display:flex;
+}
+
+#boxIcon{
+  margin-top:20px;
+  margin-left:15px;
+  width:30px;
+  height:30px;
+}
+
+
+/* 사이드바-프로필 */
+.sideProfile{
+  position: relative;
+}
+
+#profileImg{
+  display: flex;
+ margin: 0 auto;
+}
+
+#profileText{
+  font-family: 'Pretendard-Regular';
+  font-size: 21px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+/* 사이드바-메모 */
+.sideMemo{
+  position: relative;
+  background-color: #FFFDF8;
+  height:255px;
+  border-radius:10px;
+  box-shadow: 1px 1px 1px 1px lightgray;
+  margin-bottom:5px;
+}
+
+
+.memo{
+  margin-left:2%;
+width: 280px;
+height:130px;
+background-color: #FFFEFB;
+box-shadow: 1px 1px 1px 1px lightgray inset;
+border:none;
+border-radius:10px;
+}
+
+
+/* 사이드바-투두리스트 */
+.sideTodo{
+  position: relative;
+  background-color: #FFFDF8;
+  height:255px;
+  border-radius:10px;
+  box-shadow: 1px 1px 1px 1px lightgray;
+}
+.todoContent{
+  margin-left:8px;
+}
+#boxHeaderTodo{
+  color: #F5DB4F;
+  display:inline-block;
+  font-family: 'TheJamsil54Medium';
+  margin: 0 auto;
+  text-align: center;
+  font-size: 23px;
+}
+
+#todoList{
+margin: 10px;
+font-family: 'Pretendard-Regular';
+color: gray;
+font-size:20px;
+border-bottom: 2px dashed lightgray;
+}
+
+input[type="checkbox"]{
+  /* 원하는 스타일을 여기에 추가하세요 */
+  width: 15px;
+  height: 15px;
+  border: none;
+}
+
+#todo{
+  font-family: 'Pretendard-Regular';
+  margin: 0 auto;
+  width: 280px;
+  border:none;
+  border-bottom: 2px dashed lightgray;
+  font-size:20px;
+  background-color: transparent;
+  color: gray;
+}
+
+/* 사이드바-공지 */
+.sideNotice{
+  position: relative;
+  height:300px;
+  background-color: #FFFDF8;
+  border-radius:10px;
+  box-shadow: 1px 1px 1px 1px lightgray;
+  margin-bottom: 5px;
+}
+
+
+.noticeContent{
+  text-align: center;
+}
+
+/* ------------- */
+
+/*다른 메뉴들*/
+.background{
+  width:1620px;
+  margin-left:300px;
+  height: 100vh;
+  background-color: #FBF9F2;
+}

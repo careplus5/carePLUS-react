@@ -1,5 +1,5 @@
-@ -0,0 +1,33 @@
 import '../Login.css';
+import '../App.css';
 const Login = () => {
     return(
     <div className="body">

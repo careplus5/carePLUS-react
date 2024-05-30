@@ -5,7 +5,8 @@ import Sidebar from './resource/Sidebar';
 import Login from './resource/Login';
 import DiagnosisPatient from './resource/DiagnosisPatient';
 import Admin from './resource/Admin';
-
+import NurPatientInfo from './resource/NurPatientInfo';
+import NurDailyPrescription from './resource/NurDailyPrescription';
 function App() {
   return (
     <div className="App">
@@ -16,7 +17,10 @@ function App() {
       {/* <Sidebar/>
       <NurPatientList/>
       <Login/> */}
-      <Admin/>
+     {/* <NurPatientInfo/> */}
+     <NurDailyPrescription/>
+      {/* <Admin/> */}
+     
     </div>
   );
 }

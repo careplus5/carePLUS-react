@@ -8,24 +8,23 @@ return (<div className="background">
         <div className="patProfile">
         <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">&nbsp;환자 입원 정보 <button style={{backgroundColor:"#B9EDE7", color:"black", width:"50px", height: "20px"}}>작성</button> </h3>
+            <h3 id="LboxHeader">&nbsp;환자 입원 정보 &nbsp;<button style={{backgroundColor:"gray", color:"black", width:"50px", height: "20px"}}>퇴원</button> </h3>
         </div>
-        <table className="admInfo" borderless>
-            <tr><td>이름</td>
-            <td><input type="text" id="patName" disabled/></td> &nbsp;&nbsp;&nbsp;
-            <td>생년월일</td>
-            <td><input type="text" id="patBirth" disabled/></td></tr>
-            <tr>
-                <td>환자 번호</td>
-                <td colSpan={4}><input type="text" id="patNum" disabled/></td>
-            </tr>
-            <tr><td>입원 내용</td>
-            <td colSpan={4}><input type="text" id="patContent" disabled/></td></tr>
-            <tr><td>주요 증상</td>
-            <td colSpan={4}><input type="text" id="patDis" disabled/></td></tr>
-            <tr><td>접수 메모</td>
-            <td colSpan={4}><input type="text" id="patMemo" disabled/></td></tr>
-        </table>
+        <div style={{marginLeft:"60px"}}>
+          <div className="admInfo">
+                            <div>이름 <input className='inputStyle' disabled/></div>
+                            <div style={{marginLeft:"-30px"}}>생년월일 <input className='inputStyle' disabled/></div>
+                        </div>
+                            <div>환자 번호<input className='inputStyle' style={{width:"405px"}} disabled/></div>
+                            <br/>
+                            <div>입원 내용<input className='inputStyle' style={{width:"405px", height:"50px"}} disabled /></div>
+                            <br/>
+                            <div>주요 증상<input className='inputStyle' style={{width:"405px"}} disabled/></div>
+                            <br/>
+                            <div>접수 메모<input className='inputStyle' style={{width:"405px"}} disabled/></div>
+                            <br/>
+                            </div>
+                            
         </div>
         <div className="docOpinion">
         <div className="boxHeader">

@@ -1,17 +1,23 @@
 .leftBox{
     float: left;
     width: 640px;
-    margin-left:20px;
+    margin-left:30px;
+    margin-top: 10px;
+    background-color: aquamarine;
 }
 
+
 .rightBox{
-    background-color:  #FBF9F2;
+    background-color: white;
     width:900px;
     box-shadow: 0px 1px 2px 0 lightgray;
     height:610px;
     border-radius: 10px;
     float: right;
+    margin-top: 10px;
+    margin-right:30px;
     padding: 10px;
+    padding-left: 30px;
 }
 
 #admDailyWrite{
@@ -41,7 +47,7 @@
     background-color:  white;
     width:640px;
     box-shadow: 0px 1px 2px 0 lightgray;
-    height:300px;
+    height:350px;
     border-radius: 10px;
     float: left;
     padding: 10px;
@@ -52,7 +58,7 @@
     background-color:  white;
     width:640px;
     box-shadow: 0px 1px 2px 0 lightgray;
-    height:280px;
+    height:230px;
     border-radius: 10px;
     float: left;
     padding: 10px;
@@ -65,6 +71,11 @@
     background-color: white;
     box-shadow: 1px 1px 2px 0 lightgray inset;
     height: 20px;
+}
+.admInfo{
+    display:flex;
+    padding:20px;
+    padding-left: 19px;
 }
 
 #patNum, #patContent, #patDis, #patMemo{
@@ -81,7 +92,7 @@
     border:none;
     background-color: white;
     box-shadow: 1px 1px 2px 0 lightgray inset;
-    height: 180px;
+    height: 120px;
     border-radius: 10px;
     width:600px;
 }
@@ -92,17 +103,19 @@
 }
 
 .longBox{
-    width:1600px;
+    width:1610px;
+   
     border-radius: 10px;
     box-shadow: 1px 0 2px 0 lightgray;
     height: 330px;
 padding: 15px;
-background-color: #f9f6e9;
+background-color: white;
 }
 
 .bottomBox{
     margin-top:20px;
-    margin-left:20px;
+    margin-left:30px;
     position: relative;
    float:left;
 }
+

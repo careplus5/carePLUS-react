@@ -1,0 +1,99 @@
+.leftBox1{
+    float: left;
+    background-color: white;
+    width: 250px;
+    height:980px;
+    border-radius: 10px;
+    margin-left: 30px;
+    box-shadow: 1px 0 3px 0 lightgray;
+}
+.presDailyExp{
+    display:flex;
+    margin-left:30px;
+}
+
+#presX{
+    width: 60px;
+    height:20px;
+    background-color: lightgray;
+    text-align: center;
+}
+
+#presXV{
+    width: 140px;
+    height:20px;
+    background-color: #609E66;
+    text-align: center;
+}
+
+#presXVX{
+    width: 140px;
+    height:20px;
+    background-color: red;
+    text-align: center;
+}
+
+
+#presO{
+    width: 80px;
+    height:20px;
+    background-color: #F7CE7E;
+    text-align: center;
+}
+
+
+.rightBox1{
+    margin-right: 30px;
+    padding-top:10px;
+    float:right;
+    border-radius: 10px;
+    background-color: white;
+    width: 1370px;
+    height:980px;
+    box-shadow: 0 1px 2px 0 lightgray;
+}
+
+.presList{
+    font-size:15px;
+     width:200px;
+     text-align: center;
+     color: black;
+ }
+ 
+.NDsearchbar{
+    margin:20px;
+    position: relative;
+    background-color: white;
+    /* float: right; */
+    width: 210px;
+    height:25px;
+    box-shadow: 1px 1px 2px 0 lightgray;
+    border-radius: 20px;
+    color: #233FA3;
+    font-weight: bold;
+}
+
+#keyword{
+    border:none;
+    margin-top: 3px;
+    margin-left: 5px;
+    width:140px;
+    font-size:15px;
+
+}
+
+
+#searchButton{
+    margin-top:-1px;
+    margin-left:5px;
+    background-color: transparent;
+    border: none;
+    width:28px;
+    height:30px;
+    background-image: url('/public/img/adsearch.png');
+    float: right;
+}
+
+#searchButton1{
+    display:none;
+}

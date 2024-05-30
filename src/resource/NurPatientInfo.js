@@ -1,5 +1,5 @@
-import '../App.css';
-import '../NurPatientInfo.css';
+import '../css/App.css';
+import '../css/NurPatientInfo.css';
 import DocAdmList from './DocAdmList';
 const NurPatientInfo = () => {
 return (<div className="background">

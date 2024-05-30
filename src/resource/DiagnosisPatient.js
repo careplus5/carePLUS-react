@@ -1,4 +1,4 @@
-import '../DiagnosisPatient.css';
+import '../css/DiagnosisPatient.css';
 
 const DiagnosisPatient = () => {
     return (

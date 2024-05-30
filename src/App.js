@@ -1,4 +1,4 @@
-import './App.css';
+import './css/App.css';
 import Header from './resource/Header';
 import NurPatientList from './resource/NurPatientList';
 import Sidebar from './resource/Sidebar';
@@ -11,7 +11,6 @@ function App() {
     <div className="App">
       <Header/>
       <Sidebar/>
-      <DiagnosisPatient/>
       {/* <NurPatientList/> */}
       {/* <Login/> */}
       {/* <Sidebar/>

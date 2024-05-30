@@ -1,4 +1,4 @@
-import '../NurPatientList.css';
+import '../css/NurPatientList.css';
 const NurPatientList = () => {
     return (
         <div className="background">

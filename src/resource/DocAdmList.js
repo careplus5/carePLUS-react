@@ -1,4 +1,4 @@
-import "../NurPatientInfo.css";
+import "../css/NurPatientInfo.css";
 const DocAdmList = () => {
     return (
         <div className="longBox">

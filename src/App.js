@@ -4,6 +4,7 @@ import NurPatientList from './resource/NurPatientList';
 import Sidebar from './resource/Sidebar';
 import Login from './resource/Login';
 import DiagnosisPatient from './resource/DiagnosisPatient';
+import Admin from './resource/Admin';
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
       <DiagnosisPatient/>
       {/* <NurPatientList/> */}
       {/* <Login/> */}
+      {/* <Sidebar/>
+      <NurPatientList/>
+      <Login/> */}
+      <Admin/>
     </div>
   );
 }

@@ -17,7 +17,6 @@ const Sidebar = () => {
                 </div>
                 <div className="memoContent">
                     <input type="textarea" className="memo"/><br/>
-                    <br/>
                     <button id="button1">저장</button>
                 </div>
                 </div>
@@ -30,11 +29,11 @@ const Sidebar = () => {
 
                 <div className="line"></div>
                 <div className="noticeContent">
-                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다 다른...</p></a>
-                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다 다른...</p></a>
-                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다 다른...</p></a>
-                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다 다른...</p></a>
-                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다 다른...</p></a>
+                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다</p></a>
+                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다</p></a>
+                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다</p></a>
+                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다</p></a>
+                    <a src="#"><p>[외래과] 3층 화장실 막혔습니다</p></a>
                 </div>
                 </div>
                 <div className="sideTodo">

@@ -123,7 +123,7 @@ border-radius:10px;
 
 #button2{
   font-family: 'TheJamsil5Bold';
-  margin-left: 60px;
+  margin-left: 80px;
   margin-top:40px;
 width: 20px;
 height:20px;
@@ -254,6 +254,7 @@ input[type="checkbox"]{
 
 .noticeContent{
   text-align: center;
+  font-size: 15px;
 }
 
 /* ------------- */

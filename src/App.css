@@ -111,9 +111,10 @@ html, body, #root {
 /* 사이드바 버튼*/
 #button1{
   font-family: 'TheJamsil5Bold';
-  margin-left:210px;
-width: 75px;
-height:25px;
+  margin-left:155px;
+  margin-top:5px;
+width: 45px;
+height:20px;
 background-color: #F7CE7E;
 border:none;
 border-radius:10px;
@@ -122,14 +123,15 @@ border-radius:10px;
 
 #button2{
   font-family: 'TheJamsil5Bold';
-  margin-left: 10px;
-  margin-top:25px;
-width: 25px;
-height:25px;
+  margin-left: 60px;
+  margin-top:40px;
+width: 20px;
+height:20px;
 background-color: #427889;
 color: white;
 border:none;
-border-radius:10px;
+border-radius:5px;
+text-align: center;
 }
 
 
@@ -145,7 +147,7 @@ border-radius:10px;
 }
 
 #boxIcon{
-  margin-top:20px;
+  margin-top:15px;
   margin-left:15px;
   width:30px;
   height:30px;
@@ -175,7 +177,7 @@ border-radius:10px;
 .sideMemo{
   position: relative;
   background-color: #FFFDF8;
-  height:255px;
+  height:150px;
   border-radius:10px;
   box-shadow: 1px 1px 1px 1px lightgray;
   margin-bottom:5px;
@@ -183,9 +185,9 @@ border-radius:10px;
 
 
 .memo{
-  margin-left:2%;
+margin-left:15px;
 width: 180px;
-height:130px;
+height:60px;
 background-color: #FFFEFB;
 box-shadow: 1px 1px 1px 1px lightgray inset;
 border:none;
@@ -210,14 +212,14 @@ border-radius:10px;
   font-family: 'TheJamsil54Medium';
   margin: 0 auto;
   text-align: center;
-  font-size: 23px;
+  font-size: 20px;
 }
 
 #todoList{
 margin: 10px;
 font-family: 'Pretendard-Regular';
 color: gray;
-font-size:20px;
+font-size:15px;
 border-bottom: 2px dashed lightgray;
 }
 
@@ -231,10 +233,10 @@ input[type="checkbox"]{
 #todo{
   font-family: 'Pretendard-Regular';
   margin: 0 auto;
-  width: 280px;
+  width: 200px;
   border:none;
   border-bottom: 2px dashed lightgray;
-  font-size:20px;
+  font-size:15px;
   background-color: transparent;
   color: gray;
 }
@@ -242,7 +244,7 @@ input[type="checkbox"]{
 /* 사이드바-공지 */
 .sideNotice{
   position: relative;
-  height:300px;
+  height:250px;
   background-color: #FFFDF8;
   border-radius:10px;
   box-shadow: 1px 1px 1px 1px lightgray;
@@ -258,8 +260,123 @@ input[type="checkbox"]{
 
 /*다른 메뉴들*/
 .background{
-  width:1620px;
-  margin-left:300px;
+  width:1700px;
+  margin-left:220px;
   height: 100vh;
   background-color: #FBF9F2;
+}
+
+
+/* 조직도 */
+#Lbox{
+  position: absolute;
+  margin:0 auto;
+  background-color: #FBF9F2;
+  margin-left: 30px;
+  margin-top:30px;
+  width: 1550px;
+  height: 960px;
+  border-radius: 10px;
+  box-shadow: 2px 1px 3px 1px lightgray;
+}
+
+#LboxHeader{
+  display:inline-block;
+  font-family: 'TheJamsil54Medium';
+  margin-left:30px;
+  font-size: 25px;
+}
+
+.jang{
+  width:120px;
+  height:55px;
+  background-color: #22668D;
+  font-size:20px;
+  color:white;
+  text-align:center;
+  margin:0 auto;
+}
+
+#jang, #dep{
+  display:inline;
+  position: relative;
+  top: 15px;
+  font-family: 'Pretendard-Regular';
+  font-weight:bold;
+}
+
+#line1{
+  margin: 0 auto;
+  width: 2px;
+  height:20px;
+  background-color: #A9A9A9;
+}
+
+#line2{
+  margin: 0 auto;
+  width:848px;
+  height:1px;
+  background-color: #A9A9A9;
+}
+.liner{
+  display:flex;
+}
+#line4{
+  margin-left:351px;
+  width:2px;
+  height:50px;
+  background-color: #A9A9A9;
+}
+#line3{
+  margin-left:280px;
+  width:2px;
+  height:50px;
+  background-color: #A9A9A9;
+}
+.department{
+  margin: 0 auto;
+  display:flex;
+}
+.dept:first-child{
+margin-left:260px;
+}
+.dept{
+  width:180px;
+  height:65px;
+  background-color: #22668D;
+  font-size:25px;
+  color:white;
+  text-align:center;
+  margin-left: 100px;
+}
+
+.depts{
+  border: 1px solid gray;
+  width:180px;
+  height:65px;
+  background-color: white;
+  font-size:25px;
+  color:#22668D;
+  text-align:center;
+  margin-left: 100px;
+}
+
+.doctor{
+  display:inline-block;
+  margin-left:160px;
+}
+.nurse{
+  position: absolute;
+  display:inline-block;
+}
+.technician{
+  position: absolute;
+  display:inline-block;
+  margin-left:280px;
+}
+
+.task{
+  position: absolute;
+  margin-left:560px;
+  display:inline-block;
 }

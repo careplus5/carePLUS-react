@@ -1,0 +1,201 @@
+body {
+    margin-top: 80px;
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  .App {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .admin {
+    background-color: #FBF9F2;
+    width: 1920px;
+  }
+  
+  .left-panel, .right-panel {
+    flex: 1;
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .left-panel {
+    float: left;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .right-panel {
+    float: right;
+    padding-right: 10px;
+  }
+  
+  .section {
+    background-color: #FFFDF8;
+    height: 420px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .section-top {
+    display: flex;
+    align-items: center;
+    font-size: 23px;
+    font-weight: bold;
+  }
+  
+  .section-controls {
+    display: inline-flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    
+  }
+  
+  .selectbox-font{
+    font-size: 18px;
+  }
+
+  ::placeholder{
+    color:  gray;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .section-controls select,
+  .section-controls input {
+    box-shadow: inset 0px 1px 2px 1px lightgray;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-left: 10px;
+    
+  }
+  .section-controls select{
+    color: gray;
+    margin-left: 100px;
+    width: 150px;
+    height: 30px;
+  }
+  .section-controls input{
+    width: 465px;
+  }
+  
+  .table-header,
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding-top: 10px;
+    padding-bottom: 10PX;
+  }
+  
+  .table-header div,
+  .table-row div {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .table-header div.title-3,
+  .table-row div.title-3 {
+    flex: 3;
+  }
+  .table-header div.title-2,
+  .table-row div.title-2 {
+    flex: 2;
+  }
+  
+  .accordion-section {
+    font-size: 20px;
+    font-weight: bold;
+    height: auto;
+    background-color: #FFFDF8;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border: 1px solid #ccc;
+  }
+  
+  .accordion-header {
+    font-size: 23px;
+    height: 60px;
+    background: #FFFDF8;
+    cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  accordion-header-title{
+    font-family: Pretendard-Regular;
+
+  }
+  .accordion-section.active .accordion-header {
+    border-bottom: none; 
+  }
+  
+  .accordion-content {
+    padding: 10px;
+    display: none;
+  }
+  
+  .accordion-content.active {
+    display: block;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+  }
+
+  .input-group input{
+    Qentity생성,  enitty > create 생성 후 upadate
+  }
+
+  input-group 
+  
+  .button {
+    height: 25px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .emp-left{
+    
+  }
+
+  . .emp-right{
+  
+  }
+
+
+ .write-img {
+    margin-left: 20px;
+    margin-right: 10px;
+    /* margin-bottom: 5px; */
+}
+
+.notice-img{
+  /* margin-left: 20px; */
+  margin-right: 10px;
+}
+
+.employee-img{
+  /* margin-left: 20px; */
+  margin-right: 10px;
+}

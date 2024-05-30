@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../jinsol-css/Admin.css';
+import '../css/Admin.css';
 
 const Admin = () => {
     const [accordion, setAccordion] = useState(null);
@@ -9,24 +9,26 @@ const Admin = () => {
     };
 
     return (
-        <div className="admin">
+        <div className="adminBackground">
             <div className="left-panel">
                 <div className="section">
-                    <div className="section-top">
-                        <div className='section-title'>
-                        <img src='./Admin-img/notice.png' alt='' className='notice-img'/>
-                        <span className='pretendard'>공지사항</span>
-                        </div>
-                        <div className="section-controls">
-                            <select>
-                                <option value="" >선택</option>
-                            </select>
-                            <input type="text" placeholder="검색" />
-                        </div>
-                    </div>
+                    <div className="boxHeader">
+            <img id="boxIcon" style={{marginTop:"12px"}} src="/img/notice.png"/>
+            <h3 id="boxHeader">공지사항</h3>
+        </div>
+                        <div className="admSearchbar">
+                    <select id="admKeywordSort">
+                    <option>구분</option>
+                        <option>카테고리</option>
+                        <option>제목</option>
+                        <option>내용</option>
 
+
+                        </select>&nbsp;|<input type="text"  id="keyword"placeholder=' 검색'/>
+                        <label id="searchButton2" for="searchButton1"><button id="searchButton1"> </button></label>            
+                        </div>
                     <div className="table">
-                        <div className="table-header">
+                        <div className="table-header" style={{fontWeight:"bold"}}>
                             <div>게시 날짜</div>
                             <div>카테고리</div>
                             <div>글번호</div>
@@ -45,18 +47,26 @@ const Admin = () => {
                     </div>
                 </div>
                 <div className="section">
-                    <div className="section-title">
-                        <img src='./Admin-img/employee.png' alt='' className='employee-img'/>
-                        <span className='pretendard'>직원 정보</span>
-                        <div className="section-controls">
-                            <select>
-                                <option value="">선택</option>
-                            </select>
-                            <input type="text" placeholder="검색" />
+                <div className="boxHeader">
+            <img id="boxIcon" style={{marginTop:"12px"}} src="/img/notice.png"/>
+            <h3 id="boxHeader">직원 정보</h3>
+        </div>
+        <div className="admSearchbar">
+                    <select id="admKeywordSort">
+                    <option>구분</option>
+                        <option>사번</option>
+                        <option>직업</option>
+                        <option>부서</option>
+                        <option>소속</option>
+                        <option>이름</option>
+                        <option>이메일</option>
+
+
+                        </select>&nbsp;|<input type="text"  id="keyword"placeholder=' 검색'/>
+                        <label id="searchButton2" for="searchButton1"><button id="searchButton1"> </button></label>            
                         </div>
-                    </div>
                     <div className="table">
-                        <div className="table-header">
+                        <div className="table-header" style={{fontWeight:"bold"}}>
                             <div className="title-2">사번</div>
                             <div>직업</div>
                             <div>부서</div>
@@ -79,7 +89,7 @@ const Admin = () => {
                 {['공지사항 작성', '공지사항 수정', '직원정보 작성', '직원정보 수정'].map((title, index) => (
                     <div className={`accordion-section ${accordion === index ? 'active' : ''}`} key={index}>
                         <div className="accordion-header" onClick={() => toggleAccordion(index)}>
-                            <img src='./Admin-img/write.png' alt='' className='write-img'/><span className='accordion-header-title'>{title}</span>
+                            <img src='/img/write.png' alt='' className='write-img'/><span className='accordion-header-title'>{title}</span>
                         </div>
                         <div className={`accordion-content ${accordion === index ? 'active' : ''}`}>
                             {index < 2 ? (
@@ -120,7 +130,7 @@ const Admin = () => {
                 ))}
             </div>
         </div>
-    );
+    )
 };
 
 export default Admin;

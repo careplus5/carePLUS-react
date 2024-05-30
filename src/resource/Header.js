@@ -11,7 +11,7 @@ const Header = () => {
             <a><h4>병동 조회</h4></a>
             </div>
             <div className="headerRMenu">
-            <img className="headerAlarm headerIcon" src="img/alarm.png"/>&nbsp;&nbsp;&nbsp;
+            <img className="headerAlarm headerIcon" src="img/alaram.png"/>&nbsp;&nbsp;&nbsp;
             <img className="headerSchedule headerIcon" src="img/schedule.png"/>&nbsp;&nbsp;&nbsp;
             <img className="headerLogout headerIcon" src="img/logout.png"/>
             </div>

@@ -1,0 +1,121 @@
+.sboxHeader {
+    font-family: 'TheJamsil54Medium';
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+#thirdRow {
+    height: "340px";
+    display: flex;
+}
+
+/* 박스 스타일 */
+#diagRecordBox{
+    background-color: #FFFDF8;
+    margin-left: 20px;
+    margin-top: 190px;
+    width: 470px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 3px 1px lightgray;
+    padding: 5px;
+}
+
+#addDiagRecordBox{
+    background-color: #FFFDF8;
+    margin-left: 20px;
+    margin-top: 190px;
+    width: 750px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 3px 1px lightgray;
+    padding: 5px;
+}
+
+#toNurseBox{
+    background-color: #FFFDF8;
+    margin-left: 20px;
+    margin-top: 190px;
+    width: 350px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 3px 1px lightgray;
+    padding: 5px;
+}
+
+#prescriptionBox{
+    position: absolute;
+    background-color: #FFFDF8;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 1630px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 3px 1px lightgray;
+    padding: 5px;
+}
+
+
+/* 진단 박스 내용 스타일 */
+.selectStyle {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: #FFFEFB;
+    color: #666;
+}
+.selectStyle:focus {
+    outline: none;
+}
+
+.textareaStyle {
+    width: 75%;
+    height: 110px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: #FFFEFB;
+    color: #666;
+    resize: none;  /* 크기 키우는 거 비활성화 */
+}
+.textareaStyle:focus {
+    outline: none;
+}
+
+.labelStyle {
+    margin-right: 20px;
+}
+
+
+/* 추가 진단 뱍스 내용 스타일 */
+.inputBoxStyle {
+    margin-right: 30px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: #FFFEFB;
+}
+.inputBoxStyle:focus {
+    outline: none;
+}
+
+.checkboxStyle{
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.radioStyle {
+    margin-right: 15px;
+}
+
+
+
+/* 공통 부분 조금 수정해보기...*/
+#boxIcon {
+    height: 30px;
+    margin-left: 25px;
+}

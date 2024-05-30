@@ -1,4 +1,5 @@
-import '../css/DiagnosisPatient.css';
+import '../DiagnosisPatient.css';
+import DiagResult from './DiagResult';
 
 const DiagnosisPatient = () => {
     return (
@@ -83,6 +84,9 @@ const DiagnosisPatient = () => {
                         </tr>
                     </table>
                 </div>
+            </div>
+            <div id="diagResultRow"> 
+                <DiagResult />
             </div>
         </div>
     )

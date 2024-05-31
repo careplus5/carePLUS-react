@@ -9,7 +9,6 @@ const DiagnosisPatient = () => {
     const [diagPatList, setDiagPatList] = useState([]);
 
     useEffect(()=>{
-        console.log("AA")
         axios.get(`http://localhost:8090/diagPatientList?docNum=1016052301`)
             .then(res=>{
                 console.log(res.data);
@@ -40,10 +39,10 @@ const DiagnosisPatient = () => {
                             </tr>
                             {diagPatList.map(diagPat=>(
                                 <tr key={diagPat.diagnosisDueNum}>
-                                    <td>{diagPat.docNum}</td>
-                                    <td>{diagPat.docNum}</td>
-                                    <td>{diagPat.docNum}</td>
-                                    <td>{diagPat.docNum}</td>
+                                    <td>{diagPat.patNum}</td>
+                                    <td>{diagPat.patNum}</td>
+                                    <td>{diagPat.patNum}</td>
+                                    <td>{diagPat.patNum}</td>
                                     <td><button className='buttonStyle'>진료</button></td>
                                 </tr>
                             ))}
@@ -82,28 +81,30 @@ const DiagnosisPatient = () => {
                         </h3>
                     </div>
                     <table className="list" borderless>
-                        <tr>
-                            <th>진료일</th>
-                            <th>진단명</th>
-                            <th>처방 의약품 명칭</th>
-                            <th>1회 투여랑</th>
-                            <th>1회 투여 횟수</th>
-                            <th>총투약 횟수</th>
-                            <th>용법</th>
-                            <th>검사내역</th>
-                            <th>진료종류</th>
-                        </tr>
-                        <tr>
-                            <td>2024-05-07</td>
-                            <td>장알균에 의한 패혈증</td>
-                            <td>64220135(씬지로이드정0.0...</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>180</td>
-                            <td>아침 점심</td>
-                            <td>MRI(복부)촬영</td>
-                            <td>외래</td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>진료일</th>
+                                <th>진단명</th>
+                                <th>처방 의약품 명칭</th>
+                                <th>1회 투여랑</th>
+                                <th>1회 투여 횟수</th>
+                                <th>총투약 횟수</th>
+                                <th>용법</th>
+                                <th>검사내역</th>
+                                <th>진료종류</th>
+                            </tr>
+                            <tr>
+                                <td>2024-05-07</td>
+                                <td>장알균에 의한 패혈증</td>
+                                <td>64220135(씬지로이드정0.0...</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>180</td>
+                                <td>아침 점심</td>
+                                <td>MRI(복부)촬영</td>
+                                <td>외래</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

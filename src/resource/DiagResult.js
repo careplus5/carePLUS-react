@@ -1,4 +1,4 @@
-import '../DiagResult.css';
+import '../css/DiagResult.css';
 
 const DiagResult = () => {
     return (
@@ -90,7 +90,7 @@ const DiagResult = () => {
                         <h3 className="sboxHeader">&nbsp;To 간호사</h3>
                     </div>
                     <div className='boxContent'>
-                            <textarea id="diagnosisTextarea" className="textareaStyle" style={{width:"88%", height:"165px"}} placeholder="간호사에게 요청할 내용을 입력하세요"></textarea>
+                            <textarea id="diagnosisTextarea" className="textareaStyle" style={{width:"88%", height:"165px"}} placeholder="요청할 내용을 입력하세요"></textarea>
                     </div>
                 </div>
             </div>
@@ -100,6 +100,32 @@ const DiagResult = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;처방</h3>
                         <button className='buttonStyle' style={{ marginTop: "14px", marginLeft:"15px" }}>약품 선택</button>
+                    </div>
+                    <table className='prescriptionlist'>
+                        <thead>
+                            <tr>
+                                <th>처방 의약품 코드</th>
+                                <th>처방 의약품 명칭</th>
+                                <th>1회 투여량</th>
+                                <th>총 투약 횟수</th>
+                                <th>1일 투여 횟수</th>
+                                <th>용법</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input className='preInputStyle' style={{width:"200px"}}/></td>
+                                <td><input className='preInputStyle' style={{width:"400px"}}/></td>
+                                <td><input className='preInputStyle'/></td>
+                                <td><input className='preInputStyle'/></td>
+                                <td><input className='preInputStyle'/></td>
+                                <td><input className='preInputStyle' style={{width:"250px"}}/></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div>
+                        <button className='buttonStyle' style={{marginTop:"15px", marginRight:"55px", float:"right"}}>진료 완료</button>
                     </div>
                 </div>
             </div>

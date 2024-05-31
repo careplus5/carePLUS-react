@@ -34,6 +34,7 @@
 
 #toNurseBox{
     background-color: #FFFDF8;
+    margin-right: -20px;
     margin-left: 20px;
     margin-top: 190px;
     width: 350px;
@@ -110,6 +111,28 @@
 
 .radioStyle {
     margin-right: 15px;
+}
+
+
+/* 처방 박스 내용 스타일 */
+.prescriptionlist {
+    font-size:15px;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.preInputStyle {
+    margin-right: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: #FFFEFB;
+}
+.preInputStyle:focus {
+    outline: none;
 }
 
 

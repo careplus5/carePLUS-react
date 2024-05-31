@@ -1,9 +1,27 @@
-import '../DiagnosisPatient.css';
+import axios from 'axios';
+import '../css/DiagnosisPatient.css';
 import DiagResult from './DiagResult';
+import {useState, useEffect} from 'react';
 
 const DiagnosisPatient = () => {
+
+    const [docNum, setDocNum] = useState('');
+    const [diagPatList, setDiagPatList] = useState([]);
+
+    useEffect(()=>{
+        console.log("AA")
+        axios.get(`http://localhost:8090/diagPatientList?docNum=1016052301`)
+            .then(res=>{
+                console.log(res.data);
+                setDiagPatList([...res.data]);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    }, [])
+
     return (
-        <div className="background">
+        <div className="background" style={{marginLeft:"200px"}}>
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="boxHeader">
@@ -12,20 +30,24 @@ const DiagnosisPatient = () => {
                         </h3>
                     </div>
                     <table className="list" borderless>
-                        <tr>
-                            <th>환자번호</th>
-                            <th>이름</th>
-                            <th>진료 예약일</th>
-                            <th>상태</th>
-                            <th>진료</th>
-                        </tr>
-                        <tr>
-                            <td>8801071341</td>
-                            <td>황한샘</td>
-                            <td>2024-05-30</td>
-                            <td>대기중</td>
-                            <td><button className='buttonStyle'>진료</button></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>환자번호</th>
+                                <th>이름</th>
+                                <th>진료 예약일</th>
+                                <th>상태</th>
+                                <th>진료</th>
+                            </tr>
+                            {diagPatList.map(diagPat=>(
+                                <tr key={diagPat.diagnosisDueNum}>
+                                    <td>{diagPat.docNum}</td>
+                                    <td>{diagPat.docNum}</td>
+                                    <td>{diagPat.docNum}</td>
+                                    <td>{diagPat.docNum}</td>
+                                    <td><button className='buttonStyle'>진료</button></td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
                 <div id="sboxRight">

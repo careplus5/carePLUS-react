@@ -19,10 +19,10 @@ function App() {
       {/* <Sidebar/>
       <NurPatientList/>
       <Login/> */}
-    <NurPatientInfo/> 
+    {/* <NurPatientInfo/>  */}
      {/* <NurDailyPrescription/> */}
      {/* <NurWardList /> */}
-      {/* <DiagnosisPatient/> */}
+      <DiagnosisPatient/>
       {/* <Admin/> */}
      
     </div>

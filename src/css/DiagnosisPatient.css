@@ -1,4 +1,3 @@
-
 #sboxLeft{
     position: absolute;
     background-color: #FFFDF8;
@@ -29,7 +28,7 @@
     margin-left: 20px;
     margin-top: -40px;
     width: 1630px;
-    height: 250px;
+    height: 200px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;

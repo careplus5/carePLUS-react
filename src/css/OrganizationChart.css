@@ -1,17 +1,10 @@
 /*다른 메뉴들*/
-.background{
-    width:1920px;
-    margin-left:300px;
-    height:100vh;
-    background-color: #FBF9F2;
-  }
-  
   /* 조직도 */
   #Lbox{
     position: absolute;
     margin:0 auto;
     background-color: #FBF9F2;
-    margin-left: 30px;
+    margin-left: 15px;
     margin-top:30px;
     width: 1550px;
     height: 960px;

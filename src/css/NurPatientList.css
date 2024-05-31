@@ -9,8 +9,21 @@
     font-family: 'Pretendard-Regular';
     font-weight: bold;
     color: #427889;
-    margin-left: 50px;
+    margin-left:20px;
+    margin-top:10px;
     float: left;
+}
+
+.disBox{
+    position: relative;
+    padding:10px;
+    margin-left:240px;
+    background-color: white;
+    margin-top:15px;
+    width:1625px;
+    height: 100px;
+    box-shadow: 0 2px 2px 0 lightgray;
+    border-radius: 10px;
 }
 
 .searchbar{
@@ -22,11 +35,12 @@
     border-radius: 20px;
     color: #233FA3;
     font-weight: bold;
+    margin-right:39px;
 }
 
 #keyword{
     border:none;
-    width:450px;
+    width:600px;
     font-size:15px;
 
 }
@@ -58,19 +72,19 @@
 #searchButton1{
     display:none;
 }
-
-.list{
-   font-size:15px;
-    width:1400px;
+.admList{
+    margin-left:15px;
+    font-size:15px;
+   width:1500px;
     text-align: center;
-    margin: 0 auto;
-}
+ }
+
 
 #line{
     margin-top:10px;
     position: absolute;
     border: 1px solid lightgray;
-    width: 1400px;
+    width: 1500px;
 }
 
 .content{

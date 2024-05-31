@@ -3,7 +3,7 @@ import '../css/NurPatientInfo.css';
 import DocAdmList from './DocAdmList';
 import NurDisAdmModal from './NurDisAdmModal';
 import React, {useState} from 'react';
-const NurPatientInfo = () => {
+const NurDiagPatientInfo = () => {
     // 유형 1. 대기 중인 환자의 상세 정보
 
     // 유형 2. 입원 중인 환자의 상세 정보
@@ -40,7 +40,7 @@ return (<div className="background">
         <div className="patProfile">
         <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">&nbsp;환자 입원 정보 &nbsp;<button style={{backgroundColor:"gray", color:"black", width:"50px", height: "20px"}} onClick={openDisModal}>퇴원</button> </h3>
+            <h3 id="LboxHeader">&nbsp;환자 접수 정보 </h3>
             {disModalOpen && <NurDisAdmModal closeDisModal={closeDisModal}/>}
         </div>
         <div style={{marginLeft:"60px"}}>
@@ -50,9 +50,9 @@ return (<div className="background">
                         </div>
                             <div>환자 번호<input className='inputStyle' style={{width:"405px"}} disabled/></div>
                             <br/>
-                            <div>입원 내용<input className='inputStyle' style={{width:"405px", height:"50px"}} disabled /></div>
+                            <div>접수 내용<input className='inputStyle' style={{width:"405px", height:"50px"}} disabled /></div>
                             <br/>
-                            <div>주요 증상<input className='inputStyle' style={{width:"405px"}} disabled/></div>
+                            <div>특이 사항<input className='inputStyle' style={{width:"405px"}} disabled/></div>
                             <br/>
                             <div>접수 메모<input className='inputStyle' style={{width:"405px"}} disabled/></div>
                             <br/>
@@ -62,7 +62,7 @@ return (<div className="background">
         <div className="docOpinion">
         <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/> &nbsp;
-            <h3 id="LboxHeader">담당의 소견</h3>
+            <h3 id="LboxHeader">담당의 요청 사항</h3>
         </div>
         <input type="text" id="docOpin" disabled/>
         </div>
@@ -120,4 +120,4 @@ return (<div className="background">
 )
 
 }
-export default NurPatientInfo;
+export default NurDiagPatientInfo;

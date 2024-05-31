@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import "../css/NurDailyPrescription.css";
 const PrescModal = () =>{
 
-    // const handleClicks = ['handleClick1','handleClick2','handleClick3'];
-
-    // const handleClick1 = ()  => { setIsChecked1(!isChecked1)}, const handleClick2 = () => {setIsChecked2(!isChecked2)}일때 handleClick1, handleClick2 식으로 같은 기능에 대한 함수를 배열로 만들 수 있어?
+    // 처방 일지 모달
 
     const [isChecked1, setIsChecked1] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);

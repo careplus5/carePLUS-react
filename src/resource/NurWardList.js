@@ -1,7 +1,11 @@
+import '../css/OrganizationChart.css';
 const NurWardList = () => {
     return(
         <div className="background">
-            <div></div>
+            <div id="Lbox">
+                dfa
+
+            </div>
         </div>
     )
 }

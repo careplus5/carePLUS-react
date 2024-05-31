@@ -1,6 +1,7 @@
 import '../css/NurDisAdmModal.css';
 import '../css/App.css';
 const NurDisAdmModal = () => {
+    // 퇴원 버튼 눌렀을 때 나오는 모달
     return (
         <div className="disAdmModal">
         <div className="boxHeader">

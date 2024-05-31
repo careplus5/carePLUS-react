@@ -1,0 +1,26 @@
+/* 아코디언 css 코드 모음 */
+.LaccordionBox {
+  background-color: #FBF9F2;
+  width: 1610px;
+  margin-left: -30px;
+  margin-top: 18px;
+  border-radius: 10px;
+  box-shadow: 2px 1px 3px 1px lightgray;
+  
+}
+
+.Amdbackground{
+  width:1700px;
+  margin-left:220px;
+  /* height: 100vh; */
+  background-color: #FBF9F2;
+}
+
+#AmdLboxHeader{
+  display:inline-block;
+  font-family: 'TheJamsil54Medium';
+  margin-left:10px;
+  font-size: 20px;
+  padding: 0 auto;
+  margin-top: 35px;
+}

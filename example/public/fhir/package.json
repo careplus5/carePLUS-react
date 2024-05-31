@@ -1,0 +1,35 @@
+{
+  "name" : "hl7.fhir.kr.core",
+  "version" : "1.0.2",
+  "tools-version" : 3,
+  "type" : "IG",
+  "date" : "20231204100407",
+  "license" : "CC0-1.0",
+  "canonical" : "http://www.hl7korea.or.kr/fhir/krcore",
+  "notForPublication" : true,
+  "url" : "file://C:\\Users\\pebble\\git\\kr_core_2nd\\output",
+  "title" : "KR Core Implementation Guide",
+  "description" : "KR Core (built Mon, Dec 4, 2023 10:04+0900+09:00)",
+  "fhirVersions" : ["4.0.1"],
+  "dependencies" : {
+    "hl7.fhir.r4.core" : "4.0.1",
+    "hl7.terminology.r4" : "5.3.0",
+    "hl7.fhir.uv.extensions.r4" : "1.0.0"
+  },
+  "author" : "HL7 Korea",
+  "maintainers" : [
+    {
+      "name" : "HL7 Korea",
+      "email" : "contact@healthall.co.kr",
+      "url" : "http://www.hl7korea.or.kr/"
+    },
+    {
+      "name" : "HealthAll Inc.",
+      "email" : "contact@healthall.co.kr"
+    }
+  ],
+  "directories" : {
+    "lib" : "package",
+    "example" : "example"
+  }
+}

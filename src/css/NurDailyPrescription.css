@@ -4,19 +4,71 @@
     width: 250px;
     height:980px;
     border-radius: 10px;
-    margin-left: 30px;
     box-shadow: 1px 0 3px 0 lightgray;
 }
 .presDailyExp{
     display:flex;
     margin-left:30px;
 }
-
+.prescContent{
+    margin-left: 15px;
+}
 #presX{
     width: 60px;
     height:20px;
     background-color: lightgray;
     text-align: center;
+}
+
+#prescSelectText{
+    display:inline;
+    margin-top:2px;
+    position: absolute;
+    width:140px;
+    text-align: center;
+}
+
+#presX1{
+    width: 140px;
+    height:20px;
+    background-color: lightgray;
+    text-align: center;
+}
+/* 
+input[type="radio"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 140px;
+    height:20px;
+    border: none;
+    margin:0 auto;
+    margin-right:15px;
+    margin-bottom:5px;
+} */
+
+.labelL{
+    display: block;
+    width:140px;
+    height: 20px;
+    border:none;
+    margin-bottom: 5px;
+}
+
+.radio-checked{
+    box-shadow: 0 0 0 2px red;
+
+}
+
+
+.PrescModalbox{
+    position: absolute;
+    margin-top:10px;
+    width:170px;
+    height:200px;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 lightgray;
+    border-radius: 10px;
 }
 
 #presXV{
@@ -43,13 +95,12 @@
 
 
 .rightBox1{
-    margin-right: 30px;
     padding-top:10px;
     float:right;
     border-radius: 10px;
     background-color: white;
     width: 1370px;
-    height:980px;
+    height:970px;
     box-shadow: 0 1px 2px 0 lightgray;
 }
 
@@ -59,7 +110,25 @@
      text-align: center;
      color: black;
  }
+
+ .presList1{
+    font-size:15px;
+     width: 1200px;
+     text-align: center;
+     color: black;
+     margin: 0 auto;
+ }
  
+ #prescSelect{
+    background-color: gray;
+    width:50px;
+    height:50px;
+ }
+ #prescSelect2{
+    background-color: #F7CE7E;
+    width:50px;
+    height:50px;
+ }
 .NDsearchbar{
     margin:20px;
     position: relative;

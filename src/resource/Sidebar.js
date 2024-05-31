@@ -20,6 +20,7 @@ const Sidebar = () => {
                     <button id="button1">저장</button>
                 </div>
                 </div>
+                <br/>
                 <div className="sideNotice">
                     <div className="boxHeader">
                 <img id="boxIcon" src="img/notice.png"/>
@@ -36,6 +37,8 @@ const Sidebar = () => {
                     <a src="#"><p>[외래과] 3층 화장실 막혔습니다</p></a>
                 </div>
                 </div>
+                <br/>
+
                 <div className="sideTodo">
                     <br/>
                     <div className="boxHeader">

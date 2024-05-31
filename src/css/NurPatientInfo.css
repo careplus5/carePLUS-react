@@ -1,11 +1,11 @@
 .leftBox{
     float: left;
     width: 640px;
-    margin-left:30px;
-    margin-top: 10px;
-    background-color: aquamarine;
 }
 
+.nurseInfo, docInfo{
+display:flex;
+}
 
 .rightBox{
     background-color: white;
@@ -14,14 +14,21 @@
     height:610px;
     border-radius: 10px;
     float: right;
-    margin-top: 10px;
-    margin-right:30px;
     padding: 10px;
     padding-left: 30px;
 }
 
 #admDailyWrite{
     width: 890px;
+}
+#docDailyContent{
+    background-color: white;
+    box-shadow: 1px 0 2px 0 lightgray inset;
+    position: absolute;
+    border:none;
+    border-radius: 10px;
+    width: 1595px;
+    height: 120px;
 }
 
 #dailyContent{
@@ -42,6 +49,7 @@
     width: 1545px;
     height: 120px;
 }
+
 
 .patProfile{
     background-color:  white;
@@ -64,6 +72,15 @@
     padding: 10px;
 }
 
+.hidden{
+    display:none;
+}
+
+.visible{
+    display: block;
+    margin-bottom: 100px;
+    
+}
 
 #patName, #patBirth{
     border: none;
@@ -98,13 +115,14 @@
 }
 
 .dailyList{
+    display: block;
+    margin-left:5px;
     position: relative;
-    top:120px;
+    height:190px;
 }
 
 .longBox{
     width:1610px;
-   
     border-radius: 10px;
     box-shadow: 1px 0 2px 0 lightgray;
     height: 330px;
@@ -114,8 +132,17 @@ background-color: white;
 
 .bottomBox{
     margin-top:20px;
-    margin-left:30px;
     position: relative;
    float:left;
+}
+#writeSuccess{
+    position: relative;
+    margin-top:115px;
+    float:right;
+    margin-right:20px;
+    color:black;
+    background-color:#B9EDE7 ;
+    width:50px;
+    height:20px;
 }
 

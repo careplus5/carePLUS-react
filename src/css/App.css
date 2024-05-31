@@ -1,17 +1,16 @@
 /* ---- 공통 ---- */
 html, body, #root {
-  height:100vh;
+  position: relative;
+  height:auto;
   margin: 0;
+  background-color: #FBF9F2;
 }
 .background{
   width:1640px;
   margin-left:220px;
-  min-height: 100%;
   padding-left:25px;
   padding-right: 30px;
   padding-bottom:33px;
-  overflow: hidden;
-  background-color: #FBF9F2;
 }
 
 #Lbox{
@@ -104,10 +103,9 @@ h4{
 
 /* 사이드바-뒷배경 */
 .sideBar{
-  position: absolute;
+  position:absolute;
+  min-height: 150vh;
   width:220px;
-  padding-bottom: 140px;
-  min-height: 107%;
   background-color: #FFFDF8;
   box-shadow: 2px 1px 5px 0 lightgray;
 }

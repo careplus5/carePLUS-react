@@ -7,6 +7,8 @@ import DiagnosisPatient from './resource/DiagnosisPatient';
 import Admin from './resource/Admin';
 import NurPatientInfo from './resource/NurPatientInfo';
 import NurDailyPrescription from './resource/NurDailyPrescription';
+import NurDisAdmModal from './resource/NurDisAdmModal';
+import NurWardList from './resource/NurWardList';
 function App() {
   return (
     <div className="App">
@@ -17,8 +19,10 @@ function App() {
       {/* <Sidebar/>
       <NurPatientList/>
       <Login/> */}
-     {/* <NurPatientInfo/> */}
-     <NurDailyPrescription/>
+    <NurPatientInfo/> 
+     {/* <NurDailyPrescription/> */}
+     {/* <NurWardList /> */}
+      {/* <DiagnosisPatient/> */}
       {/* <Admin/> */}
      
     </div>

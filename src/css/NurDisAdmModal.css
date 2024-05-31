@@ -1,0 +1,15 @@
+.disAdmModal{
+    z-index: 9999;
+    position: absolute;
+margin-left:220px;
+    width: 600px;
+    height: 480px;
+    border-radius: 10px;
+    background-color: white;
+    padding:10px;
+    box-shadow: 0 2px 2px 0 lightgray;
+}
+
+.disSort{
+   margin-left: 15px;
+}

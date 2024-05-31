@@ -1,14 +1,34 @@
 import '../css/App.css';
 import '../css/NurPatientInfo.css';
 import DocAdmList from './DocAdmList';
+import NurDisAdmModal from './NurDisAdmModal';
+import React, {useState} from 'react';
 const NurPatientInfo = () => {
+    const [disModalOpen, setDisModalOpen] = useState(false);
+    const [writeButton, setWriteButton] = useState(false);
+
+    const openDisModal = () => {
+        setDisModalOpen(true);
+    }
+
+    const closeDisModal = () => {
+        setDisModalOpen(false);
+    }
+
+    const clickWriteButton = () => {
+        setWriteButton(true);
+    }
+
+    const [OnWriteButton, setOnWriteButton] = useState(false);
+
 return (<div className="background">
 <br/>
     <div className="leftBox">
         <div className="patProfile">
         <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">&nbsp;환자 입원 정보 &nbsp;<button style={{backgroundColor:"gray", color:"black", width:"50px", height: "20px"}}>퇴원</button> </h3>
+            <h3 id="LboxHeader">&nbsp;환자 입원 정보 &nbsp;<button style={{backgroundColor:"gray", color:"black", width:"50px", height: "20px"}} onClick={openDisModal}>퇴원</button> </h3>
+            {disModalOpen && <NurDisAdmModal closeDisModal={closeDisModal}/>}
         </div>
         <div style={{marginLeft:"60px"}}>
           <div className="admInfo">
@@ -40,32 +60,45 @@ return (<div className="background">
             <h3 id="LboxHeader">입원 일지</h3>
             <br/>
             </div>
-            <table borderless>
-                <tr>
-                    <td style={{color:"gray"}}>날짜&nbsp;</td> <td>2024-05-07&nbsp;&nbsp;</td>
-                <td style={{color:"gray"}}>담당 간호사&nbsp;</td> <td>김동현</td>
-                <td><button style={{backgroundColor:"#B9EDE7", color:"black", width:"50px", height: "20px"}}>작성</button></td><td><input type="text" id="admDailyWrite" style={{display:"none"}}></input></td>
-                </tr>
-                <br/>
-
-                <tr>
-                    <td style={{color:"gray"}}>날짜&nbsp;</td> <td>2024-05-06&nbsp;&nbsp;</td>
-                <td style={{color:"gray"}}>담당 간호사&nbsp;</td> <td>김동동</td>
-                </tr>
-                <tr>
-                    <td colSpan={5}><input id="dailyContent" type="text" disabled></input></td>
-                </tr>
-                
-                <br/>
-                <tr className="dailyList">
-                    <td style={{color:"gray"}}>날짜&nbsp;</td> <td>2024-05-06&nbsp;&nbsp;</td>
-                <td style={{color:"gray"}}>담당 간호사&nbsp;</td> <td>김동동</td>
-                </tr>
-                <tr className="dailyList">
-                    <td colSpan={5}><input id="dailyContent" type="text" disabled></input></td>
-                </tr>
-                
-            </table>
+            <div className="nurseWrite">
+                <div className="nurseInfo">
+                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
+                    <p>20204-05-07</p>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
+                    <p>김동현</p>&nbsp;&nbsp;
+                    <button style={{backgroundColor:"#B9EDE7", color:"black", marginTop:"15px", width:"50px", height: "20px"}} onClick={clickWriteButton}>작성</button>
+                    {!writeButton}
+                </div>
+                <div className={`writeContent ${writeButton ? 'visible' : 'hidden'}`}>
+                <input id="dailyContent" type="text" disabled/><br/>
+                <button id="writeSuccess"  className={`${writeButton ? 'visible' : 'hidden'}`}>등록</button>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div className="dailyList">
+            <div className="nurseInfo">
+                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
+                    <p>20204-05-05</p>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
+                    <p>김민지</p>&nbsp;&nbsp;
+                </div>
+                <div className="writeContent">
+                <input id="dailyContent" type="text" disabled/><br/>
+                </div>
+            </div>
+            <div className="dailyList">
+            <div className="nurseInfo">
+                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
+                    <p>20204-05-05</p>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
+                    <p>김민지</p>&nbsp;&nbsp;
+                </div>
+                <div className="writeContent">
+                <input id="dailyContent" type="text" disabled/><br/>
+                </div>
+            </div>
+  
     </div>
  <div className="bottomBox">
  <DocAdmList/>

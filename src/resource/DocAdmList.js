@@ -6,17 +6,18 @@ const DocAdmList = () => {
             <img id="boxIcon" src="/img/memo.png"/>
             <h3 id="LboxHeader">&nbsp;의사 입원 진료</h3>
         </div>
-        <table borderless>
-            <br/>
-        <tr>
-                    <td style={{color:"gray"}}>날짜&nbsp;</td> <td>2024-05-06&nbsp;&nbsp;</td>
-                <td style={{color:"gray"}}>담당 의사&nbsp;</td> <td>김동동</td>
-                </tr>
-                <tr>
-                    <td colSpan={5}><input id="docContent" type="text" disabled></input></td>
-                </tr>
-                
-        </table>
+        <div className="dailyList">
+            <div className="nurseInfo">
+                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
+                    <p>20204-05-05</p>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style={{color:"gray"}}>담당 의사</p>&nbsp;&nbsp;
+                    <p>김민지</p>&nbsp;&nbsp;
+                </div>
+                <div className="writeContent">
+                <input id="docDailyContent" type="text" disabled/><br/>
+                </div>
+            </div>
+  
         </div>
     )
 }

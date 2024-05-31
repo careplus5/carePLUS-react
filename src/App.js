@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      <Sidebar/>
+      {/* <Sidebar/> */}
       {/* <NurPatientList/> */}
       {/* <Login/> */}
       {/* <Sidebar/>
@@ -22,8 +22,8 @@ function App() {
     {/* <NurPatientInfo/>  */}
      {/* <NurDailyPrescription/> */}
      {/* <NurWardList /> */}
-      <DiagnosisPatient/>
-      {/* <Admin/> */}
+      {/* <DiagnosisPatient/> */}
+      <Admin/>
      
     </div>
   );

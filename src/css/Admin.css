@@ -3,14 +3,15 @@
     font-family: Arial, sans-serif;
   }
    */
-   .adminBackground{
-    width:1920px;
+   .adminBackground {
+    width: 1920px;
     height: 100vh;
     background-color: #FBF9F2;
   }
   
   
-  .left-panel, .right-panel {
+  .left-panel,
+  .right-panel {
     flex: 1;
     width: 50%;
     padding: 10px;
@@ -30,8 +31,8 @@
   }
   
   .section {
-
-    background-color:white;
+  
+    background-color: #FFFDF8;
     height: 420px;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -40,8 +41,8 @@
     display: flex;
     flex-direction: column;
   }
-
-  .section-title{
+  
+  .section-title {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
@@ -51,20 +52,21 @@
     display: inline-flex;
     justify-content: flex-end;
     margin-bottom: 10px;
-    
+  
   }
   
-  .selectbox-font{
+  .selectbox-font {
     font-size: 18px;
   }
-
-  ::placeholder{
-    color:  gray;
+  
+  ::placeholder {
+    color: gray;
     font-size: 14px;
     display: flex;
     align-items: center;
     margin: 0 auto;
   }
+  
   .section-controls select,
   .section-controls input {
     box-shadow: inset 0px 1px 2px 1px lightgray;
@@ -72,15 +74,17 @@
     border-radius: 10px;
     font-size: 14px;
     margin-left: 10px;
-    
+  
   }
-  .section-controls select{
+  
+  .section-controls select {
     color: gray;
     margin-left: 100px;
     width: 150px;
     height: 30px;
   }
-  .section-controls input{
+  
+  .section-controls input {
     width: 465px;
   }
   
@@ -98,76 +102,111 @@
     flex: 1;
     text-align: center;
   }
-
-  .admSearchbar{
+  
+  .admSearchbar {
     margin-bottom: 10px;
     background-color: white;
     position: relative;
     float: right;
-    margin-left:360px;
+    margin-left: 360px;
     width: 530px;
-    height:30px;
+    height: 30px;
     box-shadow: 1px 1px 2px 0 lightgray;
     border-radius: 20px;
     color: #233FA3;
     font-weight: bold;
-}
-
-#keyword{
-    border:none;
-    width:350px;
-    font-size:15px;
-
-}
-
-#admKeywordSort{
-  margin-top: 7px;
+  }
+  
+  #keyword {
+    border: none;
+    width: 350px;
+    font-size: 15px;
+  
+  }
+  
+  #admKeywordSort {
+    margin-top: 7px;
     color: #233FA3;
     font-weight: bold;
-    font-size:15px;
-    margin-left:30px;
-    border:none;
-    width:45px;
+    font-size: 15px;
+    margin-left: 30px;
+    border: none;
+    width: 45px;
     -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-#searchButton2{
-  top:-3px;
-    margin-right:20px;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  #searchButton2 {
+    top: -3px;
+    margin-right: 20px;
     background-color: transparent;
     border: none;
-    width:30px;
-    height:30px;
+    width: 30px;
+    height: 30px;
     background-image: url('/public/img/adsearch.png');
+    /* cursor: pointer; */
     float: right;
-}
-
-#searchButton1{
-    display:none;
-}
+  }
+  
+  #addButton1 {
+    border-radius: 50%;
+    display: none;
+  }
+  
+  #addButton2 {
+    margin-left: 70px;
+    margin-top: 40px;
+    float: left;
+    background-color: transparent;
+    border: none;
+    width: 155px;
+    height: 155px;
+    background-image: url('/public/img/profile.png');
+    cursor: pointer;
+  }
+  
+  .emp-right label {
+    float: left;
+    text-align: center;
+  }
+  
+  
+  .emp-right input {
+    /* float: right; */
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0 2px 5px 1px lightgray;
+    width: 350px;
+    height: 30px;
+  }
+  
+  #searchButton1 {
+    display: none;
+  }
   
   .table-header div.title-3,
   .table-row div.title-3 {
     flex: 3;
   }
+  
   .table-header div.title-2,
   .table-row div.title-2 {
     flex: 2;
   }
-
-  #searchButton2{
+  
+  #searchButton2 {
     position: relative;
-    margin-top:5px;
-    margin-right:20px;
+    margin-top: 5px;
+    margin-right: 20px;
     background-color: transparent;
     border: none;
-    width:25px;
-    height:25px;
+    width: 25px;
+    height: 25px;
     background-image: url('/public/img/adsearch.png');
     float: right;
-}
+  }
+  
   .accordion-section {
     box-shadow: 0 1px 5px 1px lightgray;
     font-size: 20px;
@@ -183,19 +222,20 @@
   .accordion-header {
     font-size: 23px;
     height: 60px;
-    background: white;
+    background: #FFFDF8;
     cursor: pointer;
     border-radius: 10px;
     display: flex;
     align-items: center;
   }
   
-  accordion-header-title{
+  accordion-header-title {
     font-family: Pretendard-Regular;
-
+  
   }
+  
   .accordion-section.active .accordion-header {
-    border-bottom: none; 
+    border-bottom: none;
   }
   
   .accordion-content {
@@ -207,46 +247,85 @@
     display: block;
   }
   
+  .accordion-group {
+    display: flexbox;
+    text-align: center;
+  }
+  
   .input-group {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
-
-  .input-group input{
-    /* Qentity생성,  enitty > create 생성 후 upadate */
+  
+  .emp-inputbox{
+    margin-right: 50px;
   }
-
-  input-group 
+  .select {
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0 2px 5px 1px lightgray;
+    margin-right: 25px;
+    width: 150px;
+    height: 30px;
+  }
+  
+  .notice-input {
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0 2px 5px 1px lightgray;
+    width: 560px;
+    height: 30px;
+  }
+  
+  .add-button {
+    background-color: #427889;
+    margin-right: 88px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  .emp-add-button{
+    margin-right: 55px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .del-button {
+    background-color: lightgray;
+    margin-right: 10px;
+  }
   
   .button {
     height: 25px;
-    width: 80px;
+    width: 50px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     color: white;
     cursor: pointer;
   }
-
-  .emp-left{
-    
-  }
-
-  . .emp-right{
   
+  .button-container {
+    float: right;
   }
-
-
- .write-img {
+  
+  .emp-left {
+    float: left;
+  }
+  
+  .emp-right {
+    float: right;
+  }
+  
+  .write-img {
     margin-left: 20px;
     margin-right: 10px;
     /* margin-bottom: 5px; */
-}
-
-.notice-img{
-  /* margin-left: 20px; */
-  margin-right: 10px;
-}
-
-.employee-img{
-  /* margin-left: 20px; */
-  margin-right: 10px;
-}
+  }
+  
+  .notice-img {
+    /* margin-left: 20px; */
+    margin-right: 10px;
+  }
+  
+  .employee-img {
+    /* margin-left: 20px; */
+    margin-right: 10px;
+  }

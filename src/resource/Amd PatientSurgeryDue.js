@@ -3,7 +3,7 @@
 const AmdPatientSurgeryDue = () => {
     return (
         <div id="LaccordionBox">
-                <div style={{ marginLeft: "150Px" }}>
+                <div style={{marginLeft:"210px", textAlign:"left"}}>
                     <div>
                         <span className='admAccTitle'>주민등록번호</span><input type="text"
                             style={{

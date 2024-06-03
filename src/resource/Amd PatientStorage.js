@@ -3,8 +3,8 @@
 const AmdPatientStorage = () => {
     return (
         <div id="LaccordionBox">
-            <div style={{ marginLeft: "150Px" }}>
-                <div>
+            <div>
+                <div style={{marginLeft:"210px", textAlign:"left"}}>
                     <span className='admAccTitle'>주민등록번호</span><input type="text"
                         style={{
                             width: "150px", height: "30px", backgroundColor: "#FFFEFB",

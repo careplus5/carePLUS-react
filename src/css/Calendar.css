@@ -1,51 +1,25 @@
-/* .calendar-popup {
-    position: fixed;
-    top: 10%;
-    left: 10%;
-    right: 10%;
-    bottom: 10%;
-    background: white;
-    border-radius: 10px;
-    overflow: auto;
-    padding: 20px;
-  } */
-  
-  /* .calendar-popup table {
-    width: 100%;
-    border-collapse: collapse;
-  } */
-  
-  /* .calendar-popup th, .calendar-popup td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-  } */
-  .current-date {
-    position: relative;
-  }
+.current-date {
+  position: relative;
+}
   
   .current-date::before {
     content: attr(data-date);
     position: absolute;
-    width: 22px; /* 원 지름 설정 */
-    height: 22px; /* 원 지름 설정 */
+    top: 10px; /* 부모 요소의 상단으로부터의 거리 설정 */
+    left: 50px;
+    width: 21px; /* 원 지름 설정 */
+    height: 21px; /* 원 지름 설정 */
     background-color: red; /* 빨간색 배경 */
     border-radius: 50%; /* 원 모양 설정 */
     color: white; /* 숫자 색상 */
+    font-size: 15px;
     font-weight: 500; /* 숫자 폰트 굵기 */
     text-align: center;
+    padding-inline: 0.5px;
     padding-top: 1px;
-    margin-top: -1px;
+    margin-top: -1.5px;
   }
 
-  .events-list {
-    margin-top: 20px;
-  }
-
-  .events-preview {
-    font-size: 13px;
-  }
   
   .monthYear {
     width: 90%; /* 전체 폭을 차지하게 함 */
@@ -56,15 +30,24 @@
   }
   
   .day {
+    font-weight: 500;
     text-align: right;
-    padding: 10px;
+    padding: 11px;
     margin-bottom: -10px;
     width: 70px;
     height: 20px;  
     }
+
+    .day:nth-child(1) , .date:nth-child(1) .date-style {
+      color: rgb(233, 34, 34); /* 일요일은 빨간색 */
+    }
+    
+    /* .day:nth-child(7) , .date:nth-child(7) .date-style {
+      color: rgb(48, 48, 186); /* 토요일은 파란색 
+    } */
   
   .date, .next-month, .prev-month {
-    font-weight: 400;
+    font-weight: 440;
     text-align: right;
     padding: 10px;
     border: 1px solid #ddd;
@@ -74,4 +57,40 @@
   
   .prev-month, .next-month {
     background: #f9f9f9;
-    color: #ddd;  }
+    color: #ddd;  
+  }
+
+
+  .date-style {
+    margin-right: -5px;
+    margin-bottom: 4px;
+  }
+  
+  .event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    background-color: rgb(180, 209, 249);
+    border-radius: 3px;
+    font-size: 13px;
+    margin-top: 2px;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+
+  .holiday {
+    /* 공휴일의 스타일 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-align: center;
+    background-color: #e74c3c; /* 공휴일의 배경색 */
+    border-radius: 3px;
+    font-size: 13px;
+    margin-top: 2px;
+    margin-right: -5px;
+    margin-left: -5px;
+    color: #fff; /* 공휴일의 텍스트 색상 */
+  }

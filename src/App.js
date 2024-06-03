@@ -9,6 +9,8 @@ import NurPatientInfo from './resource/NurPatientInfo';
 import NurDailyPrescription from './resource/NurDailyPrescription';
 import NurDisAdmModal from './resource/NurDisAdmModal';
 import NurWardList from './resource/NurWardList';
+import OpenCalendar from './resource/OpenCalendar';
+
 function App() {
   return (
     <div className="App">
@@ -23,8 +25,8 @@ function App() {
      {/* <NurDailyPrescription/> */}
      {/* <NurWardList /> */}
       {/* <DiagnosisPatient/> */}
-      <Admin/>
-     
+      {/* <Admin/> */}
+      <OpenCalendar/>
     </div>
   );
 }

@@ -83,7 +83,7 @@ margin-top: 100px;
     margin-right: 63px;
 }
 
-button{
+/* button{
     border: none;
     color: white;
     border-radius: 10px;
@@ -92,7 +92,7 @@ button{
     box-shadow: 0 1px 2px 0 lightgray;
     width:80px;
     font-family: 'Pretendard-Regular';
-}
+} */
 
 #loginSuccess{
     background-color: #AAD7D9;

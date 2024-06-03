@@ -9,23 +9,38 @@ import NurPatientInfo from './resource/NurPatientInfo';
 import NurDailyPrescription from './resource/NurDailyPrescription';
 import NurDisAdmModal from './resource/NurDisAdmModal';
 import NurWardList from './resource/NurWardList';
+import Calendar from './resource/calendar';
+import OrganizationChart from './resource/OrganizationChart';
+import React, {useState, useEffect} from 'react';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import { UserProvider } from './resource/UseContext';
+
 function App() {
-  return (
+
+  const navigate = useNavigate();
+ const [loggedInUsername, setLoggedInUsername] = useState('');
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+ const handleLoginSuccess = (username) => {
+  setLoggedInUsername(username);
+  setIsLoggedIn(true);
+  navigate("/organ");
+ }
+  
+  return(
+    <UserProvider>
     <div className="App">
-      <Header/>
-      {/* <Sidebar/> */}
-      {/* <NurPatientList/> */}
-      {/* <Login/> */}
-      {/* <Sidebar/>
-      <NurPatientList/>
-      <Login/> */}
-    {/* <NurPatientInfo/>  */}
-     {/* <NurDailyPrescription/> */}
-     {/* <NurWardList /> */}
-      {/* <DiagnosisPatient/> */}
-      <Admin/>
-     
-    </div>
+      <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
+        <Header loggedInUsername={loggedInUsername}/>
+        <Sidebar/>
+      </div>
+ <Routes>
+  <Route exect path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
+  <Route exect path="/organ" element={<OrganizationChart/>}/>
+ </Routes>
+
+</div>
+</UserProvider>
   );
 }
 

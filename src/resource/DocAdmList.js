@@ -7,7 +7,7 @@ const DocAdmList = () => {
             <h3 id="LboxHeader">&nbsp;의사 입원 진료</h3>
         </div>
         <div className="dailyList">
-            <div className="nurseInfo">
+            <div className="docInfo">
                     <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
                     <p>20204-05-05</p>&nbsp;&nbsp;&nbsp;&nbsp;
                     <p style={{color:"gray"}}>담당 의사</p>&nbsp;&nbsp;

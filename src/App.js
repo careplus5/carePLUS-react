@@ -1,4 +1,5 @@
 import './css/App.css';
+import 'bootstrap/dist/css/bootstrap.css'
 import Header from './resource/Header';
 import NurPatientList from './resource/NurPatientList';
 import Sidebar from './resource/Sidebar';
@@ -15,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      {/* <Sidebar/> */}
+      <Sidebar/>
       {/* <NurPatientList/> */}
       {/* <Login/> */}
       {/* <Sidebar/>
@@ -26,7 +27,6 @@ function App() {
      {/* <NurWardList /> */}
       {/* <DiagnosisPatient/> */}
       {/* <Admin/> */}
-      <OpenCalendar/>
     </div>
   );
 }

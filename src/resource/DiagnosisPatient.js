@@ -5,19 +5,39 @@ import {useState, useEffect} from 'react';
 
 const DiagnosisPatient = () => {
 
-    const [docNum, setDocNum] = useState('');
     const [diagPatList, setDiagPatList] = useState([]);
+    const [diagDueInfo, setDiagDueInfo] = useState({patNum:'', patName:'', patJumin:'', docDiagState:'', diagnosisDueEtc:'', diagnosisDueState:''});
 
     useEffect(()=>{
-        axios.get(`http://localhost:8090/diagPatientList?docNum=1016052301`)
+        axios.get(`http://localhost:8090/diagPatientList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
-                console.log(res.data);
                 setDiagPatList([...res.data]);
             })
             .catch(err=>{
                 console.log(err);
             })
     }, [])
+
+    const clickDiagnosis = (docDiagNum) => {
+        axios.get(`http://localhost:8090/diagPatientInfo?docDiagNum=${docDiagNum}`)
+        .then(res=>{
+            console.log(res.data);
+            setDiagDueInfo({...res.data});
+            let tdiagPatList = [...diagPatList];
+            tdiagPatList.map(item=>{
+                if(item.docDiagNum===docDiagNum) {
+                    item.docDiagState=res.data.docDiagState;
+                    return item;
+                } else {
+                    return item;
+                }
+            })
+            setDiagPatList([...tdiagPatList]);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
 
     return (
         <div className="background" style={{marginLeft:"200px"}}>
@@ -40,10 +60,13 @@ const DiagnosisPatient = () => {
                             {diagPatList.map(diagPat=>(
                                 <tr key={diagPat.diagnosisDueNum}>
                                     <td>{diagPat.patNum}</td>
-                                    <td>{diagPat.patNum}</td>
-                                    <td>{diagPat.patNum}</td>
-                                    <td>{diagPat.patNum}</td>
-                                    <td><button className='buttonStyle'>진료</button></td>
+                                    <td>{diagPat.patName}</td>
+                                    <td>{diagPat.diagnosisDueDate}</td>
+                                    <td style={{color: 
+                                                    diagPat.docDiagState === '대기중' ? '#F09000' : 
+                                                    diagPat.docDiagState === '진료중' ? '#007212' : 
+                                                    '#848484', fontWeight:"bold"}}>{diagPat.docDiagState}</td>
+                                    <td><button className='buttonStyle' onClick={()=>clickDiagnosis(diagPat.docDiagNum)}>진료</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -57,18 +80,18 @@ const DiagnosisPatient = () => {
                     </div>
                     <div className='boxContent'>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' /></div>
-                            <div style={{marginLeft:"-30px"}}>생년월일 <input className='inputStyle' /></div>
+                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={diagDueInfo.patName} /></div>
+                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={diagDueInfo.patJumin} /></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div>환자번호 <input className='inputStyle' /></div>
-                            <div>상태 <input className='inputStyle' /></div>
+                            <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} /></div>
+                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={diagDueInfo.docDiagState} /></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>증상 <input className='inputStyle' style={{height: "40px",width: "470px"}} /></div>
+                            <div style={{marginLeft:"35px"}}>증상 <input className='inputStyle' style={{height: "40px",width: "470px"}} value={diagDueInfo.diagnosisDueState}/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"5px"}}>특이사항 <input className='inputStyle' style={{width: "470px"}} /></div>
+                            <div style={{marginLeft:"5px"}}>특이사항 <input className='inputStyle' style={{width: "470px"}} value={diagDueInfo.diagnosisDueEtc} /></div>
                         </div>
                     </div>
                 </div>

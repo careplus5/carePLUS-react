@@ -1,6 +1,39 @@
+import axios from 'axios';
 import '../css/DiagResult.css';
+import {useState, useEffect} from 'react';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const DiagResult = () => {
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [selectDiag, setSelectDiag] = useState('');
+    const [diseaseList, setDiseaseList] = useState([]);
+    const [type, setType] = useState('');
+    const [word, setWord] = useState('');
+
+    const openDiagModal = () => {
+        setModalIsOpen(!modalIsOpen);
+    }
+
+    const closeDiagModal = () => {
+        setModalIsOpen(false);
+    }
+
+    const selectDiagName = (diagnosis) => {
+        setSelectDiag(diagnosis);
+        closeDiagModal();
+    }
+
+    useEffect(()=>{
+        axios.get(`http://localhost:8090/diseaseList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
+            .then(res=>{
+                setDiseaseList([...res.data]);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    }, [])
+
     return (
         <div>
             <div id="thirdRow">
@@ -12,12 +45,7 @@ const DiagResult = () => {
                     <div className='boxContent'>
                         <div style={{marginLeft:"20px"}}>
                             <label className='labelStyle'>병명</label>
-                            <select id="diagSelect" className="selectStyle">
-                                <option value="default">병명 선택</option>
-                                <option value="diagnosis1">병명1</option>
-                                <option value="diagnosis2">병명2</option>
-                                <option value="diagnosis3">병명3</option>
-                            </select>
+                            <input id="diagSelect" className="selectStyle" placeholder="병명 선택" value={selectDiagName} readOnly onClick={openDiagModal}/>
                         </div>
                         <div style={{marginLeft:"20px", display:"flex", marginTop:"10px"}}>
                             <label className='labelStyle'>내용</label>
@@ -129,6 +157,37 @@ const DiagResult = () => {
                     </div>
                 </div>
             </div>
+            {/* 병명 선택 모달 */}
+            <Modal isOpen={modalIsOpen} toggle={openDiagModal} style={{maxWidth:"570px"}}>
+                <ModalHeader toggle={openDiagModal} className='modalTitle'>병명 정보</ModalHeader>
+                <ModalBody>
+                        <div className="searchbar">
+                        <select id="keywordSort" style={{width:"65px"}}>
+                            <option>구분</option>
+                            <option>부서명</option>
+                            <option>병명코드</option>
+                            <option>병명</option>
+                            </select>&nbsp;|<input type="text"  id="keyword" placeholder=' 검색...'/>
+                            <label id="searchButton" for="searchButton1" style={{marginTop:"5px"}}><button id="searchButton1"> </button></label>            
+                    </div>
+                    <table className="list" borderless>
+                        <tbody>
+                            <tr>
+                                <th>부서명</th>
+                                <th>병명코드</th>
+                                <th>병명</th>
+                            </tr>
+                            {diseaseList.map(disease=>(
+                                <tr key={disease.diseaseNum}>
+                                    <td>{disease.deptName}</td>
+                                    <td>{disease.diseaseNum}</td>
+                                    <td>{disease.diseaseName}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </ModalBody>
+            </Modal>
         </div>
     )
 }

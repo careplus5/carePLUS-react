@@ -59,7 +59,7 @@
 
 /* 진단 박스 내용 스타일 */
 .selectStyle {
-    width: 80%;
+    width: 75%;
     padding: 10px;
     border: none;
     border-radius: 10px;
@@ -132,6 +132,29 @@
     background-color: #FFFEFB;
 }
 .preInputStyle:focus {
+    outline: none;
+}
+
+
+/* 병명 선택 모달 스타일 */
+.modalTitle .modal-title {
+    color: #427889;
+    font-weight: bold;
+}
+
+.searchbar{
+    position: relative;
+    width: 460px;
+    height: 40px;
+    box-shadow: 1px 1px 2px 0 lightgray;
+    border-radius: 20px;
+    color: #233FA3;
+    font-weight: bold;
+}
+#keywordSort:focus {
+    outline: none;
+}
+#keyword:focus {
     outline: none;
 }
 

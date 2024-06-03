@@ -16,13 +16,13 @@ const persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // 리덕스 스토어를 리액트 앱에 제공하기 위해 provider로 감쌈
   <Provider store={store}>
   <PersistGate loading={null} persistor={persistor}/>
   <BrowserRouter>
     <App />
   </BrowserRouter>
   </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const useEventManager = () => {
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     // 컴포넌트가 마운트될 때 로컬 스토리지에서 저장된 이벤트를 불러옵니다.
     const storedEvents = JSON.parse(localStorage.getItem('events'));
     if (storedEvents) {
@@ -11,10 +11,6 @@ const useEventManager = () => {
     }
   }, []); // 컴포넌트가 마운트될 때 한 번만 호출
 
-  useEffect(() => {
-    // events 배열이 업데이트될 때마다 로컬 스토리지에 업데이트된 이벤트를 저장합니다.
-    localStorage.setItem('events', JSON.stringify(events));
-  }, [events]); // events 배열이 업데이트될 때마다 호출
 
   const addEvent = (date, eventTitle) => {
     // 새로운 이벤트를 추가합니다.
@@ -23,7 +19,6 @@ const useEventManager = () => {
       newEvents[date] = [];
     }
     newEvents[date].push(eventTitle);
-    console.log(newEvents)
     setEvents(newEvents);
     // 로컬 스토리지에 업데이트된 이벤트를 저장합니다.
     localStorage.setItem('events', JSON.stringify(newEvents));
@@ -59,3 +54,4 @@ const useEventManager = () => {
 };
 
 export default useEventManager;
+

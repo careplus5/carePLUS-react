@@ -170,6 +170,10 @@
     float: left;
     text-align: center;
   }
+
+  .row {
+    height:60px;
+  }
   
   
   .emp-right input {

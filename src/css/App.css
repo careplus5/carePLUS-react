@@ -17,10 +17,6 @@
   display:none;
 }
 
-#nurMenu{
-display:none;
-}
-
 
 #Lbox{
   position: absolute;
@@ -60,60 +56,14 @@ display:none;
 
 /* ------------- */
 
-/* ---- 헤더 ---- */
- 
-/* 헤더 배경 */
-.header{
-  background-color: #0081B4;
-  width:1920px;
-  height:60px;
-}
-
-/* 헤더 왼쪽 메뉴들 */
-.headerLMenu{
-  display: flex;
-  float: left;
-  color: white;
-  font-family: 'Pretendard-Regular';
-}
-h4{
-  margin-left:150px;
-}
-
-/* 헤더 오른쪽 메뉴들 */
-.headerRMenu{
-  display: flex;
-  float: right;
-  margin-top:20px;
-  color: white;
-  font-family: 'Pretendard-Regular';
-}
-
-/* 헤더 로고 */
-.headerLogo{
-  float:left;
-  width:250px;
-}
-
-/* 헤더 오른쪽 메뉴 내 아이콘들 */
-.headerIcon {
-  width:20px;
-  margin-right:10px;
-}
-
-.headerLogout{
-  margin-right:20px;
-}
-
-/* --------------- */
-
 
 /* ---- 사이드바 ---- */
 
 /* 사이드바-뒷배경 */
 .sideBar{
   position:absolute;
-  min-height: 150vh;
+  margin:0;
+  min-height: 100vw;
   width:220px;
   background-color: #FFFDF8;
   box-shadow: 2px 1px 5px 0 lightgray;
@@ -132,8 +82,10 @@ h4{
 /* 사이드바 버튼*/
 #button1{
   font-family: 'TheJamsil5Bold';
+  font-size: 12px;
+  text-align: center;
   margin-left:155px;
-  margin-top:5px;
+  margin-top:10px;
 width: 45px;
 height:20px;
 background-color: #F7CE7E;
@@ -143,16 +95,17 @@ border-radius:10px;
 
 
 #button2{
+background-color: transparent;
   font-family: 'TheJamsil5Bold';
   margin-left: 80px;
-  margin-top:40px;
-width: 20px;
-height:20px;
-background-color: #427889;
-color: white;
+  margin-top:15px;
+width: 15px;
+height:15px;
+color: #427889;
 border:none;
 border-radius:5px;
-text-align: center;
+text-align:center;
+font-size: 30px;
 }
 
 
@@ -161,14 +114,20 @@ text-align: center;
   display:inline-block;
   font-family: 'TheJamsil54Medium';
   margin-left:10px;
+  margin-top:10px;
   font-size: 18px;
 }
 .boxHeader{
   display:flex;
 }
+#a{
+  text-decoration: none;
+  color:white;
+}
+
 
 #boxIcon{
-  width:25px;
+  width:20px;
   margin-top:15px;
   margin-left:15px;
 }
@@ -205,9 +164,8 @@ text-align: center;
 
 
 .memo{
-margin-left:15px;
 width: 180px;
-height:60px;
+height:70px;
 background-color: #FFFEFB;
 box-shadow: 1px 1px 1px 1px lightgray inset;
 border:none;

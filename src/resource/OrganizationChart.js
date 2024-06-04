@@ -1,4 +1,4 @@
-import '../css/App.css';
+import '../css/OrganizationChart.css';
 
 const OrganizationChart = () => {
     return (
@@ -45,6 +45,7 @@ const OrganizationChart = () => {
                     <div id="line3"></div>
                     <div id="line3"></div>
                     </div>
+                    <div className="wow">
                     <div className="doctor">
                         <div className="depts">
                             <p id="dep">산부인과</p>
@@ -88,6 +89,7 @@ const OrganizationChart = () => {
                         <div className="depts">
                             <p id="dep">원무팀</p>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

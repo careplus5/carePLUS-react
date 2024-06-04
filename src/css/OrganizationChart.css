@@ -1,11 +1,9 @@
 /*다른 메뉴들*/
   /* 조직도 */
   #Lbox{
-    position: absolute;
-    margin:0 auto;
-    background-color: #FBF9F2;
-    margin-left: 15px;
+    margin-left:30px;
     margin-top:30px;
+    background-color: #FBF9F2;
     width: 1550px;
     height: 960px;
     border-radius: 10px;
@@ -54,7 +52,7 @@
     display:flex;
   }
   #line4{
-    margin-left:351px;
+    margin-left:321px;
     width:2px;
     height:50px;
     background-color: #A9A9A9;
@@ -68,9 +66,11 @@
   .department{
     margin: 0 auto;
     display:flex;
+    
   }
   .dept:first-child{
-  margin-left:260px;
+  margin-left:230px;
+
   }
   .dept{
     width:180px;
@@ -80,6 +80,7 @@
     color:white;
     text-align:center;
     margin-left: 100px;
+    
   }
   
   .depts{
@@ -90,25 +91,29 @@
     font-size:25px;
     color:#22668D;
     text-align:center;
-    margin-left: 100px;
+    margin-left: 70px;
+    
   }
-  
+  .wow{
+    position: absolute;
+  }
   .doctor{
     display:inline-block;
     margin-left:160px;
   }
   .nurse{
     position: absolute;
+    margin-left:30px;
     display:inline-block;
   }
   .technician{
     position: absolute;
     display:inline-block;
-    margin-left:280px;
+    margin-left:310px;
   }
   
   .task{
     position: absolute;
-    margin-left:560px;
+    margin-left:590px;
     display:inline-block;
   }

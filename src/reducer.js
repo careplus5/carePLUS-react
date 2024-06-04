@@ -2,7 +2,7 @@
 // 초기 상태 정의, 토큰과 사용자 정보 포함
 export const initState = {
     token:'',
-    user:{ username:'', password:''}
+    emp:{ username:'', password:''}
 }
 
 // 리듀서 정의
@@ -19,7 +19,7 @@ const reducer = (state=initState, action)=>{
         case 'token': newState.token=action.payload; break;
 
         // 액션 타입: 유저, 유저를 액션의 Payload로 설정
-        case 'user': newState.user=action.payload; break;
+        case 'emp': newState.user=action.payload; break;
 
         // 정의되지 않은 액션 타입인 경우, 상태 변경 없음
         default: 

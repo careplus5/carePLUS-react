@@ -15,7 +15,7 @@ import OrganizationChart from './resource/OrganizationChart';
 import React, {useState, useEffect} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import { UserProvider } from './resource/UseContext';
-
+import Common from './resource/Common';
 import OpenCalendar from './resource/OpenCalendar';
 
 
@@ -33,17 +33,21 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   return(
     <UserProvider>
-    <div className="App">
-      <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
+      <Routes>
+        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
+        <Route 
+          path="/*" 
+          element={
+            <Common loggedInUsername={loggedInUsername}/>}/>
+      </Routes>
+      {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
         <Header loggedInUsername={loggedInUsername}/>
         <Sidebar/>
-      </div>
+      </div> */}
  <Routes>
-  <Route exect path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
   <Route exect path="/organ" element={<OrganizationChart/>}/>
+  <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
  </Routes>
-
-</div>
 </UserProvider>
   );
 }

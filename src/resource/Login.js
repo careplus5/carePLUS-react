@@ -12,7 +12,7 @@ import UserContext from './UseContext';
 // 401 에러 해결하기
 const Login = ({ onLoginSuccess }) => {
     // 로그인하려는 직원, 아이디와 비밀번호
-    const [user, setUser] = useState({ username:'', password:''});
+    const [emp, setEmp] = useState({ username:'', password:''});
     const {setUsername} = useContext(UserContext);
     
     const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -20,9 +20,9 @@ const Login = ({ onLoginSuccess }) => {
     // 액션을 스토어에 보내고, 그 결과로 상태가 업데이트됨
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    const [errorMessage, setErrorMessage] = useState('');
     const changeValue = (e) => {
-        setUser({...user, [e.target.name]:e.target.value})
+        setEmp({...emp, [e.target.name]:e.target.value})
     }
     const submit = (e) => {
         e.preventDefault();
@@ -30,28 +30,45 @@ const Login = ({ onLoginSuccess }) => {
         const token = localStorage.getItem('token');
                  // formData => 제일 일반적으로 넘기는 형태 (obtainUsername으로 갖고올때), 기본 default get.parameter!!!
                  // JSON => 컨트롤러로 어노테이션으로 쓸때.
-        let formData = new FormData();
-        formData.append("username", user.username);
-        formData.append("password", user.password);
+
+                 if(emp.username === '' || emp.password === ''
+                 ){
+                    setErrorMessage("아이디와 비밀번호를 모두 입력해 주세요.")
+                    alert(errorMessage);
+                    return;
+                 }
+                    let formData = new FormData();
+        formData.append("username", emp.username);
+        formData.append("password", emp.password);
+        console.log(formData.get('username'));
         axios.post(`${url}/login`,formData)
             .then(res => {
-                console.log(res.data);
-                dispatch({type:'user',payload:res.data})
-                onLoginSuccess(user.username); 
-                setUsername(user.username);
-                navigate("/organ");
-                //DTO 에서 파라미터 값을 받아서 넣어줌
-               // console.log(res);
-                // sessionStorage.setItem("user", JSON.stringify(res.data));
-                // 세션은 문자열로 받아서 넣어아 하기 때문에 JSON.형태로
-               
-                console.log(res);
-                alert("로그인 성공!");
+                // localStorage.setItem('access_token',access_token);
+                // localStorage.setItem('refresh_token',refresh_token);
+                    dispatch({type:'emp',payload:res.data})
+                    alert(emp);
+                    onLoginSuccess(emp.username); 
+                    setUsername(emp.username);
+                   navigate("/organ");
+            //     const {access_token, refresh_token} = res.data;
+            //    if(access_token){
+            //     localStorage.setItem('access_token',access_token);
+            //     localStorage.setItem('refresh_token',refresh_token);
+            //         dispatch({type:'emp',payload:res.data})
+            //         alert(emp);
+            //         onLoginSuccess(emp.username); 
+            //         setUsername(emp.username);
+            //        navigate("/organ");
+            //    } else{
+            //     setErrorMessage("로그인에 실패하였습니다.");
+            //    }
             })
             .catch(err => {
-                console.log(err);
-                console.log(token);
+                console.log(formData.get('password'));
+                alert(typeof formData);
             })
+                 
+        
     }
 
 

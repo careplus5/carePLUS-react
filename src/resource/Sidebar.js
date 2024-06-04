@@ -12,7 +12,7 @@ const Sidebar = () => {
                 <br/>
                 <div className="sideMemo">
                     <div className="boxHeader">
-                <img id="boxIcon" src="img/memo.png"/>
+                <img id="boxIcon" src="img/memo.png" style={{height:"20px", marginTop:"12px"}}/>
                 <h3 id="boxHeader">메모</h3>
                 </div>
                 <div className="memoContent">

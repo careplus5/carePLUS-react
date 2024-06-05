@@ -1,6 +1,7 @@
 import axios from 'axios';
 import '../css/DiagnosisPatient.css';
 import DiagResult from './DiagResult';
+import {url} from '../config'
 import {useState, useEffect} from 'react';
 
 const DiagnosisPatient = () => {
@@ -9,7 +10,7 @@ const DiagnosisPatient = () => {
     const [diagDueInfo, setDiagDueInfo] = useState({patNum:'', patName:'', patJumin:'', docDiagState:'', diagnosisDueEtc:'', diagnosisDueState:''});
 
     useEffect(()=>{
-        axios.get(`http://localhost:8090/diagPatientList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diagPatientList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 setDiagPatList([...res.data]);
             })
@@ -23,7 +24,7 @@ const DiagnosisPatient = () => {
             alert('진료중입니다');
             return;
         }
-        axios.get(`http://localhost:8090/diagPatientInfo?docDiagNum=${docDiagNum}`)
+        axios.get(`${url}/diagPatientInfo?docDiagNum=${docDiagNum}`)
         .then(res=>{
             setDiagDueInfo({...res.data});
             let tdiagPatList = [...diagPatList];

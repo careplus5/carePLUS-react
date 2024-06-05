@@ -31,23 +31,28 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
  }
   
   return(
-    <UserProvider>
-      <Routes>
-        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-        <Route 
-          path="/*" 
-          element={
-            <Common loggedInUsername={loggedInUsername}/>}/>
-      </Routes>
-      {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
-        <Header loggedInUsername={loggedInUsername}/>
-        <Sidebar/>
-      </div> */}
-      <Routes>
-        <Route exect path="/organ" element={<OrganizationChart/>}/>
-        <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
-      </Routes>
-    </UserProvider>
+    // <UserProvider>
+    //   <Routes>
+    //     <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
+    //     <Route 
+    //       path="/*" 
+    //       element={
+    //         <Common loggedInUsername={loggedInUsername}/>}/>
+    //   </Routes>
+    //   {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
+    //     <Header loggedInUsername={loggedInUsername}/>
+    //     <Sidebar/>
+    //   </div> */}
+    //   <Routes>
+    //     <Route exect path="/organ" element={<OrganizationChart/>}/>
+    //     <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
+    //   </Routes>
+    // </UserProvider>
+    <div>
+      {/* <Header/> */}
+      <Sidebar/>
+      <DiagnosisPatient/>
+    </div>
   );
 }
 

@@ -19,13 +19,16 @@ const DiagnosisPatient = () => {
     }, [])
 
     const clickDiagnosis = (docDiagNum) => {
+        if(diagDueInfo.docDiagState === '진료중') {
+            alert('진료중입니다');
+            return;
+        }
         axios.get(`http://localhost:8090/diagPatientInfo?docDiagNum=${docDiagNum}`)
         .then(res=>{
-            console.log(res.data);
             setDiagDueInfo({...res.data});
             let tdiagPatList = [...diagPatList];
             tdiagPatList.map(item=>{
-                if(item.docDiagNum===docDiagNum) {
+                if(item.docDiagNum === docDiagNum) {
                     item.docDiagState=res.data.docDiagState;
                     return item;
                 } else {
@@ -40,10 +43,10 @@ const DiagnosisPatient = () => {
     }
 
     return (
-        <div className="background" style={{marginLeft:"200px"}}>
+        <div className="background" style={{marginLeft:"200px", width:"1665px"}}>
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
-                    <div className="boxHeader">
+                    <div className="diagBoxHeader" style={{position:"sticky"}}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;대기 환자 목록
                         </h3>
@@ -66,14 +69,20 @@ const DiagnosisPatient = () => {
                                                     diagPat.docDiagState === '대기중' ? '#F09000' : 
                                                     diagPat.docDiagState === '진료중' ? '#007212' : 
                                                     '#848484', fontWeight:"bold"}}>{diagPat.docDiagState}</td>
-                                    <td><button className='buttonStyle' onClick={()=>clickDiagnosis(diagPat.docDiagNum)}>진료</button></td>
+                                    <td>
+                                        {
+                                            diagPat.docDiagState === '진료중' ? '-' :
+                                            <button className='buttonStyle' onClick={()=>clickDiagnosis(diagPat.docDiagNum)}>진료</button>
+                                        
+                                        }
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
                 <div id="sboxRight">
-                    <div className="boxHeader">
+                    <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;환자 예약 정보
                         </h3>
@@ -98,7 +107,7 @@ const DiagnosisPatient = () => {
             </div>
             <div id="secondRow"> 
                 <div id="prevHistorybox">
-                    <div className="boxHeader">
+                    <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp; 이전 진료 내역
                         </h3>

@@ -20,9 +20,8 @@ import OpenCalendar from './resource/OpenCalendar';
 
 
 function App() {
-
-  const navigate = useNavigate();
- const [loggedInUsername, setLoggedInUsername] = useState('');
+const navigate = useNavigate();
+const [loggedInUsername, setLoggedInUsername] = useState('');
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 
  const handleLoginSuccess = (username) => {
@@ -44,11 +43,11 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
         <Header loggedInUsername={loggedInUsername}/>
         <Sidebar/>
       </div> */}
- <Routes>
-  <Route exect path="/organ" element={<OrganizationChart/>}/>
-  <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
- </Routes>
-</UserProvider>
+      <Routes>
+        <Route exect path="/organ" element={<OrganizationChart/>}/>
+        <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
+      </Routes>
+    </UserProvider>
   );
 }
 

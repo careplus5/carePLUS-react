@@ -1,0 +1,22 @@
+.container {
+    padding: 20px;
+    margin-left: 260px;
+    position: relative;
+}
+
+.title-box {
+    float: left;
+}
+
+.mettitle {
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    vertical-align:top;
+}
+
+.meticon {
+    width: 25px;
+    vertical-align: text-bottom;
+}
+

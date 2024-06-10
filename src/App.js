@@ -10,7 +10,7 @@ import NurPatientInfo from './resource/NurPatientInfo';
 import NurDailyPrescription from './resource/NurDailyPrescription';
 import NurDisAdmModal from './resource/NurDisAdmModal';
 import NurWardList from './resource/NurWardList';
-import Calendar from './resource/calendar';
+import Calendar from './resource/Calendar';
 import OrganizationChart from './resource/OrganizationChart';
 import React, {useState, useEffect} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
@@ -31,7 +31,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
  }
   
   return(
-<<<<<<< HEAD
+// <<<<<<< HEAD
 //     <UserProvider>
 //        <Common loggedInUsername={loggedInUsername}/>
 //       {/* <Routes>
@@ -54,31 +54,30 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
 <div>
   <Sidebar/>
 <NurPatientList/>
-</div>
-=======
+
+{/* {/* // =======
     // <UserProvider>
     //   <Routes>
     //     <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-    //     <Route 
-    //       path="/*" 
+    //     <Route  }
+    //       path=" " 
     //       element={
     //         <Common loggedInUsername={loggedInUsername}/>}/>
     //   </Routes>
-    //   {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
+    //   { <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
     //     <Header loggedInUsername={loggedInUsername}/>
     //     <Sidebar/>
-    //   </div> */}
+    //   </div> }
     //   <Routes>
     //     <Route exect path="/organ" element={<OrganizationChart/>}/>
     //     <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
     //   </Routes>
-    // </UserProvider>
-    <div>
-      {/* <Header/> */}
+    // </UserProvider> }
+      { <Header/> */}
       <Sidebar/>
       <DiagnosisPatient/>
     </div>
->>>>>>> efc367f51adfc7107aa4db5f03c31dfb32b0cab9
+//>>>>>>> efc367f51adfc7107aa4db5f03c31dfb32b0cab9
   );
 }
 

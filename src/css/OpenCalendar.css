@@ -1,4 +1,3 @@
-/* App.css */
 .OpenCalendar {
     text-align: center;
   }
@@ -13,15 +12,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 3;
   }
   
   .popup-content {
     background: white;
     padding: 20px;
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
     position: relative;
     border-radius: 10px;
+    z-index: 3;
     
   }
   

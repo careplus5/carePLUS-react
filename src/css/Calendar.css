@@ -20,21 +20,29 @@
     margin-top: -1.5px;
   }
 
+  .userInfo{
+    padding-top: 20px;
+    width: 90%; /* 전체 폭을 차지하게 함 */
+    text-align: left;
+    font-size: 32px;
+    font-weight: bold;
+  }
   
   .monthYear {
     width: 90%; /* 전체 폭을 차지하게 함 */
     text-align: left;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
   }
   
   .day {
+    font-size: 18px;
     font-weight: 500;
     text-align: right;
     padding: 11px;
     margin-bottom: -10px;
-    width: 70px;
+    width: 90px;
     height: 20px;  
     }
 
@@ -47,12 +55,13 @@
     } */
   
   .date, .next-month, .prev-month {
+    font-size: 18px;
     font-weight: 440;
     text-align: right;
     padding: 10px;
     border: 1px solid #ddd;
-    width: 70px;
-    height: 50px;
+    width: 90px;
+    height: 70px;
   }
   
   .prev-month, .next-month {

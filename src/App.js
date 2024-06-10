@@ -20,9 +20,8 @@ import OpenCalendar from './resource/OpenCalendar';
 
 
 function App() {
-
-  const navigate = useNavigate();
- const [loggedInUsername, setLoggedInUsername] = useState('');
+const navigate = useNavigate();
+const [loggedInUsername, setLoggedInUsername] = useState('');
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 
  const handleLoginSuccess = (username) => {
@@ -32,6 +31,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
  }
   
   return(
+<<<<<<< HEAD
 //     <UserProvider>
 //        <Common loggedInUsername={loggedInUsername}/>
 //       {/* <Routes>
@@ -55,6 +55,30 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
   <Sidebar/>
 <NurPatientList/>
 </div>
+=======
+    // <UserProvider>
+    //   <Routes>
+    //     <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
+    //     <Route 
+    //       path="/*" 
+    //       element={
+    //         <Common loggedInUsername={loggedInUsername}/>}/>
+    //   </Routes>
+    //   {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
+    //     <Header loggedInUsername={loggedInUsername}/>
+    //     <Sidebar/>
+    //   </div> */}
+    //   <Routes>
+    //     <Route exect path="/organ" element={<OrganizationChart/>}/>
+    //     <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
+    //   </Routes>
+    // </UserProvider>
+    <div>
+      {/* <Header/> */}
+      <Sidebar/>
+      <DiagnosisPatient/>
+    </div>
+>>>>>>> efc367f51adfc7107aa4db5f03c31dfb32b0cab9
   );
 }
 

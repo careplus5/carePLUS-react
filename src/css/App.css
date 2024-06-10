@@ -26,7 +26,8 @@ html, body, #root {
 }
 
 
-/* 폰트 종류
+
+/* 폰트 종류 */
 @font-face {
   
   font-family: 'Pretendard-Regular';
@@ -34,6 +35,7 @@ html, body, #root {
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   
   font-family: 'TheJamsil5Bold';
@@ -47,59 +49,10 @@ html, body, #root {
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-} */
-
-
-/* ---- 사이드바 ---- */
-
-/* 사이드바-뒷배경 */
-.sideBar{
-  position:absolute;
-  min-height: 150vh;
-  width:250px;
-  background-color: #FFFDF8;
-  box-shadow: 2px 1px 5px 0 lightgray;
-}
-
-/* 사이드바-구분선 */
-.line{
-  margin: 0 auto;
-  margin-top: 5px;
-  width:150px;
-  
-  background-color:lightgray;
-  height:1px;
-}
-
-
-
-#boxIcon{
-  width:25px;
-  height: 20px;
-  margin-top:15px;
-  margin-left:15px;
-}
-
-
-/* 사이드바-프로필 */
-.sideProfile{
-  position: relative;
-}
-
-#profileImg{
-  display: flex;
- margin: 0 auto;
- width: 80px;
-}
-
-#profileText{
-  font-size: 16px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 /* 조직도 */
-#Lbox{
+/* #Lbox{
   position: absolute;
   margin:0 auto;
   background-color: #FBF9F2;
@@ -210,4 +163,4 @@ margin-left:260px;
   position: absolute;
   margin-left:560px;
   display:inline-block;
-}
+} */

@@ -1,0 +1,29 @@
+
+/* ---- 사이드바 ---- */
+
+/* 사이드바-뒷배경 */
+#sidebar{
+    position:absolute;
+    min-height: 150vh;
+    width:250px;
+    background-color: #FFFDF8;
+    box-shadow: 2px 1px 5px 0 lightgray;
+  }
+
+  
+
+  .title-box {
+    float: left;
+  }
+  
+  .mettitle {
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    vertical-align:top;
+  }
+  
+  .meticon {
+    width: 25px;
+    vertical-align: text-bottom;
+  }

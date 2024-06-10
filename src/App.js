@@ -52,8 +52,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
 //  </Routes>
 // </UserProvider>
 <div>
-  <Sidebar/>
-<NurPatientList/>
+{/* <NurPatientList/> */}
 
 {/* {/* // =======
     // <UserProvider>
@@ -73,9 +72,11 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
     //     <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
     //   </Routes>
     // </UserProvider> }
-      { <Header/> */}
+       
+      */}
+      <Header/>
       <Sidebar/>
-      <DiagnosisPatient/>
+      {/* <DiagnosisPatient/> */}
     </div>
 //>>>>>>> efc367f51adfc7107aa4db5f03c31dfb32b0cab9
   );

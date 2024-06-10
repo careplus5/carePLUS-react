@@ -71,8 +71,8 @@ const SideNotice = () => {
                     isOpen={!!selectedNotice}
                     onRequestClose={closeModal}
                     contentLabel="Notice Detail"
-                    className="modal"
-                    overlayClassName="modal-overlay"
+                    className="sidemodal"
+                    overlayClassName="sidemodal-overlay"
                     style={{
                         content: {
                             top: `${modalPosition.top}px`,

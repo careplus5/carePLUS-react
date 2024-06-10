@@ -103,6 +103,7 @@ const MetRequest= () => {
                   className={`li ${item.status === '검사요청' ? 'new-item' : ''} ${item.status === '보류' ? 'pending-item' : ''}`}
                   onClick={(e) => handlePatientClick(e,item)}>
                     {item.room} {item.name} {item.SA} {item.num} {item.bloodType}
+                    <br/>
                     검사 : {item.test}
                     
                 </li>

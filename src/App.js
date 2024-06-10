@@ -32,23 +32,29 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
  }
   
   return(
-    <UserProvider>
-      <Routes>
-        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-        <Route 
-          path="/*" 
-          element={
-            <Common loggedInUsername={loggedInUsername}/>}/>
-      </Routes>
-      {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
-        <Header loggedInUsername={loggedInUsername}/>
-        <Sidebar/>
-      </div> */}
- <Routes>
-  <Route exect path="/organ" element={<OrganizationChart/>}/>
-  <Route exect path="/wardPatientList" element={<NurPatientList/>}/>
- </Routes>
-</UserProvider>
+//     <UserProvider>
+//        <Common loggedInUsername={loggedInUsername}/>
+//       {/* <Routes>
+//         <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
+//         <Route 
+//           path="/*" 
+//           element={
+//             <Common loggedInUsername={loggedInUsername}/>}/>
+//       </Routes>
+//       {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
+//         <Header loggedInUsername={loggedInUsername}/>
+//         <Sidebar/>
+//       </div> */} 
+//  <Routes>
+//   <Route path="/" element={<Login  onLoginSuccess={handleLoginSuccess}/>}/>
+//   <Route path="/organ" element={<OrganizationChart/>}/>
+//   <Route path="/wardPatientList" element={<NurPatientList/>}/>
+//  </Routes>
+// </UserProvider>
+<div>
+  <Sidebar/>
+<NurPatientList/>
+</div>
   );
 }
 

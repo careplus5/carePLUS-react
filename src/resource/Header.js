@@ -41,7 +41,7 @@ const Header = () => {
             <div className="headerLMenu">
             <a id="a" href="/organ"><h4 style={{marginTop:"16px", marginLeft:"30px", fontSize:"20px"}}>조직도</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
                 {/* nurse */}
-            <a ><h4 id="nurMenu">입퇴원 조회</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="a" href="/wardPatientList"><h4 id="nurMenu">입퇴원 조회</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a><h4 id="nurMenu">처방 일지</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a><h4 id="nurMenu">병동 조회</h4></a>
 

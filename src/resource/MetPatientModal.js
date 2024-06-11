@@ -28,12 +28,12 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
     
   
     return (
-        <div className="modal-overlay">
-            <div className="modal-content" 
+        <div className="metmodal-overlay">
+            <div className="metmodal-content" 
                 ref={modalRef}
                 style={{ position: 'fixed', top: `${position.top}px`, left: `${position.left}px` }}
             >
-                <span className='modal-title'>환자 정보</span>
+                <span className='metmodal-title'>환자 정보</span>
                 <span>
                     <select className="status" value={patient.status} onChange={handleStatusChange}>
                         <option value="검사요청">검사요청</option>

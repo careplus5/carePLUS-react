@@ -5,7 +5,7 @@ import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
-import Calendar from './calendar.js';
+import OpenCalendar from './OpenCalendar';
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
@@ -110,7 +110,7 @@ const Header = () => {
             <button id="headerRightButton" onClick={logout}><img className="headerLogout headerIcon" src="img/logout.png"/></button>
             </div>
         </div>
-        <Calendar isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} /> {/* Calendar 모달 컴포넌트 포함 */}
+        <OpenCalendar  />
         </>
     )
 }

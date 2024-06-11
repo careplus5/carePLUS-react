@@ -10,9 +10,14 @@
     display: flex;
     float: left;
     color: white;
+    margin-left: 50px;
   }
-  h4{
-    margin-left:150px;
+  .headerMenu{
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-inline: 40px;
   }
   
   /* 헤더 오른쪽 메뉴들 */
@@ -25,9 +30,9 @@
   /* 헤더 로고 */
   .headerLogo{
     padding: 10px;
-    padding-left: 15px;
+    margin-left: 22px;
     float:left;
-    width:180px;
+    width:210px;
   }
   
   /* 헤더 오른쪽 메뉴 내 아이콘들 */

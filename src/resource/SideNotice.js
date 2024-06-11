@@ -7,9 +7,11 @@ const SideNotice = () => {
     const [notices, setNotices] = useState([]);
     const [selectedNotice, setSelectedNotice] = useState(null);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
-    
 
     useEffect(() => {
+        // Set the app element for accessibility
+        Modal.setAppElement('#root');
+
         // const fetchNotices = async () => {
         //     try {
         //         const response = await axios.get('/api/notices');
@@ -42,7 +44,7 @@ const SideNotice = () => {
     const handleNoticeClick = (event, notice) => {
         const rect = event.target.getBoundingClientRect();
         setModalPosition({
-            top: rect.top + window.scrollY,
+            top: rect.top,
             left: rect.right + 10
         });
         setSelectedNotice(notice);
@@ -75,6 +77,7 @@ const SideNotice = () => {
                     overlayClassName="sidemodal-overlay"
                     style={{
                         content: {
+                            position: 'fixed',
                             top: `${modalPosition.top}px`,
                             left: `${modalPosition.left}px`,
                         }

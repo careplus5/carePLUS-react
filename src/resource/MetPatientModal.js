@@ -1,8 +1,12 @@
-import React, { useRef, useEffect }  from 'react';
+import React, { useRef, useEffect, useState }  from 'react';
+import Modal from 'react-modal';
 import '../css/MetPatientModal.css';
+
+Modal.setAppElement('#root');  // 'root'는 앱의 루트 엘리먼트의 id입니다
 
 const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
     const modalRef = useRef();
+
 
     const handleStatusChange = (e) => {
         onStatusChange(e.target.value);
@@ -15,17 +19,19 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
     };
 
     useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, []);
+      document.addEventListener('mousedown', handleOutsideClick);
+      return () => {
+          document.removeEventListener('mousedown', handleOutsideClick);
+      };
+  }, []);
+
+    
   
     return (
         <div className="modal-overlay">
             <div className="modal-content" 
                 ref={modalRef}
-                style={{ top: `${position.top}px`, left: `${position.left}px` }}
+                style={{ position: 'fixed', top: `${position.top}px`, left: `${position.left}px` }}
             >
                 <span className='modal-title'>환자 정보</span>
                 <span>

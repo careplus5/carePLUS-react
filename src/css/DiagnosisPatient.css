@@ -3,8 +3,10 @@
     top: 0;
     background-color: #FFFDF8;
     padding: 5px;
+    cursor: pointer;
 }
 
+/* 대기환자목록 박스 스타일 */
 #sboxLeft{
     position: absolute;
     background-color: #FFFDF8;
@@ -20,6 +22,7 @@
     overflow-y: scroll;
 }
 
+/* 환자예약정보 박스 스타일 */
 #sboxRight{
     float: right;
     background-color: #FFFDF8;
@@ -32,13 +35,12 @@
     padding: 5px;
   }
 
+  /* 이전진료기록 박스 스타일 */
   #prevHistorybox{
-    position: absolute;
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: -50px;
     width: 1630px;
-    height: 200px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -53,7 +55,7 @@
 
  .dueInfoRow {
     width: 690px;
-    justify-content: center;
+    /* justify-content: center; */
     display: flex;
     margin-bottom: 10px;
  }

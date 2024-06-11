@@ -13,52 +13,36 @@ import NurWardList from './resource/NurWardList';
 import Calendar from './resource/calendar';
 import OrganizationChart from './resource/OrganizationChart';
 import { RecoilRoot } from 'recoil';
-import React, {useState, useEffect} from 'react';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Common from './resource/Common';
 import OpenCalendar from './resource/OpenCalendar';
-import UserContext,{ UserProvider} from './resource/UseContext';
+import UserContext, { UserProvider } from './resource/UseContext';
+import SurgeryPatient from './resource/SurgeryPatient';
 
 
 function App() {
-const navigate = useNavigate();
-const [accessToken, setAccessToken]=useState(localStorage.getItem('accessToken'));
-const [loggedInUsername, setLoggedInUsername] = useState('');
-const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
+  const [loggedInUsername, setLoggedInUsername] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
- const handleLoginSuccess = (username) => {
+  const handleLoginSuccess = (username) => {
 
-  setLoggedInUsername(username);
-  setIsLoggedIn(true);
-  navigate("/organ");
- }
-  
-  return(
+    setLoggedInUsername(username);
+    setIsLoggedIn(true);
+    navigate("/organ");
+  }
+
+  return (
     <RecoilRoot>
-    <UserProvider>
-    <UserContext.Provider value={{ username: loggedInUsername}}>
-      {/* <Routes>
-        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-        <Route 
-          path="/*" 
-          element={
-            <Common loggedInUsername={loggedInUsername}/>}/>
+      <Routes>
+        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+        <Route path="/*" element={<Common loggedInUsername={loggedInUsername} />} />
       </Routes>
-      {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
-        <Header loggedInUsername={loggedInUsername}/>
-        <Sidebar/>
-      </d
-      iv> */}
-     
- <Routes>
- <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-<Route path="/*" element={ <Common loggedInUsername={loggedInUsername}/>}/>
-                  </Routes>
-</UserContext.Provider>
-</UserProvider>
-</RecoilRoot>
- );
+    </RecoilRoot>
+  );
 }
 
 export default App;

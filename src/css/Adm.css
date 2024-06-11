@@ -32,3 +32,19 @@
   padding: 0 auto;
   margin-top: 35px;
 }
+
+#admStatus{
+  border:none;
+  box-shadow: 0 1px 3px 0 lightgray inset;
+  border-radius: 10px;
+  background-color: #FBF9F2;
+  width: 130px;
+  height: 30px;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  font-weight: bold;
+  /* color: #427889; */
+  margin-left:20px;
+  /* margin-top:10px; */
+  /* float: left; */
+}

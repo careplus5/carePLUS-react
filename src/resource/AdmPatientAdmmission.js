@@ -1,6 +1,12 @@
+import { useState, useEffect } from 'react';
 
 // 입원 예약
 const AdmPatientAdmmission = () => {
+
+    const [patientAdmission, setPatientAdmission] = useState({
+        patName:'', patJumin:'', patGender:'', docNum:'', docName:'',
+        patAddress:'', departmentNum:'', departmentName:''
+    })
     return (
         <div id="LaccordionBox">
                 <div style={{marginLeft:"210px", textAlign:"left"}}>

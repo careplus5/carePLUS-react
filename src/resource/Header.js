@@ -1,21 +1,18 @@
 import '../css/Header.css';
-import { useState,useEffect,useContext } from 'react';
-import UserContext from './UseContext';
+import { useState,useEffect } from 'react';
 import {useNavigate, Routes, Route, Link} from 'react-router-dom';
 import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
+import { useAtom, useAtomValue } from 'jotai';
+import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
+import Calendar from './calendar.js';
 const Header = () => {
-    const {username} = useContext(UserContext);
-    const [emp, setEmp] = useState(username);
-    const [identify, setIdentify] = useState('');
+    const [emp, setEmp] = useAtom(empAtom);
+    const username = useAtomValue(usernameAtom);
     const [menuItems, setMenuItems] = useState([]);
     const navigate = useNavigate();
-    // const [menuVis, setMenuVis] = useState({
-    //     'nurMenu':false,
-    //     'docMenu':false,
-    //     'metMenu':false
-    // });
-    
+  
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     function findMenu(e){
         const menu = '#'+e;
         const Menu = document.querySelectorAll(menu);
@@ -30,12 +27,16 @@ const Header = () => {
 
     const logout = () =>{
         setEmp('');
-        localStorage.removeItem('accessToken');
-        navigate("/");
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('memo');
+        navigate("/login");
         console.log(username+"님이 로그아웃하셧슨디ㅏ.");
         
     }
     useEffect(()=>{
+        
+        console.log(username);
         const iden = username.substring(0,2);
         console.log(iden);
         if(iden=="12"){
@@ -51,7 +52,13 @@ const Header = () => {
                 { to: "/wardDailyPresc", label: "입원 진료" },
                 { to: "/wardList", label: "수술 진료" }
             ]);
+        } else if(iden=="13"){
+            setMenuItems([
+                { to: "/wardPatientList", label: "원무과 업무" },
+                { to: "/wardPatientList", label: "예약 메시지" },
+            ]);
         }
+        console.log("header redirect");
     
     },[username])
 
@@ -99,10 +106,11 @@ const Header = () => {
 
             <div className="headerRMenu">
             <button id="headerRightButton"><img className="headerAlarm headerIcon" src="img/alaram.png"/></button>&nbsp;&nbsp;&nbsp;
-            <button id="headerRightButton"> <img className="headerSchedule headerIcon" src="img/schedule.png"/></button>&nbsp;&nbsp;&nbsp;
+            <button id="headerRightButton" onClick={()=> setIsCalendarOpen(true)}> <img className="headerSchedule headerIcon" src="img/schedule.png"/></button>&nbsp;&nbsp;&nbsp;
             <button id="headerRightButton" onClick={logout}><img className="headerLogout headerIcon" src="img/logout.png"/></button>
             </div>
         </div>
+        <Calendar isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} /> {/* Calendar 모달 컴포넌트 포함 */}
         </>
     )
 }

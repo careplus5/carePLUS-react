@@ -1,26 +1,22 @@
 import '../css/Login.css';
 import '../css/App.css';
-import {useState, useEffect, useContext} from 'react';
+import {useState} from 'react';
 import axios from "axios";
 import {url} from '../config'
-import {useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import storage from 'redux-persist/lib/storage';
-import store from '../store';
-import UserContext from './UseContext';
+import { useSetAtom, useAtom } from 'jotai';
+import { accessTokenAtom, empAtom, usernameAtom, tokenAtom} from '../config/Atom.js';
 
 // 401 에러 해결하기
 const Login = ({ onLoginSuccess }) => {
     // 로그인하려는 직원, 아이디와 비밀번호
-    const [emp, setEmp] = useState({ username:'', password:''});
-    const {setUsername} = useContext(UserContext);
-    
-    const [isLoggedIn,setIsLoggedIn] = useState(false);
-    // redux에서 상태를 변경하기 위해 액션을 스토어에 전달하는 함수
-    // 액션을 스토어에 보내고, 그 결과로 상태가 업데이트됨
-    const dispatch = useDispatch();
+    const [emp, setEmp] = useAtom(empAtom);
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const setAccessToken = useSetAtom(accessTokenAtom);
+    const setUsernameAtom = useSetAtom(usernameAtom);
+    const setTokenAtom = useSetAtom(tokenAtom);
+
     const changeValue = (e) => {
         setEmp({...emp, [e.target.name]:e.target.value})
     }
@@ -47,25 +43,17 @@ const Login = ({ onLoginSuccess }) => {
             .then(res => {
                 console.log("accessToken은 "+res.headers.authorization.split(',')[0].split(' ')[1]);
                 const accessToken = res.headers.authorization.split(',')[0].split(' ')[1];
-                localStorage.setItem('accessToken',accessToken);
+                // setAccessToken(accessToken);
+                setAccessToken(accessToken);
+                console.log("se: "+JSON.stringify(accessToken));
+                setUsernameAtom(emp.username);
+                setTokenAtom(res.headers.authorization);
 // console.log(accessToken);
-                    dispatch({type:'emp',payload:res.data})
-                    alert(emp);
+                    // dispatch({type:'emp',payload:res.data})
+                    alert(emp.username+"님이 로그인하셨습니다!");
+                   
                     onLoginSuccess(emp.username); 
-                    setUsername(emp.username);
                    navigate("/organ");
-            //     const {access_token, refresh_token} = res.data;
-            //    if(access_token){
-            //     localStorage.setItem('access_token',access_token);
-            //     localStorage.setItem('refresh_token',refresh_token);
-            //         dispatch({type:'emp',payload:res.data})
-            //         alert(emp);
-            //         onLoginSuccess(emp.username); 
-            //         setUsername(emp.username);
-            //        navigate("/organ");
-            //    } else{
-            //     setErrorMessage("로그인에 실패하였습니다.");
-            //    }
             })
             .catch(err => {
                 console.log(formData.get('password'));

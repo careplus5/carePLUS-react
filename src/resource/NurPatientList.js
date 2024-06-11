@@ -1,33 +1,40 @@
 import '../css/NurPatientList.css';
-import { useContext } from 'react';
-import Common from './Common';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import UserContext from './UseContext';
 import { url } from '../config';
+import { useAtomValue } from 'jotai';
+import { accessTokenAtom, usernameAtom,tokenAtom} from '../config/Atom.js';
+
 const NurPatientList = () => {
     // 1. 상태에 따라 환자 리스트가 다르게 보임
     // 2. 입원한 환자 리스트 가져오기 (admission table)
     const [fetched, setFetched] = useState(false); // 데이터를 이미 가져왔는지 여부를 나타내는 상태 변수
     const [admList,setAdmList] = useState([]);
-    const {username} = useContext(UserContext);
+    const username = useAtomValue(usernameAtom);
+    const accessToken = useAtomValue(accessTokenAtom);
+    const token = useAtomValue(tokenAtom);
+    const count = 1;
     useEffect(()=>{
-        const nurNum = {username};
+        console.log("nurPatientList redirect");
+        if(username==='') return;
+       
         console.log(`${url}/wardPatientList?nurNum=${username}`);
-        axios.get(`${url}/wardPatientList?nurNum=${username}`)
-        .then(response=>{
-            console.log(response);
-            console.log(JSON.stringify(response));
-            console.log("환자 목록은"+response.data);
-            setAdmList(response.data);
+        axios.get(`${url}/wardPatientList?nurNum=${username}`, {headers: {Authorization: accessToken}, params: {nurNum:username},maxReirects:0})
+        .then(response=>{ 
+            console.log(username);
+            console.log("react's token: "+accessToken);
             setFetched(true);
         })
         .catch(err => {
-            console.error(err);
+            console.log(JSON.stringify(err));
+            console.log("react's failedtoken: "+accessToken);
+            console.error("error:"+err);
         })
-    },[]);
+       
+    },[count]);
     // jotai 
     // 토큰 세션스토리지에 넣으렴 .
+    
     
     return (
         <>

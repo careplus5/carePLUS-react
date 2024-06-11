@@ -2,13 +2,13 @@
 import React from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import {Routes, Route, useNavigate} from 'react-router-dom';
 import OrganizationChart from './OrganizationChart';
 import NurPatientList from './NurPatientList';
-import { useState,useEffect,useContext } from 'react';
-import UserContext from './UseContext';
+import { useAtom, useAtomValue } from 'jotai';
+import { accessTokenAtom, usernameAtom} from '../config/Atom.js';
+import { useState,useEffect } from 'react';
 const Common = ({loggedInUsername}) => {
-  const {username} = useContext(UserContext);
+  const username = useAtomValue(usernameAtom);
   function findMenu(e){
     const menu = '#'+e;
     const Menu = document.querySelectorAll(menu);
@@ -16,16 +16,17 @@ const Common = ({loggedInUsername}) => {
         element.style.display="block";
     })}
     useEffect(()=>{
+      console.log("common redirect");
       const iden = username.substring(0,2);
       console.log(iden);
       if(iden=="12"){
       findMenu('nurMenu');
+      return;
       } else if(iden=="11"){
-          
          findMenu('docMenu');
-      }
-  
-  })
+      return;
+        }
+  },[]);
   return (
     //  className={loggedInUsername ? 'inCarePlus' : 'outCarePlus'}
     <div className="inCarePlus">

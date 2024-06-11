@@ -1,6 +1,35 @@
+import { empAtom } from '../config/Atom';
 import '../css/App.css';
+import { useState,useEffect } from 'react';
+import { useAtom, useAtomValue } from 'jotai';
+
 const Sidebar = () => {
+    const [emp, setEmp] = useAtom(empAtom);
+    const [memo, setMemo] = useState('');
+    useEffect(()=>{
+        const savedMemo = sessionStorage.getItem('memo');
+        if(savedMemo){
+            setMemo(savedMemo);
+        }
+        console.log("sidebar redirect");
+    },[]);
+  
+    const memoRemove = () => {
+        // 로그아웃 시 세션 스토리지에서 메모 삭제
+        sessionStorage.removeItem('memo');
+        // 로그아웃 처리 (예: navigate, 상태 초기화 등)
+    };
+    const memoChange = (e) =>{
+        setMemo(e.target.value);
+    }
+
+    const saveMemo = () => {
+        // 메모를 세션 스토리지에 저장
+        sessionStorage.setItem('memo', memo);
+    };
+
     return (
+        
         <>
         <div className="sideBar">
             <div className="sideProfile">
@@ -16,16 +45,17 @@ const Sidebar = () => {
                 <h3 id="boxHeader">메모</h3>
                 </div>
                 <div className="memoContent">
-                    <input type="textarea" className="memo"/><br/>
-                    <button id="button1">저장</button>
+                    <input type="textarea" className="memo" value={memo} onChange={memoChange}/><br/>
+                    <button id="button1" onClick={saveMemo}>저장</button>
                 </div>
                 </div>
                 <br/>
                 <div className="sideNotice">
                     <div className="boxHeader">
-                <img id="boxIcon" src="img/notice.png"/>
+                <img id="boxIcon" style={{marginTop:"5px"}}src="img/notice.png"/>
                 <h3 id="boxHeader">공지</h3>
-                <button id="button2">+</button>
+                <br/> <br/>
+                <button id="button2">&nbsp;&nbsp;+</button>
                 </div>
 
                 <div className="line"></div>

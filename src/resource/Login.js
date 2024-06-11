@@ -27,7 +27,8 @@ const Login = ({ onLoginSuccess }) => {
     const submit = (e) => {
         e.preventDefault();
     
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('accessToken');
+        // console.log("토큰에"+token);
                  // formData => 제일 일반적으로 넘기는 형태 (obtainUsername으로 갖고올때), 기본 default get.parameter!!!
                  // JSON => 컨트롤러로 어노테이션으로 쓸때.
 
@@ -40,11 +41,14 @@ const Login = ({ onLoginSuccess }) => {
                     let formData = new FormData();
         formData.append("username", emp.username);
         formData.append("password", emp.password);
-        console.log(formData.get('username'));
+        console.log(formData.get('username')+"님이 로그인하셨습니다.");
+        
         axios.post(`${url}/login`,formData)
             .then(res => {
-                // localStorage.setItem('access_token',access_token);
-                // localStorage.setItem('refresh_token',refresh_token);
+                console.log("accessToken은 "+res.headers.authorization.split(',')[0].split(' ')[1]);
+                const accessToken = res.headers.authorization.split(',')[0].split(' ')[1];
+                localStorage.setItem('accessToken',accessToken);
+// console.log(accessToken);
                     dispatch({type:'emp',payload:res.data})
                     alert(emp);
                     onLoginSuccess(emp.username); 

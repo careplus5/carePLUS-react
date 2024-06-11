@@ -4,26 +4,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 // BroswerRouter : 
 import {BrowserRouter} from 'react-router-dom';
-// Provider : 리덕스 스토어를 리액트에 제공하기 위해 필요함
-import {Provider} from 'react-redux';
-// PersistGate : 리덕스 스토어 상태 유지시킴
-import{PersistGate} from 'redux-persist/integration/react';
-import {persistStore} from 'redux-persist';
-import store from './store';
+// // Provider : 리덕스 스토어를 리액트에 제공하기 위해 필요함
+// import {Provider} from 'react-redux';
+// // PersistGate : 리덕스 스토어 상태 유지시킴
+// import{PersistGate} from 'redux-persist/integration/react';
+// import {persistStore} from 'redux-persist';
+// import store from './store';
+import { RecoilRoot } from 'recoil';
 
-
-
-// 스토어 지속성 관리 객체 생성
-const persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-  <PersistGate loading={null} persistor={persistor}/>
   <BrowserRouter>
-    <App />
+  <RecoilRoot>
+<App/>
+    </RecoilRoot>
   </BrowserRouter>
-  </Provider>
 
 );
 

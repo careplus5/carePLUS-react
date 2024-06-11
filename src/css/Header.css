@@ -10,13 +10,14 @@
   
   /* 헤더 왼쪽 메뉴들 */
   .headerLMenu{
-    display: flex;
+    display:flex;
     float: left;
     color: white;
+    margin-left:220px;
+    position: absolute;
     font-family: 'Pretendard-Regular';
   }
 
-  
   /* 헤더 오른쪽 메뉴들 */
   .headerRMenu{
     display: flex;

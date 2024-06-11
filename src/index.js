@@ -11,6 +11,8 @@ import{PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import store from './store';
 
+
+
 // 스토어 지속성 관리 객체 생성
 const persistor = persistStore(store);
 

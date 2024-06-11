@@ -1,7 +1,8 @@
 import '../css/OrganizationChart.css';
+import Common from './Common';
 
 const OrganizationChart = () => {
-    return (
+    return (<>
         <div className="background">
             <div id="Lbox">
                 <br/>
@@ -94,6 +95,7 @@ const OrganizationChart = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 export default OrganizationChart;

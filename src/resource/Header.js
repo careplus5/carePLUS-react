@@ -1,56 +1,83 @@
 import '../css/Header.css';
 import { useState,useEffect,useContext } from 'react';
 import UserContext from './UseContext';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Routes, Route, Link} from 'react-router-dom';
+import NurPatientList from './NurPatientList';
+import OrganizationChart from './OrganizationChart';
 const Header = () => {
     const {username} = useContext(UserContext);
     const [emp, setEmp] = useState(username);
     const [identify, setIdentify] = useState('');
+    const [menuItems, setMenuItems] = useState([]);
     const navigate = useNavigate();
+    // const [menuVis, setMenuVis] = useState({
+    //     'nurMenu':false,
+    //     'docMenu':false,
+    //     'metMenu':false
+    // });
+    
     function findMenu(e){
         const menu = '#'+e;
         const Menu = document.querySelectorAll(menu);
         Menu.forEach(element=>{
             element.style.display="block";
         })
+        // setMenuVis(prevState => ({
+        //     ...prevState,
+        //     [e]:true
+        // }));
     }
 
     const logout = () =>{
         setEmp('');
-        localStorage.removeItem('token');
+        localStorage.removeItem('accessToken');
         navigate("/");
-        console.log(username);
+        console.log(username+"님이 로그아웃하셧슨디ㅏ.");
         
     }
     useEffect(()=>{
         const iden = username.substring(0,2);
         console.log(iden);
         if(iden=="12"){
-        findMenu('nurMenu');
+       setMenuItems([
+        { to: "/wardPatientList", label: "입퇴원 조회" },
+        { to: "/wardDailyPresc", label: "처방 일지" },
+        { to: "/wardList", label: "병동 조회" }])
         } else if(iden=="11"){
             
-           findMenu('docMenu');
+            setMenuItems([
+                { to: "/wardPatientList", label: "담당 환자" },
+                { to: "/wardPatientList", label: "외래 진료" },
+                { to: "/wardDailyPresc", label: "입원 진료" },
+                { to: "/wardList", label: "수술 진료" }
+            ]);
         }
     
-    })
+    },[username])
 
     return(
         <>
         <div className="header">
             <img className="headerLogo" src="img/logo2.png"/>
             <div className="headerLMenu">
-            <a id="a" href="/organ"><h4 style={{marginTop:"16px", marginLeft:"30px", fontSize:"20px"}}>조직도</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link id="a" to="/organ"><h4 style={{marginTop:"16px", marginLeft:"60px", fontSize:"20px"}}>조직도</h4></Link>
+            {menuItems.map((item, index) => (
+                        <Link key={index} id="a" to={item.to}>
+                            <h4 style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>
+                                {item.label}
+                            </h4>
+                        </Link>
+                    ))}
+            
                 {/* nurse */}
-            <a id="a" href="/wardPatientList"><h4 id="nurMenu">입퇴원 조회</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a><h4 id="nurMenu">처방 일지</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a><h4 id="nurMenu">병동 조회</h4></a>
-
-
+                {/* <Link id="a" to="/wardPatientList"><h4 id="nurMenu">입퇴원 조회</h4></Link>
+                <Link id="a" to="/wardDailyPresc"><h4 id="nurMenu">처방 일지</h4></Link>
+                <Link id="a" to="/wardList"><h4 id="nurMenu">병동 조회</h4></Link> */}
             {/* doctor */}
-            <a><h4 id="docMenu">담당 환자</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a><h4 id="docMenu">외래 진료</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a><h4 id="docMenu">입원 진료</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a><h4 id="docMenu">수술 진료</h4></a>
+            {/* <Link id="a" to="/wardPatientList"><h4 id="docMenu">담당 환자</h4></Link>
+            <Link id="a" to="/wardPatientList"><h4 id="docMenu">외래 진료</h4></Link>
+                <Link id="a" to="/wardDailyPresc"><h4 id="docMenu">입원 진료</h4></Link>
+                <Link id="a" to="/wardList"><h4 id="docMenu">수술 진료</h4></Link> */}
 
             {/* adminHos */}
             <a><h4 id="admHMenu">기타 발급</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,8 +89,14 @@ const Header = () => {
             <a><h4 id="metMenu">환자 목록</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a><h4 id="metMenu">스케줄</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
  
-
+            <Routes>
+                    <Route path="/organ" element={<OrganizationChart/>}/>
+                    <Route path="/wardPatientList" element={<NurPatientList/>}/>
+                    {/* <Route path="/wardDailyPresc" element={}/>
+                    <Route path="/wardList" element={}/> */}
+                </Routes>
             </div>
+
             <div className="headerRMenu">
             <button id="headerRightButton"><img className="headerAlarm headerIcon" src="img/alaram.png"/></button>&nbsp;&nbsp;&nbsp;
             <button id="headerRightButton"> <img className="headerSchedule headerIcon" src="img/schedule.png"/></button>&nbsp;&nbsp;&nbsp;

@@ -10,9 +10,7 @@
   
   /* 헤더 왼쪽 메뉴들 */
   .headerLMenu{
-    display:flex;
     float: left;
-    color: white;
     margin-left:220px;
     position: absolute;
     font-family: 'Pretendard-Regular';
@@ -23,7 +21,6 @@
     display: flex;
     float: right;
     margin-top:20px;
-    color: white;
     font-family: 'Pretendard-Regular';
   }
   

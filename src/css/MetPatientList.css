@@ -6,6 +6,7 @@
     overflow-x: auto;
     border-radius: 10px;
     box-shadow: 2px 1px 5px 0 lightgray;
+    box-sizing: unset;
 }
 
 
@@ -16,6 +17,8 @@
     overflow-x: auto; /* 가로 스크롤이 가능하도록 설정합니다 */
     overflow-y: hidden; /* 수직 스크롤을 숨깁니다. */
     height: 150px;
+    box-sizing: unset;
+    margin-top: 16px;
 }
 
 .patient-item {
@@ -26,7 +29,6 @@
 
 .patient-info {
     width: 170px;
-    margin-top: -10px;
     font-size: 16px;
     /* overflow: hidden;
     text-overflow: ellipsis;

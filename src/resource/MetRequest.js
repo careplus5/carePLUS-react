@@ -90,7 +90,7 @@ const MetRequest= () => {
       };
         
     return (
-        <div className="app-container" ref={sidebarRef}>
+        <div className="app-container matmain" ref={sidebarRef}>
             <div className='title-box'>
                 <img className='meticon' src='./img/MetRequest.png' alt='Met Icon'/>
                 <span className='mettitle'>검사요청</span>

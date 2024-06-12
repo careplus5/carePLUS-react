@@ -44,6 +44,7 @@
     margin-bottom: -10px;
     width: 90px;
     height: 20px;  
+    box-sizing: unset;
     }
 
     .day:nth-child(1) , .date:nth-child(1) .date-style {
@@ -62,6 +63,7 @@
     border: 1px solid #ddd;
     width: 90px;
     height: 70px;
+    box-sizing: unset;
   }
   
   .prev-month, .next-month {

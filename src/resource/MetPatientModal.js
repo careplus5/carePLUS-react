@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState }  from 'react';
 import Modal from 'react-modal';
 import '../css/MetPatientModal.css';
+import '../css/App.css';
 
 Modal.setAppElement('#root');  // 'root'는 앱의 루트 엘리먼트의 id입니다
 
@@ -28,7 +29,7 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
     
   
     return (
-        <div className="metmodal-overlay">
+        <div className="metmodal-overlay matmain">
             <div className="metmodal-content" 
                 ref={modalRef}
                 style={{ position: 'fixed', top: `${position.top}px`, left: `${position.left}px` }}

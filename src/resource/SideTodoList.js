@@ -45,9 +45,9 @@ const TodoList = ({ userId }) => {
                 placeholder="할일을 입력하세요"
                 onKeyDown={handleAddTodo}
             />
-            <ul>
+            <ul className='todo-ul'>
                 {todos.map((todo, index) => (
-                    <li key={index}>
+                    <li key={index} className='todo-li'>
                         <input
                             type="text"
                             value={todo}

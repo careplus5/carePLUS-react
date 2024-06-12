@@ -176,6 +176,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
   // );
 
   return (
+    <div className='background'>
     <div className="popup-overlay">
       <div className="popup-content">
         <button className="close-btn" onClick={onClose}>&times;</button>
@@ -210,6 +211,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
           />
         )}
         </div>
+      </div>
       </div>
     );
   };

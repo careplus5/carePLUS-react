@@ -41,19 +41,17 @@ const MetNotice = () => {
     };
 
     return (
-        <div>
+        <div className='metmain'>
             <div className='notice-box'>
                 <div className='title-box'>
                     <img className='meticon' src='./img/MetNotice.png' alt='Met Icon'/>
                     <span className='mettitle'>검사시 특이사항</span>
                 </div>
-                <div>
                     <textarea 
                         value={notice} 
                         onChange={handleInputChange}
                         className='noti-input'
                     />
-                </div>
                 <button className='noti-button' onClick={handleSaveClick}>저장</button>
             </div>
             <div className='calendar-box' onClick={handleMiniCalendarClick}>

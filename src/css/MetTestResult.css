@@ -8,6 +8,7 @@
     background-color: #FFFDF8;
     border-radius: 10px;
     box-shadow: 2px 1px 5px 0 lightgray;
+    box-sizing: unset;
 }
 
 /* 숨겨진 파일 입력 요소 */

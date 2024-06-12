@@ -27,7 +27,6 @@ const OpenCalendar = () => {
   return (
     <div className="OpenCalendar">
       <img className='headerIcon' src='./img/schedule.png' onClick={() => setIsPopupOpen(true)}/>
-
       <Calendar 
         isOpen={isPopupOpen} 
         onClose={handleClose} 

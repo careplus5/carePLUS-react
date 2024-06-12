@@ -6,6 +6,7 @@ import OrganizationChart from './OrganizationChart';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 import OpenCalendar from './OpenCalendar';
+import DiagnosisPatient from './DiagnosisPatient.js';
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
@@ -48,7 +49,7 @@ const Header = () => {
             
             setMenuItems([
                 { to: "/wardPatientList", label: "담당 환자" },
-                { to: "/wardPatientList", label: "외래 진료" },
+                { to: "/diagnosisPatient", label: "외래 진료" },
                 { to: "/wardDailyPresc", label: "입원 진료" },
                 { to: "/wardList", label: "수술 진료" }
             ]);
@@ -99,6 +100,7 @@ const Header = () => {
             <Routes>
                     <Route path="/organ" element={<OrganizationChart/>}/>
                     <Route path="/wardPatientList" element={<NurPatientList/>}/>
+                    <Route path="/diagnosisPatient" element={<DiagnosisPatient/>}/>
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}
                 </Routes>

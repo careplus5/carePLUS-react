@@ -12,7 +12,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: 20px;
-    width: 910px;
+    width: 870px;
     height: 250px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -29,7 +29,7 @@
     margin-right: -40px;
     margin-top: 20px;
     width: 700px;
-    height: 250px;
+    /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -40,7 +40,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: -50px;
-    width: 1630px;
+    width: 1595px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -54,7 +54,7 @@
  }
 
  .dueInfoRow {
-    width: 690px;
+    width: 700px;
     /* justify-content: center; */
     display: flex;
     margin-bottom: 10px;
@@ -72,6 +72,9 @@
 
  .inputStyle:focus {
     outline: none;
+}
+.inputStyle:read-only {
+    cursor: pointer;
 }
 
 .sboxHeader {

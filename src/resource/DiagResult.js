@@ -243,7 +243,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
     
 
     const deleteSelectMed = (medicineNum) => {
-        setSelectMedicine(prevState => prevState.filter(med => med.medicineNum !== medicineNum));
+        setSelectMedicine(prevState => prevState.filter((med, i)=> i !== medicineNum));
     }
 
     return (
@@ -270,7 +270,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;추가 진단</h3>
                     </div>
-                    <div className='boxContent' style={{display:"flex", justifyContent:'center'}}>
+                    <div className='boxContent' style={{display:"flex", justifyContent:'center', paddingBottom:'10px'}}>
                         <div id='testCheck'>
                             <div className="checkboxStyle">
                                 <input type='checkbox' id="test" name='testChecked' checked={formData.testChecked} onChange={inputChange}/>
@@ -291,7 +291,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                                 </div>
                             </div>
                             <div id="testRequest">
-                                <input type='text' className='inputBoxStyle' style={{height:"90px"}} placeholder="요청사항" name='testRequest' value={formData.testRequest} onChange={inputChange}/>
+                                <textarea className='addDiagTextareaStyle' style={{height:"90px"}} placeholder="요청사항" name='testRequest' value={formData.testRequest} onChange={inputChange}/>
                             </div>
                         </div>
                         <div id='adminssionCheck'>
@@ -300,7 +300,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                                 <label htmlFor="adminssion">&nbsp;&nbsp;입원</label>
                             </div>
                             <div className="adminssionRequest">
-                                <input type='text' className='inputBoxStyle' style={{height:"80px"}} placeholder="입원사유" name='admReason' value={formData.admReason} onChange={inputChange}/>
+                                <textarea className='addDiagTextareaStyle' style={{height:"80px"}} placeholder="입원사유" name='admReason' value={formData.admReason} onChange={inputChange}/>
                             </div>
                             <div className="adminssionRequest">
                                 <input type='text' className='inputBoxStyle' style={{marginTop:"10px"}} placeholder="입원 기간" name='admPeriod' value={formData.admPeriod} onChange={inputChange}/>
@@ -312,11 +312,11 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                                 <label htmlFor="surgery">&nbsp;&nbsp;수술</label>
                             </div>
                             <div className="surgeryRequest">
-                                <input type='text' className='inputBoxStyle' style={{height:"45px", width:"185px"}} placeholder="수술사유" name='surReason' value={formData.surReason} onChange={inputChange}/>
+                                <textarea className='addDiagTextareaStyle' style={{height:"45px", width:"185px"}} placeholder="수술사유" name='surReason' value={formData.surReason} onChange={inputChange}/>
                             </div>
                             <div className="surgeryRequest">
                             <label htmlFor="surgeryDate">희망날짜</label>
-                                <input type='date' className='inputBoxStyle' style={{width:"130px", marginTop:"5px", marginLeft:"10px"}} name='surDate' value={formData.surDate} onChange={inputChange}/>
+                                <input type='date' className='inputBoxStyle' style={{width:"130px", marginTop:"-2px", marginLeft:"10px"}} name='surDate' value={formData.surDate} onChange={inputChange}/>
                             </div>
                             <div className="surgeryRequest">
                                 <input type='text' className='inputBoxStyle' style={{marginTop:"4px", width:"185px"}} placeholder="예상 수술 시간" name='surPeriod' value={formData.surPeriod} onChange={inputChange}/>
@@ -390,7 +390,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
             {/* 병명 선택 모달 */}
             <Modal isOpen={disModalIsOpen} toggle={openDiagModal} style={{maxWidth:"570px"}}>
                 <ModalHeader toggle={openDiagModal} className='modalTitle'>병명 정보</ModalHeader>
-                <ModalBody className='modalBodyStyle'>
+                <ModalBody className='diagModalBodyStyle'>
                     <div className='staticSearchbar'>
                     <div className="medSearchbar" style={{width:"430px", marginLeft:"50px"}}>
                         <select className="medKeywordSort" style={{width:"80px"}}>
@@ -440,7 +440,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
             {/* 약품 선택 모달 */}
             <Modal isOpen={medModalIsOpen} toggle={openMedModal} style={{maxWidth:"1530px"}}>
                 <ModalHeader toggle={openMedModal} className='modalTitle'>처방 의약품 명칭 및 코드</ModalHeader>
-                <ModalBody className='modalBodyStyle'>
+                <ModalBody className='diagModalBodyStyle'>
                     <div className='medStaticSearchbar'>
                     <div className="medSearchbar" style={{width:"700px", marginLeft: "90px"}}>
                         <select class="medKeywordSort" style={{width:"110px"}} value={medSearchType} 

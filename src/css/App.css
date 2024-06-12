@@ -5,21 +5,16 @@
   background-color: #FBF9F2;
 } 
  .background{
-  /* width:1640px;
+  width: 1590px;
+  background-color: aqua;
 height: auto;
-  margin-top:50px;
-  position: relative;
-  padding-left:25px;
-  padding-right: 30px;
-  padding-bottom:33px; */
-  position: relative;
- top:60px;
+  position: absolute;
+ top:80px;
  left:60px;
 } 
 button{
   border-width: 0;
 }
-
 #Lbox{
   position: relative;
   background-color: #fffdf7;

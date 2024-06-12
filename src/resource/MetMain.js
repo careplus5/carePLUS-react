@@ -6,13 +6,12 @@ import MetNotice from './MetNotice';
 import MetTestSearch from './MetTestSearch';
 
 function MetMain() {
-    return (
-        <div className='container'>
+    return (<div className="background">
                 <MetPatientList />
                 <MetTestResult />
                 <MetNotice />
-                <MetTestSearch />
-        </div>      
+                <MetTestSearch />   
+        </div>
     );
 }
 

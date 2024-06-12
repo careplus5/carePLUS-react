@@ -54,7 +54,8 @@ const Header = () => {
                 { to: "/wardPatientList", label: "담당 환자" },
                 { to: "/diagnosisPatient", label: "외래 진료" },
                 { to: "/wardDailyPresc", label: "입원 진료" },
-                { to: "/surgeryPatient", label: "수술 진료" }
+                { to: "/surgeryPatient", label: "수술 진료" },
+
             ]);
         } else if(iden=="13"){
             setMenuItems([
@@ -64,8 +65,7 @@ const Header = () => {
         }
         else if(iden=="14"){
             setMenuItems([
-                { to: "/wardPatientList", label: "원무과 업무" },
-                { to: "/wardPatientList", label: "예약 메시지" },
+                { to: "/metMain", label: "메인" }
             ]);
         }
         console.log("header redirect");
@@ -112,7 +112,9 @@ const Header = () => {
                     <Route path="/diagnosisPatient" element={<DiagnosisPatient/>}/>
                     <Route path="/metMain" element={<MetMain/>}/>
                     <Route path="/surgeryPatient" element={<SurgeryPatient/>}/>
-                    <Route path="wardDailyPresc" element={<NurDailyPrescription/>}/>
+                    <Route path="/wardDailyPresc" element={<NurDailyPrescription/>}/>
+                    <Route path="/MetMain" element={<MetMain/>}/>
+                    {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}
                 </Routes>

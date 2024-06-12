@@ -24,7 +24,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: 20px;
-    width: 900px;
+    width: 700px;
     /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -36,7 +36,7 @@
     margin-right: -20px;
     margin-left: 20px;
     margin-top: 20px;
-    width: 350px;
+    width: 300px;
     /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -134,7 +134,7 @@
 /* 처방 박스 내용 스타일 */
 .prescriptionlist {
     font-size:15px;
-    width: 90%;
+    width: 1400px;
     text-align: center;
     margin: 0 auto;
 }

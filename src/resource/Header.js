@@ -10,6 +10,7 @@ import DiagnosisPatient from './DiagnosisPatient.js';
 import MetMain from './MetMain';
 import SurgeryPatient from './SurgeryPatient.js';
 import NurDailyPrescription from './NurDailyPrescription.js';
+import Adm from './Adm.js';
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
@@ -59,7 +60,7 @@ const Header = () => {
             ]);
         } else if(iden=="13"){
             setMenuItems([
-                { to: "/wardPatientList", label: "원무과 업무" },
+                { to: "/adm", label: "원무과 업무" },
                 { to: "/wardPatientList", label: "예약 메시지" },
             ]);
         }
@@ -114,6 +115,7 @@ const Header = () => {
                     <Route path="/surgeryPatient" element={<SurgeryPatient/>}/>
                     <Route path="/wardDailyPresc" element={<NurDailyPrescription/>}/>
                     <Route path="/MetMain" element={<MetMain/>}/>
+                    <Route path="/adm" element={<Adm/>}/>
                     {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}

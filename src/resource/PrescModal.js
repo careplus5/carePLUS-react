@@ -59,7 +59,7 @@ const PrescModal = () =>{
                         <input type="radio" id="presX4" style={{ height:"20px",display:"none", zIndex:"9999"}} onClick={handleClick4}/>투약 X - 반환 불가
                             </label>
                             </div>               
-                            <button id="button1" style={{margin:"0"}}>저장</button>
+                            <button id="memoButton" style={{margin:"0"}}>저장</button>
                 </div>
     )
 }

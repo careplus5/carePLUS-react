@@ -160,6 +160,7 @@ const Adm = () => {
     }
 
     return (
+        <div className="background">
         <div className="Amdbackground">
             <div id="Lbox" style={{ height: "360px" }}>
                 <br />
@@ -490,6 +491,7 @@ const Adm = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

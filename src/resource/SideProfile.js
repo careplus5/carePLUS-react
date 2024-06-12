@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/SideProfile.css';
-
+import { useAtom, useAtomValue } from 'jotai';
+import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 const SideProfile = () => {
+    
     const [profileData, setProfileData] = useState(null);
-
+    const username = useAtomValue(usernameAtom);
     useEffect(() => {
+       
         // const fetchProfileData = async () => {
         //     try {
         //         // Spring Boot 서버에서 데이터를 가져오는 요청
@@ -21,14 +24,14 @@ const SideProfile = () => {
         // 가상의 데이터
         const sampleProfileData = {
             profileImg: '../img/profileImg.png',
-            name: '홍길동',
+            name: username+" 님",
             department: '어쩌구부',
             department2: '저쩌구과'
     };    
         // setProfileData로 상태를 설정해야 함
         setProfileData(sampleProfileData);
         
-    }, []);
+    }, [username]);
 
     return (
         <div className="side-profile">

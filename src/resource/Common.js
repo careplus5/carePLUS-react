@@ -31,7 +31,9 @@ const Common = ({loggedInUsername}) => {
     //  className={loggedInUsername ? 'inCarePlus' : 'outCarePlus'}
     <div className="inCarePlus">
       <>
+      
         <Header loggedInUsername={loggedInUsername} />
+       
         <Sidebar />
       </>
   

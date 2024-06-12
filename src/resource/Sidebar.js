@@ -7,10 +7,11 @@ import { useState,useEffect } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 const Sidebar = () => {
-    const username = useAtomValue(usernameAtom).slice(0,2);
+    const usernameId = useAtomValue(usernameAtom).slice(0,2);
     const [memo, setMemo] = useState('');
     useEffect(()=>{
         const savedMemo = sessionStorage.getItem('memo');
+        
         if(savedMemo){
             setMemo(savedMemo);
         }
@@ -34,7 +35,7 @@ const Sidebar = () => {
     return (
         <div id="sidebar">
                 <SideProfile/>
-                {username ===  '14' ?<MetRequest /> :<>
+                {usernameId ===  '14' ?<MetRequest /> :<>
                 <div className="sideMemo">
                     <div className="boxHeader">
                 <img id="boxIcon" src="img/memo.png" style={{height:"20px", marginTop:"12px"}}/>

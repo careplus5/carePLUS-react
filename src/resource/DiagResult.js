@@ -334,8 +334,8 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                     </div>
                 </div>
             </div>
-            <div id="fourthBox">
-                <div id="prescriptionBox">
+            <div id="fourthBox" >
+                <div id="prescriptionBox"  style={{width:"1510px"}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;처방</h3>
@@ -383,7 +383,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                         </tbody>
                     </table>
                     <div>
-                        <button className='buttonStyle' style={{margin:"15px 120px 15px 0", float:"right"}} onClick={submitForm}>진료 완료</button>
+                        <button className='buttonStyle' style={{margin:"15px 55px 15px 0", float:"right"}} onClick={submitForm}>진료 완료</button>
                     </div>
                 </div>
             </div>

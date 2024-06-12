@@ -145,7 +145,7 @@ const DiagnosisPatient = () => {
                 </div>
             </div>
             <div id="secondRow"> 
-                <div id="prevHistorybox" >
+                <div id="prevHistorybox"  >
                     <div className="diagBoxHeader" onClick={() => handleToggle(1)}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp; 이전 진료 내역

@@ -80,7 +80,7 @@ const DiagnosisPatient = () => {
     };
 
     return (
-        <div className="background" style={{ paddingLeft:'35px'}}>
+        <div className="background" >
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="diagBoxHeader" style={{position:"sticky"}}>
@@ -120,7 +120,7 @@ const DiagnosisPatient = () => {
                         </tbody>
                     </table>
                 </div>
-                <div id="sboxRight">
+                <div id="sboxRight" style={{marginRight:"150px"}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;환자 예약 정보

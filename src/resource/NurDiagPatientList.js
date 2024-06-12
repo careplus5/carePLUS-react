@@ -8,7 +8,7 @@ const NurDiagPatientList = () => {
         <div className="background">
             <div id="Lbox" style={{backgroundColor:"white"}}>
             <br/>
-                <div className="boxHeader"
+                <div className="LboxHeader"
                 >
                 <img id="boxIcon" style={{marginTop:"15px", marginLeft:"15px"}} src="./img/notice.png"/>
                 <h3 id="boxHeader">환자 목록

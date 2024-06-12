@@ -4,30 +4,38 @@
   margin: 0;
   background-color: #FBF9F2;
 } 
-.background{
-  width:1640px;
-  margin-top:25px;
+ .background{
+  /* width:1640px;
+height: auto;
+  margin-top:50px;
   position: relative;
   padding-left:25px;
   padding-right: 30px;
-  padding-bottom:33px;
+  padding-bottom:33px; */
+  position: relative;
+ top:60px;
+ left:60px;
+} 
+button{
+  border-width: 0;
 }
-
-.outCarePlus{
-  display:none;
-}
-
 
 #Lbox{
-  position: absolute;
-  background-color: #FBF9F2;
-  margin-left: 30px;
-  margin-top:30px;
-  width: 1500px;
+  position: relative;
+  background-color: #fffdf7;
+  width: 1550px;
   height: 960px;
   border-radius: 10px;
   box-shadow: 2px 1px 3px 1px lightgray;
-  padding: 30px;
+  padding: 10px;
+}
+
+#LboxHeader{
+  display:inline-block;
+  font-family: 'TheJamsil54Medium';
+  color:black;
+  font-weight:normal;
+  margin-left:30px;
 }
 
 
@@ -54,151 +62,10 @@
   font-style: normal;
 }
 
-/* ------------- */
-
-
-/* ---- 사이드바 ---- */
-
-/* 사이드바-메모 */
-.sideMemo{
-  position: relative;
-  background-color: #FFFDF8;
-  height:150px;
-  border-radius:10px;
-  box-shadow: 1px 1px 1px 1px lightgray;
-  margin-bottom:5px;
+#boxHeader{
+  display:flex;
+  float:right;
+font-size: 20px;
 }
-
-
-.memo{
-width: 180px;
-height:70px;
-background-color: #FFFEFB;
-box-shadow: 1px 1px 1px 1px lightgray inset;
-border:none;
-border-radius:10px;
-position: relative;
-margin-left:18px;
-}
-
 
 /* ------------- */
-
-/*다른 메뉴들*/
-
-
-/* 조직도 */
-#Lbox{
-  position: absolute;
-  margin:0 auto;
-  background-color: #FBF9F2;
-  margin-left: 30px;
-  margin-top:30px;
-  width: 1550px;
-  height: 960px;
-  border-radius: 10px;
-  box-shadow: 2px 1px 3px 1px lightgray;
-}
-
-#LboxHeader{
-  display:inline-block;
-  font-family: 'TheJamsil54Medium';
-  margin-left:10px;
-  font-size: 20px;
-}
-
-.jang{
-  width:120px;
-  height:55px;
-  background-color: #22668D;
-  font-size:20px;
-  color:white;
-  text-align:center;
-  margin:0 auto;
-}
-
-#jang, #dep{
-  display:inline;
-  position: relative;
-  top: 15px;
-  font-family: 'Pretendard-Regular';
-  font-weight:bold;
- 
-}
-
-#line1{
-  margin: 0 auto;
-  width: 2px;
-  height:20px;
-  background-color: #A9A9A9;
-}
-
-#line2{
-  margin: 0 auto;
-  width:848px;
-  height:1px;
-  background-color: #A9A9A9;
-}
-.liner{
-  display:flex;
-}
-#line4{
-  margin-left:351px;
-  width:2px;
-  height:50px;
-  background-color: #A9A9A9;
-}
-#line3{
-  margin-left:280px;
-  width:2px;
-  height:50px;
-  background-color: #A9A9A9;
-}
-.department{
-  margin: 0 auto;
-  display:flex;
-}
-.dept:first-child{
-margin-left:260px;
-}
-.dept{
-  width:180px;
-  height:65px;
-  background-color: #22668D;
-  font-size:25px;
-  color:white;
-  text-align:center;
-  margin-left: 100px;
-}
-
-.depts{
-  border: 1px solid gray;
-  width:180px;
-  height:65px;
-  background-color: white;
-  font-size:25px;
-  color:#22668D;
-  text-align:center;
-  margin-left: 100px;
-}
-
-.doctor{
-  display:inline-block;
-  margin-left:160px;
-}
-.nurse{
-  position: absolute;
-  display:inline-block;
-}
-.technician{
-  position: absolute;
-  display:inline-block;
-  margin-left:280px;
-}
-
-.task{
-  position: absolute;
-  margin-left:560px;
-  display:inline-block;
-}
-

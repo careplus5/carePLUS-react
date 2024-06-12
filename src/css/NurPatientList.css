@@ -9,8 +9,8 @@
     font-family: 'Pretendard-Regular';
     font-weight: bold;
     color: #427889;
-    margin-left:20px;
-    margin-top:10px;
+    margin-left:50px;
+    margin-top:30px;
     float: left;
 }
 
@@ -59,14 +59,16 @@
 }
 
 #searchButton{
-    margin-top:5px;
-    margin-right:20px;
+position: absolute;
+top:7px;
+    right:10px;
     background-color: transparent;
     border: none;
     width:30px;
     height:30px;
     background-image: url('/public/img/search.png');
     float: right;
+    
 }
 
 #searchButton1{

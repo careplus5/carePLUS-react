@@ -18,16 +18,16 @@ const NurDailyPrescription = () => {
 
     return(
         <div className="background">
-            <br/>
             <div className="leftBox1">
               <div className="NDsearchbar">
-                    <input type="text"  id="keyword" placeholder=' 검색...'/>
-                        <label id="searchButton" for="searchButton1"><button id="searchButton1"> </button></label>
+                    <input type="text"  id="keyword" style={{width:"50px", backgroundColor:"transparent",marginTop:"1px"}} placeholder=' 검색...'/>
+                        <label style={{top:"0px"}}
+                        id="searchButton" for="searchButton1"><button id="searchButton1"> </button></label>
                         <br/><br/>
                         <div className="patList">
                             <img style={{width:"50px"}}src="./img/pati.png"/>
                             <div style={{
-                                position:"relative", top:"-9px", width:"200px", left:"-4px"
+                                position:"relative", top:"-24px", width:"210px"
                             }} className="line"></div>
                             <table className="presList" borderless>
                                 <tr>
@@ -46,9 +46,9 @@ const NurDailyPrescription = () => {
                    
             </div>
             <div className="rightBox1">
-                <div className="boxHeader">
-                    <img id="boxIcon" src="./img/write.png"/>
-                    <h3 id="boxHeader"> 처방 일지</h3>
+                <div className="LboxHeader">
+                    <img id="boxIcon" style={{marginTop:"-10px"}}src="./img/write.png"/>
+                    <h3 id="LboxHeader" style={{marginLeft:"10px"}}> 처방 일지</h3>
                 </div>
                 <br/>
                 <div className="presDailyExp">
@@ -73,7 +73,7 @@ const NurDailyPrescription = () => {
                             <th>&nbsp;3&nbsp;</th>
                         </tr>
                 <tr>
-                    <td colSpan={9}>        <div style={{width:"1300px"}}className="line"></div></td>
+                    <td colSpan={9}>        <div style={{width:"1300px",marginTop:"5px"}}className="line"></div></td>
                 </tr>
                 <tr>
                     <td>2024020215</td>

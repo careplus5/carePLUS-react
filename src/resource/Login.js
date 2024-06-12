@@ -47,8 +47,8 @@ const Login = ({ onLoginSuccess }) => {
                 console.log("accessToken은 "+JSON.stringify(res.headers.authorization.accessToken));
                 
                 // setAccessToken(accessToken);
-                setAccessToken(res.headers.authorization.accessToken);
-                console.log("se: "+JSON.stringify(accessToken));
+                setAccessToken(res.headers.authorization.split(",")[0]);
+                console.log("se: "+res.headers.authorization.split(",")[0]);
                 setUsernameAtom(emp.username);
                 setTokenAtom(res.headers.authorization);
 // console.log(accessToken);

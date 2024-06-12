@@ -1,23 +1,6 @@
 /*다른 메뉴들*/
   /* 조직도 */
-  #Lbox{
-    margin-left:30px;
-    margin-top:30px;
-    background-color: #FBF9F2;
-    width: 1550px;
-    height: 960px;
-    border-radius: 10px;
-    box-shadow: 2px 1px 3px 1px lightgray;
-  }
-  
-  #LboxHeader{
-    display:inline-block;
-    font-family: 'TheJamsil54Medium';
-    color:black;
-    margin-left:30px;
-    font-size: 25px;
-  }
-  
+ 
   .jang{
     width:180px;
     height:65px;

@@ -42,9 +42,9 @@ const NurPatientList = () => {
         <div className="background">
             <div id="Lbox" style={{backgroundColor:"white"}}>
             <br/>
-                <div className="boxHeader" 
+                <div id="LboxHeader" 
                 >
-                <img id="boxIcon" style={{marginTop:"5px", marginLeft:"15px"}} src="./img/notice.png"/>
+                <img id="boxIcon" style={{marginTop:"-5px"}} src="./img/notice.png"/> &nbsp;&nbsp;
                 <h3 id="boxHeader">입퇴원 조회
                 </h3>
                 </div>

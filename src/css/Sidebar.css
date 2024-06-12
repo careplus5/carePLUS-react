@@ -4,13 +4,74 @@
 /* 사이드바-뒷배경 */
 #sidebar{
     position:absolute;
-    min-height: 150vh;
+    /* min-height: 150vh; */
+    min-height: 210vh;
     width:250px;
     background-color: #FFFDF8;
     box-shadow: 2px 1px 5px 0 lightgray;
   }
 
+  .line{
+    margin: 0 auto;
+    margin-top: 5px;
+    width:220px;
+    
+    background-color:lightgray;
+    height:1px;
+  }
+  #boxHeader{
+    display:inline-block;
+    font-family: 'TheJamsil54Medium';
+    margin-left:10px;
+    margin-top:10px;
+    font-size: 18px;
+  }
+  .boxHeader{
+    display:flex;
+  }
+  #boxIcon{
+    margin-top:15px;
+    margin-left:15px;
+    width:30px;
+    height:30px;
+  }
   
+  #memoButton{
+    font-family: 'TheJamsil54Medium';
+    margin-left:190px;
+    font-size: 13px;
+    margin-top:3px;
+  width: 45px;
+  height:20px;
+  background-color: #F7CE7E;
+  border:none;
+  border-radius:10px;
+  }
+  
+  
+  
+  
+
+  .sideMemo{
+    position: relative;
+    background-color: #FFFDF8;
+    height:150px;
+    border-radius:10px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+    margin-bottom:5px;
+  }
+  
+  
+  .memo{
+  width: 214px;
+  height:80px;
+  background-color: #FFFEFB;
+  box-shadow: 1px 1px 1px 1px lightgray inset;
+  border:none;
+  border-radius:10px;
+  position: relative;
+  margin-left:20px;
+  }
 
   .title-box {
     float: left;

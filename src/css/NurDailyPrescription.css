@@ -1,8 +1,9 @@
 .leftBox1{
+    display: flex;
     float: left;
     background-color: white;
     width: 250px;
-    height:980px;
+    height:970px;
     border-radius: 10px;
     box-shadow: 1px 0 3px 0 lightgray;
 }
@@ -46,7 +47,10 @@ input[type="radio"]{
     margin-right:15px;
     margin-bottom:5px;
 } */
-
+button{
+    border-radius: 10px;
+    color:white;
+}
 .labelL{
     display: block;
     width:140px;
@@ -95,11 +99,12 @@ input[type="radio"]{
 
 
 .rightBox1{
-    padding-top:10px;
+    padding-top:30px;
+    position: relative;
     float:right;
     border-radius: 10px;
     background-color: white;
-    width: 1370px;
+    width: 1350px;
     height:970px;
     box-shadow: 0 1px 2px 0 lightgray;
 }

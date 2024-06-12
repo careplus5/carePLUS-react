@@ -7,9 +7,9 @@ import SurgeryWrite from './SurgeryWrite';
 const SurgeryPatient = () => {
 
     return (
-        <div className="background" style={{marginTop:'-10px', paddingLeft:'35px'}}>
-            <div id="firstRow" style={{height: "340px"}}>
-                <div id="sboxLeft">
+        <div className="background" style={{marginTop:'-25px', marginLeft:'-25px'}}>
+            <div id="firstRow" style={{height: "340px", display:'flex'}}>
+                <div id="sboxLeft" style={{position:'relative'}}>
                     <div className="diagBoxHeader" style={{position:"sticky"}}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 목록</h3>
@@ -26,7 +26,7 @@ const SurgeryPatient = () => {
                         </tbody>
                     </table>
                 </div>
-                <div id="sboxRight">
+                <div id="sboxRight" style={{height:'250px'}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;환자 정보</h3>

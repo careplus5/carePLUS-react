@@ -47,7 +47,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
         const requestData = {
             ...formData,
             selectMedicine,
-            docNum: 1016031201, /* 로그인한 아이디 넣어줄 예정 */
+            docNum: 1116031201, /* 로그인한 아이디 넣어줄 예정 */
             patNum: diagDueInfo.patNum,
             docDiagnosisNum:diagDueInfo.docDiagNum
         }
@@ -113,7 +113,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
     }
 
     useEffect(()=>{
-        axios.get(`${url}/diseaseList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diseaseList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 setDiseaseList([...res.data]);
             })
@@ -135,7 +135,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
 
     useEffect(()=>{
         searchMedicine();
-        axios.get(`${url}/favMedicineList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/favMedicineList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
         .then(res=>{
             setFavMedicineList([...res.data]);
         })
@@ -195,7 +195,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
     }
 
     const addFavMedicine = (medicineNum) => {
-        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:1016031201, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
+        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:1116031201, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 if (res.data === true) {
                     let tmedicine = medicineList.find(med => med.medicineNum === medicineNum);

@@ -12,7 +12,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: 20px;
-    width: 870px;
+    width: 800px;
     height: 250px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -27,6 +27,8 @@
     float: right;
     background-color: #FFFDF8;
     margin-top: 20px;
+    position: relative;
+    left:150px;
     width: 700px;
     /* height: 250px; */
     border-radius: 10px;
@@ -39,7 +41,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: -50px;
-    width: 1595px;
+    width: 1510px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;

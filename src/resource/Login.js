@@ -37,14 +37,17 @@ const Login = ({ onLoginSuccess }) => {
                     let formData = new FormData();
         formData.append("username", emp.username);
         formData.append("password", emp.password);
-        console.log(formData.get('username')+"님이 로그인하셨습니다.");
+        
         
         axios.post(`${url}/login`,formData)
             .then(res => {
-                console.log("accessToken은 "+res.headers.authorization.split(',')[0].split(' ')[1]);
-                const accessToken = res.headers.authorization.split(',')[0].split(' ')[1];
+                console.log(JSON.stringify(res));
+                console.log(formData.get('username')+"님이 로그인하셨습니다.");
+                const accessToken = res.headers.authorization.accessToken;
+                console.log("accessToken은 "+JSON.stringify(res.headers.authorization.accessToken));
+                
                 // setAccessToken(accessToken);
-                setAccessToken(accessToken);
+                setAccessToken(res.headers.authorization.accessToken);
                 console.log("se: "+JSON.stringify(accessToken));
                 setUsernameAtom(emp.username);
                 setTokenAtom(res.headers.authorization);

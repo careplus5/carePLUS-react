@@ -70,10 +70,10 @@ const Header = () => {
         <div className="header">
             <img className="headerLogo" src="img/logo2.png"/>
             <div className="headerLMenu">
-            <Link id="a" to="/organ"><h4 className='headerMenuName' style={{marginTop:"16px", marginLeft:"60px", fontSize:"20px"}}>조직도</h4></Link>
+            <Link id="headerMenuName" to="/organ"><h4 id='headerMenuName' style={{marginTop:"16px", marginLeft:"60px", fontSize:"20px"}}>조직도</h4></Link>
             {menuItems.map((item, index) => (
-                        <Link key={index} id="a" to={item.to}>
-                            <h4 className='headerMenuName' style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>
+                        <Link key={index} id="headerMenuName" to={item.to}>
+                            <h4 id='headerMenuName' style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>
                                 {item.label}
                             </h4>
                         </Link>

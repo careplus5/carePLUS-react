@@ -80,7 +80,7 @@ const DiagnosisPatient = () => {
     };
 
     return (
-        <div className="background" style={{marginTop:'-10px', paddingLeft:'35px'}}>
+        <div className="background" style={{ paddingLeft:'35px'}}>
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="diagBoxHeader" style={{position:"sticky"}}>

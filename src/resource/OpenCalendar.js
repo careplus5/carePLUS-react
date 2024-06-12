@@ -1,43 +1,29 @@
-// import React, { useState} from 'react';
-// // import Calendar from './Calendar';
-// import '../css/OpenCalendar.css';
-// import '../css/Header.css'
+import React, { useState} from 'react';
+import Calendar from './Calendar';
+import '../css/OpenCalendar.css';
+import '../css/Header.css'
 
-// const OpenCalendar = () => {
-//   const [isPopupOpen, setIsPopupOpen] = useState(false);
-//   const [selectedDate, setSelectedDate] = useState('');
-//   const [selectedEvent, setSelectedEvent] = useState(null);
+const OpenCalendar = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
 
-//   const handleDateSelect = (date) => {
-//     setSelectedDate(date);
-//     setIsPopupOpen(true);
-//   };
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    setIsPopupOpen(true);
+  };
 
-//   const handleClose = () => {
-//     setSelectedDate('');
-//     setIsPopupOpen(false);
-//     setSelectedEvent(null); // 모달이 닫힐 때 선택된 이벤트를 초기화합니다.
-//   };
+  const handleClose = () => {
+    setSelectedDate('');
+    setIsPopupOpen(false);
+    setSelectedEvent(null); // 모달이 닫힐 때 선택된 이벤트를 초기화합니다.
+  };
 
-//   const handleEventClick = (event) => {
-//     setSelectedEvent(event); // 선택된 이벤트를 업데이트합니다.
-//   };
+  const handleEventClick = (event) => {
+    setSelectedEvent(event); // 선택된 이벤트를 업데이트합니다.
+  };
 
-<<<<<<< HEAD
-//   return (
-//     <div className="OpenCalendar">
-//       <img className='headerIcon' src='./img/schedule.png' onClick={() => setIsPopupOpen(true)}/>
-
-//       <Calendar 
-//         isOpen={isPopupOpen} 
-//         onClose={handleClose} 
-//         onDateSelect={handleDateSelect}
-//         onEventClick={handleEventClick} />
-//     </div>
-//   );
-// };
-=======
   return (
     <div className="OpenCalendar">
       <img className='headerIcon' src='./img/schedule.png' style={{marginTop:"3px"}} onClick={() => setIsPopupOpen(true)}/>
@@ -49,6 +35,6 @@
     </div>
   );
 };
->>>>>>> 86c681e7da9850752d6ee2cb165242d761c3da60
 
-// export default OpenCalendar;
+
+export default OpenCalendar;

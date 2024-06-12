@@ -5,7 +5,6 @@ import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
-import Calendar from './calendar.js';
 import AlarmIcon from './AlarmIcon';
 import OpenCalendar from './OpenCalendar';
 import DiagnosisPatient from './DiagnosisPatient.js';

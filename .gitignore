@@ -29,4 +29,14 @@ node_modules/.cache/.eslintcache
 # specific cache files
 node_modules/.cache/default-development/10.pack
 node_modules/.cache/default-development/8.pack
+ node_modules/.cache/.eslintcache
+        node_modules/.cache/default-development/14.pack
+        node_modules/.cache/default-development/15.pack
+        node_modules/.cache/default-development/16.pack
+        node_modules/.cache/default-development/17.pack
+        node_modules/.cache/default-development/19.pack
+        node_modules/.cache/default-development/20.pack
+        node_modules/.cache/default-development/21.pack
+        node_modules/.cache/default-development/22.pack
+        node_modules/.cache/default-development/24.pack
 *.pack

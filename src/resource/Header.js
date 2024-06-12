@@ -106,11 +106,10 @@ const Header = () => {
 
             <div className="headerRMenu">
             <button id="headerRightButton"><img className="headerAlarm headerIcon" src="img/alaram.png"/></button>&nbsp;&nbsp;&nbsp;
-            <button id="headerRightButton" onClick={()=> setIsCalendarOpen(true)}> <img className="headerSchedule headerIcon" src="img/schedule.png"/></button>&nbsp;&nbsp;&nbsp;
+            <OpenCalendar  />
             <button id="headerRightButton" onClick={logout}><img className="headerLogout headerIcon" src="img/logout.png"/></button>
             </div>
         </div>
-        <OpenCalendar  />
         </>
     )
 }

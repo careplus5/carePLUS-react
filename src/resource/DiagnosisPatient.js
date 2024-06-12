@@ -12,7 +12,7 @@ const DiagnosisPatient = () => {
     const [accodionIndex, setAccodionIndex] = useState(null);
 
     useEffect(()=>{
-        axios.get(`${url}/diagPatientList?docNum=1016031201`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diagPatientList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 setDiagPatList([...res.data]);
             })
@@ -80,7 +80,7 @@ const DiagnosisPatient = () => {
     };
 
     return (
-        <div className="background" >
+        <div className="background" style={{marginTop:'-25px', marginLeft:'-25px'}}>
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="diagBoxHeader" style={{position:"sticky"}}>

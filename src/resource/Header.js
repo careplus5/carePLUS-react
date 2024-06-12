@@ -11,11 +11,7 @@ import DiagnosisPatient from './DiagnosisPatient.js';
 import MetMain from './MetMain';
 import SurgeryPatient from './SurgeryPatient.js';
 import NurDailyPrescription from './NurDailyPrescription.js';
-<<<<<<< HEAD
 import Adm from './Adm.js';
-=======
-
->>>>>>> e256019c92dc5f2a5938a502b50ccdbc830bf7eb
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);

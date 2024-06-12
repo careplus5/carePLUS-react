@@ -12,9 +12,9 @@
 #diagRecordBox{
     background-color: #FFFDF8;
     margin-left: 20px;
-    margin-top: 170px;
+    margin-top: 20px;
     width: 470px;
-    height: 250px;
+    /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -23,9 +23,9 @@
 #addDiagRecordBox{
     background-color: #FFFDF8;
     margin-left: 20px;
-    margin-top: 170px;
-    width: 750px;
-    height: 250px;
+    margin-top: 20px;
+    width: 900px;
+    /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -35,9 +35,9 @@
     background-color: #FFFDF8;
     margin-right: -20px;
     margin-left: 20px;
-    margin-top: 170px;
+    margin-top: 20px;
     width: 350px;
-    height: 250px;
+    /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -48,7 +48,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: 20px;
-    width: 1630px;
+    width: 1595px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -99,14 +99,30 @@
     padding: 10px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
     background-color: #FFFEFB;
+    
 }
 .inputBoxStyle:focus {
     outline: none;
 }
 
+.addDiagTextareaStyle {
+    width: 87%;
+    height: 110px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: #FFFEFB;
+    color: #666;
+    resize: none;
+}
+.addDiagTextareaStyle:focus {
+    outline: none;
+}
+
 .checkboxStyle{
     margin-right: 145px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: bold;
 }
 
@@ -124,6 +140,7 @@
 }
 
 .preInputStyle {
+    width: 180px;
     margin-right: 10px;
     margin-top: 10px;
     border: none;
@@ -193,12 +210,13 @@
     outline: none;
 }
 
-.modalBodyStyle {
+.diagModalBodyStyle {
+    min-height: 700px;
     max-height: 700px;
     overflow-y: auto;
 }
 
-.modalBodyStyle.modal-body {
+.diagModalBodyStyle.modal-body {
     padding: 0;
 }
 

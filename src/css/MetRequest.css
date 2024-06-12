@@ -1,0 +1,45 @@
+.app-container {
+    position: relative;
+    width: 220px;
+    padding-inline: 20px;
+  }
+  
+  .ul {
+    margin-top: 5px;
+    list-style-type: none;
+    margin-left: -10px;
+    padding: 2px;
+  }
+  
+  .li {
+    width: 210px;
+    margin-left: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    align-items: center;
+    border-bottom: 1px solid #969696;
+  }
+
+  .li.pending-item {
+    padding-inline: 10px;
+    background-color: #fff8df; /* 옅은 노란색 */
+}
+  .new-item {
+    padding-inline: 10px;
+    background-color: #fff5f5;
+  }
+  
+  .new-item::after {
+    content: "new";
+    background-color: red;
+    color: white;
+    border-radius: 30px;
+    margin-top: -47px;
+    padding-bottom: 4px; 
+    padding-inline: 7px;  
+    font-size: 9px;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+  }

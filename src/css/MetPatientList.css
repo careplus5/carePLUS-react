@@ -1,0 +1,67 @@
+.patientlist-box {
+    width: 1550px;
+    padding: 30px;
+    padding-bottom: 0;
+    background-color: #FFFDF8;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 2px 1px 5px 0 lightgray;
+}
+
+
+.patient-list {
+    padding: 5px;
+    padding-bottom: -5px;
+    display: flex; /*가로로 정렬되도록 설정합니다*/
+    overflow-x: auto; /* 가로 스크롤이 가능하도록 설정합니다 */
+    overflow-y: hidden; /* 수직 스크롤을 숨깁니다. */
+    height: 150px;
+}
+
+.patient-item {
+    margin-right: 20px; /* 각 항목 사이에 간격을 둡니다 */
+    display: inline-block; /* 각 항목을 인라인 블록 요소로 설정하여 가로로 정렬되도록 합니다 */
+    height: 150px;
+}
+
+.patient-info {
+    width: 170px;
+    margin-top: -10px;
+    font-size: 16px;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block; */
+}
+/* .patient-item:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    z-index: 9999;
+} */
+
+.select-box {
+    outline: none;
+    padding-top: 0px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    appearance: none;
+    background: transparent;
+}
+
+.select-box.waiting {
+    color: rgb(251, 222, 0);
+}
+
+.select-box.in-progress {
+    color: rgb(37, 184, 37);
+}
+
+.select-box.completed {
+    color: lightgrey;
+}

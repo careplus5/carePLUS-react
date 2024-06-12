@@ -1,11 +1,11 @@
 import React, { useState} from 'react';
-import Calendar from './calendar';
+import Calendar from './Calendar';
 import '../css/OpenCalendar.css';
+import '../css/Header.css'
 
 const OpenCalendar = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
-  // const { events, addEvent, deleteEvent, editEvent } = useEventManager(); // useEventManager 훅 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
 
@@ -26,16 +26,12 @@ const OpenCalendar = () => {
 
   return (
     <div className="OpenCalendar">
-      <button onClick={() => setIsPopupOpen(true)}>Open Calendar</button>
-
+      <img className='headerIcon' src='./img/schedule.png' onClick={() => setIsPopupOpen(true)}/>
       <Calendar 
         isOpen={isPopupOpen} 
         onClose={handleClose} 
         onDateSelect={handleDateSelect}
-        onEventClick={handleEventClick} /> {/* Calendar 컴포넌트에 onEventClick prop을 추가하여 선택된 이벤트를 처리합니다. */}
-        
-      
-        
+        onEventClick={handleEventClick} />
     </div>
   );
 };

@@ -3,14 +3,16 @@
     top: 0;
     background-color: #FFFDF8;
     padding: 5px;
+    cursor: pointer;
 }
 
+/* 대기환자목록 박스 스타일 */
 #sboxLeft{
     position: absolute;
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: 20px;
-    width: 910px;
+    width: 870px;
     height: 250px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -20,25 +22,25 @@
     overflow-y: scroll;
 }
 
+/* 환자예약정보 박스 스타일 */
 #sboxRight{
     float: right;
     background-color: #FFFDF8;
     margin-right: -40px;
     margin-top: 20px;
     width: 700px;
-    height: 250px;
+    /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
   }
 
+  /* 이전진료기록 박스 스타일 */
   #prevHistorybox{
-    position: absolute;
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: -50px;
-    width: 1630px;
-    height: 200px;
+    width: 1595px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;
@@ -52,8 +54,8 @@
  }
 
  .dueInfoRow {
-    width: 690px;
-    justify-content: center;
+    width: 700px;
+    /* justify-content: center; */
     display: flex;
     margin-bottom: 10px;
  }
@@ -70,6 +72,9 @@
 
  .inputStyle:focus {
     outline: none;
+}
+.inputStyle:read-only {
+    cursor: pointer;
 }
 
 .sboxHeader {

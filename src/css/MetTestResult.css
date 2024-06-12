@@ -1,0 +1,32 @@
+.result-box{
+    margin-top: 15px;
+    position: relative;
+    width: 700px;
+    height: 560px;
+    padding: 30px;
+    overflow: auto;
+    background-color: #FFFDF8;
+    border-radius: 10px;
+    box-shadow: 2px 1px 5px 0 lightgray;
+}
+
+/* 숨겨진 파일 입력 요소 */
+input[type="file"] {
+    display: none;
+}
+
+/* 사용자 정의 파일 선택 버튼 스타일 */
+.custom-button {
+    float: right;
+    margin-right: 10px;
+    padding: 2px 12px;
+    cursor: pointer;
+    background-color: #427889;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0px 0px 3px 0 lightgray;
+    border: 1px;
+    border-radius: 7px;
+    font-size: 12px;
+}
+

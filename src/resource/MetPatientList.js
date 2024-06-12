@@ -60,7 +60,7 @@ const MetPatientList = () => {
 
 
     return (
-        <div className='patientlist-box'>
+        <div className='patientlist-box matmain'>
             <div className='title-box'>
                 <img className='meticon' src='./img/MetPList.png' alt='Met Icon'/>
                 <span className='mettitle'>진행상황</span>

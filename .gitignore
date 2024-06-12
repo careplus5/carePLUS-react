@@ -40,3 +40,4 @@ node_modules/.cache/default-development/8.pack
         node_modules/.cache/default-development/22.pack
         node_modules/.cache/default-development/24.pack
 *.pack
+node_modules

@@ -6,7 +6,7 @@ import MetNotice from './MetNotice';
 import MetTestSearch from './MetTestSearch';
 
 function MetMain() {
-    return (<div className="background">
+    return (<div className="background matmain">
                 <MetPatientList />
                 <MetTestResult />
                 <MetNotice />

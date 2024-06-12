@@ -26,7 +26,7 @@ const OpenCalendar = () => {
 
   return (
     <div className="OpenCalendar">
-      <img className='headerIcon' src='./img/schedule.png' style={{marginTop:"3px"}} onClick={() => setIsPopupOpen(true)}/>
+      <img className='headerIcon' src='./img/schedule.png' onClick={() => setIsPopupOpen(true)}/>
       <Calendar 
         isOpen={isPopupOpen} 
         onClose={handleClose} 
@@ -35,5 +35,6 @@ const OpenCalendar = () => {
     </div>
   );
 };
+
 
 export default OpenCalendar;

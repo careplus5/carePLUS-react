@@ -34,7 +34,7 @@ const MetTestResult = () => {
     };
 
     return (
-        <div className='result-box'>
+        <div className='result-box matmain'>
             <div className='title-box'>
                 <img className='meticon' src='./img/MetResult.png' alt='Met Icon'/>
                 <span className='mettitle'>검사결과</span>

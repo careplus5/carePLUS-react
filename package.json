@@ -13,6 +13,7 @@
     "axios-extensions": "^3.1.6",
     "bootstrap": "^5.3.3",
     "dispatch": "^1.0.2",
+    "firebase": "^9.2.0",
     "express": "^4.19.2",
     "http": "^0.0.1-security",
     "https": "^1.0.0",

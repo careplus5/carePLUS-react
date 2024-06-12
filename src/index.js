@@ -11,7 +11,18 @@ import {BrowserRouter} from 'react-router-dom';
 // import {persistStore} from 'redux-persist';
 // import store from './store';
 import { RecoilRoot } from 'recoil';
+// Provider : 리덕스 스토어를 리액트에 제공하기 위해 필요함
+// PersistGate : 리덕스 스토어 상태 유지시킴
+import './firebase-messaging-sw'; // firebase 설정 임포트
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+  .then(function(registration) {
+    console.log('Service Worker Registered with scope:', registration.scope);
+  }).catch(function(err) {
+    console.log('Service Worker registration failed:', err);
+  });
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

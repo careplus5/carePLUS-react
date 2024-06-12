@@ -6,14 +6,16 @@
 } 
  .background{
   width: 1590px;
-height: auto;
+ height: auto;
   position: absolute;
  top:80px;
  left:60px;
 } 
+
 button{
   border-width: 0;
 }
+<<<<<<< HEAD
 #Lbox{
   position: relative;
   background-color: #fffdf7;
@@ -23,13 +25,11 @@ button{
   box-shadow: 2px 1px 3px 1px lightgray;
   padding: 10px;
 }
+=======
+>>>>>>> e256019c92dc5f2a5938a502b50ccdbc830bf7eb
 
-#LboxHeader{
-  display:inline-block;
-  font-family: 'TheJamsil54Medium';
-  color:black;
-  font-weight:normal;
-  margin-left:30px;
+.metmain {
+  box-sizing: unset;
 }
 
 
@@ -56,10 +56,5 @@ button{
   font-style: normal;
 }
 
-#boxHeader{
-  display:flex;
-  float:right;
-font-size: 20px;
-}
 
 /* ------------- */

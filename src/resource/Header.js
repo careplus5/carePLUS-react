@@ -5,12 +5,17 @@ import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
+import AlarmIcon from './AlarmIcon';
 import OpenCalendar from './OpenCalendar';
 import DiagnosisPatient from './DiagnosisPatient.js';
 import MetMain from './MetMain';
 import SurgeryPatient from './SurgeryPatient.js';
 import NurDailyPrescription from './NurDailyPrescription.js';
+<<<<<<< HEAD
 import Adm from './Adm.js';
+=======
+
+>>>>>>> e256019c92dc5f2a5938a502b50ccdbc830bf7eb
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
@@ -123,7 +128,7 @@ const Header = () => {
             </div>
 
             <div className="headerRMenu">
-            <button id="headerRightButton"><img className="headerAlarm headerIcon" src="img/alaram.png"/></button>&nbsp;&nbsp;&nbsp;
+            <AlarmIcon/>
             <OpenCalendar  />
             <button id="headerRightButton" onClick={logout}><img className="headerLogout headerIcon" src="img/logout.png"/></button>
             </div>

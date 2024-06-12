@@ -24,14 +24,16 @@ const MetTestResult = () => {
 
     return (
         <div>
-            <div className='search-box'>
+            <div className='search-box matmain'>
                 <input
                     type="text"
                     placeholder="검색..."
                     value={searchTerm}
                     onChange={handleSearchInputChange}
                 />
-                <img className='search-button' src='./img/MetSearch.png' onClick={handleSearch} alt='TestSearchIcon'/>
+                <img className='search-button' 
+                    src='./img/MetSearch.png' 
+                    onClick={handleSearch} alt='TestSearchIcon'/>
             </div>
             <div className='search-result'>
                 <div className='title-box'>

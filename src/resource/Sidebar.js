@@ -33,19 +33,22 @@ const Sidebar = () => {
     };
 
     return (
-        <div id="sidebar">
+        <div className="sidebar">
                 <SideProfile/>
+<<<<<<< HEAD
                 {usernameId ===  '14' ?<MetRequest /> :<>
+=======
+                {username ===  '14' ? <MetRequest /> :<>
+>>>>>>> e256019c92dc5f2a5938a502b50ccdbc830bf7eb
                 <div className="sideMemo">
-                    <div className="boxHeader">
-                <img id="boxIcon" src="img/memo.png" style={{height:"20px", marginTop:"12px"}}/>
-                <h3 id="boxHeader">메모</h3>
+                    <div className='title-box'>
+                        <img className='meticon' src='./img/memo.png' alt='Met Icon'/>
+                        <span className='mettitle'>메모</span>
+                    </div>
+                        <input type="textarea" className="memo" value={memo} onChange={memoChange}/><br/>
+                        <button id="memoButton" onClick={saveMemo}>저장</button>
                 </div>
-                <div className="memoContent">
-                    <input type="textarea" className="memo" value={memo} onChange={memoChange}/><br/>
-                    <button id="memoButton" onClick={saveMemo}>저장</button>
-                </div>
-                </div><br/></>} 
+                <br/></>} 
                 <SideNotice/>
                 <TodoList/>
         

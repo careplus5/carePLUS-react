@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/MetNotice.css';
-import CalendarMini from './CalendarMini';
+// import CalendarMini from './CalendarMini';
 import Calendar from './Calendar';
 
 

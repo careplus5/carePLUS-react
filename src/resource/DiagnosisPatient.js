@@ -80,7 +80,7 @@ const DiagnosisPatient = () => {
     };
 
     return (
-        <div className="background" style={{marginLeft:"200px", width:"1665px"}}>
+        <div className="background" style={{marginTop:'-10px', paddingLeft:'35px'}}>
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="diagBoxHeader" style={{position:"sticky"}}>
@@ -128,18 +128,18 @@ const DiagnosisPatient = () => {
                     </div>
                     <div className='boxContent'>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={diagDueInfo.patName} /></div>
-                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={diagDueInfo.patJumin} /></div>
+                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={diagDueInfo.patName} readOnly/></div>
+                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={diagDueInfo.patJumin} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} /></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={diagDueInfo.docDiagState} /></div>
+                            <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} readOnly/></div>
+                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={diagDueInfo.docDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>증상 <input className='inputStyle' style={{height: "40px",width: "470px"}} value={diagDueInfo.diagnosisDueState}/></div>
+                            <div style={{marginLeft:"35px"}}>증상 <input className='inputStyle' style={{height: "40px",width: "470px"}} value={diagDueInfo.diagnosisDueState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"5px"}}>특이사항 <input className='inputStyle' style={{width: "470px"}} value={diagDueInfo.diagnosisDueEtc} /></div>
+                            <div style={{marginLeft:"5px"}}>특이사항 <input className='inputStyle' style={{width: "470px"}} value={diagDueInfo.diagnosisDueEtc} readOnly/></div>
                         </div>
                     </div>
                 </div>

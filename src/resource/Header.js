@@ -7,6 +7,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 import OpenCalendar from './OpenCalendar';
 import DiagnosisPatient from './DiagnosisPatient.js';
+import MetMain from './MetMain';
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
@@ -68,10 +69,10 @@ const Header = () => {
         <div className="header">
             <img className="headerLogo" src="img/logo2.png"/>
             <div className="headerLMenu">
-            <Link id="a" to="/organ"><h4 style={{marginTop:"16px", marginLeft:"60px", fontSize:"20px"}}>조직도</h4></Link>
+            <Link id="a" to="/organ"><h4 className='headerMenuName' style={{marginTop:"16px", marginLeft:"60px", fontSize:"20px"}}>조직도</h4></Link>
             {menuItems.map((item, index) => (
                         <Link key={index} id="a" to={item.to}>
-                            <h4 style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>
+                            <h4 className='headerMenuName' style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>
                                 {item.label}
                             </h4>
                         </Link>
@@ -101,6 +102,7 @@ const Header = () => {
                     <Route path="/organ" element={<OrganizationChart/>}/>
                     <Route path="/wardPatientList" element={<NurPatientList/>}/>
                     <Route path="/diagnosisPatient" element={<DiagnosisPatient/>}/>
+                    <Route path="/metMain" element={<MetMain/>}/>
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}
                 </Routes>
@@ -108,11 +110,10 @@ const Header = () => {
 
             <div className="headerRMenu">
             <button id="headerRightButton"><img className="headerAlarm headerIcon" src="img/alaram.png"/></button>&nbsp;&nbsp;&nbsp;
-            <button id="headerRightButton" onClick={()=> setIsCalendarOpen(true)}> <img className="headerSchedule headerIcon" src="img/schedule.png"/></button>&nbsp;&nbsp;&nbsp;
+            <OpenCalendar  />
             <button id="headerRightButton" onClick={logout}><img className="headerLogout headerIcon" src="img/logout.png"/></button>
             </div>
         </div>
-        <OpenCalendar  />
         </>
     )
 }

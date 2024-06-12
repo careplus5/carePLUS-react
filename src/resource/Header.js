@@ -8,6 +8,7 @@ import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 import OpenCalendar from './OpenCalendar';
 import DiagnosisPatient from './DiagnosisPatient.js';
 import MetMain from './MetMain';
+import SurgeryPatient from './SurgeryPatient.js';
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
@@ -52,7 +53,7 @@ const Header = () => {
                 { to: "/wardPatientList", label: "담당 환자" },
                 { to: "/diagnosisPatient", label: "외래 진료" },
                 { to: "/wardDailyPresc", label: "입원 진료" },
-                { to: "/wardList", label: "수술 진료" }
+                { to: "/surgeryPatient", label: "수술 진료" }
             ]);
         } else if(iden=="13"){
             setMenuItems([
@@ -103,6 +104,7 @@ const Header = () => {
                     <Route path="/wardPatientList" element={<NurPatientList/>}/>
                     <Route path="/diagnosisPatient" element={<DiagnosisPatient/>}/>
                     <Route path="/metMain" element={<MetMain/>}/>
+                    <Route path="/surgeryPatient" element={<SurgeryPatient/>}/>
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}
                 </Routes>

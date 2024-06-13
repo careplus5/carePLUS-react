@@ -1,54 +1,48 @@
 import '../css/NurDisAdmModal.css';
 import '../css/App.css';
-const NurDisAdmModal = () => {
+import axios from 'axios';
+import {useNavigate, Routes, Route, Link} from 'react-router-dom';
+import { url } from '../config';
+const NurDisAdmModal = ({ admissionNum }) => {
     // 퇴원 버튼 눌렀을 때 나오는 모달
+    const navigate = useNavigate();
+    function admDischargeSaved () {
+        const admissionDischargeOpinion = document.getElementById('admissionDischargeOpinion').value;
+        const currentDate = new Date(); // 현재 날짜와 시간을 포함하는 Date 객체 생성
+
+const year = currentDate.getFullYear();
+console.log(year);
+const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
+console.log(month);
+const day = String(currentDate.getDate()).padStart(2, '0');
+console.log(day);
+        const admissionDischargeDate = `${year}-${month}-${day}`;
+        console.log(admissionNum);
+        console.log(admissionDischargeDate);
+        axios.post(`${url}/admissionDischarge`,{
+            admissionNum:admissionNum,
+            admissionDischargeOpinion:admissionDischargeOpinion,
+            admissionDischargeDate:admissionDischargeDate,
+        })
+        .then(res=>{
+        console.log(admissionDischargeDate);
+            console.log(res);
+            navigate("/nurPatientInfo/"+admissionNum);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
     return (
         <div className="disAdmModal">
         <div className="boxHeader">
             <h3 id="boxHeader">퇴원</h3>
         </div>
-        <br/>
         <div className="disSort">
-           <p style={{fontWeight:"bold"}}>퇴원 유형</p> 
-            <input type="radio"/>정상 &nbsp;&nbsp;
-            <input type="radio"/>자의&nbsp;&nbsp;
-            <input type="radio"/>탈원&nbsp;&nbsp;
-            <input type="radio"/>사망
-        </div>
-        <br/>
-        <div className="disSort">
-           <p style={{fontWeight:"bold"}}>의식 상태</p> 
-            <input type="radio"/>Alert &nbsp;&nbsp;
-            <input type="radio"/>Drowsy &nbsp;&nbsp;
-            <input type="radio"/>Stupor &nbsp;&nbsp;
-            <input type="radio"/>Semicoma 
-            &nbsp;&nbsp;
-            <input type="radio"/>Coma 
-        </div>
-        <br/>
-        <div className="disSort">
-           <p style={{fontWeight:"bold"}}>퇴원 방법</p> 
-            <input type="radio"/>도보 &nbsp;&nbsp;
-            <input type="radio"/>목발&nbsp;&nbsp;
-            <input type="radio"/>휠체어&nbsp;&nbsp;
-            <input type="radio"/>이동 침대
-            &nbsp;&nbsp;
-            <input type="radio"/>응급차
-            &nbsp;&nbsp;
-            <input type="radio"/>기타&nbsp;&nbsp;
-            <input type="text"/> 
-        </div>
-        <br/>
-        <div className="disSort">
-           <p style={{fontWeight:"bold"}}>퇴원 후 갈 곳</p> 
-            <input type="radio"/>자가 &nbsp;&nbsp;
-            <input type="radio"/>친척&nbsp;&nbsp;
-            <input type="radio"/>타병원&nbsp;&nbsp;
-            <input type="radio"/>기타&nbsp;&nbsp;
-            <input type="text"/> 
-        </div>
-        <br/>
-        <button id="button1" style={{marginLeft:"260px"}}>저장</button>
+           <p style={{fontWeight:"bold"}}>퇴원 이유</p>  &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="text" id="admissionDischargeOpinion" name="admissionDischargeOpinion"/>
+        </div><br/>
+        <button id="button1" style={{marginLeft:"170px"}}onClick={admDischargeSaved}>저장</button>
         </div>
     )
 }

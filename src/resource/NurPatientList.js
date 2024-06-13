@@ -2,8 +2,10 @@ import '../css/NurPatientList.css';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { url } from '../config';
-import { useAtomValue } from 'jotai';
-import { accessTokenAtom, usernameAtom,tokenAtom} from '../config/Atom.js';
+import { useAtomValue, useAtom,useSetAtom } from 'jotai';
+import { admAtom, accessTokenAtom, usernameAtom,tokenAtom} from '../config/Atom.js';
+import NurPatientInfo from './NurPatientInfo';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 const NurPatientList = () => {
     // 1. 상태에 따라 환자 리스트가 다르게 보임
@@ -12,8 +14,34 @@ const NurPatientList = () => {
     const [admList,setAdmList] = useState([]);
     const username = useAtomValue(usernameAtom);
     const accessToken = useAtomValue(accessTokenAtom);
-    const token = useAtomValue(tokenAtom);
+    const setAdmissionPatient = useSetAtom(admAtom); // jotai의 useSetAtom 사용
+    const navigate = useNavigate();
     const count = 1;
+    function patInfo(admission) {
+        setAdmissionPatient(admission);
+        console.log(admission);
+       console.log(JSON.stringify(admission+"이 전송됩니다. 기둘"))
+        navigate(`/nurPatientInfo/${admission.admissionNum}`);
+    }
+
+
+    const [admission, setAdmission] = useState({
+        admissionNum: '',
+        patNum:'',
+        patName:'',
+        admissionDueDate:'',
+        admissionDate:'',
+        docDepartmentName:'',
+        admissionReason:'',
+        admissionHandover:'',
+        admissionDoctorOpinion:'',
+        admissionDisChargeOpinion:'',
+        docName:'',
+        bedsNum:'',
+        admissionDischargeDueDate:'',
+        admissionDischargeDate:'',
+        admissionState:'',
+    })
     useEffect(()=>{
         console.log("nurPatientList redirect");
         if(username==='') return;
@@ -22,9 +50,41 @@ const NurPatientList = () => {
         axios.get(`${url}/wardPatientList?nurNum=${username}`, {headers: {Authorization: accessToken}, params: {nurNum:username},maxReirects:0})
         .then(response=>{ 
             console.log(username);
-            console.log("이 데이터는 말입니다: "+JSON.stringify(response.data[0].admission));
+            console.log("이 데이터는 말입니다: "+JSON.stringify(response.data));
             console.log("react's token: "+accessToken);
-            setAdmList([...JSON.stringify(response.data)]);
+            // setAdmList([...JSON.stringify(response.data)]);
+            const data = response.data[0];
+            // setAdmission({
+            //     admissionNum: data.admission.admissionNum,
+            //     patName:data.patName,
+            //     patNum: data.admission.patNum,
+            //     admissionDueDate: data.admission.admissionDueDate,
+            //     admissionDate: data.admission.admissionDate,
+            //     docDepartmentName: data.docDepartment,
+            //     docName: data.docName,
+            //     bedsNum: data.admission.bedsNum,
+            //     admissionDischargeDueDate: data.admission.admissionDischargeDueDate,
+            //     admissionDischargeDate: data.admission.admissionDischargeDate,
+            //     admissionState: data.admission.admissionStatus,
+            // });
+            const mappedData = response.data.map(data=>({
+                admissionNum: data.admission.admissionNum,
+                patName:data.patName,
+                patNum: data.admission.patNum,
+                admissionDueDate: data.admission.admissionDueDate,
+                admissionDate: data.admission.admissionDate,
+                docDepartmentName: data.docDepartment,
+                admissionReason:data.admission.admissionReason,
+                admissionHandover:data.admissionHandover,
+                admissionDoctorOpinion:data.admission.admissionDoctorOpinion,
+                admissionDisChargeOpinion:data.admission.admissionDisChargeOpinion,
+                docName: data.docName,
+                bedsNum: data.admission.bedsNum,
+                admissionDischargeDueDate: data.admission.admissionDischargeDueDate,
+                admissionDischargeDate: data.admission.admissionDischargeDate,
+                admissionState: data.admission.admissionStatus,
+            }));
+            setAdmList(mappedData);
             setFetched(true);
         })
         .catch(err => {
@@ -95,21 +155,21 @@ const NurPatientList = () => {
                     <tbody>
                     <tr id="line"> 
                     </tr><br/>
-                    {admList.map(admission=>(
-                                <tr key={admission.admNum}>
-                                    <td>{admission.admNum}</td>
+                    {admList.map(admission =>(
+                                <tr className="patList" key={admission.admNum} 
+                                onClick={()=>patInfo(admission)}>
+
+                            <td>{admission.admissionDate}</td>
                         <td>{admission.patNum}</td>
                         <td>{admission.patName}</td>
                         <td>{admission.admissionDueDate}</td>
                         <td>{admission.admissionDate}</td>
                         <td>{admission.docDepartmentName}</td>
-                        <td>정신과</td>
-                        <td>김진솔</td>
-                        <td>20488</td>
-                        <td></td>
-                        <td></td>
-                        <td>대기중</td>
-
+                        <td>{admission.docName}</td>
+                        <td>{admission.bedsNum}</td>
+                        <td>{admission.admissionDischargeDueDate}</td>
+                        <td>{admission.admissionDischargeDate}</td>
+                        <td>{admission.admissionState}</td>
                     </tr>))}
                     </tbody>
                 </table>

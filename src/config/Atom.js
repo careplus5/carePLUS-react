@@ -26,3 +26,22 @@ export const empAtom = atomWithStorage(
     password:''},
     createJSONStorage(()=> sessionStorage),
 );
+
+export const admAtom = atomWithStorage(
+    'adm',
+    {
+        admissionNum: '',
+        patNum:'',
+        patName:'',
+        admissionDueDate:'',
+        admissionDate:'',
+        docDepartmentName:'',
+        docName:'',
+        bedsNum:'',
+        admissionDischargeDueDate:'',
+        admissionDischargeDate:'',
+        admissionState:'',
+    },
+    createJSONStorage(()=> sessionStorage),
+
+)

@@ -40,11 +40,13 @@
 
 #keyword{
     border:none;
-    width:600px;
+    width:500px;
     font-size:15px;
 
 }
-
+.patList:hover{
+    background-color: lightgray;
+}
 #keywordSort{
     color: #233FA3;
     font-weight: bold;

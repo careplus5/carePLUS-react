@@ -12,7 +12,7 @@ import MetMain from './MetMain';
 import SurgeryPatient from './SurgeryPatient.js';
 import NurDailyPrescription from './NurDailyPrescription.js';
 import Adm from './Adm.js';
-
+import NurPatientInfo from './NurPatientInfo.js';
 
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
@@ -119,6 +119,7 @@ const Header = () => {
                     <Route path="/wardDailyPresc" element={<NurDailyPrescription/>}/>
                     <Route path="/MetMain" element={<MetMain/>}/>
                     <Route path="/adm" element={<Adm/>}/>
+                    <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
                     {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}

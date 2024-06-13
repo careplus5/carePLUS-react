@@ -3,8 +3,6 @@ import '../css/DiagnosisPatient.css';
 import DiagResult from './DiagResult';
 import {url} from '../config'
 import {useState, useEffect} from 'react';
-import { useAtom, useAtomValue } from 'jotai';
-import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 
 const DiagnosisPatient = () => {
 
@@ -12,10 +10,9 @@ const DiagnosisPatient = () => {
     const [diagDueInfo, setDiagDueInfo] = useState({patNum:'', patName:'', patJumin:'', docDiagState:'', diagnosisDueEtc:'', diagnosisDueState:''});
     const [prevDiagList, setPrevDiagList] = useState([]);
     const [accodionIndex, setAccodionIndex] = useState(null);
-    const username = useAtomValue(usernameAtom);
 
     useEffect(()=>{
-        axios.get(`${url}/diagPatientList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diagPatientList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 setDiagPatList([...res.data]);
             })
@@ -64,6 +61,7 @@ const DiagnosisPatient = () => {
         })
         axios.get(`${url}/prevDiagRecord?patNum=${patNum}`)
             .then(res=>{
+                console.log(res.data);
                 setPrevDiagList([...res.data]);
             })
             .catch(err=>{
@@ -82,7 +80,7 @@ const DiagnosisPatient = () => {
     };
 
     return (
-        <div className="background">
+        <div className="background" style={{marginTop:'-25px', marginLeft:'-25px'}}>
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="diagBoxHeader" style={{position:"sticky"}}>
@@ -122,7 +120,7 @@ const DiagnosisPatient = () => {
                         </tbody>
                     </table>
                 </div>
-                <div id="sboxRight">
+                <div id="sboxRight" style={{marginRight:"150px"}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;환자 예약 정보
@@ -199,7 +197,7 @@ const DiagnosisPatient = () => {
                 </div>
             </div>
             <div id="diagResultRow"> 
-                <DiagResult username={username} diagPatList={diagPatList} setDiagPatList={setDiagPatList} diagDueInfo={diagDueInfo} clearDiagDueInfo={clearDiagDueInfo} />
+                <DiagResult diagPatList={diagPatList} setDiagPatList={setDiagPatList} diagDueInfo={diagDueInfo} clearDiagDueInfo={clearDiagDueInfo} />
             </div>
         </div>
     )

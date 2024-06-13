@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PrescModal from './PrescModal';
 
-const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}) => {
+const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}) => {
     
     const [disModalIsOpen, setDisModalIsOpen] = useState(false);
     const [diseaseList, setDiseaseList] = useState([]);
@@ -47,7 +47,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
         const requestData = {
             ...formData,
             selectMedicine,
-            docNum: username, /* 로그인한 아이디 넣어줄 예정 */
+            docNum: 1116031201, /* 로그인한 아이디 넣어줄 예정 */
             patNum: diagDueInfo.patNum,
             docDiagnosisNum:diagDueInfo.docDiagNum
         }
@@ -113,7 +113,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
     }
 
     useEffect(()=>{
-        axios.get(`${url}/diseaseList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diseaseList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 setDiseaseList([...res.data]);
             })
@@ -135,7 +135,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
 
     useEffect(()=>{
         searchMedicine();
-        axios.get(`${url}/favMedicineList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/favMedicineList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
         .then(res=>{
             setFavMedicineList([...res.data]);
         })
@@ -195,7 +195,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
     }
 
     const addFavMedicine = (medicineNum) => {
-        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:username, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
+        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:1116031201, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 if (res.data === true) {
                     let tmedicine = medicineList.find(med => med.medicineNum === medicineNum);
@@ -335,7 +335,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                 </div>
             </div>
             <div id="fourthBox" >
-                <div id="prescriptionBox">
+                <div id="prescriptionBox"  style={{width:"1510px"}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;처방</h3>

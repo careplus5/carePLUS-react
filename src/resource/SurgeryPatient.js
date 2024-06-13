@@ -3,34 +3,13 @@ import '../css/DiagnosisPatient.css';
 import {url} from '../config'
 import {useState, useEffect} from 'react';
 import SurgeryWrite from './SurgeryWrite';
-import { useAtom, useAtomValue } from 'jotai';
-import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 
 const SurgeryPatient = () => {
 
-    const [surPatList, setSurPatList] = useState([]);
-    const username = useAtomValue(usernameAtom);
-
-    useEffect(()=>{
-        console.log("그만하고시ㅠ다..."+ username)
-        axios.get(`${url}/surPatientList?docNum=${username}`)
-            .then(res=>{
-                console.log(res.data);
-                setSurPatList([...res.data]);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
-    })
-
-    const clickSurgery = (surPat) => {
-
-    }
-
     return (
-        <div className="background">
-            <div id="firstRow" style={{height: "340px"}}>
-                <div id="sboxLeft">
+        <div className="background" style={{marginTop:'-25px', marginLeft:'-25px'}}>
+            <div id="firstRow" style={{height: "340px", display:'flex'}}>
+                <div id="sboxLeft" style={{position:'relative'}}>
                     <div className="diagBoxHeader" style={{position:"sticky"}}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 목록</h3>
@@ -41,33 +20,13 @@ const SurgeryPatient = () => {
                                 <th>환자번호</th>
                                 <th>이름</th>
                                 <th>수술 예약일</th>
-                                <th>수술 시작 시간</th>
                                 <th>상태</th>
                                 <th>수술</th>
                             </tr>
-                            {surPatList.map(surPat=>(
-                                <tr key={surPat.surgeryNum}>
-                                    <td>{surPat.patNum}</td>
-                                    <td>{surPat.patName}</td>
-                                    <td>{surPat.surgeryDueDate}</td>
-                                    <td>{surPat.surgeryStartTime}</td>
-                                    <td style={{color: 
-                                                    surPat.surgeryState === '대기중' ? '#F09000' : 
-                                                    surPat.surgeryState === '진료중' ? '#007212' : 
-                                                    '#848484', fontWeight:"bold"}}>{surPat.surgeryState}</td>
-                                    <td>
-                                        {
-                                            surPat.surgeryState === '진료중' || surPat.surgeryState === '완료' ? '-' :
-                                            <button className='buttonStyle' onClick={()=>clickSurgery(surPat)}>수술</button>
-                                        
-                                        }
-                                    </td>
-                                </tr>
-                            ))}
                         </tbody>
                     </table>
                 </div>
-                <div id="sboxRight">
+                <div id="sboxRight" style={{height:'250px'}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;환자 정보</h3>

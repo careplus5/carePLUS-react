@@ -10,8 +10,8 @@
 #sboxLeft{
     position: absolute;
     background-color: #FFFDF8;
-    width: 815px;
-    height: 247px;
+    width: 800px;
+    height: 250px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     max-width: 100%;
@@ -24,7 +24,9 @@
 #sboxRight{
     float: right;
     background-color: #FFFDF8;
-    width: 750px;
+    margin-top: 20px;
+    position: relative;
+    width: 700px;
     /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -34,8 +36,9 @@
   /* 이전진료기록 박스 스타일 */
   #prevHistorybox{
     background-color: #FFFDF8;
-    margin-top: -73px;
-    width: 1590px;
+    margin-left: 20px;
+    margin-top: -50px;
+    width: 1550px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;

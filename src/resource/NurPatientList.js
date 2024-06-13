@@ -22,7 +22,9 @@ const NurPatientList = () => {
         axios.get(`${url}/wardPatientList?nurNum=${username}`, {headers: {Authorization: accessToken}, params: {nurNum:username},maxReirects:0})
         .then(response=>{ 
             console.log(username);
+            console.log("이 데이터는 말입니다: "+JSON.stringify(response.data[0].admission));
             console.log("react's token: "+accessToken);
+            setAdmList([...JSON.stringify(response.data)]);
             setFetched(true);
         })
         .catch(err => {
@@ -93,12 +95,14 @@ const NurPatientList = () => {
                     <tbody>
                     <tr id="line"> 
                     </tr><br/>
-                    <tr>
-                        <td>100401041</td>
-                        <td>012491211</td>
-                        <td>김동현 (남/11)</td>
-                        <td>24-04-08</td>
-                        <td></td>
+                    {admList.map(admission=>(
+                                <tr key={admission.admNum}>
+                                    <td>{admission.admNum}</td>
+                        <td>{admission.patNum}</td>
+                        <td>{admission.patName}</td>
+                        <td>{admission.admissionDueDate}</td>
+                        <td>{admission.admissionDate}</td>
+                        <td>{admission.docDepartmentName}</td>
                         <td>정신과</td>
                         <td>김진솔</td>
                         <td>20488</td>
@@ -106,7 +110,7 @@ const NurPatientList = () => {
                         <td></td>
                         <td>대기중</td>
 
-                    </tr>
+                    </tr>))}
                     </tbody>
                 </table>
                 </div>

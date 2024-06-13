@@ -36,9 +36,8 @@ const username = useAtom(usernameAtom);
  }
   
   return(
-    <RecoilRoot>
-
-      {/* <Routes>
+  
+<>      {/* <Routes>
         <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
         <Route 
           path="/*" 
@@ -55,8 +54,8 @@ const username = useAtom(usernameAtom);
  <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
 <Route path="/*" element={ <Common loggedInUsername={loggedInUsername}/>}/>
                   </Routes>
+                  </>
 
-</RecoilRoot>
  );
 }
 

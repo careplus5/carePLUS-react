@@ -10,7 +10,6 @@ import {BrowserRouter} from 'react-router-dom';
 // import{PersistGate} from 'redux-persist/integration/react';
 // import {persistStore} from 'redux-persist';
 // import store from './store';
-import { RecoilRoot } from 'recoil';
 // Provider : 리덕스 스토어를 리액트에 제공하기 위해 필요함
 // PersistGate : 리덕스 스토어 상태 유지시킴
 import './firebase-messaging-sw'; // firebase 설정 임포트
@@ -27,9 +26,7 @@ if ('serviceWorker' in navigator) {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-  <RecoilRoot>
 <App/>
-    </RecoilRoot>
   </BrowserRouter>
 
 );

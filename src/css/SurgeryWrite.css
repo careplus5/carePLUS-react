@@ -2,9 +2,8 @@
 #surInfoBox{
     position: absolute;
     background-color: #FFFDF8;
-    margin-left: 20px;
-    margin-top: -50px;
-    width: 1110px;
+    margin-top: -70px;
+    width: 1105px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     max-width: 100%;
@@ -39,8 +38,7 @@
     height: 227px;
     float: right;
     background-color: #FFFDF8;
-    margin-right: -40px;
-    margin-top: -50px;
+    margin-top: -70px;
     width: 460px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -55,8 +53,7 @@
 #surWriteBox{
     position: absolute;
     background-color: #FFFDF8;
-    margin-left: 20px;
-    margin-top: 198px;
+    margin-top: 180px;
     width: 1595px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;

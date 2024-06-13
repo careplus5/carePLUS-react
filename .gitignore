@@ -1,26 +1,19 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+# /node_modules
+# /.pnp
+# .pnp.js
 /node_modules
 /.pnp
 .pnp.js
 
 # testing
 /coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+node_modules/
 
 # caching
 /node_modules/.cache
@@ -28,16 +21,11 @@ node_modules/.cache/.eslintcache
 
 # specific cache files
 node_modules/.cache/default-development/10.pack
-node_modules/.cache/default-development/8.pack
- node_modules/.cache/.eslintcache
-        node_modules/.cache/default-development/14.pack
-        node_modules/.cache/default-development/15.pack
-        node_modules/.cache/default-development/16.pack
-        node_modules/.cache/default-development/17.pack
-        node_modules/.cache/default-development/19.pack
-        node_modules/.cache/default-development/20.pack
-        node_modules/.cache/default-development/21.pack
-        node_modules/.cache/default-development/22.pack
-        node_modules/.cache/default-development/24.pack
 *.pack
-node_modules
+*.pack
+node_modules/.cache/default-development/8.pack
+node_modules/.cache/.eslintcache
+/node_modules/.cache
+/node_modules
+.DS_Store
+*.pack

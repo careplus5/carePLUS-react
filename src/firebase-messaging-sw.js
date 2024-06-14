@@ -16,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-export function requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm) {
+export function requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm, setUnread) {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       getToken(messaging, { vapidKey: 'BGxB48zcSFA5fD27n2JUx3fZMlVqItwZaJSSgezYgZ-tr3Ix5rp2HF1MaTi4eRe7558Y_mdahYFVdvvm7kiSS_Y' })
@@ -53,7 +53,12 @@ export function requestPermission(setFcmToken, notifications, setNotifications, 
       content: notificationOptions.body
     };
 
-    setNotifications([...notifications, newNotification]);
+    // setNotifications([...notifications, newNotification]);
+    setNotifications((prevNotifications) => {
+      const updatedNotifications = [...prevNotifications, newNotification];
+      setUnread(updatedNotifications.filter(notification => !notification.isCheck).length);
+      return updatedNotifications;
+    });
 
     if (alarmSendFlag == 'true') {
       setNewAlarm(newNotification);

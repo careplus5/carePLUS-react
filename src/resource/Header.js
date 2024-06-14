@@ -13,6 +13,7 @@ import SurgeryPatient from './SurgeryPatient.js';
 import NurDailyPrescription from './NurDailyPrescription.js';
 import Adm from './Adm.js';
 import NurPatientInfo from './NurPatientInfo.js';
+import Admin from './Admin.js';
 
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
@@ -73,7 +74,9 @@ const Header = () => {
             ]);
         }
         else if(iden=="99"){
-            setMenuItems([''])
+            setMenuItems([
+                { to: "admin", label: "메인"}
+            ])
         };
         console.log("header redirect");
     
@@ -123,6 +126,7 @@ const Header = () => {
                     <Route path="/MetMain" element={<MetMain/>}/>
                     <Route path="/adm" element={<Adm/>}/>
                     <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
+                    <Route path="/admin" element={<Admin/>}/>
                     {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}

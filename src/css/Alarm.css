@@ -18,10 +18,12 @@
 }
 
 .newNotice-img {
+    padding-top: 5px;
+    padding-left: 5px;
     flex: 2; /* 이미지 영역이 1:1 비율로 설정 */
     float: left;
     margin-right: 10px; /* 이미지와 내용 사이 간격 */
-    margin-bottom: 100%;
+    /* margin-bottom: 100%; */
 }
 
 .newNotice-img img {
@@ -29,11 +31,26 @@
     height: 30px;
 }
 
-.newNotice-content {
-    flex: 4; /* 내용 영역이 3:1 비율로 설정 */
+/* .newNotice-content {
+    flex: 4; 
     font-size: 18px;
     text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    font-weight: bold;
+    color: black;
+    max-height: 85px;
+    max-width: 250px;
+} */
+
+.newNotice-content {
+    flex: 4; /* 내용 영역이 3:1 비율로 설정 */
+    font-size: 18px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* 최대 줄 수를 설정 */
     font-weight: bold;
     color: black;
     max-height: 85px;

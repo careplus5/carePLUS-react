@@ -18,14 +18,15 @@ const AlarmIcon = ({}) => {
     const accessToken = useAtomValue(accessTokenAtom)
     const [showNotification, setShowNotification] = useState(false);
     const [showOption, setShowOption] = useState(false);
+    const [unread, setUnread] = useState(notifications.length);
 
     const viewRealAlarm = () => {
-        setShowNotification(true);
+        setShowNotification(false);
         const timer = setTimeout(() => {
-            setShowNotification(false);
+            setShowNotification(true);
         }, 3000);
     }
-    requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm);
+    requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm, setUnread);
 
 
     useEffect(() => {
@@ -41,6 +42,7 @@ const AlarmIcon = ({}) => {
                 })
                 .then(res2 => {
                     setNotifications(res2.data);
+                    setUnread(res2.data.length);
                 })
                 .catch(err => {
                     console.log(err);
@@ -59,19 +61,43 @@ const AlarmIcon = ({}) => {
         setShowOption(false);
     };
 
+    // const updatedNotifications = notifications.map(notification =>
+    //     notification.alarmNum === alarmNum
+    //         ? { ...notification, isCheck: true }
+    //         : notification
+    // );
+
+    // const handleNotificationClick = (alarmNum) => {
+    //     //알람을 클릭했을때 체크 되었다는 확인
+    //     axios.post(`${url}/checkAlarm`, { alarmNum: alarmNum })
+    //         .then(res => {
+    //             console.log(res.data);
+
+    //             SetUnread(updatedNotifications.filter(notification => !notification.isCheck).length);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         });
+    //     // }
+    // };
+
     const handleNotificationClick = (alarmNum) => {
-        //알람을 클릭했을때 체크 되었다는 확인
+        const updatedNotifications = notifications.map(notification =>
+            notification.alarmNum === alarmNum
+                ? { ...notification, isCheck: true }
+                : notification
+        );
+        
+        setNotifications(updatedNotifications);
+
         axios.post(`${url}/checkAlarm`, { alarmNum: alarmNum })
             .then(res => {
                 console.log(res.data);
-                //알림 갯수 count를 빼주는 함수
-                setNotifications(notifications.filter(item => item.alarmNum != alarmNum));
-                const unread = notifications.filter(notification => !notification.isCheck).length;
+                setUnread(updatedNotifications.filter(notification => !notification.isCheck).length);
             })
             .catch(err => {
                 console.log(err);
             });
-        // }
     };
 
     {/* 알림 모달 함수 */ }
@@ -87,8 +113,8 @@ const AlarmIcon = ({}) => {
         <>
             <div className="alarm-container" onClick={notificationModal}>
                 <img className="alarmbell" src="img/alaram.png" alt="Alarm Bell" />
-                {!isModalOpen && notifications.length > 0 && ( // 변경된 상태 사용
-                    <div className="notification-count">{notifications.length}</div>
+                {!isModalOpen && unread > 0 && ( // 변경된 상태 사용
+                    <div className="notification-count">{unread}</div>
                 )}
             </div>
             {/* 알림 모달 List 코드 */}
@@ -102,12 +128,14 @@ const AlarmIcon = ({}) => {
                         <div className='12' style={{ overflowY: 'scroll', maxHeight: '300px' }}>
                             {notifications.map((notification, index) => (
                                 <div key={notification.alarmNum} className="notificationItem" onMouseEnter={() => setIsButtonVisibleIndex(notification.alarmNum)} onMouseLeave={() => setIsButtonVisibleIndex(null)}>
-                                    <div className="redDot"></div>
+                                    
                                     {!notification.isCheck ?
-                                        <div className="alarmContent" onClick={() => handleNotificationClick(notification.alarmNum)}>{notification.content}</div> :
-                                        <div className="alarmCheckContent">{notification.content}</div>}
-                                    <div className="alarmButtons" style={{ visibility: isButtonVisibleIndex === index ? 'visible' : 'hidden' }}>
-                                    </div>
+                                        <><div className="redDot"></div>
+                                        <div className="alarmContent" onClick={() => handleNotificationClick(notification.alarmNum)}>{notification.content}</div></> :
+                                        <><div className='redDotOff'></div>
+                                        <div className="alarmCheckContent">{notification.content}</div></>}
+                                     <div className="alarmButtons" style={{ visibility: isButtonVisibleIndex === index ? 'visible' : 'hidden' }}>
+                                     </div>
                                 </div>
                             ))}
                         </div>

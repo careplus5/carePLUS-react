@@ -1,0 +1,80 @@
+.alarm-option-container{
+    padding: 10px;
+    position: fixed;
+    right: 10px;
+    top: 50px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin-right: 360px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px 1px lightgray;
+    margin-top: 10px;
+    width: 300px;
+    background-color: #FFFDF8;
+    height: auto;
+    z-index: 10001; /* 모달보다 더 위에 위치 */
+}
+
+.alarm-option-unit {
+    display: flex; /* Flexbox를 사용하여 내부 요소들을 가로로 배치 */
+    align-items: center; /* 요소들을 수직 중앙 정렬 */
+    justify-content: space-between; /* 요소들을 양쪽 끝으로 배치 */
+    margin-bottom: 10px;
+}
+
+.alarm-option-content {
+    margin-left: 5px;
+    margin-right: 10px; /* 텍스트와 버튼 사이의 간격 설정 */
+}
+
+/* 기본 스타일 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px; /* 기본 너비의 0.7배 (반올림) */
+    height: 24px; /* 기본 높이의 0.7배 (반올림) */
+    margin-right: 5px;
+
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A8B7BF; /* 꺼져있을 때 색상 */
+    transition: 0.4s;
+    border-radius: 24px; /* 높이의 절반으로 설정 */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; /* 기본 높이의 0.7배 (반올림) */
+    width: 18px; /* 기본 너비의 0.7배 (반올림) */
+    left: 3px; /* 이동 거리를 조정하여 기본 크기에 맞게 설정 */
+    bottom: 3px; /* 이동 거리를 조정하여 기본 크기에 맞게 설정 */
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #3AABEA; /* 켜져있을 때 색상 */
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px); /* 기본 크기에 맞게 이동 거리 조정 */
+}
+
+

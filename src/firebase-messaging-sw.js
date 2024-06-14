@@ -1,5 +1,6 @@
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { initializeApp } from 'firebase/app';
+import axios from 'axios';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFWVrrfzNy6j5Fkz-wfc5V7_i46BoB1gI",
@@ -15,13 +16,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-export function requestPermission(setFcmToken, notifications, setNotifications) {
+export function requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm) {
   Notification.requestPermission().then((permission) => {
-    console.log('Notification permission status:', permission);
     if (permission === 'granted') {
       getToken(messaging, { vapidKey: 'BGxB48zcSFA5fD27n2JUx3fZMlVqItwZaJSSgezYgZ-tr3Ix5rp2HF1MaTi4eRe7558Y_mdahYFVdvvm7kiSS_Y' })
         .then((token) => {
-          console.log('FCM Token:', token);
           setFcmToken(token);
         })
         .catch((err) => {
@@ -43,11 +42,22 @@ export function requestPermission(setFcmToken, notifications, setNotifications) 
       new Notification(notificationTitle, notificationOptions);
     }
 
-    // Ensure content is a string
+    const [alarmNum, alarmCategory, alarmSendFlag] = notificationTitle.split(',');
+
+    console.log(notificationTitle);
+
     const newNotification = {
-      alarmNum: +notificationTitle,
+      alarmNum: +alarmNum,
+      alarmCategory,
+      alarmSendFlag,
       content: notificationOptions.body
     };
+
     setNotifications([...notifications, newNotification]);
+
+    if (alarmSendFlag == 'true') {
+      setNewAlarm(newNotification);
+      viewRealAlarm();
+  }
   });
 }

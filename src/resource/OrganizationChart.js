@@ -1,6 +1,5 @@
 import '../css/OrganizationChart.css';
 import Common from './Common';
-
 const OrganizationChart = () => {
     return (<>
         <div className="background">

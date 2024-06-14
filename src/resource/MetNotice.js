@@ -64,14 +64,14 @@ const MetNotice = () => {
                 </div>
             </div>
 
-            {/* CalendarMini 컴포넌트가 팝업으로 표시될 때 */}
-            {isPopupOpen && (
-                <Calendar isOpen={true}
-                onClose={handleClosePopup} 
-                onDateSelect={() => {}} />
+             {/* CalendarMini 컴포넌트가 팝업으로 표시될 때 */}
+             {isPopupOpen && (
+                 <Calendar isOpen={true}
+                 onClose={handleClosePopup} 
+                 onDateSelect={() => {}} />
             )}
-        </div>
-    );
-};
+         </div>
+     )
+ };
 
 export default MetNotice;

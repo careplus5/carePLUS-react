@@ -104,22 +104,22 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
 
                 const updateSurPatList = surPatList.map(item => {
                     if(item.surgeryNum === surgeryInfo.surgeryNum) {
-                        item.surgeryState = '완료';
+                        item.surgeryState = 'end';
                     }
                     return item;
                 })
 
                 updateSurPatList.sort((a, b) => {
-                    if (a.surgeryState === '수술중' && b.surgeryState !== '수술중') {
+                    if (a.surgeryState === 'ing' && b.surgeryState !== 'ing') {
                         return -1;
                     }
-                    if (a.surgeryState !== '수술중' && b.surgeryState === '수술중') {
+                    if (a.surgeryState !== 'ing' && b.surgeryState === 'ing') {
                         return 1;
                     }
-                    if (a.surgeryState === '완료' && b.surgeryState !== '완료') {
+                    if (a.surgeryState === 'end' && b.surgeryState !== 'end') {
                         return 1;
                     }
-                    if (a.surgeryState !== '완료' && b.surgeryState === '완료') {
+                    if (a.surgeryState !== 'end' && b.surgeryState === 'end') {
                         return -1;
                     }
                     return 0;
@@ -188,8 +188,8 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                         </div>
                     </div>
                     <div className='surInfoRow'>
-                        <div style={{width:'48%'}}>수술 기록 <input className='surRecordInputStyle' style={{width:'85%', height:'70px'}} name='surResult' value={surRecord.surResult} onChange={inputChange}/></div>
-                        <div style={{width:'48%'}}>특이사항 <input className='surRecordInputStyle' style={{width:'85%', height:'70px'}} name='surEtc' value={surRecord.surEtc} onChange={inputChange}/></div>
+                        <div style={{width:'48%', display:'flex'}}>수술 기록 <textarea className='surRecordInputStyle textareaStyle' style={{width:'85%', height:'70px'}} name='surResult' value={surRecord.surResult} onChange={inputChange}/></div>
+                        <div style={{width:'48%', display:'flex'}}>특이사항 <textarea className='surRecordInputStyle textareaStyle' style={{width:'85%', height:'70px'}} name='surEtc' value={surRecord.surEtc} onChange={inputChange}/></div>
                     </div>
                 </div>
                 <div>

@@ -1,7 +1,7 @@
 /* ---- 공통 ---- */
  html, body, #root {
   height:auto;
-  margin: 0;
+  margin-top: -40px;
   background-color: #FBF9F2;
 } 
  .background{

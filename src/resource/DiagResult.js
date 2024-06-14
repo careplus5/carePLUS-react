@@ -44,59 +44,95 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
     }
 
     const submitForm = () => {
-        const requestData = {
-            ...formData,
-            selectMedicine,
-            docNum: username, /* 로그인한 아이디 넣어줄 예정 */
-            patNum: diagDueInfo.patNum,
-            docDiagnosisNum:diagDueInfo.docDiagNum
+        /* 입력 안 한 항목들 alert 띄워주기 */
+        if(!selectDisease) {
+            alert('병명을 선택해주세요');
+            return;
+        }
+        if(formData.testChecked && (!formData.testType)) {
+            alert('검사 종류를 선택해주세요');
+            return;
+        }
+        if(formData.testChecked && (!formData.testRequest)) {
+            alert('검사 요청 내용을 입력해주세요');
+            return;
+        }
+        if (formData.admChecked && (!formData.admReason)) {
+            alert('입원 사유를 입력해주세요');
+            return;
+        }
+        if (formData.admChecked && (!formData.admPeriod)) {
+            alert('입원 기간을 입력해주세요');
+            return;
+        }
+        if (formData.surChecked && (!formData.surReason)) {
+            alert('수술 내용을 입력해주세요');
+            return;
+        }
+        if (formData.surChecked && (!formData.surDate)) {
+            alert('수술 희망 날짜를 입력해주세요');
+            return;
+        }
+        if (formData.surChecked && (!formData.surPeriod)) {
+            alert('예상 수술 시간을 입력해주세요');
+            return;
         }
 
-        axios.post(`${url}/diagnosisSubmit`, requestData)
-            .then(res=>{
-                alert(`${diagDueInfo.patName}(${diagDueInfo.patNum})환자 진료 완료`);
-                window.scrollTo(0, 0);
+        if(window.confirm(`${diagDueInfo.patName}(${diagDueInfo.patNum})환자 진료를 완료하시겠습니까?`)) {
+            const requestData = {
+                ...formData,
+                selectMedicine,
+                docNum: username,
+                patNum: diagDueInfo.patNum,
+                docDiagnosisNum:diagDueInfo.docDiagNum
+                }
                 
-                clearDiagDueInfo();
-                setSelectDisease('');
-                setFormData(
-                    {
-                        diseaseNum: '', diagContent: '', testChecked: false, testType: '', testRequest: '',
-                        admChecked: false, admReason: '', admPeriod: '', surChecked: false, surReason: '',
-                        surDate: '', surPeriod: '', toNurse: '', selectMedicine: []
-                    }
-                );
-                setSelectMedicine([]);
-
-                const updateDiagPatList = diagPatList.map(item => {
-                    if (item.docDiagNum === diagDueInfo.docDiagNum) {
-                        item.docDiagState = '완료';
-                    }
-                    return item;
-                })
-
-                updateDiagPatList.sort((a, b) => {
-                    if (a.docDiagState === '진료중' && b.docDiagState !== '진료중') {
-                        return -1;
-                    }
-                    if (a.docDiagState !== '진료중' && b.docDiagState === '진료중') {
-                        return 1;
-                    }
-                    if (a.docDiagState === '완료' && b.docDiagState !== '완료') {
-                        return 1;
-                    }
-                    if (a.docDiagState !== '완료' && b.docDiagState === '완료') {
-                        return -1;
-                    }
-                    return 0;
-                });
-
-                setDiagPatList([...updateDiagPatList]);
-    
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+                axios.post(`${url}/diagnosisSubmit`, requestData)
+                    .then(res=>{
+                        alert(`${diagDueInfo.patName}(${diagDueInfo.patNum})환자 진료 완료`);
+                        window.scrollTo(0, 0);
+                        
+                        clearDiagDueInfo();
+                        setSelectDisease('');
+                        setFormData(
+                            {
+                                diseaseNum: '', diagContent: '', testChecked: false, testType: '', testRequest: '',
+                                admChecked: false, admReason: '', admPeriod: '', surChecked: false, surReason: '',
+                                surDate: '', surPeriod: '', toNurse: '', selectMedicine: []
+                            }
+                        );
+                        setSelectMedicine([]);
+        
+                        const updateDiagPatList = diagPatList.map(item => {
+                            if (item.docDiagNum === diagDueInfo.docDiagNum) {
+                                item.docDiagState = 'end';
+                            }
+                            return item;
+                        })
+        
+                        updateDiagPatList.sort((a, b) => {
+                            if (a.docDiagState === 'ing' && b.docDiagState !== 'ing') {
+                                return -1;
+                            }
+                            if (a.docDiagState !== 'ing' && b.docDiagState === 'ing') {
+                                return 1;
+                            }
+                            if (a.docDiagState === 'end' && b.docDiagState !== 'end') {
+                                return 1;
+                            }
+                            if (a.docDiagState !== 'end' && b.docDiagState === 'end') {
+                                return -1;
+                            }
+                            return 0;
+                        });
+        
+                        setDiagPatList([...updateDiagPatList]);
+            
+                    })
+                    .catch(err=>{
+                        console.log(err);
+                    })
+        }
     }
 
 

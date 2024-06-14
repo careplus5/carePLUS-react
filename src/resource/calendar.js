@@ -5,6 +5,9 @@ import useEventManager from './EventManager'; // useEventManager 훅 사용
 import '../css/Calendar.css';
 import '../css/EventManager.css';
 import axios from 'axios';
+import {url} from '../config';
+import { useAtomValue } from 'jotai';
+import {usernameAtom} from '../config/Atom';
 
 const Calendar = ({ isOpen, onClose, onDateSelect }) => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -13,13 +16,15 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
   const [mode, setMode] = useState('local'); // 'local' or 'db'
   const { events, addEvent, deleteEvent, editEvent } = useEventManager();
   const [dbEvents, setDbEvents] = useState({});
-  const userId = 1; // 예시로 사용할 사용자 ID
+  const userId = useAtomValue(usernameAtom);
 
   useEffect(() => {
     if (mode === 'db') {
+      
       const fetchEvents = async () => {
         try {
-          const response = await axios.get(`/events?userId=${userId}`);
+          const response = await axios.get(`${url}/schedules?userId=${userId}`);
+          console.log(response);
           const eventsByDate = response.data.reduce((acc, event) => {
             const dateKey = event.date;
             if (!acc[dateKey]) {
@@ -31,7 +36,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
           setDbEvents(eventsByDate);
         } catch (error) {
           console.error('Error fetching events', error);
-        }
+        } 
       };
       fetchEvents();
     }
@@ -96,7 +101,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
     const monthNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
-    calendar.push(<div key="" className='userInfo'>{` 어쩌구외과 userId:${userId}`}</div>)
+    calendar.push(<div key="" className='userInfo'>{` 어쩌구외과 ${userId}`}</div>)
     calendar.push(<div key="monthYear" className="monthYear">{`${year}년 ${monthNames[month]}월`}</div>);
 
     calendar.push(

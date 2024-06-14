@@ -46,6 +46,7 @@
 }
 .patList:hover{
     background-color: lightgray;
+    cursor:grab;
 }
 #keywordSort{
     color: #233FA3;

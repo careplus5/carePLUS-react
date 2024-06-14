@@ -17,6 +17,12 @@ const NurPatientList = () => {
     const setAdmissionPatient = useSetAtom(admAtom); // jotai의 useSetAtom 사용
     const navigate = useNavigate();
     const count = 1;
+    const [selectedState, setSelectedState] = useState('');
+    const [filteredAdmList, setFilteredAdmList] = useState([]);
+    const [keyword, setKeyword] = useState('');
+
+
+
     function patInfo(admission) {
         setAdmissionPatient(admission);
         console.log(admission);
@@ -24,6 +30,13 @@ const NurPatientList = () => {
         navigate(`/nurPatientInfo/${admission.admissionNum}`);
     }
 
+    const statusChange = (e) =>{
+        setSelectedState(e.target.value);
+    }
+
+    const keyChange = (e) =>{
+        setKeyword(e.target.value);
+    }
 
     const [admission, setAdmission] = useState({
         admissionNum: '',
@@ -40,7 +53,7 @@ const NurPatientList = () => {
         bedsNum:'',
         admissionDischargeDueDate:'',
         admissionDischargeDate:'',
-        admissionState:'',
+        admissionStatus:'',
     })
     useEffect(()=>{
         console.log("nurPatientList redirect");
@@ -54,19 +67,6 @@ const NurPatientList = () => {
             console.log("react's token: "+accessToken);
             // setAdmList([...JSON.stringify(response.data)]);
             const data = response.data[0];
-            // setAdmission({
-            //     admissionNum: data.admission.admissionNum,
-            //     patName:data.patName,
-            //     patNum: data.admission.patNum,
-            //     admissionDueDate: data.admission.admissionDueDate,
-            //     admissionDate: data.admission.admissionDate,
-            //     docDepartmentName: data.docDepartment,
-            //     docName: data.docName,
-            //     bedsNum: data.admission.bedsNum,
-            //     admissionDischargeDueDate: data.admission.admissionDischargeDueDate,
-            //     admissionDischargeDate: data.admission.admissionDischargeDate,
-            //     admissionState: data.admission.admissionStatus,
-            // });
             const mappedData = response.data.map(data=>({
                 admissionNum: data.admission.admissionNum,
                 patName:data.patName,
@@ -82,9 +82,10 @@ const NurPatientList = () => {
                 bedsNum: data.admission.bedsNum,
                 admissionDischargeDueDate: data.admission.admissionDischargeDueDate,
                 admissionDischargeDate: data.admission.admissionDischargeDate,
-                admissionState: data.admission.admissionStatus,
+                admissionStatus: data.admission.admissionStatus,
             }));
             setAdmList(mappedData);
+            setFilteredAdmList(admList);
             setFetched(true);
         })
         .catch(err => {
@@ -96,7 +97,13 @@ const NurPatientList = () => {
     },[count]);
     // jotai 
     // 토큰 세션스토리지에 넣으렴 .
-    
+    useEffect(() => {
+        if (selectedState === '') {
+            setFilteredAdmList(admList);
+        } else {
+            setFilteredAdmList(admList.filter(admission => admission.admissionStatus === selectedState));
+        }
+    }, [selectedState, admList]);
     
     return (
         <>
@@ -111,24 +118,24 @@ const NurPatientList = () => {
                 </h3>
                 </div>
                 <div className="searchLine">
-                    <select id="status"> 
-                        <option> 상태 </option>
-                        <option id="wait"> 대기 중 </option>
-                        <option id="ing"> 입원 중 </option>
-                        <option id="exit"> 퇴원 </option>
+                    <select id="status" onChange={statusChange}> 
+                        <option value=""> 상태 </option>
+                        <option id="admissionStatus" value="wait"> 대기 중 </option>
+                        <option id="admissionStatus" value="ing"> 입원 중 </option>
+                        <option id="admissionStatus" value="end"> 퇴원 </option>
                     </select>
                     <div className="searchbar">
-                    <select id="keywordSort">
+                    <select id="keywordSort" onChange={keyChange}>
                     <option>구분</option>
-                        <option>입원 번호</option>
-                        <option>환자 번호</option>
-                        <option>환자 이름(성별/나이)</option>
-                        <option>입원 예정일</option>
-                        <option>입원일</option>
-                        <option>담당과</option>
-                        <option>주치의</option>
-                        <option>퇴원 예정일</option>
-                        <option>퇴원일</option>
+                        <option value="admissionNum">입원 번호</option>
+                        <option value="patNum">환자 번호</option>
+                        <option value="patName">환자 이름(성별/나이)</option>
+                        <option value="admissionDueDate">입원 예정일</option>
+                        <option value="admissionDate">입원일</option>
+                        <option value="docDepartmentName">담당과</option>
+                        <option value="docName">주치의</option>
+                        <option value="admissionDischargeDueDate">퇴원 예정일</option>
+                        <option value="admissionDischargeDate">퇴원일</option>
 
                         </select>&nbsp;|<input type="text"  id="keyword" placeholder=' 검색...'/>
                         <label id="searchButton" htmlFor="searchButton1"><button id="searchButton1"> </button></label>            
@@ -155,7 +162,7 @@ const NurPatientList = () => {
                     <tbody>
                     <tr id="line"> 
                     </tr><br/>
-                    {admList.map(admission =>(
+                    {filteredAdmList.map(admission =>(
                                 <tr className="patList" key={admission.admNum} 
                                 onClick={()=>patInfo(admission)}>
 
@@ -169,7 +176,7 @@ const NurPatientList = () => {
                         <td>{admission.bedsNum}</td>
                         <td>{admission.admissionDischargeDueDate}</td>
                         <td>{admission.admissionDischargeDate}</td>
-                        <td>{admission.admissionState}</td>
+                        <td>{admission.admissionStatus}</td>
                     </tr>))}
                     </tbody>
                 </table>

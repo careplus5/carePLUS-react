@@ -7,6 +7,7 @@ import NurPatientList from './NurPatientList';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, usernameAtom} from '../config/Atom.js';
 import { useState,useEffect } from 'react';
+// import Alarm from './Alarm.js';
 const Common = ({loggedInUsername}) => {
   const username = useAtomValue(usernameAtom);
   function findMenu(e){
@@ -36,7 +37,6 @@ const Common = ({loggedInUsername}) => {
        
         <Sidebar />
       </>
-  
   </div>
   );
 }

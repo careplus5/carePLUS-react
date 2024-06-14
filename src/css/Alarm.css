@@ -1,0 +1,41 @@
+.latest-notification{
+    cursor: pointer;
+    position:fixed;
+    right: 10px;
+    top: 50px;
+    display:flex;
+    float:right;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin-right: 360px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px 1px lightgray;
+    margin-top:10px;
+    width: 300px;
+    background-color: #FFFDF8;
+    height: 100px;
+}
+
+.newNotice-img {
+    flex: 2; /* 이미지 영역이 1:1 비율로 설정 */
+    float: left;
+    margin-right: 10px; /* 이미지와 내용 사이 간격 */
+    margin-bottom: 100%;
+}
+
+.newNotice-img img {
+    width: 30px;
+    height: 30px;
+}
+
+.newNotice-content {
+    flex: 4; /* 내용 영역이 3:1 비율로 설정 */
+    font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+    color: black;
+    max-height: 85px;
+    max-width: 250px;
+}

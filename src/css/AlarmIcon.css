@@ -3,6 +3,8 @@
     margin-right: 30px;
     position: relative;
     display: inline-block; /* 필요한 경우 위치 설정 */
+ 
+   
 }
 
 .alarmbell {
@@ -37,13 +39,17 @@
     display: flex;
     align-items: right;
     justify-content: flex-end; /* 우측으로 정렬 */
+    z-index: 10000;
   }
 
   .modalEventContent {
     overflow: hidden;
     margin-top: 60px;
     background: #FFFDF8;
-    padding: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
     max-width: 350px;
     width: 100%;
     height: 350px;
@@ -52,14 +58,28 @@
     
   }
   
-  .closeBtn {
+  .alarm-option{
+    margin-bottom: 40px;
+    margin-left: -20px;
+    margin-top: -5px;
+    
+  }
+  
+  .optionBtn{
+    background-color: transparent;
     position: absolute;
     top: 10px;
+  }
+
+  .closeBtn {
+    color: black;
+    position: absolute;
     right: 10px;
     font-size: 24px;
     background: none;
     border: none;
     cursor: pointer;
+    margin-top: -10px;
   }
 
   .alarmStatus{
@@ -69,6 +89,7 @@
   .notificationItem {
     /* border-top: 1px solid lightgray; */
     border-bottom: 1px solid lightgray;
+    color: #FFFDF8;
     padding: 10px 0; /* 상하 10px 여백 */
     display: flex; /* 플렉스 박스로 설정하여 내부 아이템들을 가로 정렬 */
     align-items: center; /* 수직 가운데 정렬 */

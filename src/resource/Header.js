@@ -72,6 +72,9 @@ const Header = () => {
                 { to: "/metMain", label: "메인" }
             ]);
         }
+        else if(iden=="99"){
+            setMenuItems([''])
+        };
         console.log("header redirect");
     
     },[username])

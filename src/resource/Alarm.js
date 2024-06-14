@@ -1,16 +1,15 @@
-import React from 'react';
-import { requestPermission } from '../firebase-messaging-sw';
+import '../css/Alarm.css';
 
-const Alarm = ({ notifications, setNotifications }) => {
-    requestPermission(setNotifications);
+const Alarm = ({ alarm }) => {
 
     return (
         <>
-            {notifications.length > 0 && (
-                <div className="latest-notification">
-                    <p>{notifications[notifications.length - 1].content}</p>
+            <div className='newNotice-container'>
+                <div className='newNotice-img'>
+                    <img src='/img/notification.png' alt='알림 사진'/>
                 </div>
-            )}
+                <div className='newNotice-content'>{alarm.content}</div>
+            </div>
         </>
     );
 };

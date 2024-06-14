@@ -11,9 +11,8 @@
 /* 박스 스타일 */
 #diagRecordBox{
     background-color: #FFFDF8;
-    margin-left: 20px;
     margin-top: 20px;
-    width: 470px;
+    width: 490px;
     /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -24,7 +23,7 @@
     background-color: #FFFDF8;
     margin-left: 20px;
     margin-top: 20px;
-    width: 700px;
+    width: 730px;
     /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -36,7 +35,7 @@
     margin-right: -20px;
     margin-left: 20px;
     margin-top: 20px;
-    width: 300px;
+    width: 330px;
     /* height: 250px; */
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
@@ -46,9 +45,8 @@
 #prescriptionBox{
     position: absolute;
     background-color: #FFFDF8;
-    margin-left: 20px;
     margin-top: 20px;
-    width: 1595px;
+    width: 1590px;
     border-radius: 10px;
     box-shadow: 2px 1px 3px 1px lightgray;
     padding: 5px;

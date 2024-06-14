@@ -30,7 +30,7 @@ const username = useAtom(usernameAtom);
  const handleLoginSuccess = () => {
   if(username){
     setIsLoggedIn(true);
-    navigate("/organ");
+    // navigate("/organ");
   }
  
  }

@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PrescModal from './PrescModal';
 
-const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}) => {
+const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}) => {
     
     const [disModalIsOpen, setDisModalIsOpen] = useState(false);
     const [diseaseList, setDiseaseList] = useState([]);
@@ -47,13 +47,11 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
         const requestData = {
             ...formData,
             selectMedicine,
-            docNum: 1116031201, /* 로그인한 아이디 넣어줄 예정 */
+            docNum: username, /* 로그인한 아이디 넣어줄 예정 */
             patNum: diagDueInfo.patNum,
             docDiagnosisNum:diagDueInfo.docDiagNum
         }
 
-        console.log("requestData" + JSON.stringify(requestData));
-        
         axios.post(`${url}/diagnosisSubmit`, requestData)
             .then(res=>{
                 alert(`${diagDueInfo.patName}(${diagDueInfo.patNum})환자 진료 완료`);
@@ -113,7 +111,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
     }
 
     useEffect(()=>{
-        axios.get(`${url}/diseaseList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diseaseList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 setDiseaseList([...res.data]);
             })
@@ -135,7 +133,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
 
     useEffect(()=>{
         searchMedicine();
-        axios.get(`${url}/favMedicineList?docNum=1116031201`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/favMedicineList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
         .then(res=>{
             setFavMedicineList([...res.data]);
         })
@@ -195,7 +193,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
     }
 
     const addFavMedicine = (medicineNum) => {
-        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:1116031201, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
+        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:username, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 if (res.data === true) {
                     let tmedicine = medicineList.find(med => med.medicineNum === medicineNum);
@@ -291,7 +289,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                                 </div>
                             </div>
                             <div id="testRequest">
-                                <textarea className='addDiagTextareaStyle' style={{height:"90px"}} placeholder="요청사항" name='testRequest' value={formData.testRequest} onChange={inputChange}/>
+                                <textarea className='addDiagTextareaStyle' style={{height:"90px"}} placeholder="검사 요청 내용" name='testRequest' value={formData.testRequest} onChange={inputChange}/>
                             </div>
                         </div>
                         <div id='adminssionCheck'>
@@ -300,7 +298,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                                 <label htmlFor="adminssion">&nbsp;&nbsp;입원</label>
                             </div>
                             <div className="adminssionRequest">
-                                <textarea className='addDiagTextareaStyle' style={{height:"80px"}} placeholder="입원사유" name='admReason' value={formData.admReason} onChange={inputChange}/>
+                                <textarea className='addDiagTextareaStyle' style={{height:"80px"}} placeholder="입원 사유" name='admReason' value={formData.admReason} onChange={inputChange}/>
                             </div>
                             <div className="adminssionRequest">
                                 <input type='text' className='inputBoxStyle' style={{marginTop:"10px"}} placeholder="입원 기간" name='admPeriod' value={formData.admPeriod} onChange={inputChange}/>
@@ -312,7 +310,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                                 <label htmlFor="surgery">&nbsp;&nbsp;수술</label>
                             </div>
                             <div className="surgeryRequest">
-                                <textarea className='addDiagTextareaStyle' style={{height:"45px", width:"185px"}} placeholder="수술사유" name='surReason' value={formData.surReason} onChange={inputChange}/>
+                                <textarea className='addDiagTextareaStyle' style={{height:"45px", width:"185px"}} placeholder="수술내용" name='surReason' value={formData.surReason} onChange={inputChange}/>
                             </div>
                             <div className="surgeryRequest">
                             <label htmlFor="surgeryDate">희망날짜</label>
@@ -335,7 +333,7 @@ const DiagResult = ({diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}
                 </div>
             </div>
             <div id="fourthBox" >
-                <div id="prescriptionBox"  style={{width:"1510px"}}>
+                <div id="prescriptionBox">
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;처방</h3>

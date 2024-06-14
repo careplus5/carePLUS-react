@@ -65,7 +65,7 @@ const Header = () => {
             ]);
         } else if(iden=="13"){
             setMenuItems([
-                { to: "/adm", label: "원무과 업무" },
+                { to: "/Adm", label: "원무과 업무" },
                 { to: "/wardPatientList", label: "예약 메시지" },
             ]);
         }

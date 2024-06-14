@@ -12,8 +12,8 @@ import NurDisAdmModal from './resource/NurDisAdmModal';
 import NurWardList from './resource/NurWardList';
 import OrganizationChart from './resource/OrganizationChart';
 import { RecoilRoot } from 'recoil';
-import React, {useState} from 'react';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Common from './resource/Common';
 import OpenCalendar from './resource/OpenCalendar';
 import SurgeryPatient from './resource/SurgeryPatient';
@@ -22,22 +22,23 @@ import { useAtom } from 'jotai';
 
 
 function App() {
-const navigate = useNavigate();
-const [loggedInUsername, setLoggedInUsername] = useState('');
-const [isLoggedIn, setIsLoggedIn] = useState(false);
-const username = useAtom(usernameAtom);
+  const navigate = useNavigate();
+  const [loggedInUsername, setLoggedInUsername] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const username = useAtom(usernameAtom);
 
- const handleLoginSuccess = () => {
-  if(username){
-    setIsLoggedIn(true);
-    // navigate("/organ");
+  const handleLoginSuccess = () => {
+    if (username) {
+      setIsLoggedIn(true);
+      navigate("/organ");
+    }
+
   }
- 
- }
-  
-  return(
-  
-<>      {/* <Routes>
+
+  return (
+    <RecoilRoot>
+
+      {/* <Routes>
         <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
         <Route 
           path="/*" 
@@ -49,14 +50,14 @@ const username = useAtom(usernameAtom);
         <Sidebar/>
       </d
       iv> */}
-     
- <Routes>
- <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-<Route path="/*" element={ <Common loggedInUsername={loggedInUsername}/>}/>
-                  </Routes>
-                  </>
 
- );
+      <Routes>
+        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+        <Route path="/*" element={<Common loggedInUsername={loggedInUsername} />} />
+      </Routes>
+
+    </RecoilRoot>
+  );
 }
 
 export default App;

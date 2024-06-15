@@ -19,6 +19,7 @@ import OpenCalendar from './resource/OpenCalendar';
 import SurgeryPatient from './resource/SurgeryPatient';
 import { usernameAtom } from './config/Atom';
 import { useAtom } from 'jotai';
+import Adm from './resource/Adm';
 
 
 function App() {
@@ -56,8 +57,8 @@ function App() {
         <Route path="/*" element={<Common loggedInUsername={loggedInUsername} />} />
       </Routes>
 
-    </RecoilRoot>
-  );
+</RecoilRoot>
+ );
 }
 
 export default App;

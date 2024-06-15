@@ -1,70 +1,119 @@
-import '../css/NurPatientList.css';
+import { useState, useEffect } from 'react';
+// 스크롤 관련 (npm-install-scroll-component)
+import InfiniteScroll from 'react-infinite-scroll-component';
+import axios from 'axios';
+import AmdPatientStorage from './AdmPatientStorage';  // 기타문서
+import AmdPatientSurgeryDue from './AdmPatientSurgeryDue';  // 수술 
+import AdmPatientAdmmission from './AdmPatientAdmmission';  // 입원
+import AmdPatientDischarge from './AdmPatientDischarge';  // 청구서
+import AmdPatientPrescription from './AdmPatientPrescription';  // 처방전 발급
+import AdmDiagnosisDue from './AdmDiagnosisDue'; // 진료 예약 ?
+import AmdPatientTest from './AdmPatientTest';  // 검사
+
 const AdmPatientInfo = () => {
-    // 기능 1. 상태에서 환자를 누르면 환자 상세 페이지로 넘어감
-    // 기능 2. 상태를 고르면 해당 상태인 환자만 조회됨
-    // 기능 3. 구분에서 키워드 종류를 고르고 검색하면 그 키워드를 갖고 있는 환자만 조회됨 
-    
+    const [type, setType] = useState('');
+    const [keyword, setKeyword] = useState('');
+
+    const [patient, setPatient] = useState([]);
+    const [selPatient, setSelPatient] = useState(null);
+    const [menuIdx, setMenuIdx] = useState(0);
+
+    // 환자 리스트 보기 + 스크롤
+    useEffect(() => {
+
+    }, [])
+
+    const queryList = () => {
+        if (type.trim() === '' || keyword.trim() === '') {
+            alert('검색조건을 입력하세요');
+            return;
+        }
+        axios.post('http://localhost:8090/patientSearch', { type: type, keyword: keyword })
+            .then(res => {
+                setPatient([...res.data]);
+            })
+            .catch(err => {
+                alert("환자 조회 에러");
+            });
+    }
+
     return (
-            <div id="LbLaccordionBox" style={{backgroundColor:"white"}}>
-            <br/>
-                <div className="LboxHeader">
-                <img id="boxIcon" style={{marginTop:"15px", marginLeft:"15px"}} src="./img/notice.png"/>
-                <h3 id="boxHeader">환자 목록
-                </h3>
+        <div id="background" >
+            <div id="AdmLbox">
+                <br />
+                <div>
+                    <img id="boxIcon" style={{ marginTop: "5px", marginLeft: "40px", height:'40px' }} src="./img/notice.png" />
+                    <h3 id="LboxHeader">환자 목록
+                    </h3>
                 </div>
                 <div className="searchLine">
-                    <select id="status"> 
-                        <option> 상태 </option>
-                        <option id="wait"> 대기 중 </option>
-                        <option id="ing"> 완료 </option>
+                    <select id="admPatientSearchKeywordSort" name="type" onChange={(e) => setType(e.target.value)}>
+                        <option>구분</option>
+                        <option value={"patNum"}>환자 번호</option>
+                        <option value={"patName"}>환자 이름</option>
+                        <option value={"patJumin"}>주민등록번호</option>
                     </select>
-                    <div className="searchbar">
-                    <select id="keywordSort">
-                    <option>구분</option>
-                        <option>진료 번호</option>
-                        <option>환자 번호</option>
-                        <option>환자 이름(성별/나이)</option>
-                        <option>진료일</option>
-                        <option>담당과</option>
-                        <option>담당 의사</option>
-                        <option>진료실</option>
-                        <option>상태</option>
-                        </select>&nbsp;|<input type="text"  id="keyword" placeholder=' 검색...'/>
-                        <label id="searchButton" for="searchButton1"><button id="searchButton1"> </button></label>            
-                    </div>
-         
+                    &nbsp;|&nbsp;
+                    <input type="text" placeholder=' 검색...' style={{ padding: "10px", border: "none", width: '300px', borderRadius: '10px' }} name='keyword' onChange={(e) => setKeyword(e.target.value)} />
+                    <button style={{ backgroundColor: 'transparent', marginLeft: "-35px", padding: "10px", border: "none", width: "30px", height: "30px", backgroundImage: "url('/img/search.png')" }} onClick={queryList} />
                 </div>
-                <br/>
-                <br/>
-                <br/><br/>
-                <table className="admList" borderless>
-                    <tr>
-                        <th>진료 번호</th>
-                        <th>환자 번호</th>
-                        <th>환자 이름(성별/나이)</th>
-                        <th>진료일</th>
-                        <th>담당과</th>
-                        <th>담당의</th>
-                        <th>진료실</th>
-                        <th>상태</th>
-                        <th>진료</th>
-                    </tr>
-                    <tr id="line"> 
-                    </tr><br/>
-                    <tr>
-                        <td>100401041</td>
-                        <td>012491211</td>
-                        <td>김동현 (남/11)</td>
-                        <td>24-04-08</td>
-                        <td>내과</td>
-                        <td>김진솔</td>
-                        <td>101호</td>
-                        <td>대기중</td>
-                        <td><button style={{backgroundColor:"#B9EDE7", color:"black"}}id="buttonStyle">진료</button></td>
+                <br />
+                <br />
+                <br /><br />
 
-                    </tr>
+                {/* <div className='pat-scroll'> */}
+                <table className="admPatientList" style={{ width: '100%', tableLayout: 'fixed', maxHeight: '200%', overflow: "scroll" }}>
+                    <thead >
+                        <tr style={{ position: 'sticky', height: '50px', top: 0, backgroundColor: '#FFFDF8', zIndex: 1, borderBottom: '1px solid black' }}>
+                            <th>환자 번호</th>
+                            <th>환자 이름</th>
+                            <th>환자 주민등록번호</th>
+                            <th>환자 성별</th>
+                            <th>환자 주소</th>
+                            <th>환자 혈액형</th>
+                            <th>환자 전화번호</th>
+                            <th>환자 몸무게</th>
+                            <th>환자 키</th>
+                            <th>환자 과거병력</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {patient.map((item) => (
+                            <tr key={item.patNum} style={{ height: "35px" }} onClick={() => setSelPatient(item)}>
+                                <td>{item.patNum}</td>
+                                <td>{item.patName}</td>
+                                <td>{item.patJumin}</td>
+                                <td>{item.patGender}</td>
+                                <td>{item.patAddress}</td>
+                                <td>{item.patBloodType}</td>
+                                <td>{item.patTel}</td>
+                                <td>{item.patWeight}</td>
+                                <td>{item.patHeight}</td>
+                                <td>{item.patHistory}</td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
+
+                <div style={{ marginTop: '350px' }}>
+                    <button className='admControllButton' onClick={() => setMenuIdx(1)}>진료예약</button>
+                    <button onClick={() => setMenuIdx(2)}>검사</button>
+                    <button onClick={() => setMenuIdx(3)}>입원</button>
+                    <button onClick={() => setMenuIdx(4)}>수술</button>
+                    <button onClick={() => setMenuIdx(5)}>처방전발급</button>
+                    <button onClick={() => setMenuIdx(6)}>기타문서발급</button>
+                    <button onClick={() => setMenuIdx(7)}>퇴원</button>
+                    <hr></hr>
                 </div>
+                {menuIdx === 1 && <AdmDiagnosisDue patient={selPatient} />}
+                {menuIdx === 2 && <AmdPatientTest patient={selPatient} />}
+                {menuIdx === 3 && <AdmPatientAdmmission patient={selPatient} />}
+                {menuIdx === 4 && <AmdPatientSurgeryDue patient={selPatient} />}
+                {menuIdx === 5 && <AmdPatientPrescription patient={selPatient} />}
+                {menuIdx === 6 && <AmdPatientStorage patient={selPatient} />}
+                {menuIdx === 7 && <AmdPatientDischarge patient={selPatient} />}
+            </div>
+        </div>
     );
 }
 export default AdmPatientInfo;

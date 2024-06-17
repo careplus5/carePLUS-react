@@ -9,7 +9,7 @@ import { url } from '../config';
 import { useAtomValue } from 'jotai';
 import { usernameAtom } from '../config/Atom';
 
-const Calendar = ({ isOpen, onClose, onDateSelect }) => {
+const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -35,7 +35,6 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
         try {
           const response = await axios.get(`${url}/schedules?userId=${userId}`);
           
-          
           const eventsByDate = response.data.reduce((acc, event) => {
             const dateKey = event.startDate;
             if (!acc[dateKey]) {
@@ -45,6 +44,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
               id: event.id,
               title: event.title,
               startTime: event.startTime,
+              eventType: event.eventType
             });
             console.log(acc);
             return acc;
@@ -89,20 +89,31 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
 
   const eventsIndicator = (dateKey) => {
     const eventList = mode === 'local' ? (events[dateKey] || []) : (dbEvents[dateKey] || []);
+    console.log(eventList)
     if (eventList.length === 1) {
-      return <div className="event">&nbsp;{eventList[0].title}&nbsp;</div>; // 객체의 속성을 사용하여 렌더링
+      return <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+                &nbsp;{eventList[0].title}&nbsp;
+            </div>; // 객체의 속성을 사용하여 렌더링
     } else if (eventList.length === 2) {
       return (
         <div>
-          <div className="event">&nbsp;{eventList[0].title}&nbsp;</div> {/* 객체의 속성을 사용하여 렌더링 */}
-          <div className="event">&nbsp;{eventList[1].title}&nbsp;</div> {/* 객체의 속성을 사용하여 렌더링 */}
+          <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+              &nbsp;{eventList[0].title}&nbsp;
+          </div> {/* 객체의 속성을 사용하여 렌더링 */}
+          <div className="event" style={{ backgroundColor: eventList[1].backgroundColor }}>
+              &nbsp;{eventList[1].title}&nbsp;
+          </div> {/* 객체의 속성을 사용하여 렌더링 */}
         </div>
       );
     } else if (eventList.length > 2) {
       return (
         <div>
-          <div className="event">&nbsp;{eventList[0].title}&nbsp;</div> {/* 객체의 속성을 사용하여 렌더링 */}
-          <div className='event'>그 외 {eventList.length - 1}건&nbsp;</div>
+          <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+              &nbsp;{eventList[0].title}&nbsp;
+          </div> {/* 객체의 속성을 사용하여 렌더링 */}
+          <div className='event' style={{ backgroundColor: eventList[1].backgroundColor }}>
+              그 외 {eventList.length - 1}건&nbsp;
+          </div>
         </div>
       );
     }
@@ -131,7 +142,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
 
     const prevMonthDaysToShow = firstDay;
     for (let i = prevMonthLastDay - prevMonthDaysToShow + 1; i <= prevMonthLastDay; i++) {
-      const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+      const dateKey = `${year}-${String(month).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
       const isCurrentDate = year === currentYear && month === currentMonth && i === currentDay;
       dateRow.push(
         <div key={`prevMonth-${i}`} className={`date prev-month ${isCurrentDate ? 'current-date' : ''}`} data-date={dateKey} onClick={() => {

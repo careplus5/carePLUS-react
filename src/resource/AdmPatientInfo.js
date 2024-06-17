@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 // 스크롤 관련 (npm-install-scroll-component)
-import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
 import AmdPatientStorage from './AdmPatientStorage';  // 기타문서
 import AmdPatientSurgeryDue from './AdmPatientSurgeryDue';  // 수술 

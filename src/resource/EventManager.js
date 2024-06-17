@@ -10,12 +10,12 @@ const useEventManager = () => {
     }
   }, []);
 
-  const addEvent = (date, eventTitle) => {
+  const addEvent = (date, eventTitle, eventColor) => {
     const newEvents = { ...events };
     if (!newEvents[date]) {
       newEvents[date] = [];
     }
-    newEvents[date].push({ title: eventTitle });
+    newEvents[date].push({ title: eventTitle, backgroundColor: eventColor });
     setEvents(newEvents);
     localStorage.setItem('events', JSON.stringify(newEvents));
   };
@@ -30,9 +30,9 @@ const useEventManager = () => {
     localStorage.setItem('events', JSON.stringify(newEvents));
   };
 
-  const editEvent = (date, index, newTitle) => {
+  const editEvent = (date, index, newTitle, newColor) => {
     const newEvents = { ...events };
-    newEvents[date][index] = { title: newTitle };
+    newEvents[date][index] = { title: newTitle, backgroundColor: newColor };
     setEvents(newEvents);
     localStorage.setItem('events', JSON.stringify(newEvents));
   };

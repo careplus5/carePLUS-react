@@ -229,6 +229,17 @@
     background-color: var(--bs-modal-bg);
 }
 
+.docSearchButton{
+    margin-top:5px;
+    margin-right:10px;
+    background-color: transparent;
+    border: none;
+    width:28px;
+    height:30px;
+    background-image: url('/public/img/adsearch.png');
+    float: right;
+}
+
 
 /* 병명선택 모달 (자동완성)스타일 */
 .diagAutoCompleteDrop {

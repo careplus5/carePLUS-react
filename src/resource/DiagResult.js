@@ -1,5 +1,7 @@
 import axios from 'axios';
 import '../css/DiagResult.css';
+import '../css/DiagnosisPatient.css';
+import MedicineModal from './MedicineModal';
 import {url} from '../config'
 import {useState, useEffect} from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
@@ -33,7 +35,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
             ...prevState,
             diseaseNum, selectMedicine
         }));
-    }, [diseaseNum, selectMedicine]);
+    }, [diseaseNum, selectMedicine, username]);
 
     const inputChange = (e) => {
         const {name, value, type, checked} = e.target;
@@ -154,7 +156,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
             .catch(err=>{
                 console.log(err);
             })
-    }, [])
+    }, [username])
     
     const searchMedicine = () => {
         const medListUrl = `${url}/medicineList?medSearchType=${medSearchType}&medSearchKeyword=${medSearchKeyword}`;
@@ -176,7 +178,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
         .catch(err=>{
             console.log(err);
         })
-    }, [])
+    }, [username])
 
     useEffect(()=>{
         if(diseaseKeyword) {
@@ -189,7 +191,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
         } else {
             setDiseasesFilter([]);
         }
-    }, [diseaseKeyword, diseaseList])
+    }, [diseaseKeyword, diseaseList, username])
     
     useEffect(()=>{
         if(medSearchKeyword) {
@@ -202,7 +204,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
         } else {
             setMedicineFilter([]);
         }
-    }, [medSearchKeyword, medicineList])
+    }, [medSearchKeyword, medicineList, username])
 
     const clickDiagName = (disease) => {
         setSelectDisease(disease.diseaseName);
@@ -427,14 +429,13 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                 <ModalBody className='diagModalBodyStyle'>
                     <div className='staticSearchbar'>
                     <div className="medSearchbar" style={{width:"430px", marginLeft:"50px"}}>
-                        <select className="medKeywordSort" style={{width:"80px"}}>
+                        <select className="medKeywordSort" style={{width:"80px"}} >
                             <option>구분</option>
-                            <option>부서명</option>
                             <option>병명코드</option>
                             <option>병명</option>
                         </select>&nbsp;|
                         <input type="text"  id="keyword" style={{width:"250px", backgroundColor:"#f7f7f7"}} placeholder=' 검색...' value={diseaseKeyword} onChange={(e)=>setDiseaseKeyword(e.target.value)}/>
-                        <label id="searchButton" for="searchButton1" style={{marginTop:"7px"}}>
+                        <label className="docSearchButton" for="searchButton1">
                             <button id="searchButton1"></button>
                         </label>            
                         {diseasesFilter.length > 0 && (
@@ -452,7 +453,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                             )}
                     </div>
                     </div>
-                    <table className="list" style={{padding:"var(--bs-modal-padding)"}}>
+                    <table className="docDiagList" style={{padding:"var(--bs-modal-padding)"}}>
                         <tbody>
                             <tr className='trTitle' style={{backgroundColor:"#FFFDF8"}}>
                                 <th style={{padding:"30px 0 20px 0"}}>부서명</th>
@@ -472,89 +473,10 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
             </Modal>
 
             {/* 약품 선택 모달 */}
-            <Modal isOpen={medModalIsOpen} toggle={openMedModal} style={{maxWidth:"1530px"}}>
-                <ModalHeader toggle={openMedModal} className='modalTitle'>처방 의약품 명칭 및 코드</ModalHeader>
-                <ModalBody className='diagModalBodyStyle'>
-                    <div className='medStaticSearchbar'>
-                    <div className="medSearchbar" style={{width:"700px", marginLeft: "90px"}}>
-                        <select class="medKeywordSort" style={{width:"110px"}} value={medSearchType} 
-                                onChange={(e) => setMedSearchType(e.target.value)}>
-                            <option value="">구분</option>
-                            <option value="medNum">약품코드</option>
-                            <option value="medEnName">약품영어명</option>
-                            <option value="medKorName">약품한글명</option>
-                        </select>&nbsp;|
-                        <input type="text"  id="keyword" style={{width:"480px", backgroundColor:"#f7f7f7", paddingLeft:"20px"}} placeholder=' 검색...'
-                                value={medSearchKeyword} onChange={(e) => setmedSearchKeyword(e.target.value)}/>
-                        <label id="searchButton" for="searchButton1" style={{marginTop:"5px"}}>
-                            <button id="searchButton1" onClick={searchMedicine}></button>
-                        </label>
-                        {medicineFilter.length > 0 && (
-                                <div className='medAutoCompleteDrop'>
-                                    {medicineFilter.map(medicine => (
-                                        <div
-                                            key={medicine.medicineNum}
-                                            className='medAutoCompleteItem'
-                                            onClick={()=>clickMedicine(medicine)}
-                                        >
-                                            {inputKeyword(medicine.medicineKorName, medSearchKeyword)}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                    </div>
-                    </div>
-                    <div style={{display:"flex"}}>
-                        <div className='medicineContainer'>
-                            <table className="list" style={{padding:"var(--bs-modal-padding)", width:"95%"}}>
-                                <tbody>
-                                    <tr className='trTitle'>
-                                        <th style={{padding:"15px 0px"}}>약품코드</th>
-                                        <th style={{padding:"15px 0px"}}>약품영어명</th>
-                                        <th style={{padding:"15px 0px"}}>약품한글명</th>
-                                        <th style={{padding:"15px 0px"}}>규격</th>
-                                        <th style={{padding:"15px 0px"}}>태그등록</th>
-                                        <th style={{padding:"15px 0px"}}>처방</th>
-                                    </tr>
-                                    {medicineList.length === 0 ? (
-                                        <tr>
-                                            <td colSpan='6' style={{paddingTop:"15px"}}>
-                                                검색한 약품이 존재하지 않습니다
-                                            </td>
-                                        </tr>
-                                    ) : (
-                                        medicineList.map(medicine=>(
-                                            <tr className='trContent' key={medicine.medicineNum}>
-                                                <td>{medicine.medicineNum}</td>
-                                                <td>{medicine.medicineEnName}</td>
-                                                <td>{medicine.medicineKorName}</td>
-                                                <td>{medicine.medicineStandard}</td>
-                                                <td>
-                                                    <img id="starImg" src={isFavMedicine(medicine.medicineNum)?"./img/yellowStar.png":"./img/star.png"} 
-                                                    style={{width:"20px", cursor:"pointer"}} onClick={()=>addFavMedicine(medicine.medicineNum)}/>
-                                                </td>
-                                                <td><button className='buttonStyle' style={{width:"50px"}} onClick={()=>clickMedicine(medicine)}>처방</button></td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className='starMedicineContainer'>
-                            <div className='favHeaderStyle trTitle' style={{backgroundColor:"#f7f7f7"}}>
-                                <img src="./img/medIcon.png" style={{width:"20px", marginLeft:"95px"}}/>&nbsp;&nbsp;즐겨 찾는 약품
-                            </div>
-                            <div className='favMedicineTag'>
-                                {favMedicineList.map(favMedicine=>(
-                                        <div className='medTag' key={favMedicine.favoriteMedicinesNum} onClick={()=>clickMedicine(favMedicine)}>
-                                            #{favMedicine.medicineKorName}
-                                        </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </ModalBody>
-            </Modal>
+            <MedicineModal medModalIsOpen={medModalIsOpen} openMedModal={openMedModal} inputKeyword={inputKeyword} medSearchType={medSearchType} 
+                        setMedSearchType={setMedSearchType} medSearchKeyword={medSearchKeyword} setmedSearchKeyword={setmedSearchKeyword}
+                        medicineFilter={medicineFilter} searchMedicine={searchMedicine} clickMedicine={clickMedicine} medicineList={medicineList}
+                        favMedicineList={favMedicineList} addFavMedicine={addFavMedicine} isFavMedicine={isFavMedicine}/>
         </div>
     )
 }

@@ -22,7 +22,7 @@ const DiagnosisPatient = () => {
             .catch(err=>{
                 console.log(err);
             })
-    }, [])
+    }, [username])
 
     const clickDiagnosis = (diagPat) => {
         let docDiagNum = diagPat.docDiagNum;
@@ -90,7 +90,7 @@ const DiagnosisPatient = () => {
                         <h3 className="sboxHeader">&nbsp;대기 환자 목록
                         </h3>
                     </div>
-                    <table className="list" borderless>
+                    <table className="docDiagList" borderless>
                         <tbody>
                             <tr>
                                 <th>환자번호</th>
@@ -140,7 +140,8 @@ const DiagnosisPatient = () => {
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'6px'}}>
                             <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={diagDueInfo.docDiagState} readOnly/></div>
+                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                                        value={diagDueInfo.docDiagState === 'ing' ? '진료중' : diagDueInfo.docDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
                             <div style={{marginLeft:"35px"}}>증상 <input className='inputStyle' style={{width: "470px"}} value={diagDueInfo.diagnosisDueState} readOnly/></div>
@@ -159,7 +160,7 @@ const DiagnosisPatient = () => {
                         </h3>
                     </div>
                     {accodionIndex === 1 && (
-                        <table className="list" style={{marginBottom:'15px'}} borderless>
+                        <table className="docDiagList" style={{marginBottom:'15px'}} borderless>
                             <tbody>
                                 <tr>
                                     <th>진료일</th>

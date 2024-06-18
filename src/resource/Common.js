@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import OrganizationChart from './OrganizationChart';
 import NurPatientList from './NurPatientList';
 import { useAtom, useAtomValue } from 'jotai';
-import { accessTokenAtom, usernameAtom} from '../config/Atom.js';
+import { accessTokenAtom, usernameAtom, empAtom} from '../config/Atom.js';
 import { useState,useEffect } from 'react';
 // import Alarm from './Alarm.js';
 const Common = ({loggedInUsername}) => {

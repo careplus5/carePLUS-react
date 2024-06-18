@@ -1,16 +1,20 @@
 import '../css/App.css';
 import '../css/NurPatientInfo.css';
-import DocAdmList from './DocAdmList';
 import axios from 'axios';
 import NurDisAdmModal from './NurDisAdmModal';
 import React, {useState, useEffect} from 'react';
-import { admAtom } from '../config/Atom.js';
+import { admAtom, usernameAtom } from '../config/Atom.js';
 import { useAtomValue } from 'jotai';
 import { url } from '../config.js';
+import DocAdmList from './DocAdmList'; // DocAdmList 컴포넌트를 임포트
+import NurseAdmList from './NurseAdmList';
 const NurPatientInfo = () => {
     // 유형 1. 대기 중인 환자의 상세 정보
+    const [nurName, setNurname] = useState('김동현');
+    const username = useAtomValue(usernameAtom);
     const admission = useAtomValue(admAtom);
-    const admissionState = admission.admissionState;
+    const [dailyContent, setDailyContent] = useState('');
+    const admissionStatus = admission.admissionStatus;
     // 유형 2. 입원 중인 환자의 상세 정보
     // --기능 1: 환자 입원 정보 옆에 퇴원 버튼이 있고, 퇴원 버튼을 누르면 퇴원 처리에 관한 모달이 나타남
     // --기능 2: 입원 일지에 작성 버튼 있으며, 작성 버튼을 누르면  작성 가능한 박스와 등록 버튼이 나타남
@@ -23,29 +27,77 @@ const NurPatientInfo = () => {
     //퇴원 모달
     const [disModalOpen, setDisModalOpen] = useState(false);
 
-    const [docRecord, setDocRecord]=useState({
-        admissionRecordContent:'',
-        admissionRecordDate:'',
-    })
+    const [docRecords, setDocRecords]=useState([]);
+    const [nurseRecords, setNurseRecords] = useState([]);
 //    const admission = location.admission.admission;
 const admissionNum = admission.admissionNum;   
+// const writeSubmit = (e) =>{
+//     const currentDate = new Date();  // 현재 시간을 가져오는 Date 객체 생성
+//     const currentTime = currentDate.toDateString;
+    
+//     console.log(currentTime);
+//   const response = axios.post(`${url}/nurseDailyRecord`,{
+//     admissionRecordDate:currentDate,
+//     jobNum:username,
+//     admissionRecordContent:dailyContent
+//   });
+//   console.log('date add success!', response.data);
+//   setDailyContent('');
+//   setWriteButton(false);
+// }
+
+const writeSubmit = async () => {
+    try {
+        const dailyContent = document.getElementById('dailyContent').value;
+        console.log(dailyContent);
+        const currentDate = new Date();  // 현재 시간을 가져오는 Date 객체 생성
+        const response = await axios.post(`${url}/nurseDailyRecord`, {
+            admissionRecordDate: currentDate,
+            jobNum: username,
+            admissionNum:Number(admissionNum),
+            admissionRecordContent: dailyContent
+        });
+
+        console.log('데이터가 성공적으로 등록되었습니다.', response.data);
+
+        // 등록 후 필요한 처리 (예: 입력창 초기화, 상태 업데이트 등)
+        setDailyContent('');
+        setWriteButton(false);
+        window.location.href = `http://localhost:3000/nurPatientInfo/${admissionNum}`; // 이동할 URL로 변경
+
+    } catch (error) {
+        console.error('데이터 등록 중 오류가 발생했습니다.', error);
+    }
+};
+
 
 useEffect(()=>{
     console.log("넘어왔는가."+JSON.stringify(admission));
-console.log("now:"+admissionState);
         axios.get(`${url}/nurPatientInfo`,{params: {admissionNum:admission.admissionNum}})
         .then(res=>{
-            console.log("실행 중인 "+admissionNum);
-            console.log(res.data[0].record);
-            setDocRecord({
-                admissionRecordContent:res.data[0].record.admissionRecordContent,
-                admissionRecordDate:res.data[0].record.admissionRecordDate,
-            })
+          // res.data에서 필요한 데이터 추출하여 docRecords를 설정
+        const fetchedDocRecords = res.data.doctorRecord.map(item => ({
+            date: item.record.admissionRecordDate,
+            docName: item.docNum,
+            content: item.record.admissionRecordContent
+          }));
+          console.log("fetched: "+fetchedDocRecords);
+          setDocRecords(fetchedDocRecords);
+
+          console.log(JSON.stringify(res.data));
+          const fetchedNurseRecords = res.data.nurseRecord.map(item => ({
+            date: item.record.admissionRecordDate,
+            nurName: item.nurseName,
+            content: item.record.admissionRecordContent
+          }));
+          console.log("fetched: "+fetchedNurseRecords);
+          setNurseRecords(fetchedNurseRecords);
+          
         })
         .catch(err=>{
-            console.log(admissionNum);
+            console.log("error가 낫습니다: "+admissionNum);
         })
-   },[])
+   }, [admission.admissionNum])
 //   useEffect(()=>{
 //    setAdmission(location.admission.admission);
 //   },[])
@@ -67,7 +119,7 @@ console.log("now:"+admissionState);
     }
 return (<div className="background">
 <br/>
-{admissionState === "end" ? <div className="disChargeBox" style={{
+{admissionStatus === "end" ? <div className="disChargeBox" style={{
 width:"1590px"
 ,backgroundColor:"white"
 ,position:"relative"
@@ -84,7 +136,7 @@ width:"1590px"
         <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/>
             <h3 id="LboxHeader">환자 입원 정보 &nbsp;</h3>{
-                admission.admissionState === 'ing'?
+                admission.admissionStatus === 'ing'?
                 <button style={{backgroundColor:"gray", color:"black", width:"50px", height: "24px", color:"white"}} onClick={openDisModal}>퇴원</button> :''}
             {disModalOpen && <NurDisAdmModal admissionNum={admissionNum} closeDisModal={closeDisModal}/>}
         </div>
@@ -118,51 +170,29 @@ width:"1590px"
             <h3 id="LboxHeader">입원 일지</h3>
             <br/>
             </div>
-            <div className="nurseWrite">
+            <div className="nurseWrite" style={{position:"relative"}}>
                 <div className="nurseInfo">
                     <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
                     <p>20204-05-07</p>&nbsp;&nbsp;&nbsp;&nbsp;
                     <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
-                    <p>김동현</p>&nbsp;&nbsp;
-                    <button style={{backgroundColor:"#B9EDE7", color:"black", marginTop:"15px", width:"50px", height: "20px"}} onClick={clickWriteButton}>작성</button>
+                    <p>{username}</p>&nbsp;&nbsp;
+                    <button style={{backgroundColor:"#B9EDE7", color:"black", width:"50px", height: "25px"}} onClick={clickWriteButton}>작성</button>
                     {!writeButton}
                 </div>
                 <div className={`writeContent ${writeButton ? 'visible' : 'hidden'}`}>
-                <input id="dailyContent" type="text" disabled/><br/>
-                <button id="writeSuccess"  className={`${writeButton ? 'visible' : 'hidden'}`}>등록</button>
+                <input id="dailyContent" name="dailyContent" type="text"/><br/>
+                <button id="writeSuccess"  className={writeButton ? 'visible' : 'hidden'} onClick={writeSubmit}>등록</button>
                 </div>
             </div>
-            <br/>
-            <br/>
+                <br/>
             <div className="dailyList">
-            <div className="nurseInfo">
-                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
-                    <p>20204-05-05</p>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
-                    <p>김민지</p>&nbsp;&nbsp;
-                </div>
-                <div className="writeContent">
-                <input id="dailyContent" type="text" disabled/><br/>
-                </div>
-            </div>
-            <div className="dailyList">
-            <div className="nurseInfo">
-                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
-                    <p>20204-05-05</p>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
-                    <p>김민지</p>&nbsp;&nbsp;
-                </div>
-                <div className="writeContent">
-                <input id="dailyContent" type="text" disabled/><br/>
-                </div>
-            </div>
-  
-    </div>
+          <NurseAdmList nurseRecords={nurseRecords}/>
+</div>
+</div>
  <div className="bottomBox">
- <DocAdmList docRecord={docRecord}/>
+ <DocAdmList docRecords={docRecords}/>
     </div>
     </div>
 )
-
 }
 export default NurPatientInfo;

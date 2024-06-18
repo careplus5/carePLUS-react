@@ -5,6 +5,7 @@ import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
+import axios from 'axios';
 import AlarmIcon from './AlarmIcon';
 import OpenCalendar from './OpenCalendar';
 import DiagnosisPatient from './DiagnosisPatient.js';
@@ -17,6 +18,7 @@ import NurPatientInfo from './NurPatientInfo.js';
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
     const username = useAtomValue(usernameAtom);
+    const [empName, setEmpName]=useState('');
     const [menuItems, setMenuItems] = useState([]);
     const navigate = useNavigate();
   
@@ -42,6 +44,17 @@ const Header = () => {
         console.log(username+"님이 로그아웃하셧슨디ㅏ.");
         
     }
+
+    useEffect(()=>{
+        axios.get('/empName')
+        .then(res=>{
+            console.log("header's get: "+res);
+            setEmpName(res.data);
+        })
+        .catch(err =>{
+            console.log(err);
+        })
+    },[username])
     useEffect(()=>{
         
         console.log(username);

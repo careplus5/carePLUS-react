@@ -4,27 +4,23 @@ import '../css/SideProfile.css';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 const SideProfile = () => {
-    
+    const empName = useAtomValue(empAtom);
     const [profileData, setProfileData] = useState(null);
     const username = useAtomValue(usernameAtom);
-    useEffect(() => {
-       
-        // const fetchProfileData = async () => {
-        //     try {
-        //         // Spring Boot 서버에서 데이터를 가져오는 요청
-        //         const response = await axios.get('/api/profile'); // 예시 URL
-        //         const data = response.data;
-        //         setProfileData(data);
-        //     } catch (error) {
-        //         console.error('프로필 데이터를 가져오는 중 오류 발생:', error);
-        //     }
-        // };
-        // fetchProfileData();
 
-        // 가상의 데이터
+    // useEffect(()=>{
+    //     axios.get('/empName')
+    //     .then(res=>{
+    //      console.log(res);
+    //     })
+    //     .catch(err=>{
+    //      console.log(err);
+    //     })
+    // },[username])
+    useEffect(() => {
         const sampleProfileData = {
             profileImg: '../img/profileImg.png',
-            name: username+" 님",
+            name: empName.empName+" 님",
             department: '어쩌구부',
             department2: '저쩌구과'
     };    

@@ -15,7 +15,6 @@
 button{
   border-width: 0;
 }
-<<<<<<< HEAD
 #Lbox{
   position: relative;
   background-color: #fffdf7;
@@ -25,9 +24,10 @@ button{
   box-shadow: 2px 1px 3px 1px lightgray;
   padding: 10px;
 }
-=======
->>>>>>> e256019c92dc5f2a5938a502b50ccdbc830bf7eb
 
+input:focus{
+  outline:none;
+}
 .metmain {
   box-sizing: unset;
 }

@@ -40,7 +40,7 @@
 
 #keyword{
     border:none;
-    width:500px;
+    width:450px;
     font-size:15px;
 
 }
@@ -73,7 +73,9 @@ top:7px;
     float: right;
     
 }
-
+#searchButton:hover{
+  cursor:pointer;
+    }
 #searchButton1{
     display:none;
 }

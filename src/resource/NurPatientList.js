@@ -20,6 +20,7 @@ const NurPatientList = () => {
     const [selectedState, setSelectedState] = useState('');
     const [filteredAdmList, setFilteredAdmList] = useState([]);
     const [keyword, setKeyword] = useState('');
+    const [keywordValue, setKeywordValue] = useState('');
 
 
 
@@ -35,9 +36,18 @@ const NurPatientList = () => {
     }
 
     const keyChange = (e) =>{
-        setKeyword(e.target.value);
+        if (keywordValue === null) {
+            setAdmList(admList);
+        } else {
+            setFilteredAdmList(admList.filter(admission => admission.setKeyword === setKeywordValue));
+            
+        }
     }
-
+const enterPress = (e) =>{
+    if(e.key === 'Enter'){
+        keyChange();
+    }
+}
     const [admission, setAdmission] = useState({
         admissionNum: '',
         patNum:'',
@@ -105,6 +115,7 @@ const NurPatientList = () => {
         }
     }, [selectedState, admList]);
     
+   
     return (
         <>
 
@@ -125,8 +136,9 @@ const NurPatientList = () => {
                         <option id="admissionStatus" value="end"> 퇴원 </option>
                     </select>
                     <div className="searchbar">
-                    <select id="keywordSort" onChange={keyChange}>
-                    <option>구분</option>
+                   
+                    <select id="keywordSort" name="keyword" onChange={(e) => setKeyword(e.target.value)}>
+                    <option value="">구분</option>
                         <option value="admissionNum">입원 번호</option>
                         <option value="patNum">환자 번호</option>
                         <option value="patName">환자 이름(성별/나이)</option>
@@ -137,10 +149,9 @@ const NurPatientList = () => {
                         <option value="admissionDischargeDueDate">퇴원 예정일</option>
                         <option value="admissionDischargeDate">퇴원일</option>
 
-                        </select>&nbsp;|<input type="text"  id="keyword" placeholder=' 검색...'/>
-                        <label id="searchButton" htmlFor="searchButton1"><button id="searchButton1"> </button></label>            
+                        </select>&nbsp;|<input type="text"  id="keyword" style={{width:"300px"}}  onChange={(e) => setKeywordValue(e.target.value)} onKeyPress={enterPress} placeholder=' 검색...'/>
+                        <label id="searchButton" htmlFor="searchButton1"><button onClick={keyChange}  id="searchButton1"> </button></label>            
                     </div>
-         
                 </div>
                 <br/>
                 <br/>
@@ -166,7 +177,7 @@ const NurPatientList = () => {
                                 <tr className="patList" key={admission.admNum} 
                                 onClick={()=>patInfo(admission)}>
 
-                            <td>{admission.admissionDate}</td>
+                            <td>{admission.admissionNum}</td>
                         <td>{admission.patNum}</td>
                         <td>{admission.patName}</td>
                         <td>{admission.admissionDueDate}</td>
@@ -176,7 +187,9 @@ const NurPatientList = () => {
                         <td>{admission.bedsNum}</td>
                         <td>{admission.admissionDischargeDueDate}</td>
                         <td>{admission.admissionDischargeDate}</td>
-                        <td>{admission.admissionStatus}</td>
+                        {admission.admissionStatus === 'ing' && <td style={{color:"green"}}>입원 중</td>}
+                        {admission.admissionStatus === 'wait' && <td style={{color:"yellow"}}>대기 중</td>}
+                        {admission.admissionStatus === 'end' && <td style={{color:"gray"}}>퇴원</td>}
                     </tr>))}
                     </tbody>
                 </table>

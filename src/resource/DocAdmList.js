@@ -1,19 +1,17 @@
 import "../css/NurPatientInfo.css";
 import '../css/App.css';
+
 import axios from 'axios';
 import NurDisAdmModal from './NurDisAdmModal';
 import React, {useState, useEffect} from 'react';
 import { admAtom } from '../config/Atom.js';
 import { useAtomValue } from 'jotai';
 import { url } from '../config.js';
-const DocAdmList = ({docRecord}) => {
-    const content = docRecord.admissionRecordContent;
-    const date = docRecord.admissionRecordDate;
-    useEffect(()=>{
-        console.log("docRecord: "+content);
-        console.log("d: "+JSON.stringify({docRecord}));
-    })
+const DocAdmList = ({docRecords}) => {
     const admission = useAtomValue(admAtom);
+    const [filteredDocRecordsList, setFilteredDocRecordsList] = useState([]);
+
+  
     // 유형 2. 입원 중인 환자의 상세 정보
     // --기능 1: 환자 입원 정보 옆에 퇴원 버튼이 있고, 퇴원 버튼을 누르면 퇴원 처리에 관한 모달이 나타남
     // --기능 2: 입원 일지에 작성 버튼 있으며, 작성 버튼을 누르면  작성 가능한 박스와 등록 버튼이 나타남
@@ -34,20 +32,17 @@ const admissionNum = admission.admissionNum;
             <img id="boxIcon" src="/img/memo.png"/>
             <h3 id="LboxHeader">&nbsp;의사 입원 진료</h3>
         </div>
-        <div className="dailyList">
-            <div className="docInfo">
-                    <p style={{color:"gray"}}>날짜</p>
-                    <p>{date}</p>
-                    <p style={{color:"gray"}}>담당 의사</p>
-                    <p>{admission.docName}</p>
-                </div>
-                <div className="writeContent">
-                <input id="docDailyContent" type="text" value={content} disabled/><br/>
-                </div>
-            </div>
-  
-        </div>
-    )
-}
+        <div className="dailyList scroll-box">
+        {docRecords.map((docRec, index) => (
+          <div key={index} className="docInfo">
+            <br/>
+            <p style={{ color: "gray" }}>날짜 {docRec.date} &nbsp;&nbsp; 담당 의사 {docRec.docName}</p>
+              <input id="docDailyContent" type="text" value={docRec.content} disabled /><br/><br/><br/><br/>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default DocAdmList;

@@ -23,7 +23,9 @@ export const usernameAtom = atomWithStorage(
 export const empAtom = atomWithStorage(
     'emp',
     {username:'',
-    password:''},
+    password:'',
+    empName:'',
+},
     createJSONStorage(()=> sessionStorage),
 );
 

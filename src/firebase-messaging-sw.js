@@ -18,10 +18,13 @@ const messaging = getMessaging(app);
 
 export function requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm, setUnread) {
   Notification.requestPermission().then((permission) => {
+    console.log(permission)
     if (permission === 'granted') {
+      console.log(permission)
       getToken(messaging, { vapidKey: 'BGxB48zcSFA5fD27n2JUx3fZMlVqItwZaJSSgezYgZ-tr3Ix5rp2HF1MaTi4eRe7558Y_mdahYFVdvvm7kiSS_Y' })
         .then((token) => {
           setFcmToken(token);
+          console.log('setToken했어영~'+token)
         })
         .catch((err) => {
           console.error('An error occurred while retrieving token. ', err);

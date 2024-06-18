@@ -82,54 +82,54 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
     }
 
     const submitSurRecord = () => {
-        console.log("surgeryInfo.surgeryNum::::: "+ surgeryInfo.surgeryNum);
-        const requestData = {
-            ...surRecord,
-            surgeryNum: surgeryInfo.surgeryNum
-        }
-        console.log("requestData" + JSON.stringify(requestData));
-
-        axios.post(`${url}/surRecordSubmit`, requestData)
-            .then(res=>{
-                alert(`${surgeryInfo.patName}(${surgeryInfo.patNum})환자 수술 완료`);
-                window.scrollTo(0, 0);
-                
-                clearSurgeryInfo();
-                setStartTime('');
-                setEndTime('');
-                setTotalTime('');
-                setSurNurList([]);
-                setSurRecord({surAnesthesia:'', surAnesthesiaPart:'', surBloodPack:'', surBloodPackCnt:'', 
-                    startTime:'', endTime:'', totalTime:'', surResult:'', surEtc:''});
-
-                const updateSurPatList = surPatList.map(item => {
-                    if(item.surgeryNum === surgeryInfo.surgeryNum) {
-                        item.surgeryState = 'end';
-                    }
-                    return item;
+        if(window.confirm(`${surgeryInfo.patName}(${surgeryInfo.patNum})환자 수술을 완료하시겠습니까?`)) {
+            const requestData = {
+                ...surRecord,
+                surgeryNum: surgeryInfo.surgeryNum
+            }
+    
+            axios.post(`${url}/surRecordSubmit`, requestData)
+                .then(res=>{
+                    alert(`${surgeryInfo.patName}(${surgeryInfo.patNum})환자 수술 완료`);
+                    window.scrollTo(0, 0);
+                    
+                    clearSurgeryInfo();
+                    setStartTime('');
+                    setEndTime('');
+                    setTotalTime('');
+                    setSurNurList([]);
+                    setSurRecord({surAnesthesia:'', surAnesthesiaPart:'', surBloodPack:'', surBloodPackCnt:'', 
+                        startTime:'', endTime:'', totalTime:'', surResult:'', surEtc:''});
+    
+                    const updateSurPatList = surPatList.map(item => {
+                        if(item.surgeryNum === surgeryInfo.surgeryNum) {
+                            item.surgeryState = 'end';
+                        }
+                        return item;
+                    })
+    
+                    updateSurPatList.sort((a, b) => {
+                        if (a.surgeryState === 'ing' && b.surgeryState !== 'ing') {
+                            return -1;
+                        }
+                        if (a.surgeryState !== 'ing' && b.surgeryState === 'ing') {
+                            return 1;
+                        }
+                        if (a.surgeryState === 'end' && b.surgeryState !== 'end') {
+                            return 1;
+                        }
+                        if (a.surgeryState !== 'end' && b.surgeryState === 'end') {
+                            return -1;
+                        }
+                        return 0;
+                    });
+    
+                    setSurPatList([...updateSurPatList]);
                 })
-
-                updateSurPatList.sort((a, b) => {
-                    if (a.surgeryState === 'ing' && b.surgeryState !== 'ing') {
-                        return -1;
-                    }
-                    if (a.surgeryState !== 'ing' && b.surgeryState === 'ing') {
-                        return 1;
-                    }
-                    if (a.surgeryState === 'end' && b.surgeryState !== 'end') {
-                        return 1;
-                    }
-                    if (a.surgeryState !== 'end' && b.surgeryState === 'end') {
-                        return -1;
-                    }
-                    return 0;
-                });
-
-                setSurPatList([...updateSurPatList]);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+                .catch(err=>{
+                    console.log(err);
+                })   
+        }
     }
 
     return (

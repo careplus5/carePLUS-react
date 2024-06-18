@@ -16,6 +16,7 @@ import Adm from './Adm.js';
 import NurPatientInfo from './NurPatientInfo.js';
 import Admin from './Admin.js';
 import AdmissionDiagPatient from './AdmissionDiagPatient.js';
+import DocDiagPatient from './DocDiagPatient.js';
 
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
@@ -72,7 +73,7 @@ const Header = () => {
                 { to: "/docDiagnosis", label: "외래 진료" },
                 { to: "/docAdmissionDiag", label: "입원 진료" },
                 { to: "/docSurgeryDiag", label: "수술 진료" },
-                { to: "/wardPatientList", label: "담당 환자" },
+                { to: "/docDiagPatient", label: "담당 환자" },
 
             ]);
         } else if (iden == "13") {
@@ -141,6 +142,7 @@ const Header = () => {
                     <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
                     <Route path="/admin" element={<Admin/>}/>
                     <Route path="/docAdmissionDiag" element={<AdmissionDiagPatient/>}/>
+                    <Route path="/docDiagPatient" element={<DocDiagPatient/>}/>
                     {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}

@@ -23,10 +23,11 @@ const SurgeryPatient = () => {
             .catch(err=>{
                 console.log(err);
             })
-    },[])
+    },[username])
 
     const clickSurgery = (surPat) => {
         let surgeryNum = surPat.surgeryNum;
+        console.log(surgeryNum);
 
         if(surgeryInfo.surgeryState === 'ing') {
             alert('수술중입니다');
@@ -86,7 +87,7 @@ const SurgeryPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 목록</h3>
                     </div>
-                    <table className="list" borderless>
+                    <table className="docDiagList" borderless>
                         <tbody>
                             <tr>
                                 <th>환자번호</th>
@@ -135,7 +136,8 @@ const SurgeryPatient = () => {
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'7px'}}>
                             <div>환자번호 <input className='inputStyle' value={surgeryInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={surgeryInfo.surgeryState} readOnly/></div>
+                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                                    value={surgeryInfo.surgeryState === 'ing' ? '수술중' : surgeryInfo.surgeryState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'34px'}}>
                             <div>성별 <input className='inputStyle' value={surgeryInfo.patGender}  readOnly/></div>
@@ -155,7 +157,8 @@ const SurgeryPatient = () => {
                             <div style={{marginRight:'-25px'}}>담당의 사번 <input className='surInfoInputStyle' value={surgeryInfo.docNum} readOnly/></div>
                             <div style={{marginRight:'-25px'}}>담당의명 <input className='surInfoInputStyle' value={surgeryInfo.docName} readOnly/></div>
                             <div style={{marginRight:'-25px'}}>수술일 <input className='surInfoInputStyle' value={surgeryInfo.surgeryDueDate} readOnly/></div>
-                            <div>상태 <input className='surInfoInputStyle' style={{color:'#007212', fontWeight:'bold'}} value={surgeryInfo.surgeryState} readOnly/></div>
+                            <div>상태 <input className='surInfoInputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                                        value={surgeryInfo.surgeryState === 'ing' ? '수술중' : surgeryInfo.surgeryState} readOnly/></div>
                         </div>
                         <div className='surInfoRow'>
                             <div>수술 예상 시간 <input className='surInfoInputStyle' value={surgeryInfo.surPeriod} readOnly/></div>
@@ -172,7 +175,7 @@ const SurgeryPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp; 참여 간호사</h3>
                     </div>
-                    <table className="list" style={{margin:'0'}} borderless>
+                    <table className="docDiagList" style={{margin:'0'}} borderless>
                         <tbody>
                             <tr>
                                 <th>사번</th>

@@ -54,8 +54,12 @@ const Login = ({ onLoginSuccess }) => {
 // console.log(accessToken);
                     // dispatch({type:'emp',payload:res.data})
                     alert(emp.username+"님이 로그인하셨습니다!");
-                   
+                
                     onLoginSuccess(emp.username); 
+                   const iden = emp.username.slice(0,2);
+                   if(iden==="99"){
+                    navigate("/admin")
+                   } else
                    navigate("/organ");
             })
             .catch(err => {

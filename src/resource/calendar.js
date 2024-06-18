@@ -5,27 +5,48 @@ import useEventManager from './EventManager'; // useEventManager 훅 사용
 import '../css/Calendar.css';
 import '../css/EventManager.css';
 import axios from 'axios';
+import { url } from '../config';
+import { useAtomValue } from 'jotai';
+import { usernameAtom } from '../config/Atom';
 
-const Calendar = ({ isOpen, onClose, onDateSelect }) => {
+const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
   const [mode, setMode] = useState('local'); // 'local' or 'db'
   const { events, addEvent, deleteEvent, editEvent } = useEventManager();
   const [dbEvents, setDbEvents] = useState({});
-  const userId = 1; // 예시로 사용할 사용자 ID
+  const userId = useAtomValue(usernameAtom);
+  const [userName, setUserName] = useState('');
+  const [dept2Name, setDept2Name] = useState('');
 
   useEffect(() => {
+    axios.get(`${url}/userInfo?userId=${userId}`)
+        .then((res)=>{
+          setUserName(res.data.empName);
+          setDept2Name(res.data.department2Name);
+          console.log(res);
+        })
+        .catch((err)=>{
+          console.log(err);
+        });
     if (mode === 'db') {
       const fetchEvents = async () => {
         try {
-          const response = await axios.get(`/events?userId=${userId}`);
+          const response = await axios.get(`${url}/schedules?userId=${userId}`);
+          
           const eventsByDate = response.data.reduce((acc, event) => {
-            const dateKey = event.date;
+            const dateKey = event.startDate;
             if (!acc[dateKey]) {
               acc[dateKey] = [];
             }
-            acc[dateKey].push(event.title);
+            acc[dateKey].push({
+              id: event.id,
+              title: event.title,
+              startTime: event.startTime,
+              eventType: event.eventType
+            });
+            console.log(acc);
             return acc;
           }, {});
           setDbEvents(eventsByDate);
@@ -39,18 +60,18 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
 
   const holidays = {
     // 예시 데이터: 공휴일 정보
-    "2024-5-5": "어린이날",
-    "2024-5-6": "어린이날(대체휴일)",
-    "2024-5-15": "부처님오신날",
-    "2024-6-6": "현충일",
-    "2024-8-15": "광복절",
-    "2024-9-16": "추석 연휴",
-    "2024-9-17": "추석",
-    "2024-9-18": "추석 연휴",
-    "2024-10-3": "개천절",
-    "2024-10-9": "한글날",
+    "2024-05-05": "어린이날",
+    "2024-05-06": "어린이날(대체휴일)",
+    "2024-05-15": "부처님오신날",
+    "2024-06-06": "현충일",
+    "2024-08-15": "광복절",
+    "2024-09-16": "추석 연휴",
+    "2024-09-17": "추석",
+    "2024-09-18": "추석 연휴",
+    "2024-10-03": "개천절",
+    "2024-10-09": "한글날",
     "2024-12-25": "크리스마스",
-    "2025-1-1": "새해"
+    "2025-01-01": "새해"
   };
 
   const currentDate = new Date();
@@ -68,23 +89,35 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
 
   const eventsIndicator = (dateKey) => {
     const eventList = mode === 'local' ? (events[dateKey] || []) : (dbEvents[dateKey] || []);
+    console.log(eventList)
     if (eventList.length === 1) {
-      return <div className="event">&nbsp;{eventList[0]}&nbsp;</div>;
+      return <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+                &nbsp;{eventList[0].title}&nbsp;
+            </div>; // 객체의 속성을 사용하여 렌더링
     } else if (eventList.length === 2) {
       return (
         <div>
-          <div className="event">&nbsp;{eventList[0]}&nbsp;</div>
-          <div className="event">&nbsp;{eventList[1]}&nbsp;</div>
+          <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+              &nbsp;{eventList[0].title}&nbsp;
+          </div> {/* 객체의 속성을 사용하여 렌더링 */}
+          <div className="event" style={{ backgroundColor: eventList[1].backgroundColor }}>
+              &nbsp;{eventList[1].title}&nbsp;
+          </div> {/* 객체의 속성을 사용하여 렌더링 */}
         </div>
       );
     } else if (eventList.length > 2) {
       return (
         <div>
-          <div className="event">&nbsp;{eventList[0]}&nbsp;</div>
-          <div className='event'>그 외 {eventList.length - 1}건&nbsp;</div>
+          <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+              &nbsp;{eventList[0].title}&nbsp;
+          </div> {/* 객체의 속성을 사용하여 렌더링 */}
+          <div className='event' style={{ backgroundColor: eventList[1].backgroundColor }}>
+              그 외 {eventList.length - 1}건&nbsp;
+          </div>
         </div>
       );
     }
+    return null; // 이벤트가 없는 경우 null 반환
   };
 
   const renderCalendar = () => {
@@ -96,7 +129,7 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
     const monthNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
-    calendar.push(<div key="" className='userInfo'>{` 어쩌구외과 userId:${userId}`}</div>)
+    calendar.push(<div key="" className='userInfo'>{` ${dept2Name} ${userName}`}</div>)
     calendar.push(<div key="monthYear" className="monthYear">{`${year}년 ${monthNames[month]}월`}</div>);
 
     calendar.push(
@@ -109,22 +142,22 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
 
     const prevMonthDaysToShow = firstDay;
     for (let i = prevMonthLastDay - prevMonthDaysToShow + 1; i <= prevMonthLastDay; i++) {
-      const dateKey = `${year}-${month}-${i}`;
+      const dateKey = `${year}-${String(month).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
       const isCurrentDate = year === currentYear && month === currentMonth && i === currentDay;
       dateRow.push(
         <div key={`prevMonth-${i}`} className={`date prev-month ${isCurrentDate ? 'current-date' : ''}`} data-date={dateKey} onClick={() => {
           onDateSelect(dateKey);
           setSelectedDate(dateKey);
         }}>
-          {month}월{i}일
+          {String(month).padStart(2, '0')}월{String(i).padStart(2, '0')}일
           {holidays[dateKey] && <div className="holiday">&nbsp;{holidays[dateKey]}&nbsp;</div>}
           {eventsIndicator(dateKey)}
         </div>
       );
     }
-
+    
     for (let date = 1; date <= daysInMonth; date++) {
-      const dateKey = `${year}-${month + 1}-${date}`;
+      const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
       const isCurrentDate = year === currentYear && month + 1 === currentMonth && date === currentDay;
       const isHoliday = holidays[dateKey] !== undefined;
       dateRow.push(
@@ -144,19 +177,19 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
         dateRow = [];
       }
     }
-
+    
     if (dateRow.length > 0) {
       const remainingCells = 7 - dateRow.length;
       for (let i = 1; i <= remainingCells; i++) {
         const nextMonthDate = new Date(year, month + 1, i);
-        const nextMonthKey = `${nextMonthDate.getFullYear()}-${nextMonthDate.getMonth() + 1}-${i}`;
+        const nextMonthKey = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
         const isHoliday = holidays[nextMonthKey] !== undefined;
         dateRow.push(
           <div key={`nextMonth-${i}`} className="date next-month" data-date={nextMonthKey} onClick={() => {
             onDateSelect(nextMonthKey);
             setSelectedDate(nextMonthKey);
           }}>
-            {nextMonthDate.getMonth() + 1}월{i}일
+            {String(nextMonthDate.getMonth() + 1).padStart(2, '0')}월{String(i).padStart(2, '0')}일
             {isHoliday && <div className="holiday">&nbsp;{holidays[nextMonthKey]}&nbsp;</div>}
             {eventsIndicator(nextMonthKey)}
           </div>
@@ -177,42 +210,43 @@ const Calendar = ({ isOpen, onClose, onDateSelect }) => {
 
   return (
     <div className='background'>
-    <div className="popup-overlay">
-      <div className="popup-content">
-        <button className="close-btn" onClick={onClose}>&times;</button>
-        <button onClick={prevMonth}>Prev</button>
-        <button onClick={nextMonth}>Next</button>
-        <div className="mode-switch">
-          <button onClick={() => setMode('local')}>개인 일정 보기</button>
-          <button onClick={() => setMode('db')}>근무 일정 보기</button>
-        </div>
-        <div id="calendar" className="calendar">
-          {renderCalendar()}
-        </div><br/>
-        {selectedDate != null && mode === 'local' && (
-          <EventModal
-          date={selectedDate}
-          events={events[selectedDate] || []}
-          addEvent={addEvent}
-          deleteEvent={deleteEvent}
-          editEvent={editEvent}
-          mode={mode}
-          dbEvents={dbEvents}
-          onClose={() => setSelectedDate(null)}
-          />
-        )}
-        {selectedDate != null && mode === 'db' && (
-         <EventModal
-         date={selectedDate}
-         events={events[selectedDate] || []}
-         onClose={() => setSelectedDate(null)}
-         mode={mode}
-         dbEvents={dbEvents}
-          />
-        )}
+      <div className="popup-overlay">
+        <div className="popup-content">
+          <button className="close-btn" onClick={onClose}>&times;</button>
+          <button onClick={prevMonth}>Prev</button>
+          <button onClick={nextMonth}>Next</button>
+          <div className="mode-switch">
+            <button onClick={() => setMode('local')}>개인 일정 보기</button>
+            <button onClick={() => setMode('db')}>근무 일정 보기</button>
+          </div>
+          <div id="calendar" className="calendar">
+            {renderCalendar()}
+          </div><br />
+          {selectedDate != null && mode === 'local' && (
+            <EventModal
+              date={selectedDate}
+              events={events[selectedDate] || []}
+              addEvent={addEvent}
+              deleteEvent={deleteEvent}
+              editEvent={editEvent}
+              mode={mode}
+              dbEvents={dbEvents}
+              onClose={() => setSelectedDate(null)}
+            />
+          )}
+          {selectedDate != null && mode === 'db' && (
+            <EventModal
+              date={selectedDate}
+              events={events[selectedDate] || []}
+              onClose={() => setSelectedDate(null)}
+              mode={mode}
+              dbEvents={dbEvents}
+            />
+          )}
         </div>
       </div>
-      </div>
-    );
-  };
+    </div>
+  );
+};
+
 export default Calendar;

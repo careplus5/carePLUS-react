@@ -11,6 +11,7 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
 
     const handleStatusChange = (e) => {
         onStatusChange(e.target.value);
+        console.log(patient)
     };
 
     const handleOutsideClick = (e) => {
@@ -36,18 +37,18 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
             >
                 <span className='metmodal-title'>환자 정보</span>
                 <span>
-                    <select className="status" value={patient.status} onChange={handleStatusChange}>
+                    <select className="status-box" value={patient.testRequestAcpt} onChange={handleStatusChange}>
                         <option value="검사요청">검사요청</option>
                         <option value="수락">수락</option>
                         <option value="보류">보류</option>
                     </select>
                 </span>
                 <p>병실: {patient.room} </p>
-                이름: {patient.name} SA: {patient.SA}
-                <p>환자 번호: {patient.num}</p>
+                이름: {patient.patName} SA: {patient.patGender}/{patient.patJumin}
+                <p>환자 번호: {patient.patNum}</p>
                 <p>혈액형: {patient.bloodType}</p>
-                <p>검사: {patient.test}</p>
-                <p>상태: {patient.status}</p>
+                <p>검사: {patient.testPart}</p>
+                <p>상태: {patient.testRequestAcpt}</p>
             </div>
         </div>
     );

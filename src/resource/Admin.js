@@ -10,7 +10,7 @@ const Admin = () => {
     const [empWord, setEmpWord] = useState('');
     const [empType, setEmpType] = useState('');
     const [employee, setEmployee] = useState({
-        file: null, jobNum: '', departmentNum: '', department2Name: '', empPosition: '', empName: '', empTel: '', empEmail: '', empNum: '', empPassword: ''
+        file: null, jobNum: '', departmentNum: '', departmentName: '', department2Name: '', empPosition: '', empName: '', empTel: '', empEmail: '', empNum: '', empPassword: ''
     });
     const [employeeList, setEmployeeList] = useState([]);
     useEffect(() => {
@@ -57,6 +57,7 @@ const Admin = () => {
         formData.append("empEmail", employee.empEmail);
         formData.append("empNum", employee.empNum);
         formData.append("empPassword", employee.empPassword);
+        formData.append("empDepartmentName", employee.departmentName)
         axios.post(`http://localhost:8090/employeeAdd`, formData)
             .then(res => {
                 alert(res.data);
@@ -67,12 +68,12 @@ const Admin = () => {
     }
 
     return (
-        <div className="adminBackground">
+        <div className="adminBackground" style={{ marginBottom: '100px' }}>
             <div className="left-panel">
                 <div className="section">
-                    <div className="boxHeader">
-                        <img id="boxIcon" style={{ marginTop: "12px" }} src="/img/notice.png" />
-                        <h3 id="boxHeader">공지사항</h3>
+                    <div className="title-box">
+                        <img className="boxIcon" src="/img/notice.png" />
+                        <span className="section-title">공지사항</span>
                     </div>
                     <div className="admSearchbar">
                         <select id="admKeywordSort">
@@ -93,7 +94,7 @@ const Admin = () => {
                             <div className="title-3">제목</div>
                             <div>조회수</div>
                         </div>
-                        {Array.from({ length: 6 }).map((_, index) => (
+                        {Array.from({ length: 5 }).map((_, index) => (
                             <div className="table-row" key={index}>
                                 <div>2023-05-28</div>
                                 <div>공지</div>
@@ -103,11 +104,24 @@ const Admin = () => {
                             </div>
                         ))}
                     </div>
+                    <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "900px" }}>
+                        <PaginationItem disabled={empPageInfo.curPage === empPageInfo.startPage}>
+                            <PaginationLink previous onClick={() => searchEmployee(empPageInfo.curPage - 1)} />
+                        </PaginationItem>
+                        {empPageBtn.map((empPage) => (
+                            <PaginationItem key={empPage} className={empPage === empPageInfo.curPage ? 'active' : ''}>
+                                <PaginationLink onClick={() => searchEmployee(empPage)}>{empPage}</PaginationLink>
+                            </PaginationItem>
+                        ))}
+                        <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage}>
+                            <PaginationLink next onClick={() => searchEmployee(empPageInfo.curPage + 1)} />
+                        </PaginationItem>
+                    </Pagination>
                 </div>
                 <div className="section">
-                    <div className="boxHeader">
-                        <img id="boxIcon" style={{ marginTop: "12px" }} src="/img/notice.png" />
-                        <h3 id="boxHeader">직원 정보</h3>
+                    <div className="title-box">
+                        <img className="boxIcon" src="/img/notice.png" />
+                        <span className="section-title">직원 정보</span>
                     </div>
                     <div className="admSearchbar">
                         <select id="admKeywordSort" name='empType' onChange={(e) => setEmpType(e.target.value)}>
@@ -180,11 +194,11 @@ const Admin = () => {
                                         <select className="select">
                                             <option>전체</option>
 
-                                        </select>
+                                        </select>&nbsp;|&nbsp;
                                         <input type="text" className="notice-input" />
                                     </div>
                                     <div className="textarea">
-                                        <textarea style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px' }}></textarea>
+                                        <textarea style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none' }}></textarea>
                                     </div>
                                     <div className='button-container'>
                                         <button className="add-button">등록</button>
@@ -193,15 +207,15 @@ const Admin = () => {
                             )}
                             {index === 1 && (
                                 <div className='accordion-group'>
-                                    <div className="input-group">
+                                    <div className="input-group" >
                                         <select className="select">
                                             <option>전체</option>
 
-                                        </select>
+                                        </select>&nbsp;|
                                         <input type="text" className="notice-input" />
                                     </div>
                                     <div className="textarea">
-                                        <textarea style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px' }}></textarea>
+                                        <textarea style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none' }}></textarea>
                                     </div>
                                     <div className='button-container'>
                                         <button className="del-button" style={{ backgroundColor: 'lightgray' }}>삭제</button>
@@ -226,62 +240,57 @@ const Admin = () => {
                                         )}
                                     </div>
                                     <div className="emp-right">
-                                        <table className='emp-inputbox'>
-                                            <tbody>
-                                                <tr className='row'>
-                                                    <td>직업</td>
-                                                    <td><select name='jobNum' onChange={empAddChangeValue}>
-                                                        <option value={"99"}>선택하세요</option>
-                                                        <option value={"11"}>의사</option>
-                                                        <option value={"12"}>간호사</option>
-                                                        <option value={"13"}>원무과</option>
-                                                        <option value={"14"}>의료기사</option>
-                                                    </select>
-                                                    </td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>직업</div>
+                                            <div className='row-content'><select name='jobNum' onChange={empAddChangeValue}>
+                                                <option value={"99"}>선택하세요</option>
+                                                <option value={"11"}>의사</option>
+                                                <option value={"12"}>간호사</option>
+                                                <option value={"13"}>원무과</option>
+                                                <option value={"14"}>의료기사</option>
+                                            </select>
+                                            </div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>부서번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                    <td><input type="text" name="departmentNum" onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>부서이름 </div>
+                                            <div className='row-content'><input type="text" name="empDepartmentName" onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>소속</td>
-                                                    <td><input type="text" name='department2Name' onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>소속</div>
+                                            <div className='row-content'><input type="text" name='department2Name' onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>직급</td>
-                                                    <td><input type="text" name='empPosition' onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>직급</div>
+                                            <div className='row-content'><input type="text" name='empPosition' onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>이름</td>
-                                                    <td><input type="text" name='empName' onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>이름</div>
+                                            <div className='row-content'><input type="text" name='empName' onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>전화번호</td>
-                                                    <td><input type="text" name='empTel' onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>전화번호</div>
+                                            <div className='row-content'><input type="text" name='empTel' onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>이메일</td>
-                                                    <td><input type="text" name='empEmail' onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>이메일</div>
+                                            <div className='row-content'><input type="text" name='empEmail' onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>직원번호</td>
-                                                    <td><input type="text" name='empNum' onChange={empAddChangeValue} /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>직원번호</div>
+                                            <div className='row-content'><input type="text" name='empNum' onChange={empAddChangeValue} /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>비밀번호</td>
-                                                    <td><input type="text" name='empPassword' onChange={empAddChangeValue} /></td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>비밀번호</div>
+                                            <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
+                                        </div>
                                         <div className='button-container'>
                                             <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등록</button>
                                         </div>
@@ -294,55 +303,49 @@ const Admin = () => {
                                         <label id="addButton2" htmlFor="addButton1"><input type='file' id="addButton1" /></label>
                                     </div>
                                     <div className="emp-right">
-                                        <table className='emp-inputbox'>
-                                            <tbody>
-                                                <tr className='row'>
-                                                    <td>직업</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>직업</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>부서번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>부서번호 </div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>소속</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>소속</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>직급</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>직급</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>이름</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>이름</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>전화번호</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>전화번호</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>이메일</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>이메일</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>직원번호</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
 
-                                                <tr className='row'>
-                                                    <td>직원번호</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
-
-                                                <tr className='row'>
-                                                    <td>비밀번호</td>
-                                                    <td><input type="text" /></td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
+                                        <div className='emp-right-unit'>
+                                            <div className='row-title'>비밀번호</div>
+                                            <div className='row-content'><input type="text" /></div>
+                                        </div>
                                         <div className='button-container'>
                                             <button className="del-button" style={{ backgroundColor: 'lightgray' }}>삭제</button>
                                             <button className="emp-add-button" style={{ backgroundColor: '#427889' }}>수정</button>

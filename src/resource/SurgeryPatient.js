@@ -28,7 +28,7 @@ const SurgeryPatient = () => {
     const clickSurgery = (surPat) => {
         let surgeryNum = surPat.surgeryNum;
 
-        if(surgeryInfo.surgeryState === '수술중') {
+        if(surgeryInfo.surgeryState === 'ing') {
             alert('수술중입니다');
             return;
         }
@@ -43,16 +43,16 @@ const SurgeryPatient = () => {
                     return item;
                 })
                 tsurPatList.sort((a,b)=>{
-                    if(a.surgeryState === '수술중' && b.surgeryState !== '수술중'){
+                    if(a.surgeryState === 'ing' && b.surgeryState !== 'ing'){
                         return -1;
                     }
-                    if (a.surgeryState !== '수술중' && b.surgeryState === '수술중') {
+                    if (a.surgeryState !== 'ing' && b.surgeryState === 'ing') {
                         return 1;
                     }
-                    if (a.surgeryState === '완료' && b.surgeryState !== '완료') {
+                    if (a.surgeryState === 'end' && b.surgeryState !== 'end') {
                         return 1;
                     }
-                    if (a.surgeryState !== '완료' && b.surgeryState === '완료') {
+                    if (a.surgeryState !== 'end' && b.surgeryState === 'end') {
                         return -1;
                     }
                     return 0;
@@ -103,12 +103,17 @@ const SurgeryPatient = () => {
                                     <td>{surPat.surgeryDueDate}</td>
                                     <td>{surPat.surgeryStartTime}</td>
                                     <td style={{color: 
-                                                    surPat.surgeryState === '대기중' ? '#F09000' : 
-                                                    surPat.surgeryState === '수술중' ? '#007212' : 
-                                                    '#848484', fontWeight:"bold"}}>{surPat.surgeryState}</td>
+                                                    surPat.surgeryState === 'wait' ? '#F09000' : 
+                                                    surPat.surgeryState === 'ing' ? '#007212' : 
+                                                    '#848484', fontWeight:"bold"}}>
+                                        {surPat.surgeryState === 'wait' ? '대기중' : 
+                                        surPat.surgeryState === 'ing' ? '진료중' : 
+                                        surPat.surgeryState === 'end' ? '완료' : 
+                                        surPat.surgeryState}
+                                    </td>
                                     <td>
                                         {
-                                            surPat.surgeryState === '수술중' || surPat.surgeryState === '완료' ? '-' :
+                                            surPat.surgeryState === 'ing' || surPat.surgeryState === 'end' ? '-' :
                                             <button className='buttonStyle' onClick={()=>clickSurgery(surPat)}>수술</button>
                                         
                                         }
@@ -118,7 +123,7 @@ const SurgeryPatient = () => {
                         </tbody>
                     </table>
                 </div>
-                <div id="sboxRight" style={{height:"247px"}}>
+                <div id="sboxRight" style={{height:"242px"}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 정보</h3>

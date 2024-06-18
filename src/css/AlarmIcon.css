@@ -103,6 +103,12 @@
     margin-right: 10px; /* 빨간 점과 텍스트 사이 간격 추가 */
 }
 
+.redDotOff{
+    width: 10px;
+    height: 10px;
+    margin-right: 10px; /* 빨간 점과 텍스트 사이 간격 추가 */
+}
+
 .alarmContent {
   font-size: 18px;
   font-weight: bold;

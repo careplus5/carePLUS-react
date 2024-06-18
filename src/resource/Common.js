@@ -10,6 +10,7 @@ import { useState,useEffect } from 'react';
 // import Alarm from './Alarm.js';
 const Common = ({loggedInUsername}) => {
   const username = useAtomValue(usernameAtom);
+  const iden = username.substring(0,2);
   function findMenu(e){
     const menu = '#'+e;
     const Menu = document.querySelectorAll(menu);
@@ -18,7 +19,6 @@ const Common = ({loggedInUsername}) => {
     })}
     useEffect(()=>{
       console.log("common redirect");
-      const iden = username.substring(0,2);
       console.log(iden);
       if(iden=="12"){
       findMenu('nurMenu');
@@ -26,6 +26,9 @@ const Common = ({loggedInUsername}) => {
       } else if(iden=="11"){
          findMenu('docMenu');
       return;
+        }else if(iden=="99"){
+          findMenu('manMenu');
+          return;
         }
   },[]);
   return (
@@ -34,8 +37,9 @@ const Common = ({loggedInUsername}) => {
       <>
       
         <Header loggedInUsername={loggedInUsername} />
-       
-        <Sidebar />
+       {iden!=="99"?
+        <Sidebar /> : ''
+      }
       </>
   </div>
   );

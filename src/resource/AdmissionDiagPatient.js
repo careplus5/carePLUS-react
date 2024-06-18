@@ -1,63 +1,63 @@
 import axios from 'axios';
 import '../css/DiagnosisPatient.css';
-import DiagResult from './DiagResult';
+import '../css/AdmissionDiagPatient.css';
 import {url} from '../config'
 import {useState, useEffect} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 
-const DiagnosisPatient = () => {
+const AdmissionDiagPatient = () => {
 
-    const [diagPatList, setDiagPatList] = useState([]);
-    const [diagDueInfo, setDiagDueInfo] = useState({patNum:'', patName:'', patJumin:'', docDiagState:'', diagnosisDueEtc:'', diagnosisDueState:''});
+    const [admPatList, setAdmPatList] = useState([]);
+    const [admPatInfo, setAdmPatInfo] = useState({});
     const [prevDiagList, setPrevDiagList] = useState([]);
     const [accodionIndex, setAccodionIndex] = useState(null);
     const username = useAtomValue(usernameAtom);
 
     useEffect(()=>{
-        axios.get(`${url}/diagPatientList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/admDiagPatientList?docNum=${username}`)
             .then(res=>{
-                setDiagPatList([...res.data]);
+                setAdmPatList([...res.data]);
             })
             .catch(err=>{
                 console.log(err);
             })
     }, [])
 
-    const clickDiagnosis = (diagPat) => {
-        let docDiagNum = diagPat.docDiagNum;
-        let patNum = diagPat.patNum;
+    const clickDiagnosis = (admPat) => {
+        let admNum = admPat.admissionNum;
+        let patNum = admPat.patNum;
 
-        if(diagDueInfo.docDiagState === 'ing') {
+        if(admPatInfo.admissionDiagState === 'ing') {
             alert('진료중입니다');
             return;
         }
-        axios.get(`${url}/diagPatientInfo?docDiagNum=${docDiagNum}`)
+        axios.get(`${url}/admDiagPatientInfo?admNum=${admNum}`)
         .then(res=>{
-            setDiagDueInfo({...res.data});
-            let tdiagPatList = [...diagPatList];
-            tdiagPatList.map(item=>{
-                if(item.docDiagNum === docDiagNum) {
-                    item.docDiagState = res.data.docDiagState;
+            setAdmPatInfo({...res.data});
+            let tadmPatList = [...admPatList];
+            tadmPatList.map(item=>{
+                if(item.admissionNum === admNum) {
+                    item.admissionDiagState = res.data.admissionDiagState;
                 }
                 return item;
             })
-            tdiagPatList.sort((a,b)=>{
-                if(a.docDiagState === 'ing' && b.docDiagState !== 'ing'){
+            tadmPatList.sort((a,b)=>{
+                if(a.admissionDiagState === 'ing' && b.admissionDiagState !== 'ing'){
                     return -1;
                 }
-                if (a.docDiagState !== 'ing' && b.docDiagState === 'ing') {
+                if (a.admissionDiagState !== 'ing' && b.admissionDiagState === 'ing') {
                     return 1;
                 }
-                if (a.docDiagState === 'end' && b.docDiagState !== 'end') {
+                if (a.admissionDiagState === 'end' && b.admissionDiagState !== 'end') {
                     return 1;
                 }
-                if (a.docDiagState !== 'end' && b.docDiagState === 'end') {
+                if (a.admissionDiagState !== 'end' && b.admissionDiagState === 'end') {
                     return -1;
                 }
                 return 0;
             })
-            setDiagPatList([...tdiagPatList]);
+            setAdmPatList([...tadmPatList]);
         })
         .catch(err=>{
             console.log(err);
@@ -75,51 +75,43 @@ const DiagnosisPatient = () => {
         setAccodionIndex(accodionIndex === index ? null : index);
     }
 
-    const clearDiagDueInfo = () => {
-        setDiagDueInfo({
-            patNum:'', patName:'', patJumin:'', docDiagState:'', diagnosisDueEtc:'', diagnosisDueState:''
-        });
-    }
-
     return (
         <div className="background">
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
                     <div className="diagBoxHeader" style={{position:"sticky"}}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                        <h3 className="sboxHeader">&nbsp;대기 환자 목록
-                        </h3>
+                        <h3 className="sboxHeader">&nbsp;입원 환자 목록</h3>
                     </div>
                     <table className="list" borderless>
                         <tbody>
                             <tr>
                                 <th>환자번호</th>
                                 <th>이름</th>
-                                <th>진료 예약일</th>
-                                <th>예약 시간</th>
+                                <th>입원일</th>
+                                <th>퇴원예정일</th>
                                 <th>상태</th>
                                 <th>진료</th>
                             </tr>
-                            {diagPatList.map(diagPat=>(
-                                <tr key={diagPat.diagnosisDueNum}>
-                                    <td>{diagPat.patNum}</td>
-                                    <td>{diagPat.patName}</td>
-                                    <td>{diagPat.diagnosisDueDate}</td>
-                                    <td>{diagPat.diagnosisDueTime}</td>
+                            {admPatList.map(amdPat=>(
+                                <tr key={amdPat.admissionNum}>
+                                    <td>{amdPat.patNum}</td>
+                                    <td>{amdPat.patName}</td>
+                                    <td>{amdPat.admissionDate}</td>
+                                    <td>{amdPat.admissionDischargeDueDate}</td>
                                     <td style={{color: 
-                                                    diagPat.docDiagState === 'wait' ? '#F09000' : 
-                                                    diagPat.docDiagState === 'ing' ? '#007212' : 
+                                                    amdPat.admissionDiagState === 'wait' ? '#F09000' : 
+                                                    amdPat.admissionDiagState === 'ing' ? '#007212' : 
                                                     '#848484', fontWeight:"bold"}}>
-                                        {diagPat.docDiagState === 'wait' ? '대기중' : 
-                                        diagPat.docDiagState === 'ing' ? '진료중' : 
-                                        diagPat.docDiagState === 'end' ? '완료' : 
-                                        diagPat.docDiagState}
+                                        {amdPat.admissionDiagState === 'wait' ? '대기중' : 
+                                        amdPat.admissionDiagState === 'ing' ? '진료중' : 
+                                        amdPat.admissionDiagState === 'end' ? '완료' : 
+                                        amdPat.admissionDiagState}
                                     </td>
                                     <td>
                                         {
-                                            diagPat.docDiagState === 'ing' || diagPat.docDiagState === 'end' ? '-' :
-                                            <button className='buttonStyle' onClick={()=>clickDiagnosis(diagPat)}>진료</button>
-                                        
+                                            amdPat.admissionDiagState === 'ing' || amdPat.admissionDiagState === 'end' ? '-' :
+                                            <button className='buttonStyle' onClick={()=>clickDiagnosis(amdPat)}>진료</button>
                                         }
                                     </td>
                                 </tr>
@@ -130,23 +122,25 @@ const DiagnosisPatient = () => {
                 <div id="sboxRight">
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                        <h3 className="sboxHeader">&nbsp;환자 예약 정보
-                        </h3>
+                        <h3 className="sboxHeader">&nbsp;입원 환자 정보</h3>
                     </div>
                     <div className='boxContent' style={{marginLeft:'20px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={diagDueInfo.patName} readOnly/></div>
-                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={diagDueInfo.patJumin} readOnly/></div>
+                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={admPatInfo.patName} readOnly/></div>
+                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={admPatInfo.patJumin} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'6px'}}>
-                            <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={diagDueInfo.docDiagState} readOnly/></div>
+                            <div>환자번호 <input className='inputStyle' value={admPatInfo.patNum} readOnly/></div>
+                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={admPatInfo.admissionDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>증상 <input className='inputStyle' style={{width: "470px"}} value={diagDueInfo.diagnosisDueState} readOnly/></div>
-                        </div>
-                        <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"5px"}}>특이사항 <input className='inputStyle' style={{width: "470px"}} value={diagDueInfo.diagnosisDueEtc} readOnly/></div>
+                            <div style={{width:'55%'}}>
+                                <div style={{marginBottom:'10px'}}>입원 기간 <input className='inputStyle' style={{width: "55%"}} value={admPatInfo.admPeriod} readOnly/></div>
+                                <div>병상번호 <input className='inputStyle' style={{width: "55%"}} value={admPatInfo.bedsNum} readOnly/></div>
+                            </div>
+                            <div style={{width:'55%'}}>
+                                <div style={{display:'flex'}}>입원 사유 <textarea className='inputStyle textareaStyle' style={{width: "59%", height:'78px'}} value={admPatInfo.admReason} readOnly/></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,8 +149,7 @@ const DiagnosisPatient = () => {
                 <div id="prevHistorybox"  >
                     <div className="diagBoxHeader" onClick={() => handleToggle(1)}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                        <h3 className="sboxHeader">&nbsp; 이전 진료 내역
-                        </h3>
+                        <h3 className="sboxHeader">&nbsp; 이전 진료 내역</h3>
                     </div>
                     {accodionIndex === 1 && (
                         <table className="list" style={{marginBottom:'15px'}} borderless>
@@ -206,11 +199,39 @@ const DiagnosisPatient = () => {
                     )}
                 </div>
             </div>
-            <div id="diagResultRow"> 
-                <DiagResult username={username} diagPatList={diagPatList} setDiagPatList={setDiagPatList} diagDueInfo={diagDueInfo} clearDiagDueInfo={clearDiagDueInfo} />
+            <div id="diagResultRow" style={{marginTop:'20px', display:'flex'}}> 
+                <div>
+                    <div id="admDiag-firstDiagBox">
+                        <div className="diagBoxHeader" style={{position:"sticky"}}>
+                            <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
+                            <h3 className="sboxHeader">&nbsp;초기 진단 기록</h3>
+                        </div>
+                    </div>
+                    <div id="admDiag-diagRecordBox">
+                        <div className="diagBoxHeader" style={{position:"sticky"}}>
+                            <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
+                            <h3 className="sboxHeader">&nbsp;입원 진단 기록</h3>
+                        </div>
+                    </div>
+                </div>
+                <div id="admDiag-nurAdmRecordBox">
+                    <div className="admDiagBoxHeader" style={{position:"sticky"}}>
+                        <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
+                        <h3 className="sboxHeader">&nbsp;간호사 입원 일지</h3>
+                    </div>
+                    <div className='boxContent'>
+                        <div style={{marginTop:'5px'}}>
+                            <label>날짜 &nbsp;</label>2024-06-15
+                            <label style={{marginLeft:'20px'}}>담당 간호사 &nbsp;</label>김간호
+                        </div>
+                        <div>
+                            <textarea className='admRecordTextarea' value='간호사의 입원일지' readOnly/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
 }
 
-export default DiagnosisPatient;
+export default AdmissionDiagPatient;

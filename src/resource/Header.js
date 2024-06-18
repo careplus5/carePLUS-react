@@ -14,6 +14,8 @@ import SurgeryPatient from './SurgeryPatient.js';
 import NurDailyPrescription from './NurDailyPrescription.js';
 import Adm from './Adm.js';
 import NurPatientInfo from './NurPatientInfo.js';
+import Admin from './Admin.js';
+import AdmissionDiagPatient from './AdmissionDiagPatient.js';
 
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
@@ -68,15 +70,15 @@ const Header = () => {
         } else if(iden=="11"){
             
             setMenuItems([
+                { to: "/docDiagnosis", label: "외래 진료" },
+                { to: "/docAdmissionDiag", label: "입원 진료" },
+                { to: "/docSurgeryDiag", label: "수술 진료" },
                 { to: "/wardPatientList", label: "담당 환자" },
-                { to: "/diagnosisPatient", label: "외래 진료" },
-                { to: "/wardDailyPresc", label: "입원 진료" },
-                { to: "/surgeryPatient", label: "수술 진료" },
 
             ]);
         } else if(iden=="13"){
             setMenuItems([
-                { to: "/adm", label: "원무과 업무" },
+                { to: "/Adm", label: "원무과 업무" },
                 { to: "/wardPatientList", label: "예약 메시지" },
             ]);
         }
@@ -86,7 +88,9 @@ const Header = () => {
             ]);
         }
         else if(iden=="99"){
-            setMenuItems([''])
+            setMenuItems([
+                { to: "admin", label: "메인"}
+            ])
         };
         console.log("header redirect");
     
@@ -129,13 +133,15 @@ const Header = () => {
             <Routes>
                     <Route path="/organ" element={<OrganizationChart/>}/>
                     <Route path="/wardPatientList" element={<NurPatientList/>}/>
-                    <Route path="/diagnosisPatient" element={<DiagnosisPatient/>}/>
+                    <Route path="/docDiagnosis" element={<DiagnosisPatient/>}/>
                     <Route path="/metMain" element={<MetMain/>}/>
-                    <Route path="/surgeryPatient" element={<SurgeryPatient/>}/>
+                    <Route path="/docSurgeryDiag" element={<SurgeryPatient/>}/>
                     <Route path="/wardDailyPresc" element={<NurDailyPrescription/>}/>
                     <Route path="/MetMain" element={<MetMain/>}/>
                     <Route path="/adm" element={<Adm/>}/>
                     <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
+                    <Route path="/admin" element={<Admin/>}/>
+                    <Route path="/docAdmissionDiag" element={<AdmissionDiagPatient/>}/>
                     {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}

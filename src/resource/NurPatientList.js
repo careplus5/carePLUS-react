@@ -115,7 +115,6 @@ const enterPress = (e) =>{
         }
     }, [selectedState, admList]);
     
-   
     return (
         <>
 

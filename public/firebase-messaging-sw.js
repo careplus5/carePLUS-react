@@ -24,5 +24,7 @@ messaging.onBackgroundMessage((payload) => {
     body: payload.data.body,
   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  const [alarmNum, alarmCategory, alarmSendFlag] = notificationTitle.split(',');
+
+  self.registration.showNotification(alarmCategory, notificationOptions);
 });

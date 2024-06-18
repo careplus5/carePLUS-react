@@ -8,7 +8,7 @@ import { url } from '../config';
 import Alarm from './Alarm';
 import AlarmOption from './AlarmOption';
 
-const AlarmIcon = ({}) => {
+const AlarmIcon = ({ }) => {
     const [notifications, setNotifications] = useState([]);
     const [newAlarm, setNewAlarm] = useState('');
     const [fcmToken, setFcmToken] = useAtom(fcmTokenAtom);
@@ -28,29 +28,28 @@ const AlarmIcon = ({}) => {
     }
     requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm, setUnread);
 
-
-    useEffect(() => {
-        console.log(fcmToken)
-        {/* 알림 모달 List 함수 */ }
-        if (fcmToken) {
-            //로그인 이후에 fcmToken을 백으로 전달
-            axios.post(`${url}/changeFCMToken`, { fcmToken: fcmToken, empNum: username, headers: { Authorization: accessToken } })
-                .then(res => {
-                    console.log(res.data); // res.date -> res.data로 수정
-                    //알람 리스트를 가져오고
-                    return axios.post(`${url}/alarmList`, { empNum: username });
-                })
-                .then(res2 => {
-                    setNotifications(res2.data);
-                    setUnread(res2.data.length);
-                })
-                .catch(err => {
-                    console.log(err);
-                    console.log(accessToken);
-                    console.err("에러:" + err);
-                });
-        }
-    }, [username]);
+        useEffect(() => {
+            console.log(fcmToken)
+            {/* 알림 모달 List 함수 */ }
+            if (fcmToken) {
+                //로그인 이후에 fcmToken을 백으로 전달
+                axios.post(`${url}/changeFCMToken`, { fcmToken: fcmToken, empNum: username, headers: { Authorization: accessToken } })
+                    .then(res => {
+                        console.log(res.data); // res.date -> res.data로 수정
+                        //알람 리스트를 가져오고
+                        return axios.post(`${url}/alarmList`, { empNum: username });
+                    })
+                    .then(res2 => {
+                        setNotifications(res2.data);
+                        setUnread(res2.data.length);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        console.log(accessToken);
+                        console.error("에러:" + err);
+                    });
+            }
+        }, [username]);
 
     const notificationModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -87,7 +86,7 @@ const AlarmIcon = ({}) => {
                 ? { ...notification, isCheck: true }
                 : notification
         );
-        
+
         setNotifications(updatedNotifications);
 
         axios.post(`${url}/checkAlarm`, { alarmNum: alarmNum })
@@ -128,14 +127,14 @@ const AlarmIcon = ({}) => {
                         <div className='12' style={{ overflowY: 'scroll', maxHeight: '300px' }}>
                             {notifications.map((notification, index) => (
                                 <div key={notification.alarmNum} className="notificationItem" onMouseEnter={() => setIsButtonVisibleIndex(notification.alarmNum)} onMouseLeave={() => setIsButtonVisibleIndex(null)}>
-                                    
+
                                     {!notification.isCheck ?
                                         <><div className="redDot"></div>
-                                        <div className="alarmContent" onClick={() => handleNotificationClick(notification.alarmNum)}>{notification.content}</div></> :
+                                            <div className="alarmContent" onClick={() => handleNotificationClick(notification.alarmNum)}>{notification.content}</div></> :
                                         <><div className='redDotOff'></div>
-                                        <div className="alarmCheckContent">{notification.content}</div></>}
-                                     <div className="alarmButtons" style={{ visibility: isButtonVisibleIndex === index ? 'visible' : 'hidden' }}>
-                                     </div>
+                                            <div className="alarmCheckContent">{notification.content}</div></>}
+                                    <div className="alarmButtons" style={{ visibility: isButtonVisibleIndex === index ? 'visible' : 'hidden' }}>
+                                    </div>
                                 </div>
                             ))}
                         </div>

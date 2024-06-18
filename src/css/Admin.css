@@ -71,19 +71,27 @@ width:900px;
 }
 
 
-.table-header,
-.table-row {
-  display: flex;
-  border-bottom: 1px solid #ccc;
-  padding-top: 10px;
-  padding-bottom: 10PX;
-
+.list-table {
+  border-bottom: 1px solid black;
+  font-size:15px;
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
+.list-table th, .list-table td {
+  padding-left: 30px; /* 원하는 간격으로 조정 */
+  padding-right: 30px;
+  padding-top: 13px;
+  padding-bottom: 13px;
 }
 
-.table-header div,
-.table-row div {
-  flex: 1;
-  text-align: center;
+.list{
+  border-top: 1px solid lightgrey;
+  cursor: pointer;
+}
+
+.list:hover{
+  background-color: gainsboro;
 }
 
 .admSearchbar {
@@ -98,6 +106,7 @@ width:900px;
   border-radius: 20px;
   color: #233FA3;
   font-weight: bold;
+  padding-bottom: 10px;
 }
 
 #keyword {
@@ -147,6 +156,25 @@ width:900px;
   height: 155px;
   background-image: url('/public/img/profile.png');
   cursor: pointer;
+}
+.addedFileButton{
+  margin-left: 70px;
+  margin-top: 40px;
+  float: left;
+  /* background-color: transparent; */
+  border: none;
+  width: 155px;
+  height: 155px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.addedFile{
+  border-radius: 50%;
+  float: left;
+  margin-left: -6px;
+  margin-top: -1px;
+  width: 155px;
+  height: 155px;
 }
 .adminBackground{
   min-width: 100%;
@@ -204,15 +232,6 @@ width:900px;
   display: none;
 }
 
-.table-header div.title-3,
-.table-row div.title-3 {
-  flex: 3;
-}
-
-.table-header div.title-2,
-.table-row div.title-2 {
-  flex: 2;
-}
 
 #searchButton2 {
   position: relative;

@@ -5,24 +5,36 @@ import {url} from '../config'
 import {useState, useEffect} from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
+import AdmissionDiag from './AdmissionDiag.js';
 
 const AdmissionDiagPatient = () => {
 
+    const username = useAtomValue(usernameAtom);
     const [admPatList, setAdmPatList] = useState([]);
-    const [admPatInfo, setAdmPatInfo] = useState({});
+    const [admPatInfo, setAdmPatInfo] = useState({
+        patNum:'', patName:'', patJumin:'', admissionDiagState:'', admPeriod:'', bedsNum:'', admReason:''
+    });
     const [prevDiagList, setPrevDiagList] = useState([]);
     const [accodionIndex, setAccodionIndex] = useState(null);
-    const username = useAtomValue(usernameAtom);
+    const [firstDiagRecord, setFirstDiagRecord] = useState({diseaseName:'', diagContent:''});
+    const [admNurRecord, setAdmNurRecord] = useState([]);
+    const [admDiagRecord, setAdmDiagRecord] = useState([]);
+    const [docName, setDocName] = useState('');
+    const [admDiagNum, setAdmDiagNum] = useState('');
+    const [newRecordContent, setNewRecordContent] = useState('');
+    const [newRecordDate, setNewRecordDate] = useState('');
+    const [isAddButtonClick, setIsAddButtonClick] = useState(false);
 
     useEffect(()=>{
         axios.get(`${url}/admDiagPatientList?docNum=${username}`)
             .then(res=>{
                 setAdmPatList([...res.data]);
+                setDocName(res.data[0].docName);
             })
             .catch(err=>{
                 console.log(err);
             })
-    }, [])
+    }, [username])
 
     const clickDiagnosis = (admPat) => {
         let admNum = admPat.admissionNum;
@@ -32,6 +44,8 @@ const AdmissionDiagPatient = () => {
             alert('진료중입니다');
             return;
         }
+
+        /* 입원 환자 정보 조회 */
         axios.get(`${url}/admDiagPatientInfo?admNum=${admNum}`)
         .then(res=>{
             setAdmPatInfo({...res.data});
@@ -49,22 +63,46 @@ const AdmissionDiagPatient = () => {
                 if (a.admissionDiagState !== 'ing' && b.admissionDiagState === 'ing') {
                     return 1;
                 }
-                if (a.admissionDiagState === 'end' && b.admissionDiagState !== 'end') {
-                    return 1;
-                }
-                if (a.admissionDiagState !== 'end' && b.admissionDiagState === 'end') {
-                    return -1;
-                }
                 return 0;
             })
             setAdmPatList([...tadmPatList]);
+            setAdmDiagNum(res.data.admDiagNum);
         })
         .catch(err=>{
             console.log(err);
         })
+
+        /* 입원 환자 이전진료내역 조회 */
         axios.get(`${url}/prevDiagRecord?patNum=${patNum}`)
             .then(res=>{
                 setPrevDiagList([...res.data]);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        /* 입원 환자 초기진단기록 조회 */
+        axios.get(`${url}/firstDiagRecord?patNum=${patNum}`)
+            .then(res=>{
+                setFirstDiagRecord({...res.data});
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        /* 입원 환자 간호사입원일지 조회 */
+        axios.get(`${url}/admDiagNurRecord?admNum=${admNum}`)
+            .then(res=>{
+                setAdmNurRecord([...res.data]);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        /* 입원 환자 입원진단기록 조회 */
+        axios.get(`${url}/admDiagRecord?admNum=${admNum}`)
+            .then(res=>{
+                setAdmDiagRecord([...res.data]);
             })
             .catch(err=>{
                 console.log(err);
@@ -75,6 +113,32 @@ const AdmissionDiagPatient = () => {
         setAccodionIndex(accodionIndex === index ? null : index);
     }
 
+    const addDocRecord = () => {
+        if (isAddButtonClick) {
+            alert("입원 진단 기록중입니다");
+            return;
+        }
+
+        const today = new Date();
+        const formatDate = today.toISOString().split('T')[0];
+        const newAdmDiag = {admissionRecordDate:formatDate, docName:docName, docNum:username, 
+                            admissionRecordContent: '', docDiagNum:admDiagNum, isNewRecord:true};
+        setAdmDiagRecord([newAdmDiag, ...admDiagRecord]);
+        setNewRecordDate(formatDate);
+        setIsAddButtonClick(true);
+    }
+
+    const clearAdmPatInfo = () => {
+        setAdmPatInfo({
+            patNum:'', patName:'', patJumin:'', admissionDiagState:'', admPeriod:'', bedsNum:'', admReason:''
+        });
+        setAdmDiagRecord([]);
+        setFirstDiagRecord({diseaseName:'', diagContent:''});
+        setAdmNurRecord([]);
+        setIsAddButtonClick(false);
+        setNewRecordContent('');
+    }
+
     return (
         <div className="background">
             <div id="firstRow" style={{height: "340px"}}>
@@ -83,7 +147,7 @@ const AdmissionDiagPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;입원 환자 목록</h3>
                     </div>
-                    <table className="list" borderless>
+                    <table className="docDiagList" borderless>
                         <tbody>
                             <tr>
                                 <th>환자번호</th>
@@ -105,12 +169,11 @@ const AdmissionDiagPatient = () => {
                                                     '#848484', fontWeight:"bold"}}>
                                         {amdPat.admissionDiagState === 'wait' ? '대기중' : 
                                         amdPat.admissionDiagState === 'ing' ? '진료중' : 
-                                        amdPat.admissionDiagState === 'end' ? '완료' : 
                                         amdPat.admissionDiagState}
                                     </td>
                                     <td>
                                         {
-                                            amdPat.admissionDiagState === 'ing' || amdPat.admissionDiagState === 'end' ? '-' :
+                                            amdPat.admissionDiagState === 'ing' ? '-' :
                                             <button className='buttonStyle' onClick={()=>clickDiagnosis(amdPat)}>진료</button>
                                         }
                                     </td>
@@ -131,7 +194,8 @@ const AdmissionDiagPatient = () => {
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'6px'}}>
                             <div>환자번호 <input className='inputStyle' value={admPatInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} value={admPatInfo.admissionDiagState} readOnly/></div>
+                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                                        value={admPatInfo.admissionDiagState === 'ing' ? '진료중' : admPatInfo.admissionDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
                             <div style={{width:'55%'}}>
@@ -152,7 +216,7 @@ const AdmissionDiagPatient = () => {
                         <h3 className="sboxHeader">&nbsp; 이전 진료 내역</h3>
                     </div>
                     {accodionIndex === 1 && (
-                        <table className="list" style={{marginBottom:'15px'}} borderless>
+                        <table className="docDiagList" style={{marginBottom:'15px'}} borderless>
                             <tbody>
                                 <tr>
                                     <th>진료일</th>
@@ -206,29 +270,64 @@ const AdmissionDiagPatient = () => {
                             <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                             <h3 className="sboxHeader">&nbsp;초기 진단 기록</h3>
                         </div>
+                        <div className='boxContent'>
+                            <div>
+                                <label className='admDiagLabelStyle' style={{marginLeft:'10px'}}>병명 &nbsp;</label>{firstDiagRecord.diseaseName}
+                            </div>
+                            <div>
+                                <textarea className='admRecordTextarea' value={firstDiagRecord.diagContent} readOnly/>
+                            </div>
+                        </div>
                     </div>
-                    <div id="admDiag-diagRecordBox">
+                    <div id="admDiag-nurAdmRecordBox">
                         <div className="diagBoxHeader" style={{position:"sticky"}}>
                             <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                            <h3 className="sboxHeader">&nbsp;입원 진단 기록</h3>
+                            <h3 className="sboxHeader">&nbsp;간호사 입원 일지</h3>
+                        </div>
+                        <div className='boxContent' style={{maxHeight:'200px', overflowY:'auto'}}>
+                            {admNurRecord.map((record) => (
+                                <div key={record.admissionRecordNum}>
+                                    <div>
+                                        <label className='admDiagLabelStyle' style={{ marginLeft: '10px' }}>날짜 &nbsp;</label>{record.admissionRecordDate}
+                                        <label className='admDiagLabelStyle' style={{ marginLeft: '20px' }}>담당 간호사 &nbsp;</label>{`${record.nurName}(${record.nurNum})`}
+                                    </div>
+                                    <div>
+                                        <textarea className='admRecordTextarea' value={record.admissionRecordContent} readOnly />
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-                <div id="admDiag-nurAdmRecordBox">
+                <div id="admDiag-diagRecordBox">
                     <div className="admDiagBoxHeader" style={{position:"sticky"}}>
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                        <h3 className="sboxHeader">&nbsp;간호사 입원 일지</h3>
+                        <h3 className="sboxHeader">&nbsp;입원 진단 기록</h3>
+                            <button className='buttonStyle' style={{ marginTop: "14px", marginLeft:"15px" }} onClick={addDocRecord}>추가</button>
                     </div>
-                    <div className='boxContent'>
-                        <div style={{marginTop:'5px'}}>
-                            <label>날짜 &nbsp;</label>2024-06-15
-                            <label style={{marginLeft:'20px'}}>담당 간호사 &nbsp;</label>김간호
-                        </div>
-                        <div>
-                            <textarea className='admRecordTextarea' value='간호사의 입원일지' readOnly/>
-                        </div>
+                    <div className='boxContent' style={{maxHeight:'395px', overflowY:'auto'}}>
+                        {admDiagRecord.map((record, index) => (
+                            <div key={index}>
+                                <div>
+                                    <label className='admDiagLabelStyle' style={{ marginLeft: '10px' }}>날짜 &nbsp;</label>{record.admissionRecordDate}
+                                    <label className='admDiagLabelStyle' style={{ marginLeft: '20px' }}>담당의 &nbsp;</label>{`${record.docName}(${record.docNum})`}
+                                </div>
+                                <div>
+                                    <textarea className='admRecordTextarea' value={record.isNewRecord ? newRecordContent : record.admissionRecordContent} 
+                                            readOnly={!record.isNewRecord} placeholder={record.isNewRecord ? '진단 기록을 입력해주세요' : ''} 
+                                            onChange={(e) => {
+                                                if (record.isNewRecord) {
+                                                    setNewRecordContent(e.target.value);
+                                                }}} />
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
+            </div>
+            <div>
+                <AdmissionDiag username={username} admPatList={admPatList} setAdmPatList={setAdmPatList} admPatInfo={admPatInfo} 
+                            clearAdmPatInfo={clearAdmPatInfo} newRecordContent={newRecordContent} newRecordDate={newRecordDate} admDiagNum={admDiagNum}/>
             </div>
         </div>
     )

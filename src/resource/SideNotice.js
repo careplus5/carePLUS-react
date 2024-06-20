@@ -15,6 +15,7 @@ const SideNotice = () => {
     const [isNoticeListOpen, setIsNoticeListOpen] = useState(false);
 
     useEffect(() => {
+        Modal.setAppElement('#root');
         const fetchData = () => {
             axios.get(`${url}/noticeList`)
                 .then((res) => {

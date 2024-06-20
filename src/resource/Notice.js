@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { url } from "../config";
+import Modal from 'react-modal';
 import axios from "axios";
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import '../css/Notice.css';
@@ -45,6 +46,7 @@ const Notice = ({ isNoticeListOpen, setIsNoticeListOpen }) => {
 
     }
     useEffect(() => {
+        Modal.setAppElement('#root');
         searchNotice(1);
     }, [])
 

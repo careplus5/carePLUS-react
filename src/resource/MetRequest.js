@@ -19,7 +19,6 @@ const MetRequest = () => {
         axios.get(`${url}/userInfo?userId=${userId}`)
             .then((res) => {
                 setDept2Name(res.data.department2Name);
-                console.log(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -83,14 +82,13 @@ const MetRequest = () => {
             
               console.log(selectedPatient.testRequestNum)
             // 백엔드에서 상태 업데이트
-            const response = await axios.post(`${url}/updateStatus`, {
+            const response = await axios.post(`${url}/updateRequestStatus`, {
                 id: selectedPatient.testRequestNum,
                 testRequestAcpt: newTestRequestAcpt
             });
             const result = response.data;
             console.log(result)
             if (result==true){
-              console.log('aaaa')
                   // 프론트엔드에서 상태 업데이트
                 setItems((prevItems) => {
                   const updatedItems = prevItems.map((item) =>

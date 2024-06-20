@@ -1,90 +1,108 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/MetPatientList.css';
+import { url } from '../config';
+import { useAtomValue } from 'jotai';
+import { usernameAtom } from '../config/Atom';
 
 const MetPatientList = () => {
     const [patients, setPatients] = useState([]);
+    const userId = useAtomValue(usernameAtom);
 
     useEffect(() => {
-        // 임의의 테스트 데이터
-        const testPatients = [
-            { id: 1, num: '001482012', room:'2560', name: '김길동', SA:'F/49', bloodType:'AB+/AB+' ,test:'MRI(복부)' ,appointmentTime: '2024-06-03T09:00', status: 'waiting' },
-            { id: 2, num: '001492012', room:'2560', name: 'Jane Smith', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T09:30', status: 'waiting' },
-            { id: 3, num: '001502012', room:'2560', name: 'Emily Johnson', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 4, num: '001512012', room:'2560', name: '고길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T08:00', status: 'in-progress' },
-            { id: 5, num: '001522012', room:'2560', name: '송길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 6, num: '001532012', room:'2560', name: '홍길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 7, num: '001542012', room:'2560', name: '강길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 8, num: '001552012', room:'2560', name: '차길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T08:30', status: 'waiting' },
-            { id: 9, num: '001562012', room:'2560', name: '독고길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 10,num: '001572012', room:'2560', name: '남궁길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' }
-        ];
-        // 검사 시간 순으로 정렬
-        const sortedPatients = testPatients.sort((a, b) => new Date(a.appointmentTime) - new Date(b.appointmentTime));
-        setPatients(sortedPatients);
-    }, []);
-    
-    // 실제 데이터를 가져오는 비동기 함수
-    // useEffect(() => {
-    //     const fetchPatients = async () => {
-    //         try {
-    //             const response = await axios.get('/api/patients/2023-06-03'); // 임의의 날짜 예시
-    //             setPatients(response.data);
-    //         } catch (error) {
-    //             console.error('Error fetching patients', error);
-    //         }
-    //     };
-    //     // 테스트 데이터가 제대로 설정되었는지 확인하기 위해 실제 데이터 가져오는 부분을 주석 처리합니다.
-    //     // fetchPatients();
-    // }, []);
+        const fetchData = async () => {
+            try {
+                const today = new Date();
+                const formattedToday = today.toISOString().split('T')[0];
+                const res = await axios.get(`${url}/userInfo?userId=${userId}`);
+                const response = await axios.get(`${url}/testTodayList?dept2Name=${res.data.department2Name}&today=${formattedToday}`);
+                const sortedPatients = sortPatients(response.data); // 데이터를 받아오고 정렬
+                setPatients(sortedPatients); // 정렬된 데이터를 상태에 설정
+            } catch (error) {
+                console.error('오늘 수락된 검사 목록을 가져오는 중 오류 발생:', error);
+            }
+        };  
+        fetchData();
+    }, [userId]);
 
-    
+    const sortPatients = (patients) => {
+        return patients.sort((a, b) => {
+            const timeA = new Date(a.testAppointmentTime);
+            const timeB = new Date(b.testAppointmentTime);
+            const statusPriority = {
+                '대기중': 1,
+                '진행중': 0,
+                '완료': 2
+            };
 
-    const handleStatusChange = (patNum, testStatus) => {
-        const updatedPatients = patients.map(patient =>
-            patient.id === patNum ? { ...patient, status: testStatus.target.value } : patient
-        );
+            // 상태 기준으로 비교
+            if (statusPriority[a.testStatus] < statusPriority[b.testStatus]) return -1;
+            if (statusPriority[a.testStatus] > statusPriority[b.testStatus]) return 1;
 
-        // 상태별 재정렬: 'waiting' 및 'in-progress' 먼저, 'completed'는 나중에
-        const sortedPatients = updatedPatients.sort((a, b) => {
-            if (a.status === 'completed' && b.status !== 'completed') return 1;
-            if (a.status !== 'completed' && b.status === 'completed') return -1;
-            return new Date(a.appointmentTime) - new Date(b.appointmentTime);
+            // 상태가 같은 경우 예약 시간으로 비교
+            if (timeA < timeB) return -1;
+            if (timeA > timeB) return 1;
+
+            return 0; // 동일한 경우
         });
-
-        setPatients(sortedPatients);
-
-        // 여기에 상태 변경을 서버에 반영하는 코드를 추가할 수 있습니다.
-        // 예를 들어, axios.post('/api/patients/update', { id: patNum, status: testStatus.target.value });
     };
 
+    const handleStatusChange = async (testNum, event) => {
+        const newTestStatus = event.target.value;
+
+        try {
+            const response = await axios.post(`${url}/updateTestStatus`, {
+                id: testNum,
+                testStatus: newTestStatus
+            });
+
+            if (response.data === true) {
+                // 프론트엔드에서 상태 업데이트
+                setPatients((prevPatients) => {
+                    const updatedPatients = prevPatients.map((patient) =>
+                        patient.testNum === testNum ? { ...patient, testStatus: newTestStatus } : patient
+                    );
+                    return sortPatients(updatedPatients); // 정렬 함수 호출
+                });
+            } else {
+                console.log('상태 업데이트 실패');
+            }
+        } catch (error) {
+            console.error('상태 업데이트 오류:', error);
+        }
+    };
 
     return (
         <div className='patientlist-box matmain'>
             <div className='title-box'>
-                <img className='meticon' src='./img/MetPList.png' alt='Met Icon'/>
+                <img className='meticon' src='./img/MetPList.png' alt='Met Icon' />
                 <span className='mettitle'>진행상황</span>
             </div>
-            <br/>
+            <br />
             <ul className="patient-list">
-                {patients.map((patient) => (
-                    <li key={patient.num} className='patient-item'>
-                        <select className={`select-box ${patient.status}`}
-                            value={patient.status || ''}
-                            onChange={(testStatus) => handleStatusChange(patient.id, testStatus)}
-                        >
-                            <option value="">상태 선택</option>
-                            <option value="waiting" style={{ color: 'yellow' }}>대기중</option>
-                            <option value="in-progress" style={{ color: 'green' }}>진행중</option>
-                            <option value="completed" style={{ color: 'lightgrey' }}>완료</option>
-                        </select>
-                        <div className="patient-info">
-                            <p>{patient.room+' '+patient.name+' ('+patient.SA+') '+patient.num+' '+patient.bloodType}</p>
-                            <p>검사: {patient.test}</p>
-                        </div>
-                        {/* <p>{new Date(patient.appointmentTime).toLocaleTimeString()}</p> */}
-                    </li>
-                ))}
+                {sortPatients(patients).map((patient, i) => {
+                    const patJumin = patient.patJumin;
+                    const birthYear = patJumin ? (parseInt(patJumin.substring(0, 2)) + (patJumin[6] <= '2' ? 1900 : 2000)) : null;
+                    const currentYear = new Date().getFullYear();
+                    const age = birthYear ? currentYear - birthYear : null;
+                    return (
+                        <li key={i} data-id={patient.testNum} className='patient-item'>
+                            <select
+                                className={`select-box ${patient.testStatus === '대기중' ? 'waiting' : ''} ${patient.testStatus === '진행중' ? 'in-progress' : ''} ${patient.testStatus === '완료' ? 'completed' : ''}`}
+                                value={patient.testStatus || ''}
+                                onChange={(event) => handleStatusChange(patient.testNum, event)}
+                            >
+                                {/* <option value="">상태 선택</option> */}
+                                <option value="대기중">대기중</option>
+                                <option value="진행중">진행중</option>
+                                <option value="완료">완료</option>
+                            </select><br />
+                            {patient.room} {patient.patName} ({patient.patGender}/{age})<br /> {patient.patNum} {patient.patBloodType}형
+                            <br />
+                            <div style={{fontWeight:'500'}}>검사 : {patient.testPart}</div>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );

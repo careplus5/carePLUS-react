@@ -139,7 +139,7 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                     <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                     <h3 className="sboxHeader">&nbsp;수술 기록</h3>
                 </div>
-                <div className='boxContent'>
+                <div>
                     <div className='surInfoRow'>
                         <div className='surTimeStyle'>수술 시작 시간 <input className='surRecordInputStyle' name='startTime' value={startTime} onChange={inputChange} readOnly/>
                             <button className='buttonStyle' onClick={clickSurStart}>수술 시작</button>
@@ -179,7 +179,7 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                                     <option>Type O Rh-</option>
                                     <option>Type AB Rh-</option>
                                 </select>
-                                <input className='surRecordInputStyle' placeholder="사용 개수" disabled={!isUsed} name='surBloodPackCnt' value={surRecord.surBloodPackCnt} onChange={inputChange}/>
+                                <input type='number' className='surRecordInputStyle' placeholder="사용 개수" disabled={!isUsed} name='surBloodPackCnt' value={surRecord.surBloodPackCnt} onChange={inputChange}/>
                             </div>
                             <div className='radioStyle'>
                                 <input type='radio' id='unused' name='radio' style={{marginRight:"5px"}} value='unused' checked={!isUsed} onChange={useBloodPack}/>

@@ -265,7 +265,7 @@ const AdmissionDiag = ({username, admPatList, setAdmPatList, admPatInfo, clearAd
                             <input type='date' className='inputBoxStyle' style={{ width: "130px", marginTop: "-2px", marginLeft: "10px" }} name='surDate' value={formData.surDate} onChange={inputChange}/>
                         </div>
                         <div className="surgeryRequest">
-                            <input type='text' className='inputBoxStyle' style={{ marginTop: "4px", width: "185px" }} placeholder="예상 수술 시간" name='surPeriod' value={formData.surPeriod} onChange={inputChange}/>
+                            <input type='number' className='inputBoxStyle' style={{ marginTop: "4px", width: "185px" }} placeholder="예상 수술 시간" name='surPeriod' value={formData.surPeriod} onChange={inputChange}/>
                         </div>
                     </div>
                 </div>

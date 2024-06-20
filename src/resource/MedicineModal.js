@@ -3,7 +3,7 @@ import '../css/DiagResult.css';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const MedicineModal = ({ medModalIsOpen, openMedModal, inputKeyword, medSearchType, setMedSearchType, medSearchKeyword, setmedSearchKeyword,
-    medicineFilter, searchMedicine, clickMedicine, medicineList, favMedicineList, addFavMedicine, isFavMedicine }) => {
+    medicineFilter, searchMedicine, clickMedicine, medicineList, favMedicineList, addFavMedicine, isFavMedicine, clickMedicineName }) => {
     return (
         <Modal isOpen={medModalIsOpen} toggle={openMedModal} style={{ maxWidth: "1530px" }}>
             <ModalHeader toggle={openMedModal} className='modalTitle'>처방 의약품 명칭 및 코드</ModalHeader>
@@ -28,7 +28,7 @@ const MedicineModal = ({ medModalIsOpen, openMedModal, inputKeyword, medSearchTy
                                     <div
                                         key={medicine.medicineNum}
                                         className='medAutoCompleteItem'
-                                        onClick={() => clickMedicine(medicine)}
+                                        onClick={() => clickMedicineName(medicine)}
                                     >
                                         {inputKeyword(medicine.medicineKorName, medSearchKeyword)}
                                     </div>
@@ -77,7 +77,7 @@ const MedicineModal = ({ medModalIsOpen, openMedModal, inputKeyword, medSearchTy
                         <div className='favHeaderStyle trTitle' style={{ backgroundColor: "#f7f7f7" }}>
                             <img src="./img/medIcon.png" style={{ width: "20px", marginLeft: "95px" }} />  즐겨 찾는 약품
                         </div>
-                        <div className='favMedicineTag'>
+                        <div className='favMedicineTag' style={{position:'sticky', top:'100px'}}>
                             {favMedicineList.map(favMedicine => (
                                 <div className='medTag' key={favMedicine.favoriteMedicinesNum} onClick={() => clickMedicine(favMedicine)}>
                                     #{favMedicine.medicineKorName}

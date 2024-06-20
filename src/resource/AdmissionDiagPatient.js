@@ -147,47 +147,49 @@ const AdmissionDiagPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;입원 환자 목록</h3>
                     </div>
-                    <table className="docDiagList" borderless>
-                        <tbody>
-                            <tr>
-                                <th>환자번호</th>
-                                <th>이름</th>
-                                <th>입원일</th>
-                                <th>퇴원예정일</th>
-                                <th>상태</th>
-                                <th>진료</th>
-                            </tr>
-                            {admPatList.map(amdPat=>(
-                                <tr key={amdPat.admissionNum}>
-                                    <td>{amdPat.patNum}</td>
-                                    <td>{amdPat.patName}</td>
-                                    <td>{amdPat.admissionDate}</td>
-                                    <td>{amdPat.admissionDischargeDueDate}</td>
-                                    <td style={{color: 
-                                                    amdPat.admissionDiagState === 'wait' ? '#F09000' : 
-                                                    amdPat.admissionDiagState === 'ing' ? '#007212' : 
-                                                    '#848484', fontWeight:"bold"}}>
-                                        {amdPat.admissionDiagState === 'wait' ? '대기중' : 
-                                        amdPat.admissionDiagState === 'ing' ? '진료중' : 
-                                        amdPat.admissionDiagState}
-                                    </td>
-                                    <td>
-                                        {
-                                            amdPat.admissionDiagState === 'ing' ? '-' :
-                                            <button className='buttonStyle' onClick={()=>clickDiagnosis(amdPat)}>진료</button>
-                                        }
-                                    </td>
+                    <div  className='docPatListScroll'>
+                        <table className="docDiagList" borderless>
+                            <tbody>
+                                <tr>
+                                    <th>환자번호</th>
+                                    <th>이름</th>
+                                    <th>입원일</th>
+                                    <th>퇴원예정일</th>
+                                    <th>상태</th>
+                                    <th>진료</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                {admPatList.map(amdPat=>(
+                                    <tr key={amdPat.admissionNum} className='docDiagTrHover'>
+                                        <td>{amdPat.patNum}</td>
+                                        <td>{amdPat.patName}</td>
+                                        <td>{amdPat.admissionDate}</td>
+                                        <td>{amdPat.admissionDischargeDueDate}</td>
+                                        <td style={{color: 
+                                                        amdPat.admissionDiagState === 'wait' ? '#F09000' : 
+                                                        amdPat.admissionDiagState === 'ing' ? '#007212' : 
+                                                        '#848484', fontWeight:"bold"}}>
+                                            {amdPat.admissionDiagState === 'wait' ? '대기중' : 
+                                            amdPat.admissionDiagState === 'ing' ? '진료중' : 
+                                            amdPat.admissionDiagState}
+                                        </td>
+                                        <td>
+                                            {
+                                                amdPat.admissionDiagState === 'ing' ? '-' :
+                                                <button className='buttonStyle' onClick={()=>clickDiagnosis(amdPat)}>진료</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div id="sboxRight">
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;입원 환자 정보</h3>
                     </div>
-                    <div className='boxContent' style={{marginLeft:'20px'}}>
+                    <div style={{marginLeft:'45px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
                             <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={admPatInfo.patName} readOnly/></div>
                             <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={admPatInfo.patJumin} readOnly/></div>
@@ -198,12 +200,12 @@ const AdmissionDiagPatient = () => {
                                         value={admPatInfo.admissionDiagState === 'ing' ? '진료중' : admPatInfo.admissionDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{width:'55%'}}>
-                                <div style={{marginBottom:'10px'}}>입원 기간 <input className='inputStyle' style={{width: "55%"}} value={admPatInfo.admPeriod} readOnly/></div>
-                                <div>병상번호 <input className='inputStyle' style={{width: "55%"}} value={admPatInfo.bedsNum} readOnly/></div>
+                            <div style={{marginLeft:'7px'}}>
+                                <div style={{marginBottom:'10px'}}>입원기간 <input className='inputStyle' style={{marginRight:'0', width: "217px"}} value={admPatInfo.admPeriod} readOnly/></div>
+                                <div>병상번호 <input className='inputStyle' style={{marginRight:'0', width: "217px"}} value={admPatInfo.bedsNum} readOnly/></div>
                             </div>
                             <div style={{width:'55%'}}>
-                                <div style={{display:'flex'}}>입원 사유 <textarea className='inputStyle textareaStyle' style={{width: "59%", height:'78px'}} value={admPatInfo.admReason} readOnly/></div>
+                                <div style={{display:'flex', marginLeft:'37px'}}>입원사유 <textarea className='inputStyle textareaStyle' style={{width: "63%", height:'78px', marginRight:'0'}} value={admPatInfo.admReason} readOnly/></div>
                             </div>
                         </div>
                     </div>
@@ -222,7 +224,7 @@ const AdmissionDiagPatient = () => {
                                     <th>진료일</th>
                                     <th>담당의사번</th>
                                     <th>담당의명</th>
-                                    <th>진단명</th>
+                                    <th>병명</th>
                                     <th>처방 의약품 명칭</th>
                                     <th>1회 투여량</th>
                                     <th>1회 투여 횟수</th>
@@ -239,7 +241,7 @@ const AdmissionDiagPatient = () => {
                                     </tr>
                                 ) : (
                                     prevDiagList.map(prevDiag=>(
-                                        <tr key={prevDiag.docDiagNum}>
+                                        <tr key={prevDiag.docDiagNum} className='docDiagTrHover'>
                                             <td>{prevDiag.docDiagnosisDate}</td>
                                             <td>{prevDiag.docNum}</td>
                                             <td>{prevDiag.docName}</td>
@@ -270,11 +272,11 @@ const AdmissionDiagPatient = () => {
                             <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                             <h3 className="sboxHeader">&nbsp;초기 진단 기록</h3>
                         </div>
-                        <div className='boxContent'>
+                        <div>
                             <div>
-                                <label className='admDiagLabelStyle' style={{marginLeft:'10px'}}>병명 &nbsp;</label>{firstDiagRecord.diseaseName}
+                                <label className='admDiagLabelStyle' style={{paddingLeft:'35px'}}>병명 &nbsp;</label>{firstDiagRecord.diseaseName}
                             </div>
-                            <div>
+                            <div style={{paddingLeft:'25px'}}>
                                 <textarea className='admRecordTextarea' value={firstDiagRecord.diagContent} readOnly/>
                             </div>
                         </div>
@@ -284,7 +286,7 @@ const AdmissionDiagPatient = () => {
                             <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                             <h3 className="sboxHeader">&nbsp;간호사 입원 일지</h3>
                         </div>
-                        <div className='boxContent' style={{maxHeight:'200px', overflowY:'auto'}}>
+                        <div style={{maxHeight:'200px', overflowY:'auto'}}>
                             {admNurRecord.map((record) => (
                                 <div key={record.admissionRecordNum}>
                                     <div>
@@ -305,7 +307,7 @@ const AdmissionDiagPatient = () => {
                         <h3 className="sboxHeader">&nbsp;입원 진단 기록</h3>
                             <button className='buttonStyle' style={{ marginTop: "14px", marginLeft:"15px" }} onClick={addDocRecord}>추가</button>
                     </div>
-                    <div className='boxContent' style={{maxHeight:'395px', overflowY:'auto'}}>
+                    <div style={{maxHeight:'395px', overflowY:'auto',paddingLeft:'20px'}}>
                         {admDiagRecord.map((record, index) => (
                             <div key={index}>
                                 <div>

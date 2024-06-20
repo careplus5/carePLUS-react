@@ -10,19 +10,35 @@ const DocPatChartModal = ({username, patModalIsOpen, openPatModal, prevDiagList,
     const [searchType, setSearchType] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
 
-    useEffect(() => {
-        searchPatDiag();
-    }, [username])
-
     const searchPatDiag = () => {
-        console.log("엥??")
-        axios.get(`${url}/prevDiagRecord?patNum=${docPat.patNum}&searchType=${searchType}&searchKeyword=${searchKeyword}`)
+        let requestUrl = `${url}/prevDiagRecord?patNum=${docPat.patNum}`;
+        
+        if (searchType) {
+            requestUrl += `&searchType=${searchType}`;
+        }
+        if (searchKeyword) {
+            const diagKindKeyword = changeDiagKindKeyword(searchKeyword);
+            requestUrl += `&searchKeyword=${diagKindKeyword}`;
+        }
+
+        axios.get(requestUrl)
             .then(res=>{
                 setPrevDiagList([...res.data]);
             })
             .catch(err=>{
                 console.log(err);
             })
+    }
+
+    const changeDiagKindKeyword = (keyword) => {
+        switch (keyword) {
+            case '외래':
+                return 'diag';
+            case '입원':
+                return 'adm';
+            default:
+                return keyword;
+        }
     }
 
     return (
@@ -33,7 +49,7 @@ const DocPatChartModal = ({username, patModalIsOpen, openPatModal, prevDiagList,
             </ModalHeader>
             <ModalBody className='diagModalBodyStyle'>
             <div className='medStaticSearchbar'>
-                    <div className="medSearchbar" style={{ width: "700px", marginLeft: "90px" }}>
+                    <div className="medSearchbar" style={{ width: "700px", marginLeft: "60px" }}>
                         <select class="medKeywordSort" style={{ width: "110px" }} onChange={(e) => setSearchType(e.target.value)}>
                             <option value="">구분</option>
                             <option value="docNum">담당의사번</option>
@@ -50,7 +66,7 @@ const DocPatChartModal = ({username, patModalIsOpen, openPatModal, prevDiagList,
                     </div>
                 </div>
                 <div id="docPatInfo-modal">
-                    <table className="docPatInfo" style={{ marginBottom: '15px' }} borderless>
+                    <table className="docPatInfo" style={{ marginBottom: '15px', marginTop:'25px' }} borderless>
                         <tbody>
                             <tr>
                                 <th>진료일</th>

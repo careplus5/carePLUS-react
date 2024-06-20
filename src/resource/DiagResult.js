@@ -7,7 +7,7 @@ import {useState, useEffect} from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PrescModal from './PrescModal';
 
-const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo}) => {
+const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDiagDueInfo, selectPrevDis}) => {
     
     const [disModalIsOpen, setDisModalIsOpen] = useState(false);
     const [diseaseList, setDiseaseList] = useState([]);
@@ -25,17 +25,23 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
     const [medicineFilter,setMedicineFilter] = useState('');
 
     const [formData, setFormData] = useState({
-        diseaseNum: '', diagContent: '', testChecked: false, testType: '', testRequest: '',
-        admChecked: false, admReason: '', admPeriod: '', surChecked: false, surReason: '',
+        diseaseNum: '', diagContent: '', testChecked: '', testType: '', testRequest: '',
+        admChecked: '', admReason: '', admPeriod: '', surChecked: '', surReason: '',
         surDate: '', surPeriod: '', toNurse: '', selectMedicine: []
     });
 
     useEffect(() => {
-        setFormData(prevState => ({
-            ...prevState,
-            diseaseNum, selectMedicine
-        }));
-    }, [diseaseNum, selectMedicine, username]);
+        if(selectPrevDis.diseaseNum !== '') {
+            setSelectDisease(selectPrevDis.diseaseName);
+            setDiseaseNum(selectPrevDis.diseaseNum);
+            
+            setFormData(prevState => ({
+                ...prevState,
+                diseaseNum: selectPrevDis.diseaseNum, selectMedicine
+            }));
+        }
+
+    }, [selectMedicine, username, selectPrevDis]);
 
     const inputChange = (e) => {
         const {name, value, type, checked} = e.target;
@@ -99,8 +105,8 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                         setSelectDisease('');
                         setFormData(
                             {
-                                diseaseNum: '', diagContent: '', testChecked: false, testType: '', testRequest: '',
-                                admChecked: false, admReason: '', admPeriod: '', surChecked: false, surReason: '',
+                                diseaseNum: '', diagContent: '', testChecked: '', testType: '', testRequest: '',
+                                admChecked: '', admReason: '', admPeriod: '', surChecked: '', surReason: '',
                                 surDate: '', surPeriod: '', toNurse: '', selectMedicine: []
                             }
                         );
@@ -212,6 +218,11 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
         setDiseaseNum(disease.diseaseNum);
         setDiseaseKeyword(disease.diseaseName);
         setDisModalIsOpen(false);
+
+        setFormData(prevState => ({
+            ...prevState,
+            diseaseNum: disease.diseaseNum
+        }));
     }
 
     const inputKeyword = (text, keyword) => {
@@ -272,6 +283,12 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
         
     }
 
+    const clickMedicineName = (medicine) => {
+        setmedSearchKeyword(medicine.medicineKorName);
+        setMedSearchType('medKorName');
+        setMedicineFilter([]);
+    }
+
     const updateMedInfo = (index, field, value) => {
         const updateMed = [...selectMedicine];
         updateMed[index][field] = value;
@@ -291,7 +308,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;진단</h3>
                     </div>
-                    <div className='boxContent'>
+                    <div>
                         <div style={{marginLeft:"20px"}}>
                             <label className='labelStyle'>병명</label>
                             <input id="diagSelect" className="selectStyle" style={{cursor:"pointer"}} placeholder="병명 선택" value={selectDisease} readOnly onClick={openDiagModal}/>
@@ -340,7 +357,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                                 <textarea className='addDiagTextareaStyle' style={{height:"80px"}} placeholder="입원 사유" name='admReason' value={formData.admReason} onChange={inputChange}/>
                             </div>
                             <div className="adminssionRequest">
-                                <input type='text' className='inputBoxStyle' style={{marginTop:"10px"}} placeholder="입원 기간" name='admPeriod' value={formData.admPeriod} onChange={inputChange}/>
+                                <input type='number' className='inputBoxStyle' style={{marginTop:"10px"}} placeholder="입원 기간" name='admPeriod' value={formData.admPeriod} onChange={inputChange}/>
                             </div>
                         </div>
                         <div id='surgeryCheck'>
@@ -356,7 +373,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                                 <input type='date' className='inputBoxStyle' style={{width:"130px", marginTop:"-2px", marginLeft:"10px"}} name='surDate' value={formData.surDate} onChange={inputChange}/>
                             </div>
                             <div className="surgeryRequest">
-                                <input type='text' className='inputBoxStyle' style={{marginTop:"4px", width:"185px"}} placeholder="예상 수술 시간" name='surPeriod' value={formData.surPeriod} onChange={inputChange}/>
+                                <input type='number' className='inputBoxStyle' style={{marginTop:"4px", width:"185px"}} placeholder="예상 수술 시간" name='surPeriod' value={formData.surPeriod} onChange={inputChange}/>
                             </div>
                         </div>
                     </div>
@@ -430,12 +447,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                 <ModalBody className='diagModalBodyStyle'>
                     <div className='staticSearchbar'>
                     <div className="medSearchbar" style={{width:"430px", marginLeft:"50px"}}>
-                        <select className="medKeywordSort" style={{width:"80px"}} >
-                            <option>구분</option>
-                            <option>병명코드</option>
-                            <option>병명</option>
-                        </select>&nbsp;|
-                        <input type="text"  id="keyword" style={{width:"250px", backgroundColor:"#f7f7f7"}} placeholder=' 검색...' value={diseaseKeyword} onChange={(e)=>setDiseaseKeyword(e.target.value)}/>
+                        <input type="text"  id="keyword" style={{width:"75%", backgroundColor:"#f7f7f7", margin:'8px 30px'}} placeholder=' 검색...' value={diseaseKeyword} onChange={(e)=>setDiseaseKeyword(e.target.value)}/>
                         <label className="docSearchButton" for="searchButton1">
                             <button id="searchButton1"></button>
                         </label>            
@@ -477,7 +489,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
             <MedicineModal medModalIsOpen={medModalIsOpen} openMedModal={openMedModal} inputKeyword={inputKeyword} medSearchType={medSearchType} 
                         setMedSearchType={setMedSearchType} medSearchKeyword={medSearchKeyword} setmedSearchKeyword={setmedSearchKeyword}
                         medicineFilter={medicineFilter} searchMedicine={searchMedicine} clickMedicine={clickMedicine} medicineList={medicineList}
-                        favMedicineList={favMedicineList} addFavMedicine={addFavMedicine} isFavMedicine={isFavMedicine}/>
+                        favMedicineList={favMedicineList} addFavMedicine={addFavMedicine} isFavMedicine={isFavMedicine} clickMedicineName={clickMedicineName}/>
         </div>
     )
 }

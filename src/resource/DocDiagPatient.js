@@ -22,14 +22,40 @@ const DocDiagPatient = () => {
     }, [username])
 
     const searchPatient = () => {
-        const docPatUrl = `${url}/docDiagPatList?docNum=${username}&searchType=${searchType}&searchKeyword=${searchKeyword}`;
-        axios.get(docPatUrl)
+        let requestUrl = `${url}/docDiagPatList?docNum=${username}`;
+        
+        if (searchType) {
+            requestUrl += `&searchType=${searchType}`;
+        }
+        if (searchKeyword) {
+            const stateKeyword = changeStateKeyword(searchKeyword);
+            requestUrl += `&searchKeyword=${stateKeyword}`;
+        }
+
+        axios.get(requestUrl)
             .then(res => {
                 setDocPatList([...res.data]);
             })
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    const changeStateKeyword = (keyword) => {
+        switch (keyword) {
+            case '입원중':
+                return 'ing';
+            case '퇴원':
+                return 'end';
+            case '입원예정':
+                return 'wait';
+            case '수술예정':
+                return 'wait';
+            case '완료':
+                return 'end';
+            default:
+                return keyword;
+        }
     }
 
     const openPatModal = () => {
@@ -94,7 +120,13 @@ const DocDiagPatient = () => {
                         </tr>
                         <tr id="line">
                         </tr><br />
-                        {docPatList.map(docPat => (
+                        {docPatList.length === 0 ? (
+                            <tr>
+                                <td colSpan='9' style={{paddingTop:"15px"}}>
+                                    <input className='preInputStyle' style={{marginTop:'0px', width:"100%", textAlign:"center"}} value="담당 환자가 존재하지 않습니다" readOnly />
+                                </td>
+                            </tr>
+                            ) : (docPatList.map(docPat => (
                             <tr key={docPat.diagnosisDueNum}>
                                 <td>{docPat.patNum}</td>
                                 <td>{docPat.patName}</td>
@@ -118,7 +150,7 @@ const DocDiagPatient = () => {
                                         docPat.surState === 'end' ? '완료' : '-'}</td>
                                 <td><button className='buttonStyle' onClick={()=>clickDiagnosis(docPat)}>차트조회</button></td>
                             </tr>
-                        ))}
+                        )))}
                     </tbody>
                 </table>
             </div>

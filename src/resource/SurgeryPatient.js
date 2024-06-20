@@ -87,49 +87,51 @@ const SurgeryPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 목록</h3>
                     </div>
-                    <table className="docDiagList" borderless>
-                        <tbody>
-                            <tr>
-                                <th>환자번호</th>
-                                <th>이름</th>
-                                <th>수술 예약일</th>
-                                <th>수술 예정 시간</th>
-                                <th>상태</th>
-                                <th>수술</th>
-                            </tr>
-                            {surPatList.map(surPat=>(
-                                <tr key={surPat.surgeryNum}>
-                                    <td>{surPat.patNum}</td>
-                                    <td>{surPat.patName}</td>
-                                    <td>{surPat.surgeryDueDate}</td>
-                                    <td>{surPat.surgeryDueStartTime}</td>
-                                    <td style={{color: 
-                                                    surPat.surgeryState === 'wait' ? '#F09000' : 
-                                                    surPat.surgeryState === 'ing' ? '#007212' : 
-                                                    '#848484', fontWeight:"bold"}}>
-                                        {surPat.surgeryState === 'wait' ? '대기중' : 
-                                        surPat.surgeryState === 'ing' ? '진료중' : 
-                                        surPat.surgeryState === 'end' ? '완료' : 
-                                        surPat.surgeryState}
-                                    </td>
-                                    <td>
-                                        {
-                                            surPat.surgeryState === 'ing' || surPat.surgeryState === 'end' ? '-' :
-                                            <button className='buttonStyle' onClick={()=>clickSurgery(surPat)}>수술</button>
-                                        
-                                        }
-                                    </td>
+                    <div  className='docPatListScroll'>
+                        <table className="docDiagList" borderless>
+                            <tbody>
+                                <tr>
+                                    <th>환자번호</th>
+                                    <th>이름</th>
+                                    <th>수술 예약일</th>
+                                    <th>수술 예정 시간</th>
+                                    <th>상태</th>
+                                    <th>수술</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                {surPatList.map(surPat=>(
+                                    <tr key={surPat.surgeryNum} className='docDiagTrHover'>
+                                        <td>{surPat.patNum}</td>
+                                        <td>{surPat.patName}</td>
+                                        <td>{surPat.surgeryDueDate}</td>
+                                        <td>{surPat.surgeryDueStartTime}</td>
+                                        <td style={{color: 
+                                                        surPat.surgeryState === 'wait' ? '#F09000' : 
+                                                        surPat.surgeryState === 'ing' ? '#007212' : 
+                                                        '#848484', fontWeight:"bold"}}>
+                                            {surPat.surgeryState === 'wait' ? '대기중' : 
+                                            surPat.surgeryState === 'ing' ? '진료중' : 
+                                            surPat.surgeryState === 'end' ? '완료' : 
+                                            surPat.surgeryState}
+                                        </td>
+                                        <td>
+                                            {
+                                                surPat.surgeryState === 'ing' || surPat.surgeryState === 'end' ? '-' :
+                                                <button className='buttonStyle' onClick={()=>clickSurgery(surPat)}>수술</button>
+                                            
+                                            }
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div id="sboxRight" style={{height:"242px"}}>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 정보</h3>
                     </div>
-                    <div className='boxContent' style={{marginLeft:'20px'}}>
+                    <div style={{marginLeft:'45px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
                             <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={surgeryInfo.patName} readOnly/></div>
                             <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={surgeryInfo.patJumin} readOnly/></div>
@@ -152,7 +154,7 @@ const SurgeryPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp; 수술 정보</h3>
                     </div>
-                    <div className='boxContent'>
+                    <div>
                         <div className='surInfoRow'>
                             <div style={{marginRight:'-25px'}}>담당의 사번 <input className='surInfoInputStyle' value={surgeryInfo.docNum} readOnly/></div>
                             <div style={{marginRight:'-25px'}}>담당의명 <input className='surInfoInputStyle' value={surgeryInfo.docName} readOnly/></div>
@@ -182,13 +184,21 @@ const SurgeryPatient = () => {
                                 <th>부서</th>
                                 <th>이름</th>
                             </tr>
-                            {surNurList.map(surNur=>(
+                            {surNurList.length === 0 ? (
+                                <tr>
+                                    <td colSpan='3'>
+                                        <input className='preInputStyle' style={{marginTop:'0px', width:"100%", textAlign:"center", marginLeft:'20px'}} value="참여 간호사 목록이 존재하지 않습니다" readOnly />
+                                    </td>
+                                </tr>
+                            ) : (
+                            
+                            surNurList.map(surNur=>(
                                 <tr key={surNur.nurNum}>
                                     <td>{surNur.nurNum}</td>
                                     <td>{surNur.deptName}</td>
                                     <td>{surNur.nurName}</td>
                                 </tr>
-                            ))}
+                            )))}
                         </tbody>
                     </table>
                 </div>

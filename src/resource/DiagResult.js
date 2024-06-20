@@ -86,6 +86,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                 selectMedicine,
                 docNum: username,
                 patNum: diagDueInfo.patNum,
+                deptNum: diagPatList[0].deptNum,
                 docDiagnosisNum:diagDueInfo.docDiagNum
                 }
                 

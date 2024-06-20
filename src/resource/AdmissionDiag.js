@@ -67,6 +67,7 @@ const AdmissionDiag = ({username, admPatList, setAdmPatList, admPatInfo, clearAd
                 admRecordContent: newRecordContent,
                 docNum: username,
                 patNum: admPatInfo.patNum,
+                deptNum: admPatList[0].deptNum,
                 docDiagnosisNum: admDiagNum,
                 admissionNum: admPatInfo.admissionNum
             }

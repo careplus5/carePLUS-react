@@ -79,6 +79,7 @@ const DiagnosisPatient = () => {
         setDiagDueInfo({
             patNum:'', patName:'', patJumin:'', docDiagState:'', diagnosisDueEtc:'', diagnosisDueState:''
         });
+        setPrevDiagList([]);
     }
 
     return (

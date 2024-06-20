@@ -41,15 +41,22 @@
     padding: 5px;
   }
 
-  .docDiagList{
+.docDiagList{
     font-size:15px;
     width: 90%;
     text-align: center;
     margin: 0 auto;
  }
- .docDiagList tbody tr th {
+.docDiagList tbody tr th {
     padding-bottom: 7px;
 }
+/* .docDiagList tr {
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+.docDiagList tr:hover {
+    background-color: #e1e1e1;
+} */
 
  .dueInfoRow {
     width: 700px;

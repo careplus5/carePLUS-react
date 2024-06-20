@@ -102,7 +102,7 @@ const SurgeryPatient = () => {
                                     <td>{surPat.patNum}</td>
                                     <td>{surPat.patName}</td>
                                     <td>{surPat.surgeryDueDate}</td>
-                                    <td>{surPat.surgeryStartTime}</td>
+                                    <td>{surPat.surgeryDueStartTime}</td>
                                     <td style={{color: 
                                                     surPat.surgeryState === 'wait' ? '#F09000' : 
                                                     surPat.surgeryState === 'ing' ? '#007212' : 

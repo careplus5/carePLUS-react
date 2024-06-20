@@ -1,5 +1,5 @@
+import { url } from '../config';
 import { useState, useEffect } from 'react';
-// 스크롤 관련 (npm-install-scroll-component)
 import axios from 'axios';
 import AmdPatientStorage from './AdmPatientStorage';  // 기타문서
 import AmdPatientSurgeryDue from './AdmPatientSurgeryDue';  // 수술 
@@ -13,21 +13,22 @@ const AdmPatientInfo = () => {
     const [type, setType] = useState('');
     const [keyword, setKeyword] = useState('');
 
+    // 버튼에 해당 파라미터 넘겨주기 위해 설정
     const [patient, setPatient] = useState([]);
     const [selPatient, setSelPatient] = useState(null);
     const [menuIdx, setMenuIdx] = useState(0);
+    const [prescriptionList, setPrescriptionList] = useState([]);
+    const [admissionDto, setAdmissionDto] = useState('');
+    // 기타문서 발급
+    const [patientDto, setPatientDto] = useState([]);
 
-    // 환자 리스트 보기 + 스크롤
-    useEffect(() => {
-
-    }, [])
-
+    // 검색 조건 -> 검색바
     const queryList = () => {
         if (type.trim() === '' || keyword.trim() === '') {
             alert('검색조건을 입력하세요');
             return;
         }
-        axios.post('http://localhost:8090/patientSearch', { type: type, keyword: keyword })
+        axios.post(`${url}/patientSearch`, { type: type, keyword: keyword })
             .then(res => {
                 setPatient([...res.data]);
             })
@@ -36,16 +37,55 @@ const AdmPatientInfo = () => {
             });
     }
 
+    // 버튼을 통한 컨트롤 구현 (1이면 진로예약, 2면 검사예약 ....)
+    const patientClick = (patient) => {
+        setSelPatient(patient);
+        if(menuIdx===1) {  // 진료예약
+            
+        } else if(menuIdx===2) {  // 검사예약
+
+        } else if(menuIdx===3) {  // 입원예약
+        } else if(menuIdx===4) {  // 수술예약 
+        } else if(menuIdx===5) {  // 처방전 발급
+            axios.get(`${url}/patNumPrescriptionList?patNum=${patient.patNum}`)
+            .then(res => {
+                setPrescriptionList([...res.data]);
+            })
+            .catch(err => {
+                alert('조회에러')
+            })
+        } else if(menuIdx===6) {  // 기타 문서 발급
+            // axios.get(`http://locathost:8090/patientStorageList?patNum=${patient.patNum}`)
+            //         .then(res => {
+            //             setPatientDto([...res.data]);
+            //         })
+            //         .catch(err => {
+            //             alert('조회오류');
+            //         })
+        } else if(menuIdx===7) {  // 퇴원
+            // axios.get(`http://localhost:8090/patientAdmissionState?patNum=${patient.patNum}`)
+            //     .then(res => {
+            //         setAdmissionDto(res.data); 
+            //         ;
+            //     })
+            //     .catch(err => {
+            //         alert('조회에러');
+            //     })
+        }
+        console.log(patient)
+
+    }
+
     return (
         <div id="background" >
             <div id="AdmLbox">
                 <br />
                 <div>
-                    <img id="boxIcon" style={{ marginTop: "5px", marginLeft: "40px", height:'40px' }} src="./img/notice.png" />
+                    <img id="boxIcon" alt='' style={{ marginTop: "5px", marginLeft: "40px", height:'40px' }} src="./img/notice.png" />
                     <h3 id="LboxHeader">환자 목록
                     </h3>
                 </div>
-                <div className="searchLine">
+                <br/><div className="searchLine" style={{marginLeft:'35px'}}>
                     <select id="admPatientSearchKeywordSort" name="type" onChange={(e) => setType(e.target.value)}>
                         <option>구분</option>
                         <option value={"patNum"}>환자 번호</option>
@@ -61,8 +101,8 @@ const AdmPatientInfo = () => {
                 <br /><br />
 
                 {/* <div className='pat-scroll'> */}
-                <table className="admPatientList" style={{ width: '100%', tableLayout: 'fixed', maxHeight: '200%', overflow: "scroll" }}>
-                    <thead >
+                <table className="admPatientList" style={{ marginLeft:'35px', width: '94%', tableLayout: 'fixed', maxHeight: '200%', overflow: "scroll" }}>
+                    <thead style={{textAlign:'center'}}>
                         <tr style={{ position: 'sticky', height: '50px', top: 0, backgroundColor: '#FFFDF8', zIndex: 1, borderBottom: '1px solid black' }}>
                             <th>환자 번호</th>
                             <th>환자 이름</th>
@@ -78,7 +118,7 @@ const AdmPatientInfo = () => {
                     </thead>
                     <tbody>
                         {patient.map((item) => (
-                            <tr key={item.patNum} style={{ height: "35px" }} onClick={() => setSelPatient(item)}>
+                            <tr key={item.patNum} style={{ height: "35px", textAlign:'center' }} onClick={() => patientClick(item)}>
                                 <td>{item.patNum}</td>
                                 <td>{item.patName}</td>
                                 <td>{item.patJumin}</td>
@@ -94,23 +134,24 @@ const AdmPatientInfo = () => {
                     </tbody>
                 </table>
 
-                <div style={{ marginTop: '350px' }}>
-                    <button className='admControllButton' onClick={() => setMenuIdx(1)}>진료예약</button>
-                    <button onClick={() => setMenuIdx(2)}>검사</button>
-                    <button onClick={() => setMenuIdx(3)}>입원</button>
-                    <button onClick={() => setMenuIdx(4)}>수술</button>
-                    <button onClick={() => setMenuIdx(5)}>처방전발급</button>
-                    <button onClick={() => setMenuIdx(6)}>기타문서발급</button>
-                    <button onClick={() => setMenuIdx(7)}>퇴원</button>
+                <div style={{ marginTop: '350px', marginLeft:'35px' }}>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(1)}>진료예약</button>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(2)}>검사</button>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(3)}>입원</button>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(4)}>수술</button>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(5)}>처방전발급</button>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(6)}>기타문서발급</button>
+                    <button style={{backgroundColor:'lightgray',marginRight:"10px", height:'45px'}} className='admControllButton' onClick={() => setMenuIdx(7)}>퇴원</button>
                     <hr></hr>
                 </div>
                 {menuIdx === 1 && <AdmDiagnosisDue patient={selPatient} />}
                 {menuIdx === 2 && <AmdPatientTest patient={selPatient} />}
                 {menuIdx === 3 && <AdmPatientAdmmission patient={selPatient} />}
                 {menuIdx === 4 && <AmdPatientSurgeryDue patient={selPatient} />}
-                {menuIdx === 5 && <AmdPatientPrescription patient={selPatient} />}
+                {menuIdx === 5 && <AmdPatientPrescription prescriptionList={prescriptionList} />}
                 {menuIdx === 6 && <AmdPatientStorage patient={selPatient} />}
                 {menuIdx === 7 && <AmdPatientDischarge patient={selPatient} />}
+                
             </div>
         </div>
     );

@@ -1,99 +1,191 @@
+import { url } from "../config";
 import { useState, useEffect } from "react";
-
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import axios from "axios";
 
 // 처방전 발급
-const AdmPatientPrescription = () => {
+const AdmPatientPrescription = ({ prescriptionList }) => {
 
-    const [patients, setPatients] = useState([]);
+    // 처방전 조회
+    const [prescription, setPrescription] = useState('');
+    const [selectedDate, setSelectedDate] = useState();  // 교부년월일
+    // 모달 (부서에 대한 정보 검색)
+    const [admDiagDuedisModalIsOpen, setAdmDiagDuedisModalIsOpen] = useState(false);
 
-    useEffect(() => {
-        // 임의의 테스트 데이터
-        const testPatients = [
-            { id: 1, num: '001482012', room:'2560', name: '김길동', SA:'F/49', bloodType:'AB+/AB+' ,test:'MRI(복부)' ,appointmentTime: '2024-06-03T09:00', status: 'waiting' },
-            { id: 2, num: '001492012', room:'2560', name: 'Jane Smith', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T09:30', status: 'waiting' },
-            { id: 3, num: '001502012', room:'2560', name: 'Emily Johnson', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 4, num: '001512012', room:'2560', name: '고길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T08:00', status: 'in-progress' },
-            { id: 5, num: '001522012', room:'2560', name: '송길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 6, num: '001532012', room:'2560', name: '홍길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 7, num: '001542012', room:'2560', name: '강길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 8, num: '001552012', room:'2560', name: '차길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T08:30', status: 'waiting' },
-            { id: 9, num: '001562012', room:'2560', name: '독고길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' },
-            { id: 10,num: '001572012', room:'2560', name: '남궁길동', SA:'F/49', bloodType:'AB+/AB+',test:'MRI(복부)' , appointmentTime: '2024-06-03T10:00', status: 'completed' }
-        ];
-        // 검사 시간 순으로 정렬
-        const sortedPatients = testPatients.sort((a, b) => new Date(a.appointmentTime) - new Date(b.appointmentTime));
-        setPatients(sortedPatients);
-    }, []);
+    // 모달 오픈
+    const openPatientPrescriptionModal = (prescriptionNum) => {
+        setAdmDiagDuedisModalIsOpen(true);
 
-    const handleStatusChange = (patNum, testStatus) => {
-        const updatedPatients = patients.map(patient =>
-            patient.id === patNum ? { ...patient, status: testStatus.target.value } : patient
-        );
+    }
 
-        // 상태별 재정렬: 'waiting' 및 'in-progress' 먼저, 'completed'는 나중에
-        const sortedPatients = updatedPatients.sort((a, b) => {
-            if (a.status === 'completed' && b.status !== 'completed') return 1;
-            if (a.status !== 'completed' && b.status === 'completed') return -1;
-            return new Date(a.appointmentTime) - new Date(b.appointmentTime);
-        });
-
-        setPatients(sortedPatients);
-
-        // 여기에 상태 변경을 서버에 반영하는 코드를 추가할 수 있습니다.
-        // 예를 들어, axios.post('/api/patients/update', { id: patNum, status: testStatus.target.value });
-    };
-
+    // 해당 환자의 처방전 조회함수 
+    useState(() => {
+        axios.get(`${url}/searchPatientPrescription?patNum=${prescriptionList.prescriptionNum}`)
+            .then(res => {
+                setPrescription(res.data);
+            })
+            .catch(err => {
+                setPrescription();
+            })
+    })
+    // 환자(patient), 의사(doctor), 질병(disease), 의약품(medicine)
 
     return (
         <div id="LaccordionBox">
-            <div className="boxHeader" style={{ marginLeft: "35px" }} >
-                <img id="boxIcon" style={{ marginTop: "15px", width: "40px", height: "40px" }} src="./img/document.png" />&nbsp;
-                <h3 id="LboxHeader" style={{ marginTop: "19px", marginRight: "1155px" }}>처방전 발급</h3>
-                <button style={{ marginTop: "20px" }} >접수</button>
+            <div className="boxHeader" style={{ marginTop: '30px', marginLeft: "35px" }} >
+                <img id="boxIcon" style={{ width: "40px", height: "40px" }} src="./img/document.png" />&nbsp;
+                <h3 id="LboxHeader" style={{ marginRight: "115px" }}>처방전 발급</h3>
             </div>
             <br />
-            <ul className="admPrescriptionList">
-                {patients.map((patient) => (
-                    <li key={patient.num} className='admPatientPrescription-item'>
-                        {/* <select className={`prescriptionSelectelect-box ${patient.status}`}
-                            value={patient.status || ''}
-                            onChange={(testStatus) => handleStatusChange(patient.id, testStatus)}
-                        >
-                            <option value="">상태 선택</option>
-                            <option value="waiting" style={{ color: 'yellow' }}>대기중</option>
-                            <option value="completed" style={{ color: 'lightgrey' }}>완료</option>
-                        </select> */}
-                        <div className="patientPrescription-info" onClick={() => {alert('aa')}}>
-                            <p>{patient.num}</p>
-                            <p>{patient.name + ' (' + patient.SA + ') '}</p>
-                            <p>{patient.bloodType}</p>
-                            {/* <p>{patient.num + ' ' + patient.name + ' (' + patient.SA + ') ' + patient.bloodType}</p> */}
+            <ul className="admPrescriptionList" style={{marginLeft:'175px'}}>
+                {prescriptionList.map((prescription) => (
+                    <li key={prescription.prescriptionNum} className='admPatientPrescription-item'>
+                        <div className="patientPrescription-info" onClick={openPatientPrescriptionModal}>
+                            <p>처방 번호 : {prescription.prescriptionNum}</p>
+                            <p>환자 이름 : {prescription.patNum}</p>
+                            <p>처방 일자 : {prescription.prescriptionDate}</p>
                         </div>
-                        {/* <p>{new Date(patient.appointmentTime).toLocaleTimeString()}</p> */}
                     </li>
                 ))}
             </ul>
+
+            {/* 처방전 */}
+            <Modal isOpen={admDiagDuedisModalIsOpen} toggle={openPatientPrescriptionModal} className="modal-content">
+                <ModalHeader toggle={openPatientPrescriptionModal} className='AdmModalTitle'>
+                    <h1 style={{ textAlign: "center", marginTop: "100px" }}>&nbsp;처&nbsp;&nbsp;방&nbsp;&nbsp;전&nbsp;</h1>
+                </ModalHeader>
+                <ModalBody>
+                    <button onClick={(e) => setAdmDiagDuedisModalIsOpen(false)}>pre</button><button >next</button>
+                    <div >
+                        <span>의료보험 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;<span>의료보호 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;
+                        <span>산재보험 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;<span>자동차보험 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;
+                        <span>기타 ( &nbsp;&nbsp; )</span>&nbsp;&nbsp;<span>요양기관기호 : </span>
+                        <table className="tcTable" border="1" cellSpacing="0" style={{ fontSize: "20px" }}>
+                            <tr>
+                                <td style={{ textAlign: "center", fontSize: "20px" }} colSpan="2">
+                                    교부 연월일<br />
+                                    및 번호
+                                </td>
+                                <td colSpan="2">(교부연월일)</td>
+                                <td rowSpan="4" style={{ textAlign: "center", fontSize: "20px", width: "70px" }}>
+                                    <div>의</div>
+                                    <div>료</div>
+                                    <div>기</div>
+                                    <div>관</div>
+                                </td>
+                                <td>명칭</td>
+                                <td>케어플러스</td>
+                            </tr>
+                            <tr>
+                                <td rowSpan="3" style={{ textAlign: "center", fontSize: "20px" }}>
+                                    <div>환</div>
+                                    <div>자</div>
+                                </td>
+                                <td style={{ textAlign: "center", width: "130px" }}> 성 명 </td>
+                                <td colSpan="2">(patient.patNum)</td>
+                                <td>전화번호</td>
+                                <td>031-1111-2222</td>
+                            </tr>
+                            <tr>
+                                <td style={{ textAlign: "center", width: "130px" }}> 주민등록번호 </td>
+                                <td colSpan="2">(patient.patJumin)</td>
+                                <td>팩스번호</td>
+                                <td>031-111-2222</td>
+                            </tr>
+                            <tr>
+                                <td style={{ textAlign: "center", width: "130px" }}>연락처</td>
+                                <td colSpan="2">(patient.patTel)</td>
+                                <td>e-mail주소</td>
+                                <td>careplue@kosta.kr</td>
+                            </tr>
+                            <tr>
+                                <td style={{ textAlign: 'center' }}>
+                                    질병<br />
+                                    분류<br />
+                                    기호
+                                </td>
+                                <td>
+                                    (disease.dieaseNum)<br />
+                                    (disease.dieaseName)
+                                </td>
+                                <td style={{ textAlign: "center" }}>
+                                    처&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;방<br />
+                                    의료인의<br />
+                                    성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명
+                                </td>
+                                <td>(doctor.docName)</td>
+                                <td style={{ textAlign: 'center' }}>진료과</td>
+                                <td colSpan="2">(doctor.departmentName)</td>
+                            </tr>
+                            <tr>
+                                <td colSpan="7" style={{ height: "60px", textAlign: "center" }}>
+                                    * 환자의 요구가 있을 때에는 질병분류기호를 기재하지 아니합니다.
+                                </td>
+                            </tr>
+                            <tr style={{ fontSize: "15px", height: "70px" }}>
+                                <th colSpan="3"> 처방 의약품의 명칭 및 코드 </th>
+                                <th>1회 투여랑</th>
+                                <th>1일 투여횟수</th>
+                                <th>총 투약일수</th>
+
+                                <th>용법</th>
+                            </tr>
+                            <tr style={{ textAlign: "center", fontSize: "15px" }}>
+                                <th colSpan="3">(medicine.medicineNum + medicine.medicineName)</th>
+                                <th>(prescription.prescriptionDosage)</th>
+                                <th>(prescription.prescriptionDosageTime)</th>
+                                <th>(prescription.prescriptionDosageTotal)</th>
+                                <th>(prescription.prescriptionHowTake)</th>
+
+                            </tr>
+                            {/* <tr style={{ textAlign: "center", fontSize:"15px"}}>
+                        <td colSpan="6">주사제 처방내역(원내조제&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;], &nbsp;&nbsp;&nbsp;원외처방&nbsp;&nbsp;[&nbsp;&nbsp;&nbsp;])</td>
+                        <td style={{fontSize:"10px"}}>조제시 참고사항</td>
+                    </tr> */}
+                            <tr style={{ textAlign: "center", fontSize: "15px" }}>
+                                <th colSpan="3">(medicine.medicineNum + medicine.medicineName)</th>
+                                <th>(prescription.prescriptionDosage)</th>
+                                <th>(prescription.prescriptionDosageTime)</th>
+                                <th>(prescription.prescriptionDosageTotal)</th>
+                                <th>(prescription.prescriptionHowTake)</th>
+                            </tr>
+                            {/* <tr style={{fontSize:"15px"}}>
+                        <td>사용기간</td>
+                        <td colSpan="2">교부일부터&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)일간</td>
+                        <td colSpan="4">사용기간에 약국에 제출하여야 합니다.</td>
+                    </tr> */}
+                            {/* <tr style={{ textAlign: "center", fontSize:"15px"}}>
+                        <td colSpan="7">의약품 조제내역</td>
+                    </tr> */}
+                            <tr>
+                                <td rowSpan="4" style={{ textAlign: 'center' }}>조제<br />내역</td>
+                                <td>조제기관의 명칭</td>
+                                <td colSpan="3">케어플러스(주)</td>
+                                <td colSpan="2" style={{ textAlign: 'center' }}>처방의 변경 · 수정 · 확인 · 대체시 그 내용 등</td>
+                            </tr>
+                            <tr>
+                                <td>조제약사</td>
+                                <td colSpan="3">
+                                    <span>&nbsp;&nbsp;성명 : </span>
+                                    <span>류선재&nbsp;&nbsp;</span>
+                                    <span>(서명 또는 날인)</span>
+                                </td>
+                                <td colSpan="2" rowSpan="3"></td>
+                            </tr>
+                            <tr>
+                                <td>조제일수</td>
+                                <td colSpan="3">(prescription.prescriptionDosageTotal)</td>
+                            </tr>
+                            <tr>
+                                <td>조제연월일</td>
+                                <td colSpan="3">(prescription.prescriptionDate)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </ModalBody>
+            </Modal>
         </div>
 
-        // <div id="LaccordionBox">
-        //     <div className="boxHeader" style={{ marginLeft: "35px" }} >
-        //         <img id="boxIcon" style={{ marginTop: "15px", width: "40px", height: "40px" }} src="./img/document.png" />&nbsp;
-        //         <h3 id="LboxHeader" style={{ marginTop: "19px", marginRight: "1155px" }}>처방전 발급</h3>
-        //         <button style={{ marginTop: "20px" }} >접수</button>
-        //         <div>
-        //             <span >주민등록번호</span>&nbsp;&nbsp;<input type="text"
-        //                 style={{
-        //                     width: "200px", height: "30px", backgroundColor: "#FFFEFB",
-        //                     border: "none", boxShadow: "1px lightgray inset", border: "none", borderRadius: "10px"
-        //                 }} />&nbsp;&nbsp;
-        //             <span style={{ marginLeft: "150px" }}>처방일시</span>&nbsp;&nbsp;<input type="text"
-        //                 style={{
-        //                     width: "200px", height: "30px", backgroundColor: "#FFFEFB",
-        //                     border: "none", boxShadow: "1px lightgray inset", border: "none", borderRadius: "10px"
-        //                 }} />
-        //         </div><br />
-        //     </div>
-        // </div>
     )
 }
 

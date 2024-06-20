@@ -41,6 +41,7 @@ const NurDailyPrescription = () => {
         { isOpen: false, buttonNum: '3' }
     ]);
 
+
     const getBackgroundColor = (prescFre1) => {
         if (prescFre1.includes('success')) {
             return '#F7CE7E';
@@ -88,19 +89,24 @@ const NurDailyPrescription = () => {
     }
 
 
-    const keyChange = (e) =>{
-        if (keywordValue === null) {
-            setAdmList(admList);
+    const handleKeywordChange = (e) => {
+        setKeywordValue(e.target.value);
+    }
+
+    const keyChange = () => {
+        if (keywordValue === '') {
+            setFilteredAdmList(admList);
         } else {
-            setFilteredAdmList(admList.filter(admission => admission.setKeyword === setKeywordValue));
-            
+            setFilteredAdmList(admList.filter(admission => admission.patName.includes(keywordValue)));
         }
     }
-const enterPress = (e) =>{
-    if(e.key === 'Enter'){
-        keyChange();
+
+    const enterPress = (e) => {
+        if (e.key === 'Enter') {
+            keyChange();
+        }
     }
-}
+
     const [admission, setAdmission] = useState({
         admissionNum: '',
         patNum:'',
@@ -215,9 +221,14 @@ const enterPress = (e) =>{
         <div className="background">
             <div className="leftBox1">
               <div className="NDsearchbar">
-                    <input type="text"  id="keyword" style={{width:"50px", backgroundColor:"transparent",marginTop:"1px"}} placeholder=' 검색...'/>
+                    <input type="text"  
+                      onChange={handleKeywordChange}
+                      onKeyPress={enterPress}
+                    id="keyword" style={{width:"50px", backgroundColor:"transparent",marginTop:"1px"}} placeholder=' 검색...'/>
                         <label style={{top:"0px"}}
-                        id="searchButton" for="searchButton1"><button id="searchButton1"> </button></label>
+                        id="searchButton" for="searchButton1"><button 
+                        onClick={keyChange} 
+                        id="searchButton1"> </button></label>
                         <br/><br/>
                         <div className="patList">
                             <img style={{width:"50px"}}src="./img/pati.png"/>
@@ -231,12 +242,12 @@ const enterPress = (e) =>{
                                     <th>환자명</th>
                                     <th>S/A</th>
                                 </tr>
-                            {filteredAdmList.map(admission =>(
-                                <tr className="patList" key={admission.admNum} onClick={()=>prescInfo(admission)}>
+                                {filteredAdmList.map(admission => (
+                                <tr className="patList" key={admission.admNum} onClick={() => prescInfo(admission)}>
                                     <td>{admission.bedsNum}</td>
                                     <td>{admission.patName}</td>
                                     <td>성별/나이</td>
-                    </tr>))}
+                                </tr>))}
                             </table>
                             </div>   
                     </div>
@@ -280,7 +291,7 @@ const enterPress = (e) =>{
                     <td>{list.prescriptionDate}</td>
                     <td>{
 list.prescFre1 !== null ?  <button id="prescSelect" name="1button" onClick={(e)=>openPrescModal(e,list)}  style={{ backgroundColor: getBackgroundColor(list.prescFre1) }}
-disabled><p>{list.prescFre1.substring(0, 5)}</p> <br/>-</button>:
+disabled><p>{list.prescFre1.split(",")[0]}<br/>{list.prescFre1.split(",")[1]}</p> <br/>-</button>:
 <button id="prescSelect" name="1button" onClick={(e)=>openPrescModal(e,list)}></button>
 }        
 {modalStates[0].isOpen && modalStates[0].buttonNum === list.buttonNum && (
@@ -293,8 +304,8 @@ disabled><p>{list.prescFre1.substring(0, 5)}</p> <br/>-</button>:
 
 
                     <td>
-{list.buttonCount>='2'&& (list.prescFre2 === null || list.prescFre2 !==null) ? <button  name="2button"id="prescSelect" onClick={openPrescModal}></button>:<button id="prescSelect" name="2button" onClick={(e)=>openPrescModal(e,list)}  style={{ backgroundColor: getBackgroundColor(list.prescFre1) }}
-disabled><p>{list.prescFre2.substring(0, 5)}</p> <br/>-</button>}
+{list.buttonCount>='2'&& (list.prescFre2 === null || list.prescFre2 !==null) ? <button  name="2button"id="prescSelect"  onClick={(e)=>openPrescModal(e,list)} ></button>:<button id="prescSelect" name="2button" style={{ backgroundColor: getBackgroundColor(list.prescFre2) }}
+disabled><p>{list.prescFre2.split(",")[0]}<br/></p> <br/>-</button>}
                         {modalStates[1].isOpen && modalStates[1].buttonNum === list.buttonNum && (
                            <PrescModal prescription={selectedPrescription} buttonNum={modalStates[1].buttonNum} closeModal={closePrescModal} />
                         )}

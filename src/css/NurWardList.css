@@ -1,0 +1,55 @@
+.wardListBox{
+    width:300px;
+    position: relative;
+    background-color: white;
+    height:1000px;
+    border: 1px solid black;
+    border:none;
+    box-shadow: 0 1px 2px 0 lightgray;
+    border-radius: 5px;
+}
+/* 클릭 시 버튼 스타일 */
+.button.clicked {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  #usedWard{
+    float:right;
+    border-radius: 10px;
+    color:white;
+    margin-right:20px;
+    width:70px;
+    text-align: center;
+    background-color: rgb(44, 169, 113);
+  }
+
+  .deptOption, .wardOption, .roomOption, .bedOption{
+    border:none;
+    width:250px;
+    background-color: transparent;
+    scrollbar-width: none;
+    color:rgb(180, 180, 180);
+  }
+
+  .deptOption:focus, .wardOption:focus, .roomOption:focus, .bedOption:focus{
+    outline:none;
+    border:none;
+  }
+
+
+.wardContent{
+    margin-left:20px;
+
+}
+.wardContent h3{
+    font-size:20px;
+}
+
+/* .wardDepartment button{
+    background-color: transparent;
+    color:black;
+    position: relative;
+  margin-bottom: 10px;
+  
+} */

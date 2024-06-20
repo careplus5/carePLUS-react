@@ -47,3 +47,23 @@ export const admAtom = atomWithStorage(
     createJSONStorage(()=> sessionStorage),
 
 )
+
+export const diagAtom = atomWithStorage(
+    'diag',
+    {
+        nurDiagNum: '',
+        nurNum:'',
+        patNum:'',
+        patName:'',
+        nurDiagnosisDueDate:'',
+        nurDiagnosisDate:'',
+        docDiagnosisNum:'',
+        nurDiagContent:'',
+        nurDiagStatus:'',
+        departmentName:'',
+        docName:'',
+        docName:'',
+    },
+    createJSONStorage(()=> sessionStorage),
+
+)

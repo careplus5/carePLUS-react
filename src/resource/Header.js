@@ -5,6 +5,7 @@ import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
+import NurDiagPatientList from './NurDiagPatientList.js';
 import axios from 'axios';
 import AlarmIcon from './AlarmIcon';
 import OpenCalendar from './OpenCalendar';
@@ -17,6 +18,7 @@ import NurPatientInfo from './NurPatientInfo.js';
 import Admin from './Admin.js';
 import AdmissionDiagPatient from './AdmissionDiagPatient.js';
 import DocDiagPatient from './DocDiagPatient.js';
+import NurWardList from './NurWardList.js';
 
 const Header = () => {
     const [emp, setEmp] = useAtom(empAtom);
@@ -61,12 +63,20 @@ const Header = () => {
     useEffect(()=>{
         console.log(username);
         const iden = username.substring(0, 2);
+        const idenSub = username.substring(3,4);
         console.log(iden);
         if (iden == "12") {
-            setMenuItems([
-                { to: "/wardPatientList", label: "입퇴원 조회" },
-                { to: "/wardDailyPresc", label: "처방 일지" },
-                { to: "/wardList", label: "병동 조회" }])
+            if(idenSub == "1"){
+                setMenuItems([
+                    { to: "/nurDiagPatientList", label: "환자 조회" }
+                    ])
+            } else if(idenSub =="2"){
+                setMenuItems([
+                    { to: "/wardPatientList", label: "입퇴원 조회" },
+                    { to: "/wardDailyPresc", label: "처방 일지" },
+                    { to: "/wardList", label: "병동 조회" }])
+            }
+            
         } else if (iden == "11") {
 
             setMenuItems([
@@ -109,26 +119,6 @@ const Header = () => {
                             </h4>
                         </Link>
                     ))}
-
-                    {/* nurse */}
-                    {/* <Link id="a" to="/wardPatientList"><h4 id="nurMenu">입퇴원 조회</h4></Link>
-                <Link id="a" to="/wardDailyPresc"><h4 id="nurMenu">처방 일지</h4></Link>
-                <Link id="a" to="/wardList"><h4 id="nurMenu">병동 조회</h4></Link> */}
-                    {/* doctor */}
-                    {/* <Link id="a" to="/wardPatientList"><h4 id="docMenu">담당 환자</h4></Link>
-            <Link id="a" to="/wardPatientList"><h4 id="docMenu">외래 진료</h4></Link>
-                <Link id="a" to="/wardDailyPresc"><h4 id="docMenu">입원 진료</h4></Link>
-                <Link id="a" to="/wardList"><h4 id="docMenu">수술 진료</h4></Link> */}
-
-                    {/* adminHos */}
-                    <a><h4 id="admHMenu">기타 발급</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a><h4 id="admHMenu">수납 조회</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a><h4 id="admHMenu">환자 조회</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a><h4 id="admHMenu">예약 메시지</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-
-            {/* medicalTech */}
-            <a><h4 id="metMenu">환자 목록</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a><h4 id="metMenu">스케줄</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
  
             <Routes>
                     <Route path="/organ" element={<OrganizationChart/>}/>
@@ -138,6 +128,7 @@ const Header = () => {
                     <Route path="/docSurgeryDiag" element={<SurgeryPatient/>}/>
                     <Route path="/wardDailyPresc" element={<NurDailyPrescription/>}/>
                     <Route path="/MetMain" element={<MetMain/>}/>
+                    <Route path="/nurDiagPatientList" element={<NurDiagPatientList/>}/>
                     <Route path="/adm" element={<Adm/>}/>
                     <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
                     <Route path="/admin" element={<Admin/>}/>
@@ -146,6 +137,7 @@ const Header = () => {
                     {/* <Route path="/adm" element={<Adm/>}/> */}
                     {/* <Route path="/wardDailyPresc" element={}/>
                     <Route path="/wardList" element={}/> */}
+                     <Route path="/wardList" element={<NurWardList/>}/>
                     </Routes>
                 </div>
 

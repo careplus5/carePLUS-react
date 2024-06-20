@@ -162,6 +162,12 @@ const AdmissionDiag = ({username, admPatList, setAdmPatList, admPatInfo, clearAd
         });
     }
 
+    const clickMedicineName = (medicine) => {
+        setmedSearchKeyword(medicine.medicineKorName);
+        setMedSearchType('medKorName');
+        setMedicineFilter([]);
+    }
+
     const searchMedicine = () => {
         const medListUrl = `${url}/medicineList?medSearchType=${medSearchType}&medSearchKeyword=${medSearchKeyword}`;
         axios.get(medListUrl)
@@ -325,7 +331,7 @@ const AdmissionDiag = ({username, admPatList, setAdmPatList, admPatInfo, clearAd
             {/* 약품 선택 모달 */}
             <MedicineModal medModalIsOpen={medModalIsOpen} openMedModal={openMedModal} inputKeyword={inputKeyword} medSearchType={medSearchType} setMedSearchType={setMedSearchType} medSearchKeyword={medSearchKeyword} setmedSearchKeyword={setmedSearchKeyword}
                         medicineFilter={medicineFilter} searchMedicine={searchMedicine} clickMedicine={clickMedicine} medicineList={medicineList}
-                        favMedicineList={favMedicineList} addFavMedicine={addFavMedicine} isFavMedicine={isFavMedicine}/>
+                        favMedicineList={favMedicineList} addFavMedicine={addFavMedicine} isFavMedicine={isFavMedicine} clickMedicineName={clickMedicineName}/>
 
         </div>
     )

@@ -58,6 +58,21 @@ width:900px;
 
 }
 
+.selectJob{
+    border:none;
+    box-shadow: 0 1px 3px 0 lightgray inset;
+    border-radius: 10px;
+    background-color: #FBF9F2;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    font-family: 'Pretendard-Regular';
+    font-weight: bold;
+    color: #427889;
+    margin-left:50px;
+    float: left;
+}
+
 .selectbox-font {
   font-size: 18px;
 }
@@ -311,7 +326,8 @@ accordion-header-title {
   margin-right: 50px;
 }
 
-.select {
+
+.notice-select {
   /* margin-top: 7px; */
   color: #233FA3;
   font-weight: bold;

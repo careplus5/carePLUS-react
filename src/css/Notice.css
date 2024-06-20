@@ -1,0 +1,351 @@
+.noticeModalEvent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: right;
+    justify-content: flex-end;
+    /* 우측으로 정렬 */
+    z-index: 10000;
+}
+
+.noticeListModalEvent{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: right;
+    justify-content: flex-end;
+    /* 우측으로 정렬 */
+    z-index: 10000;
+}
+.noticeContentSelectEvent{
+    margin-top: 100px;
+    margin-right: 400px;
+    background-color: #FFFDF8;
+    height: 555px;
+    width: 860px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px 1px lightgray;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.noticeModalEventContent {
+    margin-top: 250px;
+    margin-right: 400px;
+    background-color: #FFFDF8;
+    height: 487px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px 1px lightgray;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin-top: 80px;
+    font-family: Arial, sans-serif;
+}
+
+.noticeClose {
+    /* color: black;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: -10px; */
+    color: black;
+    margin-left: 740px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: -30px;
+}
+
+.title-box {
+    margin-left: 5px;
+    align-items: center;
+    font-size: 23px;
+    border-radius: 10px;
+    display: flex;
+    font-weight: 600;
+}
+
+.section-title {
+    margin-left: 5px;
+    display: flex;
+}
+
+.section-controls {
+    display: inline-flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+}
+
+.selectJob {
+    border: none;
+    box-shadow: 0 1px 3px 0 lightgray inset;
+    border-radius: 10px;
+    background-color: #FBF9F2;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    font-family: 'Pretendard-Regular';
+    font-weight: bold;
+    color: #427889;
+    margin-left: 50px;
+    float: left;
+}
+
+.selectbox-font {
+    font-size: 18px;
+}
+
+::placeholder {
+    color: gray;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
+.list-table {
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.list-table th,
+.list-table td {
+    padding-left: 30px;
+    /* 원하는 간격으로 조정 */
+    padding-right: 30px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.list {
+    border-top: 1px solid lightgrey;
+    cursor: pointer;
+}
+
+.list:hover {
+    background-color: gainsboro;
+}
+
+.admSearchbar {
+    margin-bottom: 10px;
+    background-color: white;
+    position: relative;
+    float: right;
+    margin-left: 360px;
+    width: 530px;
+    height: 30px;
+    box-shadow: 1px 1px 2px 0 lightgray;
+    border-radius: 20px;
+    color: #233FA3;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+#keyword {
+    border: none;
+    width: 350px;
+    font-size: 15px;
+
+}
+
+#admKeywordSort {
+    margin-top: 7px;
+    color: #233FA3;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 30px;
+    border: none;
+    width: 45px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#searchButton2 {
+    top: -3px;
+    margin-right: 20px;
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    background-image: url('/public/img/adsearch.png');
+    /* cursor: pointer; */
+    float: right;
+}
+
+#addButton1 {
+    border-radius: 50%;
+    display: none;
+}
+
+#addButton2 {
+    margin-left: 70px;
+    margin-top: 40px;
+    float: left;
+    background-color: transparent;
+    border: none;
+    width: 155px;
+    height: 155px;
+    background-image: url('/public/img/profile.png');
+    cursor: pointer;
+}
+
+.addedFileButton {
+    margin-left: 70px;
+    margin-top: 40px;
+    float: left;
+    /* background-color: transparent; */
+    border: none;
+    width: 155px;
+    height: 155px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.addedFile {
+    border-radius: 50%;
+    float: left;
+    margin-left: -6px;
+    margin-top: -1px;
+    width: 155px;
+    height: 155px;
+}
+
+.adminBackground {
+    min-width: 100%;
+    display: flex;
+    height: auto;
+    position: absolute;
+    top: 80px;
+    left: -198px;
+
+
+}
+
+.row-title {
+    flex: 3;
+    /* float: left; */
+    margin-right: 10px;
+    /* 여백 추가 */
+    text-align: left;
+    float: left;
+    margin-left: 80px;
+    /* float: left; */
+    /* line-height: 35px; 텍스트 세로 중앙 정렬 */
+}
+
+#searchButton1 {
+    display: none;
+}
+
+
+#searchButton2 {
+    position: relative;
+    margin-top: 5px;
+    margin-right: 20px;
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 25px;
+    background-image: url('/public/img/adsearch.png');
+    float: right;
+}
+
+.input-group {
+    margin-right: 60px;
+    margin-bottom: 15px;
+    background-color: white;
+    position: relative;
+    float: right;
+    /* margin-left: 120px; */
+    width: 740px;
+    height: 30px;
+    box-shadow: 1px 1px 2px 0 lightgray;
+    border-radius: 20px;
+    color: #233FA3;
+    font-weight: bold;
+}
+
+
+.notice-select {
+    /* margin-top: 7px; */
+    color: #233FA3;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 20px;
+    margin-right: 10px;
+    border: none;
+    width: 45px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.notice-input {
+    outline: none;
+    margin-left: 20px;
+    border: none;
+    width: 640px;
+    font-size: 15px;
+}
+
+.add-button {
+    background-color: #427889;
+    margin-right: 60px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+.del-button {
+    background-color: lightgray;
+    margin-right: 10px;
+}
+
+.button {
+    height: 25px;
+    width: 50px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.button-container {
+    float: right;
+}
+
+
+.write-img {
+    margin-left: 20px;
+    margin-right: 10px;
+    /* margin-bottom: 5px; */
+}
+
+.notice-img {
+    /* margin-left: 20px; */
+    margin-right: 10px;
+}

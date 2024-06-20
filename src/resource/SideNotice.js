@@ -2,43 +2,35 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import '../css/SideNotice.css';
+import { url } from '../config';
+import Notice from './Notice';
 
 const SideNotice = () => {
-    const [notices, setNotices] = useState([]);
-    const [selectedNotice, setSelectedNotice] = useState(null);
+    const [notice, setNotice] = useState({
+        noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '', noticeViewCount: ''
+    })
+    const [noticeList, setNoticeList] = useState([]);
+    const [selectedNotice, setSelectedNotice] = useState({});
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+    const [isNoticeListOpen, setIsNoticeListOpen] = useState(false);
 
     useEffect(() => {
-        // Set the app element for accessibility
-        Modal.setAppElement('#root');
-
-        // const fetchNotices = async () => {
-        //     try {
-        //         const response = await axios.get('/api/notices');
-        //         const data = response.data;
-        //         setNotices(data.slice(0, 3)); // 최신 공지사항 3개만 저장
-        //     } catch (error) {
-        //         console.error('공지사항을 가져오는 중 오류 발생:', error);
-        //     }
-        // };
-
-        // fetchNotices();
-        // const intervalId = setInterval(fetchNotices, 5000); // 5초마다 공지사항 갱신
-
-        // return () => clearInterval(intervalId); // 컴포넌트가 언마운트되면 인터벌 제거
-
-        // 임의의 테스트 데이터
-        const testNotices = [
-            { id: '001482012', title:'Notice 1', content: 'Content for Notice 1', saveTime: '2024-06-03T09:00' },
-            { id: '001492012', title:'Notice 2', content: 'Content for Notice 2', saveTime: '2024-06-03T09:30' },
-            { id: '001502012', title:'Notice 3', content: 'Content for Notice 3', saveTime: '2024-06-03T10:00' },
-            { id: '001512012', title:'Notice 4', content: 'Content for Notice 4', saveTime: '2024-06-03T08:00' },
-            { id: '001522012', title:'Notice 5', content: 'Content for Notice 5', saveTime: '2024-06-03T10:30' }
-        ];
-        
-        // 공지 최신순으로 정렬
-        const sortedNotices = testNotices.sort((a, b) => new Date(b.saveTime) - new Date(a.saveTime));
-        setNotices(sortedNotices.slice(0, 3)); // 최신 공지사항 3개만 저장
+        const fetchData = () => {
+            axios.get(`${url}/noticeList`)
+                .then((res) => {
+                    setNoticeList(res.data.noticeList.slice(0,3));
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        };
+    
+        const interval = setInterval(fetchData, 60000);
+        fetchData(); // 페이지 로딩 시 초기 데이터 불러오기
+    
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     const handleNoticeClick = (event, notice) => {
@@ -53,17 +45,22 @@ const SideNotice = () => {
     const closeModal = () => {
         setSelectedNotice(null);
     };
+    
+    const showMoreList = (e) =>{
+        setIsNoticeListOpen(!isNoticeListOpen)
+    }
 
     return (
         <div className="side-notice">
             <div className='title-box'>
                 <img className='meticon' src='./img/SideNotice.png' alt='Met Icon'/>
                 <span className='mettitle'>공지사항</span>
+                <a style={{fontSize:"14px", marginLeft:"25px", cursor:'pointer'}} onClick={showMoreList}>+더보기</a>
             </div><br/>
             <ul>
-                {notices.map((notice) => (
-                    <li key={notice.id} onClick={(e) => handleNoticeClick(e, notice)}>
-                        {notice.title}
+                {noticeList.map((notice) => (
+                    <li key={notice.noticeNum} onClick={(e) => handleNoticeClick(e, notice)}>
+                        {notice.noticeTitle}
                     </li>
                 ))}
             </ul>
@@ -83,11 +80,16 @@ const SideNotice = () => {
                         }
                     }}
                 >
-                    <h2>{selectedNotice.title}</h2>
-                    <p>{selectedNotice.content}</p>
+                    <h2>{selectedNotice.noticeTitle}</h2>
+                    <p>{selectedNotice.noticeContent}</p>
                     <button onClick={closeModal}>닫기</button>
                 </Modal>
             )}
+            {isNoticeListOpen &&
+                <div>
+                    <Notice isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/>
+                </div>
+            }
         </div>
     );
 };

@@ -60,7 +60,8 @@ const enterPress = (e) =>{
         nurDiagStatus:'',
         departmentName:'',
         docName:'',
-        docName:'',
+        docDiagnosisOrder:'',
+        docDiagnosisContent:'',
     })
     useEffect(()=>{
         console.log("nurDiagPatientList redirect");
@@ -74,6 +75,7 @@ const enterPress = (e) =>{
             console.log("react's token: "+accessToken);
             // setAdmList([...JSON.stringify(response.data)]);
             const data = response.data[0];
+            console.log(data);
             const mappedData = response.data.map(data=>({
                 nurDiagNum: data.diagnosis.nurDiagNum,
                 nurNum:data.diagnosis.nurNum,
@@ -86,6 +88,8 @@ const enterPress = (e) =>{
                 nurDiagStatus:data.diagnosis.nurDiagStatus,
                 departmentName:data.departmentName,
                 docName:data.docName,
+                docDiagnosisOrder:data.DocDiagnosis.docDiagnosisOrder,
+                docDiagnosisContent:data.DocDiagnosis.docDiagnosisContent
             }));
             setDiagList(mappedData);
             setFilteredDiagList(diagList);

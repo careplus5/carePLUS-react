@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Routes, Route, Link } from 'react-router-dom';
 import NurPatientList from './NurPatientList';
 import OrganizationChart from './OrganizationChart';
+import NurDiagPatientInfo from './NurDiagPatientInfo.js';
 import { useAtom, useAtomValue } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom} from '../config/Atom.js';
 import NurDiagPatientList from './NurDiagPatientList.js';
@@ -131,6 +132,7 @@ const Header = () => {
                     <Route path="/nurDiagPatientList" element={<NurDiagPatientList/>}/>
                     <Route path="/adm" element={<Adm/>}/>
                     <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
+                    <Route path="/nurDiagPatientInfo/:diagnosisNum" element={<NurDiagPatientInfo/>}/>
                     <Route path="/admin" element={<Admin/>}/>
                     <Route path="/docAdmissionDiag" element={<AdmissionDiagPatient/>}/>
                     <Route path="/docDiagPatient" element={<DocDiagPatient/>}/>

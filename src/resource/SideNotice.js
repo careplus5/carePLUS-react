@@ -4,13 +4,14 @@ import Modal from 'react-modal';
 import '../css/SideNotice.css';
 import { url } from '../config';
 import Notice from './Notice';
+import NoticeList from './NoticeList';
 
 const SideNotice = () => {
     const [notice, setNotice] = useState({
         noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '', noticeViewCount: ''
     })
     const [noticeList, setNoticeList] = useState([]);
-    const [selectedNotice, setSelectedNotice] = useState({});
+    const [selectedNotice, setSelectedNotice] = useState(null);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
     const [isNoticeListOpen, setIsNoticeListOpen] = useState(false);
 
@@ -88,7 +89,7 @@ const SideNotice = () => {
             )}
             {isNoticeListOpen &&
                 <div>
-                    <Notice isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/>
+                    <NoticeList isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/>
                 </div>
             }
         </div>

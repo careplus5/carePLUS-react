@@ -20,10 +20,6 @@ const OpenCalendar = () => {
     setSelectedEvent(null); // 모달이 닫힐 때 선택된 이벤트를 초기화합니다.
   };
 
-  const handleEventClick = (event) => {
-    setSelectedEvent(event); // 선택된 이벤트를 업데이트합니다.
-  };
-
   return (
     <div className="OpenCalendar">
       <img className='headerIcon' src='./img/schedule.png' onClick={() => setIsPopupOpen(true)}/>
@@ -31,7 +27,7 @@ const OpenCalendar = () => {
       <Calendar 
         onClose={handleClose} 
         onDateSelect={handleDateSelect}
-        onEventClick={handleEventClick} />
+        isOpen={isPopupOpen} />
     </div>
   );
 };

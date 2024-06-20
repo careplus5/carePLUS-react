@@ -3,8 +3,8 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import '../css/SideNotice.css';
 import { url } from '../config';
-import Notice from './Notice';
-import NoticeList from './NoticeList';
+// import Notice from './Notice';
+// import NoticeList from './NoticeList';
 
 const SideNotice = () => {
     const [notice, setNotice] = useState({
@@ -89,7 +89,7 @@ const SideNotice = () => {
             )}
             {isNoticeListOpen &&
                 <div>
-                    <NoticeList isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/>
+                    {/* <NoticeList isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/> */}
                 </div>
             }
         </div>

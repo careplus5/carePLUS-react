@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.title-box {
+.mettitle-box {
     float: left;
   }
   
@@ -20,3 +20,21 @@
     vertical-align: text-bottom;
   }
 
+/* 웹킷 기반 브라우저에서 스크롤바 스타일 커스터마이징 */
+::-webkit-scrollbar {
+  width: 12px;  /* 스크롤바의 너비 */
+  height: 12px; /* 가로 스크롤바의 높이 */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 스크롤바 트랙의 배경 색상 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* 스크롤바의 색상 */
+  border-radius: 10px; /* 스크롤바의 모서리를 둥글게 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* 스크롤바에 마우스를 올렸을 때의 색상 */
+}

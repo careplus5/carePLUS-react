@@ -31,3 +31,8 @@ input[type="file"] {
     font-size: 12px;
 }
 
+.pat-info {
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 400;
+}

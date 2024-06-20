@@ -2,20 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/MetPatientList.css';
 import { url } from '../config';
-import { useAtomValue } from 'jotai';
-import { usernameAtom } from '../config/Atom';
 
-const MetPatientList = () => {
+
+const MetPatientList = ({ onPatientSelect, userInfo }) => {
     const [patients, setPatients] = useState([]);
-    const userId = useAtomValue(usernameAtom);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const today = new Date();
                 const formattedToday = today.toISOString().split('T')[0];
-                const res = await axios.get(`${url}/userInfo?userId=${userId}`);
-                const response = await axios.get(`${url}/testTodayList?dept2Name=${res.data.department2Name}&today=${formattedToday}`);
+                const response = await axios.get(`${url}/testTodayList?dept2Name=${userInfo.department2Name}&today=${formattedToday}`);
                 const sortedPatients = sortPatients(response.data); // 데이터를 받아오고 정렬
                 setPatients(sortedPatients); // 정렬된 데이터를 상태에 설정
             } catch (error) {
@@ -23,7 +20,7 @@ const MetPatientList = () => {
             }
         };  
         fetchData();
-    }, [userId]);
+    }, [userInfo]);
 
     const sortPatients = (patients) => {
         return patients.sort((a, b) => {
@@ -74,11 +71,10 @@ const MetPatientList = () => {
 
     return (
         <div className='patientlist-box matmain'>
-            <div className='title-box'>
+            <div className='mettitle-box'>
                 <img className='meticon' src='./img/MetPList.png' alt='Met Icon' />
                 <span className='mettitle'>진행상황</span>
             </div>
-            <br />
             <ul className="patient-list">
                 {sortPatients(patients).map((patient, i) => {
                     const patJumin = patient.patJumin;
@@ -86,7 +82,7 @@ const MetPatientList = () => {
                     const currentYear = new Date().getFullYear();
                     const age = birthYear ? currentYear - birthYear : null;
                     return (
-                        <li key={i} data-id={patient.testNum} className='patient-item'>
+                        <li key={i} data-id={patient.testNum} className='patient-item'onClick={() => onPatientSelect(patient)}>
                             <select
                                 className={`select-box ${patient.testStatus === '대기중' ? 'waiting' : ''} ${patient.testStatus === '진행중' ? 'in-progress' : ''} ${patient.testStatus === '완료' ? 'completed' : ''}`}
                                 value={patient.testStatus || ''}
@@ -98,8 +94,7 @@ const MetPatientList = () => {
                                 <option value="완료">완료</option>
                             </select><br />
                             {patient.room} {patient.patName} ({patient.patGender}/{age})<br /> {patient.patNum} {patient.patBloodType}형
-                            <br />
-                            <div style={{fontWeight:'500'}}>검사 : {patient.testPart}</div>
+                            <div style={{fontWeight:'500', paddingTop:'5px'}}>검사 : {patient.testPart}</div>
                         </li>
                     );
                 })}

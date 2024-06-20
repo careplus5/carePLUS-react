@@ -3,9 +3,10 @@ import axios from 'axios';
 import '../css/MetNotice.css';
 // import CalendarMini from './CalendarMini';
 import Calendar from './Calendar';
+import { url } from '../config';
 
 
-const MetNotice = () => {
+const MetNotice = ({ selectedPatient }) => {
     const [notice, setNotice] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 오픈 상태를 저장하는 상태
 
@@ -20,7 +21,7 @@ const MetNotice = () => {
         }
 
         try {
-            const response = await axios.post('/api/saveNotice', { notice });
+            const response = await axios.post(`${url}/saveNotice', ${ selectedPatient.testNum }`);
             alert('특이사항이 성공적으로 저장되었습니다');
             setNotice(''); // 저장 후 입력 필드 초기화
         } catch (error) {
@@ -43,7 +44,7 @@ const MetNotice = () => {
     return (
         <div className='metmain'>
             <div className='notice-box'>
-                <div className='title-box'>
+                <div className='mettitle-box'>
                     <img className='meticon' src='./img/MetNotice.png' alt='Met Icon'/>
                     <span className='mettitle'>검사시 특이사항</span>
                 </div>
@@ -55,7 +56,7 @@ const MetNotice = () => {
                 <button className='noti-button' onClick={handleSaveClick}>저장</button>
             </div>
             <div className='calendar-box' onClick={handleMiniCalendarClick}>
-                <div className='title-box'>
+                <div className='mettitle-box'>
                     <img className='meticon' src='./img/CalendarMin.png' alt='Met Icon'/>
                     <span className='mettitle'>캘린더</span>
                 </div>

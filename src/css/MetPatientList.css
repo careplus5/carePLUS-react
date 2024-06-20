@@ -16,20 +16,21 @@
     display: flex; /*가로로 정렬되도록 설정합니다*/
     overflow-x: auto; /* 가로 스크롤이 가능하도록 설정합니다 */
     overflow-y: hidden; /* 수직 스크롤을 숨깁니다. */
-    height: 150px;
+    height: 130px;
     box-sizing: unset;
-    margin-top: 16px;
+    margin-top: 15px;
+    margin-left: 5px;
 }
 
 .patient-item {
-    margin-right: 20px; /* 각 항목 사이에 간격을 둡니다 */
+    margin-right: 30px; /* 각 항목 사이에 간격을 둡니다 */
     display: inline-block; /* 각 항목을 인라인 블록 요소로 설정하여 가로로 정렬되도록 합니다 */
     height: 150px;
 }
 
 .patient-info {
     width: 170px;
-    font-size: 16px;
+    font-size: 15px;
     /* overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

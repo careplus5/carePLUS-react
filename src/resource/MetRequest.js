@@ -116,11 +116,10 @@ const MetRequest = () => {
 
     return (
         <div className="app-container matmain" ref={sidebarRef}>
-            <div className='title-box'>
+            <div className='mettitle-box'>
                 <img className='meticon' src='./img/MetRequest.png' alt='Met Icon' />
                 <span className='mettitle'>검사요청</span>
             </div>
-            <br />
             <ul className='ul'>
                 {items.map((item, i) => {
                   // patJumin에서 생년을 추출하여 나이 계산

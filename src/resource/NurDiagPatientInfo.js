@@ -13,6 +13,7 @@ const NurDiagPatientInfo = () => {
     // 유형 1. 대기 중인 환자의 상세 정보
     const username = useAtomValue(usernameAtom);
     const diagnosis = useAtomValue(diagAtom);
+    const [nurDiagContent, setNurDiagContent] = useState('');
     const [dailyContent, setDailyContent] = useState('');
     // const admissionStatus = admission.admissionStatus;
     const [disModalOpen, setDisModalOpen] = useState(false);
@@ -20,13 +21,12 @@ const NurDiagPatientInfo = () => {
     const [docRecords, setDocRecords]=useState([]);
     const [nurseRecords, setNurseRecords] = useState([]);
 //    const admission = location.admission.admission;
-const diagnosisNum = diagnosis.nurDiagNum;   
-
+const diagnosisNum = diagnosis.nurDiagNum;
+const patNum = diagnosis.patNum;
+const [prevDiagList, setPrevDiagList] = useState([]);
 const writeSubmit = async () => {
     try {
-        const nurDiagContent = document.getElementById('nurDiagContent').value;
-        console.log(nurDiagContent);
-        const currentDate = new Date();  // 현재 시간을 가져오는 Date 객체 생성
+        const currentDate = new Date().toISOString().split('T')[0];  // 현재 날짜를 yyyy-MM-dd 형식으로 변환
         const response = axios.post(`${url}/nurDiagPatientRecord`, {
             nurDiagnosisDate: currentDate,
             nurNum: username,
@@ -46,17 +46,15 @@ const writeSubmit = async () => {
     }
 };
 
-
-// useEffect(()=>{
-//     console.log("넘어왔는가."+JSON.stringify(diagnosis));
-//         axios.get(`${url}/nurDiagPatientInfo`,{params: {nurDiagNum:diagnosisNum}})
-//         .then(res=>{;
-          
-//         })
-//         .catch(err=>{
-//             console.log("error가 낫습니다: "+diagnosisNum);
-//         })
-//    }, [diagnosis.nurDiagNum])
+useEffect(()=>{
+    axios.get(`${url}/prevDiagRecord?patNum=${patNum}`)
+    .then(res=>{
+        setPrevDiagList([...res.data]);
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+},[])
 
     const openDisModal = () => {
         setDisModalOpen(true);
@@ -85,7 +83,7 @@ return (<div className="background">
         <div style={{marginLeft:"60px"}}>
           <div className="admInfo">
                             <div>이름&nbsp; <input className='inputStyle' value={diagnosis.patName} disabled/></div>
-                            <div style={{marginLeft:"-30px"}}>생년월일 <input className='inputStyle' disabled/></div>
+                            <div style={{marginLeft:"-30px"}}>생년월일 <input className='inputStyle' value={diagnosis.patBirth} disabled/></div>
                         </div>
                             <div>환자 번호<input className='inputStyle' value={diagnosis.patNum}style={{width:"405px"}} disabled/></div>
                             <br/>
@@ -107,18 +105,45 @@ return (<div className="background">
     <div className="rightBox">
         <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">입원 일지</h3>
+            <h3 id="LboxHeader">이전 진료 내역</h3>
             <br/>
             </div>
+            <br/>
             <div className="nurseWrite" style={{position:"relative"}}>
                 <div className="nurseInfo">
-                    <p style={{color:"gray"}}>날짜</p>&nbsp;&nbsp;
-                    <p>20204-05-07</p>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p style={{color:"gray"}}>담당 간호사</p>&nbsp;&nbsp;
-                    <p>{username}</p>&nbsp;&nbsp;
-                    <button style={{backgroundColor:"#B9EDE7", color:"black", width:"50px", height: "25px"}} onClick={writeSubmit}>작성</button>
+                <table className="docDiagList" style={{marginBottom:'15px'}} borderless>
+                            <tbody>
+                                <tr>
+                                    <th>진료일</th>
+                                    <th>담당의사번</th>
+                                    <th>담당의명</th>
+                                    <th>진단명</th>
+                                    <th>처방 의약품 명칭</th>
+                                    <th>검사내역</th>
+                                    <th>진료종류</th>
+                                </tr>
+                                {prevDiagList.length === 0 ? (
+                                    <tr>
+                                        <td colSpan='11' style={{paddingTop:"15px"}}>
+                                        <input className='preInputStyle' style={{marginTop:'0px', width:"100%", textAlign:"center"}} value="진료 내역이 존재하지 않습니다" readOnly />
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    prevDiagList.map(prevDiag=>(
+                                        <tr key={prevDiag.docDiagNum}>
+                                            <td>{prevDiag.docDiagnosisDate}</td>
+                                            <td>{prevDiag.docNum}</td>
+                                            <td>{prevDiag.docName}</td>
+                                            <td>{prevDiag.diseaseName}</td>
+                                            <td>{prevDiag.medName || '-'}</td>
+                                            <td>{prevDiag.preDosage || '-'}</td>
+                                            <td>{prevDiag.testPart || '-'}</td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
                 </div>
-                <button id="writeSuccess"  className={writeButton ? 'visible' : 'hidden'} onClick={writeSubmit}>등록</button>
             </div>
                 <br/>
             <div className="dailyList">
@@ -133,7 +158,7 @@ return (<div className="background">
             </div>
             <br/>
             <div className="boxContent">
-            <input id="nurDiagContent" type="text" />
+            <input id="nurDiagContent" name="nurDiagContent" type="text" onChange={(e) => setNurDiagContent(e.target.value)}/>
             </div>&nbsp;
             <button style={{backgroundColor:"#B9EDE7", color:"black", width:"50px", height: "25px", float:"right", marginRight:"30px",marginTop:"10px"}} onClick={writeSubmit}>등록</button>
     </div>

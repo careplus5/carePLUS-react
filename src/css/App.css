@@ -15,10 +15,6 @@
 button{
   border-width: 0;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 0b7dcf9a2301665fd4fea7e0de5a6cb2d944b9cb
 #Lbox{
   position: relative;
   background-color: #fffdf7;
@@ -28,11 +24,6 @@ button{
   box-shadow: 2px 1px 3px 1px lightgray;
   padding: 10px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 0b7dcf9a2301665fd4fea7e0de5a6cb2d944b9cb
-
 input:focus{
   outline:none;
 }

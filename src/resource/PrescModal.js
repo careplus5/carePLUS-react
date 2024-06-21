@@ -17,25 +17,25 @@ const PrescModal = ({ prescription, closeModal, buttonNum }) => {
     const handleClick = (status) => {
         // 클릭된 라디오 버튼에 따라 상태 업데이트
         switch (status) {
-            case '미투약':
+            case 'none':
                 setIsChecked1(true);
                 setIsChecked2(false);
                 setIsChecked3(false);
                 setIsChecked4(false);
                 break;
-            case '정상 투약':
+            case 'success':
                 setIsChecked1(false);
                 setIsChecked2(true);
                 setIsChecked3(false);
                 setIsChecked4(false);
                 break;
-            case '반환 가능 투약 실패':
+            case 'returnO':
                 setIsChecked1(false);
                 setIsChecked2(false);
                 setIsChecked3(true);
                 setIsChecked4(false);
                 break;
-            case '반환 불가능 투약 실패':
+            case 'returnX':
                 setIsChecked1(false);
                 setIsChecked2(false);
                 setIsChecked3(false);
@@ -83,22 +83,22 @@ const PrescModal = ({ prescription, closeModal, buttonNum }) => {
             <div className="prescContent">
                 {/* 미투약 */}
                 <label className={isChecked1 ? 'labelL radio-checked' : 'labelL'} style={{ backgroundColor: "lightgray" }} htmlFor="presX1">
-                    <input type="radio" id="presX1" style={{ height: "20px", display: "none", zIndex: "9999" }} onClick={() => handleClick('미투약')} /> 미투약
+                    <input type="radio" id="presX1" style={{ height: "20px", display: "none", zIndex: "9999" }} onChange={() => handleClick('none')} /> 미투약
                 </label>
 
                 {/* 정상 투약 */}
                 <label className={isChecked2 ? 'labelL radio-checked' : 'labelL'} style={{ backgroundColor: "#F7CE7E" }} htmlFor="presX2">
-                    <input type="radio" id="presX2" style={{ height: "20px", display: "none", zIndex: "9999" }} onClick={() => handleClick('정상 투약')} /> 정상 투약
+                    <input type="radio" id="presX2" style={{ height: "20px", display: "none", zIndex: "9999" }} onChange={() => handleClick('success')} /> 정상 투약
                 </label>
 
                 {/* 반환 가능 투약 실패 */}
                 <label className={isChecked3 ? 'labelL radio-checked' : 'labelL'} style={{ backgroundColor: "#609E66" }} htmlFor="presX3">
-                    <input type="radio" id="presX3" style={{ height: "20px", display: "none", zIndex: "9999" }} onClick={() => handleClick('반환 가능 투약 실패')} /> 투약 X - 반환 가능
+                    <input type="radio" id="presX3" style={{ height: "20px", display: "none", zIndex: "9999" }} onChange={() => handleClick('returnO')} /> 투약 X - 반환 가능
                 </label>
 
                 {/* 반환 불가능 투약 실패 */}
                 <label className={isChecked4 ? 'labelL radio-checked' : 'labelL'} style={{ backgroundColor: "red", marginBottom: "15px" }} htmlFor="presX4">
-                    <input type="radio" id="presX4" style={{ height: "20px", display: "none", zIndex: "9999" }} onClick={() => handleClick('반환 불가능 투약 실패')} /> 투약 X - 반환 불가
+                    <input type="radio" id="presX4" style={{ height: "20px", display: "none", zIndex: "9999" }} onChange={() => handleClick('returnX')} /> 투약 X - 반환 불가
                 </label>
             </div>
             <button id="memoButton" style={{ margin: "0" }} onClick={updatePresc}>저장</button>

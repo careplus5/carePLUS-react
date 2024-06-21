@@ -11,6 +11,11 @@ const DocAdmList = ({docRecords}) => {
     const admission = useAtomValue(admAtom);
     const [filteredDocRecordsList, setFilteredDocRecordsList] = useState([]);
 
+    // 최신 날짜 순으로 정렬하는 useEffect
+    useEffect(() => {
+      const sortedDocRecords = [...docRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
+      setFilteredDocRecordsList(sortedDocRecords);
+  }, [docRecords]);
   
     // 유형 2. 입원 중인 환자의 상세 정보
     // --기능 1: 환자 입원 정보 옆에 퇴원 버튼이 있고, 퇴원 버튼을 누르면 퇴원 처리에 관한 모달이 나타남
@@ -28,12 +33,13 @@ const DocAdmList = ({docRecords}) => {
 const admissionNum = admission.admissionNum;   
     return (
         <div className="longBox">
+          <br/>
             <div className="boxHeader">
             <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">&nbsp;의사 입원 진료</h3>
+            <h3 className="sboxHeader">&nbsp;의사 입원 진료</h3>
         </div>
-        <div className="dailyList scroll-box">
-        {docRecords.map((docRec, index) => (
+        <div className="dailyList scroll-box" style={{marginLeft:"30px"}}>
+        {filteredDocRecordsList.map((docRec, index) => (
           <div key={index} className="docInfo">
             <br/>
             <p style={{ color: "gray" }}>날짜 {docRec.date} &nbsp;&nbsp; 담당 의사 {docRec.docName}</p>

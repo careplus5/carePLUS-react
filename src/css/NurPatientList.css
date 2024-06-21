@@ -2,7 +2,7 @@
     border:none;
     box-shadow: 0 1px 3px 0 lightgray inset;
     border-radius: 10px;
-    background-color: #FBF9F2;
+    background-color: white;
     width: 70px;
     height: 30px;
     text-align: center;
@@ -36,6 +36,7 @@
     color: #233FA3;
     font-weight: bold;
     margin-right:39px;
+    background-color:white;
 }
 
 #keyword{

@@ -100,7 +100,7 @@ const Header = () => {
         }
         else if (iden == "99") {
             setMenuItems([
-                { to: "admin", label: "메인" }
+                { to: "admin", label: "관리페이지" }
             ])
         };
         console.log("header redirect");

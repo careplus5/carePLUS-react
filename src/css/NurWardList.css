@@ -14,6 +14,9 @@
     font-size: 18px;
   }
 
+  .bedOption-blue {
+    color: rgb(124, 156, 190);
+  }
   #usedWard{
     float:right;
     border-radius: 10px;
@@ -31,7 +34,9 @@
     scrollbar-width: none;
     color:rgb(180, 180, 180);
   }
-
+#gi{
+  color:aqua;
+}
   .deptOption:focus, .wardOption:focus, .roomOption:focus, .bedOption:focus{
     outline:none;
     border:none;

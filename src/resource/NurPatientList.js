@@ -50,6 +50,7 @@ const enterPress = (e) =>{
 }
     const [admission, setAdmission] = useState({
         admissionNum: '',
+        patBirth:'',
         patNum:'',
         patName:'',
         admissionDueDate:'',
@@ -64,6 +65,7 @@ const enterPress = (e) =>{
         admissionDischargeDueDate:'',
         admissionDischargeDate:'',
         admissionStatus:'',
+        docDiagnosisContent:'',
     })
     useEffect(()=>{
         console.log("nurPatientList redirect");
@@ -80,6 +82,7 @@ const enterPress = (e) =>{
             const mappedData = response.data.map(data=>({
                 admissionNum: data.admission.admissionNum,
                 patName:data.patName,
+                patBirth:data.patJumin,
                 patNum: data.admission.patNum,
                 admissionDueDate: data.admission.admissionDueDate,
                 admissionDate: data.admission.admissionDate,
@@ -93,6 +96,7 @@ const enterPress = (e) =>{
                 admissionDischargeDueDate: data.admission.admissionDischargeDueDate,
                 admissionDischargeDate: data.admission.admissionDischargeDate,
                 admissionStatus: data.admission.admissionStatus,
+                docDiagnosisContent:data.admission.docDiagnosisContent,
             }));
             setAdmList(mappedData);
             setFilteredAdmList(admList);
@@ -119,12 +123,12 @@ const enterPress = (e) =>{
         <>
 
         <div className="background">
-            <div id="Lbox" style={{backgroundColor:"white"}}>
+            <div id="Lbox" style={{backgroundColor:"#FFFDF8"}}>
             <br/>
-                <div id="LboxHeader" 
+                <div id="LboxHeader"
                 >
                 <img id="boxIcon" style={{marginTop:"-5px"}} src="./img/notice.png"/> &nbsp;&nbsp;
-                <h3 id="boxHeader">입퇴원 조회
+                <h3 id="sboxHeader" style={{fontSize:"15px"}}>입퇴원 조회
                 </h3>
                 </div>
                 <div className="searchLine">

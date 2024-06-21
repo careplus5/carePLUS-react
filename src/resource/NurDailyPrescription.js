@@ -8,8 +8,8 @@ import { admAtom, usernameAtom,accessTokenAtom } from '../config/Atom.js';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { url } from '../config.js';
 const NurDailyPrescription = () => {
-    const [buttonNum, setButtonNum]=useState('');
     const [fetched, setFetched] = useState(false); // 데이터를 이미 가져왔는지 여부를 나타내는 상태 변수
+    const [buttonNum, setButtonNum] =useState('');
     const [admList,setAdmList] = useState([]);
     const accessToken = useAtomValue(accessTokenAtom);
     const username = useAtomValue(usernameAtom);
@@ -43,7 +43,10 @@ const NurDailyPrescription = () => {
 
 
     const getBackgroundColor = (prescFre1) => {
-        if (prescFre1.includes('success')) {
+        if(prescFre1 === null) {
+            return 'gray';
+        }
+       else if (prescFre1.includes('success')) {
             return '#F7CE7E';
         } else if (prescFre1.includes('returnO')) {
             return 'green';
@@ -73,13 +76,6 @@ const NurDailyPrescription = () => {
               }));
               setPrescriptionList(mappedDailyList);
 
-              mappedDailyList.forEach(item => {
-                if (item.prescriptionHowTake) {
-                    const takeTimes = item.prescriptionHowTake.split(',');
-                    item.buttonCount = takeTimes.length; // 각 요소에 buttonCount 필드 추가
-            
-                }
-            });
 
               
         })
@@ -187,29 +183,18 @@ const NurDailyPrescription = () => {
 
     
     const openPrescModal = (e, prescription,buttonNum) =>{
-        // // const buttonNum = e.target.getAttribute('name').slice(0,1); // 버튼의 name 속성 가져오기
-        // // setSelectedPrescription(prescription);
-        // const updatedModalStates = modalStates.map(state => ({
-        //     ...state,
-        //     isOpen: state.buttonNum === buttonNum
-        // }));
-        // console.log(buttonNum);
-        // setPrescription({...prescription,
-        //     buttonNum:buttonNum,
-        // });
-        // setModalStates(updatedModalStates);
-        // setSelectedPrescription(prescription);
         e.preventDefault();
-        const updatedModalStates = modalStates.map((state,index) => ({
-          ...state,
-          isOpen: index === (buttonNum - 1)
-        }));
+        const num = `${buttonNum}`;
+
+     const updatedModalStates = modalStates.map(state => ({
+        ...state,
+        isOpen: state.buttonNum === num
+    }));
         setModalStates(updatedModalStates);
         setSelectedPrescription(prescription);
     }
 
-    const closePrescModal = () =>{
-       
+    const closePrescModal = () => {
         const updatedModalStates = modalStates.map(state => ({
             ...state,
             isOpen: false
@@ -282,55 +267,64 @@ const NurDailyPrescription = () => {
                 <tr>
                     <td colSpan={9}>        <div style={{width:"1300px",marginTop:"5px"}}className="line"></div></td>
                 </tr>
-                {prescriptionList.map(list=>(
+                {prescriptionList.map((list,index)=>(
                     <tr>
                     <td>{list.prescriptionNum}</td>
                     <td>{list.medicineNum}</td>
                     <td>{list.prescriptionDosage}</td>
                     <td>{list.prescriptionDosageTimes}/{list.prescriptionDosageTotal}</td>
                     <td>{list.prescriptionDate}</td>
-                    <td>  {list.buttonCount >= '1' && list.prescFre1 ? (
+                    <td>
+            {list.prescriptionDosageTotal >= '1' &&
                 <button
-                    id="prescSelect"
-                    name="1button"
-                    onClick={(e) => openPrescModal(e, list, 1)} // 1번 버튼
+                id={`prescSelect-${index}`}  // 각 버튼에 고유한 ID 부여
+                name={`${index + 1}button`}  // 각 버튼에 고유한 name 설정
+                onClick={(e) => {
+                    setButtonNum("1");
+                    console.log("해당 버튼의 번호는"+buttonNum+"입니다");
+                    openPrescModal(e, list, index + 1);}} // 버튼 번호 전달
                     style={{ backgroundColor: getBackgroundColor(list.prescFre1) }}
-                    disabled={!list.prescFre1}
                 >
-                    <p>{list.prescFre1.split(",")[0]}<br />{list.prescFre1.split(",")[1]}</p>
+                    {list.prescFre1 !== null ? <p>{list.prescFre1.split(",")[0]}<br />{list.prescFre1.split(",")[1]}</p> : ''}
                 </button>
-            ) : (
+            
+            }
+            {modalStates[index]?.isOpen && modalStates[index]?.buttonNum === (index + 1).toString() && (
+                <PrescModal prescription={selectedPrescription} buttonNum="1" closeModal={closePrescModal} />
+            )}
+        </td>
+        <td>
+        {list.prescriptionDosageTotal >= '2' &&
                 <button
-                    id="prescSelect"
-                    name="1button"
-                    onClick={(e) => openPrescModal(e, list, 1)}
-                ></button>
+                id={`prescSelect-${index}`}  // 각 버튼에 고유한 ID 부여
+                name={`${index + 1}button`}  // 각 버튼에 고유한 name 설정
+                onClick={(e) => {
+                    setButtonNum("2");
+                    console.log("해당 버튼의 번호는"+buttonNum+"입니다");
+                    openPrescModal(e, list, index + 1);}} // 버튼 번호 전달
+                    style={{ backgroundColor: getBackgroundColor(list.prescFre1) }}
+                >
+                    {list.prescFre2 !== null ? <p>{list.prescFre2.split(",")[0]}<br />{list.prescFre2.split(",")[1]}</p> : ''}
+                </button>
+            
+            }
+            {modalStates[index]+1?.isOpen && modalStates[index]+1?.buttonNum === (index + 1).toString() && (
+                <PrescModal prescription={selectedPrescription} buttonNum="2" closeModal={closePrescModal} />
             )}
-            {modalStates[0].isOpen && modalStates[0].buttonNum === 1 && (
-                <PrescModal prescription={selectedPrescription} buttonNum={1} closeModal={closePrescModal} />
-            )}
-                    </td>
-
+        </td>
+{/* 
 
 
                     <td>
-                    {list.buttonCount >= '2' && list.prescFre2 ? (
+                    {list.prescriptionDosageTotal >= '2' && 
                 <button
                     id="prescSelect"
                     name="2button"
-                    onClick={(e) => openPrescModal(e, list, 2)} // 2번 버튼
                     style={{ backgroundColor: getBackgroundColor(list.prescFre2) }}
-                    disabled={!list.prescFre2}
-                >
-                    <p>{list.prescFre2.split(",")[0]}<br />{list.prescFre2.split(",")[1]}</p>
-                </button>
-            ) : (
-                <button
-                    id="prescSelect"
-                    name="2button"
                     onClick={(e) => openPrescModal(e, list, 2)}
-                ></button>
-            )}
+                >{list.prescFre2 !== null?  <p>{list.prescFre2.split(",")[0]}<br />{list.prescFre2.split(",")[1]}</p>:''}      
+                </button>
+           }
             {modalStates[1].isOpen && modalStates[1].buttonNum === 2 && (
                 <PrescModal prescription={selectedPrescription} buttonNum={2} closeModal={closePrescModal} />
             )}
@@ -340,28 +334,21 @@ const NurDailyPrescription = () => {
 
 
                         <td>
-                        {list.buttonCount >= '3' && list.prescFre3 ? (
+                        {list.prescriptionDosageTotal >= '3' && 
                 <button
                     id="prescSelect"
                     name="3button"
                     onClick={(e) => openPrescModal(e, list, 3)} // 2번 버튼
                     style={{ backgroundColor: getBackgroundColor(list.prescFre3) }}
-                    disabled={!list.prescFre3}
                 >
-                    <p>{list.prescFre3.split(",")[0]}<br />{list.prescFre3.split(",")[1]}</p>
+                    {list.prescFre3 !== null ?  <p>{list.prescFre3.split(",")[0]}<br />{list.prescFre3.split(",")[1]}</p>:''}          
                 </button>
-            ) : (
-                <button
-                    id="prescSelect"
-                    name="3button"
-                    onClick={(e) => openPrescModal(e, list, 3)}
-                ></button>
-            )}
+            }
             {modalStates[2].isOpen && modalStates[2].buttonNum === 3 && (
                 <PrescModal prescription={selectedPrescription} buttonNum={3} closeModal={closePrescModal} />
             )}
     
-                        </td>
+                        </td> */}
                         </tr>
                 ))}
                     </table>

@@ -200,9 +200,9 @@ const NurDailyPrescription = () => {
         // setModalStates(updatedModalStates);
         // setSelectedPrescription(prescription);
         e.preventDefault();
-        const updatedModalStates = modalStates.map((state) => ({
+        const updatedModalStates = modalStates.map((state,index) => ({
           ...state,
-          isOpen: true,
+          isOpen: index === (buttonNum - 1)
         }));
         setModalStates(updatedModalStates);
         setSelectedPrescription(prescription);
@@ -289,39 +289,78 @@ const NurDailyPrescription = () => {
                     <td>{list.prescriptionDosage}</td>
                     <td>{list.prescriptionDosageTimes}/{list.prescriptionDosageTotal}</td>
                     <td>{list.prescriptionDate}</td>
-                    <td>{
-list.prescFre1 !== null ?  <button id="prescSelect" name="1button" onClick={(e)=>openPrescModal(e,list)}  style={{ backgroundColor: getBackgroundColor(list.prescFre1) }}
-disabled><p>{list.prescFre1.split(",")[0]}<br/>{list.prescFre1.split(",")[1]}</p> <br/>-</button>:
-<button id="prescSelect" name="1button" onClick={(e)=>openPrescModal(e,list)}></button>
-}        
-{modalStates[0].isOpen && modalStates[0].buttonNum === list.buttonNum && (
-                            <PrescModal prescription={selectedPrescription} buttonNum={modalStates[0].buttonNum} closeModal={closePrescModal} />
-                        )}
-
-
+                    <td>  {list.buttonCount >= '1' && list.prescFre1 ? (
+                <button
+                    id="prescSelect"
+                    name="1button"
+                    onClick={(e) => openPrescModal(e, list, 1)} // 1번 버튼
+                    style={{ backgroundColor: getBackgroundColor(list.prescFre1) }}
+                    disabled={!list.prescFre1}
+                >
+                    <p>{list.prescFre1.split(",")[0]}<br />{list.prescFre1.split(",")[1]}</p>
+                </button>
+            ) : (
+                <button
+                    id="prescSelect"
+                    name="1button"
+                    onClick={(e) => openPrescModal(e, list, 1)}
+                ></button>
+            )}
+            {modalStates[0].isOpen && modalStates[0].buttonNum === 1 && (
+                <PrescModal prescription={selectedPrescription} buttonNum={1} closeModal={closePrescModal} />
+            )}
                     </td>
 
 
 
                     <td>
-{list.buttonCount>='2'&& (list.prescFre2 === null || list.prescFre2 !==null) ? <button  name="2button"id="prescSelect"  onClick={(e)=>openPrescModal(e,list)} ></button>:<button id="prescSelect" name="2button" style={{ backgroundColor: getBackgroundColor(list.prescFre2) }}
-disabled><p>{list.prescFre2.split(",")[0]}<br/></p> <br/>-</button>}
-                        {modalStates[1].isOpen && modalStates[1].buttonNum === list.buttonNum && (
-                           <PrescModal prescription={selectedPrescription} buttonNum={modalStates[1].buttonNum} closeModal={closePrescModal} />
-                        )}
-                        
+                    {list.buttonCount >= '2' && list.prescFre2 ? (
+                <button
+                    id="prescSelect"
+                    name="2button"
+                    onClick={(e) => openPrescModal(e, list, 2)} // 2번 버튼
+                    style={{ backgroundColor: getBackgroundColor(list.prescFre2) }}
+                    disabled={!list.prescFre2}
+                >
+                    <p>{list.prescFre2.split(",")[0]}<br />{list.prescFre2.split(",")[1]}</p>
+                </button>
+            ) : (
+                <button
+                    id="prescSelect"
+                    name="2button"
+                    onClick={(e) => openPrescModal(e, list, 2)}
+                ></button>
+            )}
+            {modalStates[1].isOpen && modalStates[1].buttonNum === 2 && (
+                <PrescModal prescription={selectedPrescription} buttonNum={2} closeModal={closePrescModal} />
+            )}
+    
                         </td>
 
 
 
                         <td>
-                        {list.buttonCount>='3'&& (list.prescFre3 === null || list.prescFre3 !==null) ? <button  name="3button"id="prescSelect" onClick={openPrescModal}></button>:<button id="prescSelect" name="3button" onClick={(e)=>openPrescModal(e,list)}  style={{ backgroundColor: getBackgroundColor(list.prescFre3) }}
-disabled><p>{list.prescFre2.substring(0, 5)}</p> <br/>-</button>}
-                       {modalStates[2].isOpen && modalStates[2].buttonNum === list.buttonNum && (
-                           <PrescModal prescription={selectedPrescription} buttonNum={modalStates[2].buttonNum} closeModal={closePrescModal} />
-                        )}
-
-                        
+                        {list.buttonCount >= '3' && list.prescFre3 ? (
+                <button
+                    id="prescSelect"
+                    name="3button"
+                    onClick={(e) => openPrescModal(e, list, 3)} // 2번 버튼
+                    style={{ backgroundColor: getBackgroundColor(list.prescFre3) }}
+                    disabled={!list.prescFre3}
+                >
+                    <p>{list.prescFre3.split(",")[0]}<br />{list.prescFre3.split(",")[1]}</p>
+                </button>
+            ) : (
+                <button
+                    id="prescSelect"
+                    name="3button"
+                    onClick={(e) => openPrescModal(e, list, 3)}
+                ></button>
+            )}
+            {modalStates[2].isOpen && modalStates[2].buttonNum === 3 && (
+                <PrescModal prescription={selectedPrescription} buttonNum={3} closeModal={closePrescModal} />
+            )}
+    
                         </td>
                         </tr>
                 ))}

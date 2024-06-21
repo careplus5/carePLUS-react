@@ -17,8 +17,16 @@ const NurWardList = () => {
   const [room,setRoom] = useState('');
   const [beds, setBeds] = useState([]);
   const [bed, setBed] = useState('');
+  const [bedsNum, setBedsNum] = useState('');
+  const [admissionNum, setAdmissionNum] = useState('');
   const [bedDetails, setBedDetails] = useState(null);
-  
+     // room이 변경될 때마다 beds 상태 업데이트
+  //    useEffect(() => {
+  //     if (selectedRoom !== null) { // selectedRoom이 null이 아닐 때만 실행
+  //         getBedsByRoom(selectedRoom);
+  //     }
+  // }, [selectedRoom]);
+
     const [isClickedDept, setIsClickedDept] = useState({
         소화기과: false,
         순환기과: false,
@@ -28,7 +36,7 @@ const NurWardList = () => {
 
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [selectedWard, setSelectedWard] = useState('');
-    const [selectedRoom, setSelectedRoom] = useState('');
+    const [selectedRoom, setSelectedRoom] = useState('1');
     const [selectedBed, setSelectedBed] = useState('');
 
     const handleDepartmentClick = (department) => {
@@ -105,8 +113,10 @@ const NurWardList = () => {
             room: room,
             bed: bed
           }})
-          console.log(response.data);
+          console.log("adm: "+JSON.stringify(response.data));
           setBedDetails(response.data);
+          console.log("admNum: "+response.data.admissionNum);
+          setAdmissionNum(response.data.admissionNum);
         } catch (error) {
           console.error('Error fetching bed details:', error);
         }
@@ -171,13 +181,6 @@ const NurWardList = () => {
                         <h3>병실</h3>
                         <div id="line" style={{ width: "260px" }}></div>
                         <br />
-                        {/* <div id="roomList">
-                                       <select size="10" className="roomOption" value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)}>
-                {rooms.map((room,index)=>(
-         <option value="${room}" onClick={() => getBedsByRoom(room)} style={{marginBottom:"10px"}}>{room} 호</option>
-                ))}
-                         </select>
-                        </div> */}
                         <div id="roomList">
   <select
     size="10"
@@ -217,13 +220,17 @@ const NurWardList = () => {
         onChange={(e) => {
           const selectedBedValue = e.target.value;
           setSelectedBed(selectedBedValue); // 선택된 침대 업데이트
-    
+          console.log("setSelectedBed: "+selectedBedValue);
           // 선택된 침대에 맞는 침대 상세 정보 가져오기
           getBedDetails(dept, ward, room, selectedBedValue);
         }}
       >
         {beds.map((bed, index) => (
-          <option key={index} value={bed} style={{ marginBottom: "10px" }}>
+          <option key={index} value={bed}   style={{
+            marginTop: "10px",
+            color: admissionNum == '444' ? "rgb(124, 156, 190)" : "grey"
+        }}
+          >
             {bed}번
           </option>
         ))}

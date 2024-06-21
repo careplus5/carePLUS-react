@@ -69,8 +69,11 @@ const Header = () => {
         if (iden == "12") {
             if(idenSub == "1"){
                 setMenuItems([
-                    { to: "/nurDiagPatientList", label: "환자 조회" }
-                    ])
+                    { to: "/nurDiagPatientList", label: "환자 조회" },
+                    { to: "/wardPatientList", label: "입퇴원 조회" },
+                    { to: "/wardDailyPresc", label: "처방 일지" },
+                    { to: "/wardList", label: "병동 조회" }]
+                )
             } else if(idenSub =="2"){
                 setMenuItems([
                     { to: "/wardPatientList", label: "입퇴원 조회" },
@@ -111,16 +114,16 @@ const Header = () => {
         <>
             <div className="header">
                 <img className="headerLogo" src="img/logo2.png" />
-                <div className="headerLMenu">
-                    <Link id="headerMenuName" to="/organ"><h4 id='headerMenuName' style={{ marginTop: "16px", marginLeft: "60px", fontSize: "20px" }}>조직도</h4></Link>
+                <div className="headerLMenu">&nbsp;&nbsp;&nbsp;
                     {menuItems.map((item, index) => (
                         <Link key={index} id="headerMenuName" to={item.to}>
                             <h4 id='headerMenuName' style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>
                                 {item.label}
                             </h4>
                         </Link>
+                        
                     ))}
- 
+   <Link id="headerMenuName" to="/organ"><h4 id='headerMenuName' style={{ marginTop: "16px", marginLeft: "30px", fontSize: "20px" }}>조직도</h4></Link>
             <Routes>
                     <Route path="/organ" element={<OrganizationChart/>}/>
                     <Route path="/wardPatientList" element={<NurPatientList/>}/>

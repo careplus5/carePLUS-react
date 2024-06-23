@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/MetNotice.css';
-// import CalendarMini from './CalendarMini';
 import Calendar from './Calendar';
 import { url } from '../config';
 
 
-const MetNotice = ({ selectedPatient }) => {
+const MetNotice = ({ selectedPatient, userInfo }) => {
     const [notice, setNotice] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 오픈 상태를 저장하는 상태
 
@@ -21,8 +20,8 @@ const MetNotice = ({ selectedPatient }) => {
         }
 
         try {
-            const response = await axios.post(`${url}/saveNotice', ${ selectedPatient.testNum }`);
-            alert('특이사항이 성공적으로 저장되었습니다');
+            const response = await axios.post(`${url}/uploadTestNotice?testNum=${selectedPatient.testNum}&metNum=${userInfo.empNum}&testNotice=${notice}`);
+            console.log('특이사항 저장 성공:', response.data);
             setNotice(''); // 저장 후 입력 필드 초기화
         } catch (error) {
             console.error('특이사항 저장 중 오류 발생:', error);

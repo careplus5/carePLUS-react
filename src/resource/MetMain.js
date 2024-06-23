@@ -37,7 +37,7 @@ function MetMain() {
         <div className="background matmain">
             <MetPatientList onPatientSelect={handlePatientSelect} userInfo={userInfo} />
             {selectedPatient && <MetTestResult selectedPatient={selectedPatient} userInfo={userInfo} />}
-            {selectedPatient && <MetNotice selectedPatient={selectedPatient} />}
+            {selectedPatient && <MetNotice selectedPatient={selectedPatient} userInfo={userInfo} />}
             {selectedPatient && <MetTestSearch selectedPatient={selectedPatient} userInfo={userInfo} />}
         </div>
     );

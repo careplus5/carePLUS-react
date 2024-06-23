@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/MetTestSearch.css';
 import { url } from '../config';
+import MetTestSearchDetail from './MetTestSearchDetail';
+
 
 const MetTestResult = ({ selectedPatient, userInfo }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
     const [testResultSelect, setTestResultSelect] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [testFileContent, setTestFileContent] = useState('');
+    const [imagePath, setImagePath] = useState([]);
 
 
     useEffect(() => {
@@ -56,21 +57,22 @@ const MetTestResult = ({ selectedPatient, userInfo }) => {
     };
 
     const TestResultSelect = async (testResult) => {
+        console.log(testResult);
         setTestResultSelect(testResult);
 
         try {
             // 서버에서 testFile 가져오기
-            const response = await axios.get(`${url}/fetchTestFile/${testResult.testFileId}`);
-            setTestFileContent(response.data); // 가져온 파일 내용 설정
-            setModalOpen(true); // Modal 열기
+            const response = await axios.get(`${url}/getTestFile?testNum=${testResult.testNum}`);
+            console.log('Response from server:', response);
+            setImagePath(response.data); // 가져온 파일 내용 설정
         } catch (error) {
-            console.error('테스트 파일을 가져오는 중 오류 발생:', error);
+            console.error('이미지 파일을 가져오는 중 오류 발생:', error);
         }
     };
 
-    const closeModal = () => {
-        setModalOpen(false);
-        setTestFileContent(''); // 모달 닫을 때 파일 내용 초기화
+    const handleCloseModal = () => {
+        setImagePath([]); // 모달 닫을 때 파일 경로 초기화
+        setTestResultSelect(null); // 선택된 테스트 결과 초기화
     };
 
     return (
@@ -106,13 +108,13 @@ const MetTestResult = ({ selectedPatient, userInfo }) => {
                             </li>
                         ))}
                     </ul>
-                        {modalOpen && (
-                            <div className="modal">
-                                <div className="modal-content">
-                                    <span className="close" onClick={closeModal}>&times;</span>
-                                    <div>{testFileContent}</div>
-                                </div>
-                            </div>
+                    
+                        {testResultSelect && (
+                            <MetTestSearchDetail
+                                testResultSelect={testResultSelect}
+                                imagePath={imagePath}
+                                onClose={handleCloseModal}
+                            />
                         )}
                 </div>
             </div>

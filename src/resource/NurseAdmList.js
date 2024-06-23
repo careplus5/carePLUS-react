@@ -12,7 +12,7 @@ const NurseAdmList = ({nurseRecords}) => {
     const [filteredNurseRecordsList, setFilteredNurseRecordsList] = useState([]);
 const admissionNum = admission.admissionNum;   
     return (
-        <div style={{position:"relative"}}>
+        <div className="scroll-box1" style={{position:"relative"}}>
         {nurseRecords.map((nurRec, index) => (
           <div key={index} style={{positon:"relative"}}>
             <br/>

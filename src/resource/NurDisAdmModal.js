@@ -23,6 +23,7 @@ console.log(day);
             admissionNum:admissionNum,
             admissionDischargeOpinion:admissionDischargeOpinion,
             admissionDischargeDate:admissionDischargeDate,
+            admissionDiagState:'end',
         })
         .then(res=>{
         console.log(admissionDischargeDate);

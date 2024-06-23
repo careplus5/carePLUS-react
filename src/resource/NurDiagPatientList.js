@@ -53,6 +53,7 @@ const enterPress = (e) =>{
         nurNum:'',
         patNum:'',
         patName:'',
+        patBirth:'',
         nurDiagnosisDueDate:'',
         nurDiagnosisDate:'',
         docDiagnosisNum:'',
@@ -89,7 +90,8 @@ const enterPress = (e) =>{
                 departmentName:data.departmentName,
                 docName:data.docName,
                 docDiagnosisOrder:data.DocDiagnosis.docDiagnosisOrder,
-                docDiagnosisContent:data.DocDiagnosis.docDiagnosisContent
+                docDiagnosisContent:data.DocDiagnosis.docDiagnosisContent,
+                patBirth:data.patJumin
             }));
             setDiagList(mappedData);
             setFilteredDiagList(diagList);

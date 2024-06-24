@@ -151,7 +151,7 @@ const AdmPatientSurgeryDue = ({ patient }) => {
 
     return (
         <div style={{width:"90%"}}>
-            <div className="boxHeader" style={{ marginLeft: "35px", paddingBottom: "34px" }}>
+            <div className="" style={{ marginLeft: "35px", paddingBottom: "34px" }}>
                 <img style={{ marginTop: "0px", width: "40px", height: "40px" }} alt='' src="./img/surgery.png" />&nbsp;
                 <h3 id="LboxHeader" style={{ marginTop: "34px", marginRight: "20px", display:'inline-block' }}>수술예약</h3>
                 <span style={{color:"red"}}>{message}</span><br/><br/>

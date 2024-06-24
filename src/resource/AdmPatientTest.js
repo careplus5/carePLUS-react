@@ -55,7 +55,45 @@ const AdmPatientTest = ({ patient }) => {
                 <img id="boxIcon" style={{ width: "40px", height: "40px" }} src="./img/test.png" />&nbsp;
                 <h3 id="LboxHeader" style={{ marginTop: "20px", marginRight: "120px" }}>검사</h3>
                 <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"920px"}} >접수</button>
-                <div style={{marginLeft:'175px'}}>
+                <table style={{marginLeft:'150px', textAlign:'right'}}>
+                    <br/><br/><tr>
+                        <td>환자번호</td>
+                        <td id='patNum' name='patNum' className='adm-tr-style' style={{width:'150px'}}>{patient && patient.patNum}</td>
+                        <td>이름</td>
+                        <td className='adm-tr-style' id='patName' name='patName' style={{width:'100px'}}>{patient && patient.patName}</td>
+                        <td>주민등록번호</td>
+                        <td className='adm-tr-style' id='patJumin' name='patJumin' style={{width:'150px'}}>{patient && patient.patJumin}</td>
+                        <td>성별</td>
+                        <td className='adm-tr-style' id='patGender' name='patGender' style={{width:'100px'}}>{patient && patient.patGender}</td>
+                    </tr><br/>
+                    <tr>
+                        <td>검사실</td>
+                        <td className='adm-tr-style'>
+                        <select style={{width:'100px', border:'none', height:'30px'}}>
+                            <option>검사실 선택</option>
+                            <option>CT</option>
+                            <option>MRI</option>
+                            <option>X-Ray</option>
+                        </select>
+                        </td>
+                        <td>예정일</td>
+                        <td className='adm-tr-style' style={{width:'100px'}} onClick={openAdmDiagDueModal}></td>
+                        <td>예약시간</td>
+                        <td className='adm-tr-style'></td>
+                        <td>주치의</td>
+                        <td className='adm-tr-style'></td>
+                    </tr><br/>
+                    <tr>
+                        <td>검사부위</td>
+                        <td className='adm-tr-style' colSpan={3}></td>
+                        <td>원외검사기록여부</td>
+                        <td className='adm-tr-style' colSpan={3}></td>
+                        
+                    </tr><br/>
+                </table>
+                
+                
+                {/* <div style={{marginLeft:'175px'}}>
                     <br/><span>환자번호</span>
                     <input type="text" name='patNum' value={patient && patient.patNum}
                         className='admInputType' style={{marginLeft: "10px", width: "200px", height: "30px"}} onChange={(e) => setPatNum(e.target.value)} />
@@ -112,7 +150,7 @@ const AdmPatientTest = ({ patient }) => {
                          <br/><button style={{ backgroundColor:'#0081b4', width:'900px', height:'30px'}} onClick={handleUpload}>Upload</button>
                        </div>
                     )}
-                </div><br />
+                </div><br /> */}
             </div>
             {/* 병명 선택 모달 */}
             <Modal isOpen={admDiagDuedisModalIsOpen} toggle={openAdmDiagDueModal} style={{ maxWidth: "1100px" }}>

@@ -5,7 +5,7 @@ import axios from "axios";
 
 // 처방전 발급
 const AdmPatientPrescription = ({ prescriptionList }) => {
-
+    console.log(prescriptionList);
     // 처방전 조회
     const [prescription, setPrescription] = useState('');
     const [selectedDate, setSelectedDate] = useState();  // 교부년월일

@@ -1,13 +1,13 @@
 import { url } from '../config';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import AmdPatientStorage from './AdmPatientStorage';  // 기타문서
-import AmdPatientSurgeryDue from './AdmPatientSurgeryDue';  // 수술 
+import AdmPatientStorage from './AdmPatientStorage';  // 기타문서
+import AdmPatientSurgeryDue from './AdmPatientSurgeryDue';  // 수술 
 import AdmPatientAdmmission from './AdmPatientAdmmission';  // 입원
-import AmdPatientDischarge from './AdmPatientDischarge';  // 청구서
-import AmdPatientPrescription from './AdmPatientPrescription';  // 처방전 발급
+import AdmPatientDischarge from './AdmPatientDischarge';  // 청구서
+import AdmPatientPrescription from './AdmPatientPrescription';  // 처방전 발급
 import AdmDiagnosisDue from './AdmDiagnosisDue'; // 진료 예약 ?
-import AmdPatientTest from './AdmPatientTest';  // 검사
+import AdmPatientTest from './AdmPatientTest';  // 검사
 
 const AdmPatientInfo = () => {
     const [type, setType] = useState('');
@@ -143,12 +143,12 @@ const AdmPatientInfo = () => {
                     <hr></hr>
                 </div>
                 {menuIdx === 1 && <AdmDiagnosisDue patient={selPatient} />}
-                {menuIdx === 2 && <AmdPatientTest patient={selPatient} />}
+                {menuIdx === 2 && <AdmPatientTest patient={selPatient} />}
                 {menuIdx === 3 && <AdmPatientAdmmission patient={selPatient} />}
-                {menuIdx === 4 && <AmdPatientSurgeryDue patient={selPatient} />}
-                {menuIdx === 5 && <AmdPatientPrescription prescriptionList={prescriptionList} />}
-                {menuIdx === 6 && <AmdPatientStorage patient={selPatient} />}
-                {menuIdx === 7 && <AmdPatientDischarge patient={selPatient} />}
+                {menuIdx === 4 && <AdmPatientSurgeryDue patient={selPatient} />}
+                {menuIdx === 5 && <AdmPatientPrescription prescriptionList={prescriptionList} />}
+                {menuIdx === 6 && <AdmPatientStorage patient={selPatient} />}
+                {menuIdx === 7 && <AdmPatientDischarge patient={selPatient} />}
                 
             </div>
         </div>

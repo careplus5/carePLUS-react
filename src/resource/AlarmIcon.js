@@ -21,9 +21,9 @@ const AlarmIcon = ({ }) => {
     const [unread, setUnread] = useState(notifications.length);
 
     const viewRealAlarm = () => {
-        setShowNotification(false);
+        setShowNotification(true);
         const timer = setTimeout(() => {
-            setShowNotification(true);
+            setShowNotification(false);
         }, 3000);
     }
     requestPermission(setFcmToken, notifications, setNotifications, setNewAlarm, viewRealAlarm, setUnread);
@@ -59,26 +59,6 @@ const AlarmIcon = ({ }) => {
         setIsModalOpen(false);
         setShowOption(false);
     };
-
-    // const updatedNotifications = notifications.map(notification =>
-    //     notification.alarmNum === alarmNum
-    //         ? { ...notification, isCheck: true }
-    //         : notification
-    // );
-
-    // const handleNotificationClick = (alarmNum) => {
-    //     //알람을 클릭했을때 체크 되었다는 확인
-    //     axios.post(`${url}/checkAlarm`, { alarmNum: alarmNum })
-    //         .then(res => {
-    //             console.log(res.data);
-
-    //             SetUnread(updatedNotifications.filter(notification => !notification.isCheck).length);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         });
-    //     // }
-    // };
 
     const handleNotificationClick = (alarmNum) => {
         const updatedNotifications = notifications.map(notification =>

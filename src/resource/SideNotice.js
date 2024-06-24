@@ -83,7 +83,7 @@ const SideNotice = () => {
                     }}
                 >
                     <h2>{selectedNotice.noticeTitle}</h2>
-                    <p>{selectedNotice.noticeContent}</p>
+                    <p style={{width:'550px'}}>{selectedNotice.noticeContent}</p>
                     <button onClick={closeModal}>닫기</button>
                 </Modal>
             )}

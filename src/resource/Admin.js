@@ -32,11 +32,11 @@ const Admin = () => {
         profNum: null, jobNum: '', departmentNum: '', departmentName: '', department2Name: '', empPosition: '', empName: '', empTel: '', empEmail: '', empNum: '', empPassword: '', department: ''
     });
     const [notice, setNotice] = useState({
-        noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '', noticeViewCount: ''
+        noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: ''
     })
 
     const [selNotice, setSelNotice] = useState({
-        noticeCategory: '', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '', noticeViewCount: ''
+        noticeCategory: '', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: ''
     })
 
     const [employeeList, setEmployeeList] = useState([]);
@@ -52,54 +52,15 @@ const Admin = () => {
     };
 
     const empListTargetChoose = (e) => {
-        console.log(e.target.value);
         setSearchEmpJobName(e.target.value);
-    }
-    const searchEmployee = (empPage) => {
-        const empWord1 = encodeURIComponent(empWord);
-        const searchEmployeeUrl = `${url}/employeeList?jobName=${searchEmpJobName}&page=${empPage}&type=${empType}&word=${empWord1}`;
-        axios.get(searchEmployeeUrl)
-            .then(res => {
-                console.log(res.data)
-                let empPageInfo = res.data.pageInfo;
-                setEmployeeList([...res.data.employeeList])
-
-                let empPage = [];
-                let empPageButtons = [];
-                for (let i = empPageInfo.startPage; i <= empPageInfo.endPage; i++) {
-                    empPageButtons.push(i);
-                }
-                setEmpPageBtn([...empPageButtons]);
-                setEmpPageInfo({ ...empPageInfo });
-            })
-            .catch(err => {
-                console.error(err);
-            })
-    }
-
-    const searchNotice = (noticePage) => {
-        const searchNoticeUrl = `${url}/noticeList?page=${noticePage}&type=${noticeType}&word=${noticeWord}`;
-        axios.get(searchNoticeUrl)
-            .then(res => {
-                let noticePageInfo = res.data.pageInfo;
-                setNoticeList([...res.data.noticeList])
-                let noticePage = [];
-                for (let i = noticePageInfo.startPage; i <= noticePageInfo.endPage; i++) {
-                    noticePage.push(i);
-                }
-                setNoticePageBtn([...noticePage]);
-                setNoticePageInfo({ ...noticePageInfo });
-            })
-            .catch(err => {
-
-            })
+        setEmpType('');
+        setEmpWord('');
     }
 
     const noticeAddChange = (e) => {
         const { name, value, } = e.target;
         setNotice({ ...notice, [name]: value });
     };
-
 
     const empAddChangeValue = (e) => {
         setEmployee({ ...employee, [e.target.name]: e.target.value });
@@ -121,20 +82,6 @@ const Admin = () => {
     const changeFile = (e) => {
         setEmployee({ ...employee, file: e.target.files[0] });
     }
-
-    // const nurseSelEmployee = (employee) => {
-    //     let changePosition = '';
-    //     if (employee.empPosition === "진료") {
-    //         changePosition = "1";
-    //     } else if (employee.empPosition === "입원") {
-    //         changePosition = "2";
-    //     } else if (employee.empPosition === "수술") {
-    //         changePosition = "3";
-    //     }
-    //     // setSelEmployee({ ...selEmployee, profNum: employee.profNum, jobNum: employee.jobNum, departmentNum: employee.departmentNum, departmentName: employee.departmentName, department2Name: employee.department2Name, empName: employee.empName, empTel: employee.empTel, empEmail: employee.empEmail, empNum: employee.empNum, empPassword: employee.empPassword, empPosition: changePosition});
-    //     setSelEmployee({...employee});
-    //     setSelEmployee({...selEmployee, empPosition:changePosition});
-    // };
 
     const empModifyChangeValue = (e) => {
         setSelEmployee({ ...selEmployee, [e.target.name]: e.target.value });
@@ -166,17 +113,94 @@ const Admin = () => {
         setEmployee({ ...employee, file: null });
     };
 
+    const employeeCleanSearch = () => {
+        setSearchEmpJobName('99');
+        setEmpType('');
+        setEmpWord('');
+    }
+
+    const noticeCleanSearch = () => {
+        setNoticeType('');
+        setNoticeWord('');
+    }
+
+    useEffect(() => {
+        if (noticeType === '' && noticeWord === '') {
+            searchNotice(1);
+        }
+    }, [noticeType, noticeWord]);
+
+    useEffect(() => {
+        if (searchEmpJobName == '99' && empType === '' && empWord === '') {
+            searchEmployee(1);
+        }
+    }, [searchEmpJobName, empType, empWord]);
+
+    const searchEmployee = (empPage) => {
+        const empWord1 = encodeURIComponent(empWord);
+        if (empType === '' && empWord !== '') {
+            alert('카테고리를 선택해주세요')
+        } else if (empType !== '' && empWord === '') {
+            alert('검색어를 입력해주세요')
+        } else {
+            const searchEmployeeUrl = `${url}/employeeList?jobName=${searchEmpJobName}&page=${empPage}&type=${empType}&word=${empWord1}`;
+            axios.get(searchEmployeeUrl)
+                .then(res => {
+                    console.log(res.data)
+                    let empPageInfo = res.data.pageInfo;
+                    setEmployeeList([...res.data.employeeList])
+
+                    let empPage = [];
+                    let empPageButtons = [];
+                    for (let i = empPageInfo.startPage; i <= empPageInfo.endPage; i++) {
+                        empPageButtons.push(i);
+                    }
+                    setEmpPageBtn([...empPageButtons]);
+                    setEmpPageInfo({ ...empPageInfo });
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        }
+    }
+
+    const searchNotice = (noticePage) => {
+        if (noticeType === '' && noticeWord !== '') {
+            alert('카테고리를 선택해주세요')
+        } else if (noticeType !== '' && noticeWord === '') {
+            alert('검색어를 입력해주세요')
+        } else {
+            const searchNoticeUrl = `${url}/noticeList?page=${noticePage}&type=${noticeType}&word=${noticeWord}`;
+            axios.get(searchNoticeUrl)
+                .then(res => {
+                    let noticePageInfo = res.data.pageInfo;
+                    setNoticeList([...res.data.noticeList])
+                    let noticePage = [];
+                    for (let i = noticePageInfo.startPage; i <= noticePageInfo.endPage; i++) {
+                        noticePage.push(i);
+                    }
+                    setNoticePageBtn([...noticePage]);
+                    setNoticePageInfo({ ...noticePageInfo });
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        }
+    }
 
     const addNotice = (e) => {
-        console.log(notice);
-        axios.post(`${url}/noticeWrite`, notice)
-            .then(res => {
-                alert(res.data);
-                searchNotice(1);
-                setNotice({noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '', noticeViewCount: ''})
-            }).catch(err => {
-                alert(err);
-            })
+        if (notice.noticeTitle.length > 25) {
+            alert("제목은 25자 미만으로 작성해 주시기 바랍니다");
+        } else {
+            axios.post(`${url}/noticeWrite`, notice)
+                .then(res => {
+                    alert(res.data);
+                    setNotice({ noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '' })
+                    searchNotice(1);
+                }).catch(err => {
+                    alert(err);
+                })
+        }
     }
 
     const join = (e) => {
@@ -216,15 +240,12 @@ const Admin = () => {
         formData.append("empEmail", selEmployee.empEmail);
         formData.append("empNum", selEmployee.empNum);
         formData.append("empPassword", selEmployee.empPassword);
-        formData.append("empDepartmentName", selEmployee.departmentName)
+        formData.append("departmentName", selEmployee.departmentName)
         console.log(formData);
         axios.post(`${url}/employeeModify`, formData)
             .then(res => {
                 alert(res.data);
-                setEmployeeList(employeeList.map(emp => {
-                    if (emp.empNum === selEmployee.empNum) return { ...selEmployee }
-                    else return emp;
-                }));
+                searchEmployee(1);
                 toggleAccordion(3);
             })
             .catch(err => {
@@ -233,14 +254,21 @@ const Admin = () => {
     }
 
     const noticeModify = (e) => {
-        axios.post(`${url}/noticeModify`, { ...selNotice, category: null })
-            .then(res => {
-                alert(res.data);
-                searchNotice(1);
-                toggleAccordion(1);
-            }).catch(err => {
-                alert(err);
-            })
+        if (selNotice.noticeTitle.length > 25) {
+            alert("제목은 25자 미만으로 작성해 주시기 바랍니다");
+        } else {
+            axios.post(`${url}/noticeModify`, { ...selNotice, category: null })
+                .then(res => {
+                    alert(res.data);
+                    setNoticeList(noticeList.map(not => {
+                        if (not.noticeNum === selNotice.noticeNum) return { ...selNotice }
+                        else return not;
+                    }));
+                    toggleAccordion(1);
+                }).catch(err => {
+                    alert(err);
+                })
+        }
     }
 
     const [showConfirmDialogEmp, setShowConfirmDialogEmp] = useState(false);
@@ -251,10 +279,11 @@ const Admin = () => {
     };
 
     const confirmDeleteEmp = () => {
-        axios.delete(`${url}/employeeDelete/${selEmployee.empNum}`)
+        axios.get(`${url}/employeeDelete?empNum=${selEmployee.empNum}`)
             .then(res => {
                 alert("직원 삭제가 완료되었습니다.");
-                // 삭제 성공 후 추가 작업
+                searchEmployee(1);
+                toggleAccordion(3);
             }).catch(err => {
                 console.error("직원 삭제 중 오류:", err);
                 alert("직원 삭제 중 오류가 발생했습니다.");
@@ -271,10 +300,11 @@ const Admin = () => {
     };
 
     const confirmDeleteNot = () => {
-        axios.delete(`${url}/noticeDelete/${selNotice.noticeNum}`)
+        axios.get(`${url}/noticeDelete?noticeNum=${selNotice.noticeNum}`)
             .then(res => {
                 alert("공지사항 삭제가 완료되었습니다.");
-                // 삭제 성공 후 추가 작업
+                searchNotice(1);
+                toggleAccordion(1);
             }).catch(err => {
                 console.error("공지사항 삭제 중 오류:", err);
                 alert("공지사항 삭제 중 오류가 발생했습니다.");
@@ -291,17 +321,17 @@ const Admin = () => {
             <div className="left-panel">
                 <div className="section">
                     <div className="title-box">
-                        <img className="boxIcon" src="/img/notice.png" />
-                        <span className="section-title">공지사항</span>
+                        <img className="boxIcon" src="/img/notice.png" alt="Notice Icon" />
+                        <span className="section-title" onClick={noticeCleanSearch}>공지사항</span>
                     </div>
                     <div className='bar-container'>
                         <div className="admNoticeSearchbar" style={{ width: "450px", marginRight: "20px" }}>
-                            <select id="noticeKeyword" onChange={setNoticeType}>
+                            <select id="noticeKeyword" value={noticeType} onChange={(e) => setNoticeType(e.target.value)}>
                                 <option>선택</option>
                                 <option value={"category"}>카테고리</option>
                                 <option value={"title"}>제목</option>
                                 <option value={"content"}>내용</option>
-                            </select>&nbsp;|<input type="text" id="keyword" placeholder=' 검색' onChange={setNoticeWord} />
+                            </select>&nbsp;|<input type="text" id="keyword" placeholder=' 검색' value={noticeWord} onChange={(e) => setNoticeWord(e.target.value)} />
                             <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchNotice(1)}><button id="searchButton1"> </button></label>
                         </div>
                     </div>
@@ -343,11 +373,11 @@ const Admin = () => {
                 </div>
                 <div className="section">
                     <div className="title-box">
-                        <img className="boxIcon" src="/img/notice.png" />
-                        <span className="section-title">직원 정보</span>
+                        <img className="boxIcon" src="/img/notice.png" alt="Notice Icon" />
+                        <span className="section-title" onClick={employeeCleanSearch}>직원 정보</span>
                     </div>
                     <div bar-container>
-                        <select name='searchEmpJobName' className='selectJob' onChange={empListTargetChoose}>
+                        <select name='searchEmpJobName' value={searchEmpJobName} className='selectJob' onChange={empListTargetChoose}>
                             <option value={"99"}>직업</option>
                             <option value={"11"}>의사</option>
                             <option value={"12"}>간호사</option>
@@ -356,41 +386,41 @@ const Admin = () => {
                         </select>
                         {searchEmpJobName == "11" &&
                             <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' onChange={(e) => setEmpType(e.target.value)}>
+                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"departmentName"}>부서</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
                                 <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "12" &&
                             <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' onChange={(e) => setEmpType(e.target.value)}>
+                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"departmentName"}>부서</option>
                                     <option value={"empPosition"}>구분</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
                                 <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "13" &&
                             <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' onChange={(e) => setEmpType(e.target.value)}>
+                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
                                 <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "14" &&
                             <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' onChange={(e) => setEmpType(e.target.value)}>
+                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"department2Name"}>소속</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
                                 <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
                             </span>
                         }
@@ -568,17 +598,17 @@ const Admin = () => {
                             {index === 0 && (
                                 <div className='accordion-group'>
                                     <div className="input-group">
-                                        <select className="notice-select" name="noticeCategory" onChange={noticeAddChange}>
+                                        <select className="adm-notice-select" name="noticeCategory" value={notice.noticeCategory} onChange={noticeAddChange}>
                                             <option value={99}>전체</option>
                                             <option value={11}>의사</option>
                                             <option value={12}>간호사</option>
                                             <option value={13}>원무과</option>
                                             <option value={14}>의료기사</option>
                                         </select>&nbsp;|&nbsp;
-                                        <input type="text" className="notice-input" name='noticeTitle' onChange={noticeAddChange} />
+                                        <input type="text" className="notice-input" name='noticeTitle' value={notice.noticeTitle} onChange={noticeAddChange} />
                                     </div>
                                     <div className="textarea">
-                                        <textarea name='noticeContent' style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none' }} onChange={noticeAddChange}></textarea>
+                                        <textarea name='noticeContent' style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none' }} value={notice.noticeContent} onChange={noticeAddChange}></textarea>
                                     </div>
                                     <div className='button-container'>
                                         <button className="add-button" onClick={addNotice}>등록</button>
@@ -588,7 +618,7 @@ const Admin = () => {
                             {index === 1 && (
                                 <div className='accordion-group'>
                                     <div className="input-group" >
-                                        <input type='text' className="notice-select" name='noticeCategory' value={selNotice.noticeCategory} onChange={noticeModifyChange} disabled />
+                                        <input type='text' className="adm-notice-select" name='noticeCategory' value={selNotice.noticeCategory} onChange={noticeModifyChange} style={{ width: '55px', backgroundColor: 'white' }} disabled />
                                         <input type="text" className="notice-input" name='noticeTitle' value={selNotice.noticeTitle} onChange={noticeModifyChange} />
                                     </div>
                                     <div className="textarea">
@@ -679,7 +709,7 @@ const Admin = () => {
                                                             <option>선택</option>
                                                             <option value={"10,소화기과"}>소화기과</option>
                                                             <option value={"20,순환기과"}>순환기과</option>
-                                                            <option value={"30,호급기과"}>호흡기과</option>
+                                                            <option value={"30,순환기과"}>호흡기과</option>
                                                             <option value={"40,내분비과"}>내분비과</option>
                                                         </select>
                                                     </div>
@@ -910,9 +940,9 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empModifyChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                            <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                            <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
-                                        </div>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                </div>
                                             </>
                                         }
 
@@ -925,7 +955,7 @@ const Admin = () => {
                                                 <div className='emp-right-unit'>
                                                     <div className='row-title'>부서이름 </div>
                                                     <div className='row-content'>
-                                                    <select type="text" name="department" value={`${selEmployee.departmentNum},${selEmployee.departmentName}`} onChange={mDepartmentChange} >
+                                                        <select type="text" name="department" value={`${selEmployee.departmentNum},${selEmployee.departmentName}`} onChange={mDepartmentChange} >
                                                             <option>선택</option>
                                                             <option value={"10,소화기과"}>소화기과</option>
                                                             <option value={"20,순환기과"}>순환기과</option>
@@ -965,9 +995,9 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empModifyChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                            <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                            <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
-                                        </div>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                </div>
                                             </>
                                         }
 
@@ -1009,9 +1039,9 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                            <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                            <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
-                                        </div>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                </div>
                                             </>
                                         }
 
@@ -1035,7 +1065,7 @@ const Admin = () => {
                                                             <option value={"58,초음파"}>초음파</option>
                                                         </select>
                                                     </div>
-                                                </div>  
+                                                </div>
 
                                                 <div className='emp-right-unit'>
                                                     <div className='row-title'>이름</div>
@@ -1057,9 +1087,9 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                            <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                            <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
-                                        </div>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                </div>
                                             </>
                                         }
                                     </div>
@@ -1072,20 +1102,20 @@ const Admin = () => {
             <div>
                 {showConfirmDialogEmp && (
                     <div className="confirm-dialog">
-                        <p>{`정말로 ${selEmployee.empName} 직원을 삭제하시겠습니까?`}</p>
-                        <button onClick={confirmDeleteEmp}>확인</button>
-                        <button onClick={cancelDeleteEmp}>취소</button>
+                        <p>{`정말로 "${selEmployee.empName}" 직원을 삭제하시겠습니까?`}</p>
+                        <button className="confirm-button" onClick={confirmDeleteEmp}>확인</button>
+                        <button className="cancel-button" onClick={cancelDeleteEmp}>취소</button>
                     </div>
                 )}
                 {showConfirmDialogNot && (
                     <div className="confirm-dialog">
                         <p>{`정말로 "${selNotice.noticeTitle}" 공지사항을 삭제하시겠습니까?`}</p>
-                        <button onClick={confirmDeleteNot}>확인</button>
-                        <button onClick={cancelDeleteNot}>취소</button>
+                        <button className="confirm-button" onClick={confirmDeleteNot}>확인</button>
+                        <button className="cancel-button" onClick={cancelDeleteNot}>취소</button>
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     )
 };
 

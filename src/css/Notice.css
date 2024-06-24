@@ -422,7 +422,7 @@ padding: 20px;
 } */
 
 .content-contain{
-/* border-top: 1px solid lightgray; */
+    width: 750px;
 padding: 20px;
 }
 
@@ -430,8 +430,7 @@ padding: 20px;
 border-radius: 13px;
 border: 1px solid lightgray;
 background-color: white;
-/* border-top: 1px solid lightgray;
-padding: 20px; */
 padding: 20px;
+width: 750px;
 
 }

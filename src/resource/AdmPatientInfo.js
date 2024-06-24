@@ -97,8 +97,6 @@ const AdmPatientInfo = () => {
                     <button style={{ backgroundColor: 'transparent', marginLeft: "-35px", padding: "10px", border: "none", width: "30px", height: "30px", backgroundImage: "url('/img/search.png')" }} onClick={queryList} />
                 </div>
                 <br />
-                <br />
-                <br /><br />
 
                 {/* <div className='pat-scroll'> */}
                 <table className="admPatientList" style={{ marginLeft:'35px', width: '94%', tableLayout: 'fixed', maxHeight: '200%', overflow: "scroll" }}>

@@ -1,62 +1,71 @@
 import { Table, Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-// import Prescription from './Prescription';
-// import AdmissionAndDischarge from './AdmissionAndDischarge';
 import { url } from '../config';
+import AdmDiagCheckModal from './AdmDiagCheckModal';
+import AdmDischargeCheckModal from './AdmDischargeCheckModal';
 
 // 기타 문서 발급
 const AdmPatientStorage = ({ patient }) => {
 
-    // 모달 (부서에 대한 정보 검색)
-    const [admStoredisModalIsOpen, setAdmStoredisModalIsOpen] = useState(false);
-    const [diagnosisList, setDiagnosisList] = useState([]);
-    const [admissionList, setAdmissionList] = useState([]);
+    const [diagCheckModalIsOpen, setDiagCheckModalIsOpen] = useState(false);
+    const [patDiagCheckList, setPatDiagCheckList] = useState([]);
+    const [docDiagNum, setDocDiagNum] = useState('');
+    const [firstDiagDate, setFirstDiagDate] = useState('');
+
+    const [admCheckModalIsOpen, setAdmCheckModalIsOpen] = useState(false);
+    const [patAdmCheckList, setPatAdmCheckList] = useState([]);
+    const [admNum, setAdmNum] = useState('');
+
 
     // 버튼 클릭시 테이블
     const [showTable, setShowTable] = useState(false);
 
-    // 모달 오픈
-    const openPatientPrescriptionModal = () => {
-        setAdmStoredisModalIsOpen(true);
+    // 진료확인서 모달 오픈
+    const openDiagCheckModal = (diagCheck) => {
+        setDiagCheckModalIsOpen(!diagCheckModalIsOpen);
+        setDocDiagNum(diagCheck.docDiagnosisNum);
+        setFirstDiagDate(diagCheck.firstDiagDate);
     }
-
-    // 진료확인서 출력 버튼 클릭
-    const handleDiagnosisCheck = () => {
-        setAdmStoredisModalIsOpen(true);
-    }
-
-    // 입·퇴원확인서 출력 버튼 클릭 
-    const handleAdmissionDischarge = () => {
-        setAdmStoredisModalIsOpen(true);
+    
+    // 입퇴원확인서 모달 오픈
+    const openAdmCheckModal = (admCheck) => {
+        setAdmCheckModalIsOpen(!admCheckModalIsOpen);
+        setAdmNum(admCheck.admissionNum);
     }
 
     // 진료확인서
-    const getDocDiagnosis = () => {
-        console.log(patient.patNum)
-        axios.post(`${url}/confirmDiagnosis`, { patNum: patient.patNum })
+    const getPatDiagCheckList = () => {
+        axios.post(`${url}/patDiagCheckList`, { patNum: patient.patNum })
             .then(res => {
-                setDiagnosisList(res.data);
-                setAdmissionList();
+                setPatDiagCheckList([...res.data]);
             })
-        toggleTable('docDiagosis');
+        toggleTable('diagCheck');
     }
 
     // 입퇴원확인서
-    const getAdmissionDischarge = () => {
-        console.log(patient.patNum)
-        axios.post(`${url}/confirmAdmission`, { patNum: patient.patNum })
+    const getPatAdmCheckList = () => {
+        axios.post(`${url}/patAdmCheckList`, { patNum: patient.patNum })
             .then(res => {
-                setAdmissionList(res.data);
-                setDiagnosisList('')
+                setPatAdmCheckList([...res.data]);
             })
-        toggleTable('admissionDischarge');
+        toggleTable('admCheck');
     }
 
     // 버튼 클릭시 
     const toggleTable = (tableType) => {
         setShowTable(tableType); // 버튼 클릭 시 테이블 표시 상태 설정
     }
+
+    // 오늘 날짜
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        return `${year}년 ${month}월 ${day}일`;
+      };
+      
 
     return (
         <div id="LaccordionBox">
@@ -76,157 +85,92 @@ const AdmPatientStorage = ({ patient }) => {
                     <span style={{ marginLeft: "21px" }}>이름</span>
                     <input type="text" value={patient && patient.patName}
                         className='admInputType' style={{marginLeft: "10px", width: "200px", height: "30px"}} />
-                    <button onClick={() => getDocDiagnosis()} style={{ backgroundColor:'#0081b4', marginLeft: '20px', height: '35px' }}>진료확인서</button>
-                    <button onClick={() => getAdmissionDischarge()} style={{ backgroundColor:'#0081b4', marginLeft: '20px', height: '35px' }}>입·퇴원확인서</button>
+                    <button onClick={() => getPatDiagCheckList()} style={{ backgroundColor:'#0081b4', marginLeft: '20px', height: '35px' }}>진료확인서</button>
+                    <button onClick={() => getPatAdmCheckList()} style={{ backgroundColor:'#0081b4', marginLeft: '20px', height: '35px' }}>입·퇴원확인서</button>
                     <br /><br />
                     {/* 진료확인서 */}
-                    {showTable === 'docDiagosis' && patient && (
-                        <Table bordered style={{ maxHeight:'300px', overflowY:'auto', width:'1050px', textAlign: 'center', backgroundColor:'#fbf9f2' }}>
+                    {showTable === 'diagCheck' && patient && (
+                        <Table bordered style={{ maxHeight:'300px', overflowY:'auto', marginLeft:'-75px', textAlign: 'center', backgroundColor:'#fbf9f2' }}>
                             <thead>
                                 <tr>
                                     <th>환자번호</th>
                                     <th>이름</th>
-                                    <th>의사번호</th>
-                                    <th>진료일자</th>
+                                    <th>진료과</th>
+                                    <th>담당의사번</th>
+                                    <th>담당의</th>
+                                    <th>검사종류</th>
+                                    <th>초진일자</th>
+                                    <th>진단일자</th>
+                                    <th>진료종류</th>
+                                    <th>발급여부</th>
                                     <th>진료확인서</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {diagnosisList.map(diagnosis => <tr>
-                                    <td>{patient.patNum}</td>
-                                    <td>{patient.patName}</td>
-                                    <td>{diagnosis.docNum}</td>
-                                    <td>{diagnosis.docDiagonsisDate}</td>
-                                    <td><button style={{ backgroundColor: 'black' }} onClick={() => handleDiagnosisCheck(diagnosis)}>진료확인서 출력</button></td>
+                                {patDiagCheckList.map(diagCheck => 
+                                <tr key={diagCheck.docDiagnosisNum}>
+                                    <td>{diagCheck.patNum}</td>
+                                    <td>{diagCheck.patName}</td>
+                                    <td>{diagCheck.deptName}</td>
+                                    <td>{diagCheck.docNum}</td>
+                                    <td>{diagCheck.docName}</td>
+                                    <td>{diagCheck.testName === null ? '-' : diagCheck.testName}</td>
+                                    <td>{diagCheck.firstDiagDate}</td>
+                                    <td>{diagCheck.docDiagnosisDate}</td>
+                                    <td>
+                                        {diagCheck.docDiagnosisKind === 'diag' ? '외래' : 
+                                        diagCheck.docDiagnosisKind === 'adm' ? '입원' :
+                                        diagCheck.docDiagnosisKind}
+                                    </td>
+                                    <td>미발급</td>
+                                    <td><button style={{ backgroundColor: 'black' }} onClick={() => openDiagCheckModal(diagCheck)}>진료확인서 출력</button></td>
                                 </tr>)}
                             </tbody>
                         </Table>
                     )}
                     {/* 입·퇴원확인서 */}
-                    {showTable === 'admissionDischarge' && patient && (
-                        <Table bordered style={{ textAlign: 'center' }}>
+                    {showTable === 'admCheck' && patient && (
+                        <Table bordered style={{ textAlign: 'center', marginLeft:'-75px'}}>
                             <thead>
                                 <tr>
                                     <th>환자번호</th>
                                     <th>이름</th>
+                                    <th>입원부서</th>
+                                    <th>담당의사번</th>
+                                    <th>담당의</th>
+                                    <th>간호사사번</th>
+                                    <th>담당간호사</th>
                                     <th>입원일자</th>
                                     <th>퇴원일자</th>
+                                    <th>입원상태</th>
                                     <th>입·퇴원확인서</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>{patient.patNum}</td>
-                                    <td>{patient.patName}</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td><button style={{ backgroundColor: 'black' }} onClick={handleAdmissionDischarge}>입·퇴원확인서 출력</button></td>
-                                </tr>
+                                {patAdmCheckList.map(AdmCheck => 
+                                <tr key={AdmCheck.admissionNum}>
+                                    <td>{AdmCheck.patNum}</td>
+                                    <td>{AdmCheck.patName}</td>
+                                    <td>{AdmCheck.deptName}</td>
+                                    <td>{AdmCheck.docNum}</td>
+                                    <td>{AdmCheck.docName}</td>
+                                    <td>{AdmCheck.nurNum}</td>
+                                    <td>{AdmCheck.nurName}</td>
+                                    <td>{AdmCheck.admissionDate}</td>
+                                    <td>{AdmCheck.admissionDischargeDate}</td>
+                                    <td>{AdmCheck.admissionStatus === 'ing' ? '입원중' : 
+                                        AdmCheck.admissionStatus === 'end' ? '퇴원' :
+                                        AdmCheck.admissionStatus}
+                                    </td>
+                                    <td><button style={{ backgroundColor: 'black' }} onClick={() => openAdmCheckModal(AdmCheck)}>입·퇴원확인서 출력</button></td>
+                                </tr>)}
                             </tbody>
                         </Table>
                     )}
                 </div>
             </div>
-            {/* 진료확인서 */}
-            <Modal isOpen={admStoredisModalIsOpen} toggle={openPatientPrescriptionModal} style={{ width: '100%', height: "100%" }}>
-                <ModalHeader toggle={openPatientPrescriptionModal} className='modalTitle'>
-                    <h1 style={{ textAlign: "center", marginTop: "100px" }}>&nbsp;진&nbsp;&nbsp;료&nbsp;&nbsp;확&nbsp;&nbsp;인&nbsp;&nbsp;서&nbsp;</h1>
-                </ModalHeader>
-                <ModalBody className='amdDiagDueModalBodyStyle'>
-                    <button >pre</button><button >next</button>
-                    <div className="tcBox">
-                <table className="tcTable" border="1" cellSpacing="0" style={{fontSize:"20px"}}>
-                    <tr style={{textAlign:"center"}}>
-                        <td className="tableSbox"> 성 명 </td>
-                        <td>(patient.patName)</td>
-                        <td className="tableSbox"> 성 별 </td>
-                        <td>(patient.patGender)</td>
-                        <td className="tableSbox"> 연 령 </td>
-                        <td>(?!?!, patient.patJumin)</td>
-                    </tr>
-                    <tr style={{textAlign:"center"}}>
-                        <td className="tableSbox"> 주 소 </td>
-                        <td colSpan="2">(patient.patAddress)</td>
-                        <td style={{width:"150px"}}>주민등록번호</td>
-                        <td colSpan="2">(patient.patJumin)</td>
-                    </tr>
-                    <tr style={{textAlign:"center"}}>
-                        <td className="tableSbox"> 진료과 </td>
-                        <td colSpan="2"> (doctor.departmentName) </td>
-                        <td style={{width:"150px"}}> 진 료 일 </td>
-                        <td colSpan="2">(diagnosis.diagnosisDate)</td>
-                    </tr>
-                    <tr style={{textAlign:"center"}}>
-                        <td className="tableSbox"> 병 명 </td>
-                        <td colSpan="5"><span> (disease.dieaseName + docDiagnosis.diseaseNum) </span></td>
-                    </tr>
-                    <tr className="tableSbox">
-                        <td className="tableSbox" style={{height:"500px"}}> 진료내용 </td>
-                        <td colSpan="5"> (docDiagnosis.docDiagnosisContent)</td>
-                    </tr>
-                    <tr style={{textAlign:"center"}}>
-                        <td colSpan="6" style={{height:"400px"}}>
-                            <span>위 진료 대상자에 대해여 위와 같이 진료하였음을 확인합니다.</span><br/><br/>
-                            <span> 발행일 : </span><span> ("curdate()") </span><br/><br/>
-                            <span> 담당의 : </span><span> (doctor.docName) </span>
-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-                </ModalBody>
-            </Modal>
-            {/* 입퇴원확인서 */}
-            <Modal isOpen={admStoredisModalIsOpen} toggle={openPatientPrescriptionModal} style={{ width: '2000px', height: "100%" }}>
-                <ModalHeader toggle={openPatientPrescriptionModal} className='modalTitle'>
-                    <h1 style={{ textAlign: "center", marginTop: "100px" }}>&nbsp;입&nbsp;&nbsp;퇴&nbsp;&nbsp;원&nbsp;&nbsp;확&nbsp;&nbsp;인&nbsp;&nbsp;서&nbsp;</h1>
-                </ModalHeader>
-                <ModalBody className='amdDiagDueModalBodyStyle'>
-
-                    <div className="tcBox">
-                        <table className="tcTable" border="1" cellSpacing="0" style={{ fontSize: "20px" }}>
-                            <tr style={{ textAlign: "center" }}>
-                                <td className="tableSbox" style={{ width: '150px' }}> 환자번호 </td>
-                                <td style={{ width: '280px' }}>(patient.patNum)</td>
-                                <td className="tableSbox"> 이름 </td>
-                                <td style={{ width: '280px' }}> (patient.patName) </td>
-                            </tr>
-                            <tr style={{ textAlign: "center" }}>
-                                <td className="tableSbox"> 주민등록번호 </td>
-                                <td>(patient.patJumin)</td>
-                                <td style={{ textAlign: 'center' }}> 성 별 </td>
-                                <td>(patient.patGender)</td>
-                            </tr>
-                            <tr>
-                                <td className="tableSbox" style={{ textAlign: "center" }}> 주 소 </td>
-                                <td colSpan="3"> &nbsp;&nbsp;&nbsp;&nbsp; ((patient.patAddress))</td>
-
-                            </tr>
-                            <tr style={{ textAlign: "center" }}>
-                                <td className="tableSbox"> 입 원 일 </td>
-                                <td> (admission.admissionDate) </td>
-                                <td style={{ width: "150px" }}> 퇴 원 일 </td>
-                                <td>(admission.admissionDischargeDate)</td>
-                            </tr>
-                            <tr style={{ textAlign: "center", height: '70px' }}>
-                                <td colSpan="4"><span> 입 원 사 유 </span></td>
-                            </tr>
-                            <tr className="tableSbox">
-                                <td className="tableSbox" style={{ height: "500px" }}> 입 원 내 용 </td>
-                                <td colSpan="3">(admission.admissionReason)</td>
-                            </tr>
-                            <tr style={{ textAlign: "center" }}>
-                                <td colSpan="4" style={{ height: "400px" }}>
-                                    <span>위 진료 대상자에 대해여 위와 같이 입 · 퇴원하였음을 확인합니다.</span><br /><br />
-                                    <span> 발행일 : </span><span> (curdate()) </span><br /><br />
-                                    <span> 담당의 : </span><span> (doctor.docName) </span>
-
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </ModalBody>
-            </Modal>
+            <AdmDiagCheckModal diagCheckModalIsOpen={diagCheckModalIsOpen} openDiagCheckModal={openDiagCheckModal} docDiagNum={docDiagNum} firstDiagDate={firstDiagDate} getCurrentDate={getCurrentDate}/>
+            <AdmDischargeCheckModal admCheckModalIsOpen={admCheckModalIsOpen} openAdmCheckModal={openAdmCheckModal} admNum={admNum} getCurrentDate={getCurrentDate} />
         </div>
     );
 }

@@ -55,7 +55,6 @@ const DocPatChartModal = ({username, patModalIsOpen, openPatModal, prevDiagList,
                             <option value="docNum">담당의사번</option>
                             <option value="docName">담당의명</option>
                             <option value="disName">진단명</option>
-                            <option value="preMed">처방 의약품</option>
                             <option value="testPart">검사내역</option>
                             <option value="diagKind">진료종류</option>
                         </select> |
@@ -94,7 +93,7 @@ const DocPatChartModal = ({username, patModalIsOpen, openPatModal, prevDiagList,
                                         <td>{prevDiag.docNum}</td>
                                         <td>{prevDiag.docName}</td>
                                         <td>{prevDiag.diseaseName}</td>
-                                        <td>{prevDiag.medName || '-'}</td>
+                                        <td className='longTdHidden'>{prevDiag.medName || '-'}</td>
                                         <td>{prevDiag.preDosage || '-'}</td>
                                         <td>{prevDiag.preDosageTime || '-'}</td>
                                         <td>{prevDiag.preDosageTotal || '-'}</td>

@@ -14,10 +14,10 @@
 .docPatInfo tbody tr th {
     padding-bottom: 7px;
 }
-/* .docPatInfo tr {
-    cursor: pointer;
-    transition: background-color 0.1s;
+
+.longTdHidden {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+    white-space: nowrap;
 }
-.docPatInfo tr:hover {
-    background-color: #e1e1e1;
-} */

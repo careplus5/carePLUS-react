@@ -194,7 +194,7 @@ const DiagnosisPatient = () => {
                                             <td>{prevDiag.docNum}</td>
                                             <td>{prevDiag.docName}</td>
                                             <td>{prevDiag.diseaseName}</td>
-                                            <td>{prevDiag.medName || '-'}</td>
+                                            <td className='longTdHidden'>{prevDiag.medName || '-'}</td>
                                             <td>{prevDiag.preDosage || '-'}</td>
                                             <td>{prevDiag.preDosageTime || '-'}</td>
                                             <td>{prevDiag.preDosageTotal || '-'}</td>

@@ -1,0 +1,65 @@
+/*진료확인서 모달 구조*/
+.diagCheckContainer {
+    width: 100%;
+    margin: 20px;
+    box-shadow: 0px 1px 3px 1px lightgray;
+    border-radius: 10px;
+    background-color: white;
+    min-height: 600px;
+}
+
+.diagCheckModalBody {
+    /* min-height: 700px;
+    max-height: 700px;
+    overflow-y: auto; */
+}
+
+.diagCheckModalBody.modal-body {
+    padding: 0;
+}
+
+
+/*진료확인서 내용 스타일*/
+.diagCheckTitle {
+    padding: 20px;
+    font-size: 23px;
+    text-align: center;
+}
+
+.diagCheckContentTitle {
+    text-align: left;
+    padding-left: 20px;
+    font-weight: 600;
+}
+
+.diagCheckBigContent {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.diagCheckFormat{
+    font-size:15px;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+ }
+.diagCheckFormat tbody tr th {
+    padding-bottom: 7px;
+}
+.diagCheckFormat tbody tr td {
+    border: 1px solid;
+    height: 40px;
+}
+
+.docStampStyle {
+    width: 5%;
+    position: absolute;
+    margin: -10px 0 0 -35px;
+}
+
+.longTdHidden {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 20px;
+    white-space: nowrap;
+}

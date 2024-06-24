@@ -9,11 +9,11 @@ import { url } from '../config';
 import { useAtomValue } from 'jotai';
 import { usernameAtom } from '../config/Atom';
 
-const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
+const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOpen
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
-  const [mode, setMode] = useState('local'); // 'local' or 'db'
+  const [mode, setMode] = useState('개인'); 
   const { events, addEvent, deleteEvent, editEvent } = useEventManager();
   const [dbEvents, setDbEvents] = useState({});
   const userId = useAtomValue(usernameAtom);
@@ -25,12 +25,11 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
         .then((res)=>{
           setUserName(res.data.empName);
           setDept2Name(res.data.department2Name);
-          console.log(res);
         })
         .catch((err)=>{
           console.log(err);
         });
-    if (mode === 'db') {
+    if (mode === '근무') {
       const fetchEvents = async () => {
         try {
           const response = await axios.get(`${url}/schedules?userId=${userId}`);
@@ -44,9 +43,8 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
               id: event.id,
               title: event.title,
               startTime: event.startTime,
-              eventType: event.eventType
+              eventType: event.scheduleType
             });
-            console.log(acc);
             return acc;
           }, {});
           setDbEvents(eventsByDate);
@@ -88,8 +86,7 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
   };
 
   const eventsIndicator = (dateKey) => {
-    const eventList = mode === 'local' ? (events[dateKey] || []) : (dbEvents[dateKey] || []);
-    console.log(eventList)
+    const eventList = mode === '개인' ? (events[dateKey] || []) : (dbEvents[dateKey] || []);
     if (eventList.length === 1) {
       return <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
                 &nbsp;{eventList[0].title}&nbsp;
@@ -109,10 +106,11 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
       return (
         <div>
           <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
-              &nbsp;{eventList[0].title}&nbsp;
+              {/* &nbsp;{eventList[0].title}&nbsp; */}
+              {eventList[0].eventType} 예약
           </div> {/* 객체의 속성을 사용하여 렌더링 */}
           <div className='event' style={{ backgroundColor: eventList[1].backgroundColor }}>
-              그 외 {eventList.length - 1}건&nbsp;
+              총 {eventList.length}건&nbsp;
           </div>
         </div>
       );
@@ -129,8 +127,8 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
     const monthNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
-    calendar.push(<div key="" className='userInfo'>{` ${dept2Name} ${userName}`}</div>)
-    calendar.push(<div key="monthYear" className="monthYear">{`${year}년 ${monthNames[month]}월`}</div>);
+    // calendar.push(<div key="" className='userInfo'>{` ${dept2Name} ${userName}`}</div>)
+    // calendar.push(<div key="monthYear" className="monthYear">{`${year}년 ${monthNames[month]}월`}</div>);
 
     calendar.push(
       <div key="weekDays" className="weekDays">
@@ -160,8 +158,13 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
       const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
       const isCurrentDate = year === currentYear && month + 1 === currentMonth && date === currentDay;
       const isHoliday = holidays[dateKey] !== undefined;
+      
+      const eventList = dbEvents[dateKey] || [];
+      const isFullbooked = eventList.length === 18;
+      
+    
       dateRow.push(
-        <div key={date} className={`date ${isCurrentDate ? 'current-date' : ''}`} data-date={date} onClick={() => {
+        <div key={date} className={`date ${isCurrentDate ? 'current-date' : ''} ${mode==='근무'&&isFullbooked ? 'fullbooked' : ''}`} data-date={date} onClick={() => {
           onDateSelect(dateKey);
           setSelectedDate(dateKey);
         }}>
@@ -213,16 +216,20 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
       <div className="popup-overlay">
         <div className="popup-content">
           <button className="close-btn" onClick={onClose}>&times;</button>
-          <button onClick={prevMonth}>Prev</button>
-          <button onClick={nextMonth}>Next</button>
           <div className="mode-switch">
-            <button onClick={() => setMode('local')}>개인 일정 보기</button>
-            <button onClick={() => setMode('db')}>근무 일정 보기</button>
+            <button className='calendar-button' onClick={() => setMode('개인')}>개인 스케줄</button>
+            <button className='calendar-button' onClick={() => setMode('근무')}>근무 스케줄</button>
+              <div style={{marginLeft:'70px', marginBottom:'40px'}}>
+                <div style={{width:'40%'}}> 
+                  <div key="" className='userInfo'>{` ${dept2Name} ${userName}님의 ${mode}일정`}</div>
+                  <span onClick={prevMonth} className='calendarleft'>⟨</span>
+                  <div key="monthYear" className="monthYear">{`${year}년 ${month+1}월`}</div>
+                  <span className='calendarright' onClick={nextMonth}>⟩</span>
+                </div>
+                {renderCalendar()}
+              </div>
           </div>
-          <div id="calendar" className="calendar">
-            {renderCalendar()}
-          </div><br />
-          {selectedDate != null && mode === 'local' && (
+          {selectedDate != null && mode === '개인' && (
             <EventModal
               date={selectedDate}
               events={events[selectedDate] || []}
@@ -234,7 +241,7 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen}) => {
               onClose={() => setSelectedDate(null)}
             />
           )}
-          {selectedDate != null && mode === 'db' && (
+          {selectedDate != null && mode === '근무' && (
             <EventModal
               date={selectedDate}
               events={events[selectedDate] || []}

@@ -153,7 +153,7 @@ const Header = () => {
                             <OpenCalendar />
                         </>
                     }
-                    <button id="headerRightButton" onClick={logout}><img className="headerLogout headerIcon" src="img/logout.png" /></button>
+                <img className="headerLogout headerIcon" src="img/logout.png" onClick={logout} />
                 </div>
             </div>
         </>

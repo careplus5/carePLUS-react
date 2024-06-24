@@ -26,18 +26,21 @@
 
 /* 헤더 로고 */
 .headerLogo{
+  padding-left: 10px;
+  padding-top: 2px;
   float:left;
-  width:250px;
+  width:230px;
 }
 
 /* 헤더 오른쪽 메뉴 내 아이콘들 */
 .headerIcon {
-  width:20px;
-  margin-right:10px;
+  width:21px;
+  margin-right:25px;
 }
 
 .headerLogout{
-  margin-right:20px;
+  margin-right:30px;
+  cursor: pointer;
 }
 #docMenu,#nurMenu,#admHMenu,#metMenu{
   display:none;

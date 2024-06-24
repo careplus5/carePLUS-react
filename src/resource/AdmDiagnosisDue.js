@@ -140,73 +140,81 @@ const AdmDocDiagnosisDue = ({ patient }) => {
     };
 
     return (
-        <div className='AdmLbox'>
-            <div className="boxHeader" style={{ marginLeft: "30px" }}>
+        <div>
+            <div style={{ marginLeft: "30px" }}>
                 <img id="boxIcon" alt='' style={{width: "40px", height: "40px" }} src="./img/register.png" />&nbsp;
                 <h3 id="LboxHeader" style={{ marginTop: "20px", marginRight: "120px" }}>진료예약</h3>
-                <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"850px"}} onClick={patientDiagnosisRegist}>진료 접수</button>
-                <div className="LrecodionBox">
-                    {/* 진료 예약 */}
-                    <br />
-                    <h4 style={{ marginLeft:"120px", color: "#5e5e5e", font: "bold", fontSize: "20px", textAlign: "left" }}>환자 정보 입력</h4><br/>
-                    <div>
-                        <div style={{ marginLeft: "180px", textAlign: "left" }}>
-                            <span>환자번호</span>
-                            <input type="text" name='patNum' id='patNum' value={patient && patient.patNum}
-                                className='admInputType' style={{marginLeft: "10px", width: "200px", height: "30px"}} />
-                            <span style={{ marginLeft: "13px" }}>환자 이름</span>
-                            <input name='patName' id='patName' type="text"
-                                value={patient && patient.patName}
-                                className='admInputType' style={{marginLeft: "10px", width: "150px", height: "30px"}}
+                <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"850px"}} onClick={patientDiagnosisRegist}>접수</button>
+                <table style={{marginLeft:'150px', textAlign:'right'}}>
+                <br/><tr>
+                        <td >환자번호</td>
+                        <td  style={{width:'150px'}}>
+                        <input type="text" name='patNum' id='patNum' value={patient && patient.patNum}
+                                 style={{border:'none',width: "100%", height: "30px"}}  onChange={changeValue} />
+                        </td>
+                        <td >이름</td>
+                        <td  style={{width:'150px'}}>
+                        <input type="text" name='patName' id='patName' value={patient && patient.patName}
+                                 style={{border:'none',width: "100%", height: "30px"}}   onChange={changeValue}/>
+                        </td>
+                        <td >주민등록번호</td>
+                        <td  colSpan={3}>
+                        <input type="text" name='patJumin' id='patJumin' value={patient && patient.patJumin}
+                                 style={{border:'none',width: "100%", height: "30px"}}  onChange={changeValue} />
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td >연락처</td>
+                        <td  colSpan={3}>
+                        <input type="text" name='patTel' id='patTel' value={patient && patient.patTel}
+                                 style={{border:'none',width: "100%", height: "30px"}}   onChange={changeValue}/>
+                        </td>
+                        <td >주소</td>
+                        <td colSpan={3}>
+                        <input name='patGender' id='patGender' type="text" value={patient && patient.patAddress}
+                                 style={{border:'none',width: "100%", height: "30px"}} 
                                 onChange={changeValue} />
-                            <span style={{ marginLeft: "13px" }}>환자 주민등록번호</span>
-                            <input name='patJumin' id='patJumin' type="text" value={patient && patient.patJumin}
-                                className='admInputType' style={{marginLeft: "10px", width: "200px", height: "30px"}}
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td >성별</td>
+                        <td  style={{width:'150px'}}>
+                        <input name='patGender' id='patGender' type="text" value={patient && patient.patGender}
+                                 style={{border:'none',width: "100%", height: "30px"}} 
                                 onChange={changeValue} />
-                            <span style={{ marginLeft: "13px" }}>환자 성별</span>
-                            <input name='patGender' id='patGender' type="text" value={patient && patient.patGender}
-                                className='admInputType' style={{marginLeft: "10px", width: "50px", height: "30px"}}
+                        </td>
+                        <td >키</td>
+                        <td  style={{width:'150px'}}>
+                        <input name='patHeight' id='patHeight' type="text" value={patient && patient.patHeight}
+                                 style={{border:'none',width: "100%", height: "30px"}} 
                                 onChange={changeValue} />
-                        </div><br />
-
-                        <div style={{ marginLeft: "180px", textAlign: "left" }}>
-                            <span>환자 연락처</span>
-                            <input name='patTel' id='patTel' type="text"
-                                value={patient && patient.patTel}
-                                className='admInputType' style={{marginLeft: "10px", width: "200px", height: "30px"}}
+                        </td>
+                        <td >몸무게</td>
+                        <td  style={{width:'150px'}}>
+                        <input name='patWeight' id='patWeight' type="text" value={patient && patient.patWeight}
+                                 style={{border:'none',width: "100%", height: "30px"}} 
                                 onChange={changeValue} />
-                            <span style={{ marginLeft: "70px" }}>환자 키</span>
-                            <input name='patHeight' id='patHeight' type="text" value={patient && patient.patHeight}
-                                className='admInputType' style={{marginLeft: "10px", width: "100px", height: "30px"}}
+                        </td>
+                        <td >혈액형</td>
+                        <td  style={{width:'150px'}}>
+                        <input name='patBloodType' id='patBloodType' type="text" value={patient && patient.patBloodType}
+                                 style={{border:'none',width: "100%", height: "30px"}} 
                                 onChange={changeValue} />
-                            <span style={{ marginLeft: "70px" }}>환자 몸무게</span>
-                            <input name='patWeight' id='patWeight' type="text"
-                                value={patient && patient.patWeight}
-                                className='admInputType' style={{marginLeft: "10px", width: "100px", height: "30px"}}
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td >과거병력</td>
+                        <td  colSpan={7}>
+                        <input name='patHistory' id='patHistory' type="text" value={patient && patient.patHistory}
+                                 style={{border:'none',width: "100%", height: "30px"}} 
                                 onChange={changeValue} />
-                            <span style={{ marginLeft: "70px" }}>환자 혈액형</span>
-                            <input name='patBloodType' id='patBloodType' type="text"
-                                value={patient && patient.patBloodType}
-                                className='admInputType' style={{marginLeft: "10px", width: "50px", height: "30px"}}
-                                onChange={changeValue} />
-                        </div><br />
-
-                        <div style={{ marginLeft: "180px", textAlign: "left" }}>
-                            <span>주소</span>
-                            <input name='patAddress' id='patAddress' type="text"
-                                value={patient && patient.patAddress}
-                                className='admInputType' style={{marginLeft: "10px", width: "415px", height: "30px"}}
-                                onChange={changeValue} />
-                            <span style={{ marginLeft: "30px" }}>과거병력</span>
-                            <input name='patHistory' type="text" value={patient && patient.patHistory}
-                                className='admInputType' style={{marginLeft: "10px", width: "415px", height: "30px"}}
-                                onChange={changeValue} />
-                        </div><br />
-
-                        <div style={{ marginLeft: "180px", textAlign: "left" }}>
-                            <span>진료과</span>
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td >진료과</td>
+                        <td >
                             {/* 진료과 선택 selectbox */}
-                            <select id="admStatus" 
+                            <select className='adminInputType' style={{width:'100%', textAlign:'center'}}
                                 value={selectedDepartment} onChange={handleDepartmentChange}
                                 name="departmentName"
                             >
@@ -217,28 +225,36 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                                     </option>
                                 ))}
                             </select>
-                            <button style={{marginLeft:'20px', height:'30px', backgroundColor:'427889'}} onClick={openAdmDiagDueModal}>조회</button>
-                            <span style={{ marginLeft: "43px" }}>주치의</span>
-                            <input name='' type="text" value={diagnosisDue.docName}
-                                className='admInputType' style={{marginLeft: "10px", width: "150px", height: "30px"}} />
-                            <span style={{ marginLeft: "43px" }}>예약일자</span>
-                            <input type="text" value={diagnosisDue.diagnosisDueDate}
-                                className='admInputType' style={{marginLeft: "10px", width: "150px", height: "30px"}} />
-                            <span style={{ marginLeft: "43px" }}>예약시간</span>
-                            <input type="text" value={diagnosisDue.diagnosisDueTime}
-                                className='admInputType' style={{marginLeft: "10px", width: "100px", height: "30px"}} />
-                        </div><br />
-
-                        <div style={{ marginLeft: "180px", textAlign: "left" }}>
-                            <span>증상</span>
-                            <input type="text" name="diagnosisDueState"
-                                className='admInputType' style={{marginLeft: "10px", width: "415px", height: "30px"}} onChange={changeValue} />
-                            <span style={{ marginLeft: "30px" }}>특이사항</span>
-                            <input type="text" name="diagnosisDueEtc"
-                                className='admInputType' style={{marginLeft: "10px", width: "415px", height: "30px"}} onChange={changeValue} />
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                        <td onClick={openAdmDiagDueModal} >주치의</td>
+                        <td  style={{width:'150px'}}>
+                        <input name='' type="text" value={diagnosisDue.docName}
+                                 style={{border:'none',width: "100%", height: "30px"}}  />
+                        </td>
+                        <td >예약일자</td>
+                        <td  style={{width:'150px'}}>
+                        <input type="text" value={diagnosisDue.diagnosisDueDate}
+                                 style={{border:'none',width: "100%", height: "30px"}}  />
+                        </td>
+                        <td >예약시간</td>
+                        <td  style={{width:'150px'}}>
+                        <input type="text" value={diagnosisDue.diagnosisDueDate}
+                                style={{border:'none',width: "100%", height: "30px"}}  />
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td >증상</td>
+                        <td  colSpan={3}>
+                        <input type="text" name="diagnosisDueState"
+                                style={{border:'none',width: "100%", height: "30px"}} onChange={changeValue} />
+                        </td>
+                        <td >특이사항</td>
+                        <td  colSpan={3}>
+                        <input type="text" name="diagnosisDueEtc"
+                                style={{border:'none',width: "100%", height: "30px"}} onChange={changeValue} />
+                        </td>
+                    </tr>
+                </table>
             </div>
             <Modal isOpen={admDiagDuedisModalIsOpen} style={{ maxWidth: `${tableWidth + 180}px` }}>
                 <ModalHeader toggle={() => setAdmDiagDuedisModalIsOpen(false)} className='modalTitle' >{selectedDepartmentName}&nbsp;:&nbsp;{selectedDate && selectedDate.toISOString().split('T')[0]}</ModalHeader>

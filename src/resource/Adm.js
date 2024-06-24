@@ -85,10 +85,8 @@ const Adm = () => {
     const timeSlots = generateTimeSlots();
 
     return (
-        <div className='background'>
-            <div className='LBox'>
-                <AdmPatientInfo />
-            </div>
+        <div>
+            <AdmPatientInfo />
         </div>
     )
 }

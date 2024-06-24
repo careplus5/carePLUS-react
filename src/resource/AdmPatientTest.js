@@ -51,10 +51,48 @@ const AdmPatientTest = ({ patient }) => {
     return (
 
         <div id="">
-            <div className="boxHeader" style={{ marginLeft: "35px" }}>
+            <div style={{ marginLeft: "35px" }}>
                 <img id="boxIcon" style={{ width: "40px", height: "40px" }} src="./img/test.png" />&nbsp;
                 <h3 id="LboxHeader" style={{ marginTop: "20px", marginRight: "120px" }}>검사</h3>
                 <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"920px"}} >접수</button>
+                <table style={{marginLeft:'150px', textAlign:'right'}}>
+                    <br/><br/><tr>
+                        <td>환자번호</td>
+                        <td id='patNum' name='patNum' className='adm-tr-style' style={{width:'150px'}}>{patient && patient.patNum}</td>
+                        <td>이름</td>
+                        <td className='adm-tr-style' id='patName' name='patName' style={{width:'100px'}}>{patient && patient.patName}</td>
+                        <td>주민등록번호</td>
+                        <td className='adm-tr-style' id='patJumin' name='patJumin' style={{width:'150px'}}>{patient && patient.patJumin}</td>
+                        <td>성별</td>
+                        <td className='adm-tr-style' id='patGender' name='patGender' style={{width:'100px'}}>{patient && patient.patGender}</td>
+                    </tr><br/>
+                    <tr>
+                        <td>검사실</td>
+                        <td className='adm-tr-style'>
+                        <select style={{width:'100px', border:'none', height:'30px'}}>
+                            <option>검사실 선택</option>
+                            <option>CT</option>
+                            <option>MRI</option>
+                            <option>X-Ray</option>
+                        </select>
+                        </td>
+                        <td>예정일</td>
+                        <td className='adm-tr-style' style={{width:'100px'}} onClick={openAdmDiagDueModal}></td>
+                        <td>예약시간</td>
+                        <td className='adm-tr-style'></td>
+                        <td>주치의</td>
+                        <td className='adm-tr-style'></td>
+                    </tr><br/>
+                    <tr>
+                        <td>검사부위</td>
+                        <td className='adm-tr-style' colSpan={3}></td>
+                        <td>원외검사기록여부</td>
+                        <td className='adm-tr-style' colSpan={3}></td>
+                        
+                    </tr><br/>
+                </table>
+                
+                
                 <div style={{marginLeft:'175px'}}>
                     <br/><span>환자번호</span>
                     <input type="text" name='patNum' value={patient && patient.patNum}

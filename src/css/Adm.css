@@ -209,3 +209,125 @@
   padding: 10px;
   border-radius: 10px;
 }
+
+
+/*검색창*/
+.admPatSearchbar {
+  float: left;
+  margin-top: 20px;
+  height: 40px;
+  box-shadow: 1px 1px 2px 0 lightgray;
+  border-radius: 20px;
+  color: #233FA3;
+  font-weight: bold;
+  background-color: #f7f7f7;
+  margin-left: 35px;
+  margin-bottom: 10px;
+}
+
+.admPatKeywordSort {
+  background-color: #f7f7f7;
+  color: #233FA3;
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: 30px;
+  margin-top: 8px;
+  border: none;
+  appearance: none;
+  padding: 0px 10px;
+  margin-right: 10px;
+}
+.admPatKeywordSort:focus {
+  outline: none;
+}
+#keyword:focus {
+  outline: none;
+}
+
+.admPatSearchButton{
+  margin-top:5px;
+  margin-right:10px;
+  background-color: transparent;
+  border: none;
+  width:28px;
+  height:30px;
+  background-image: url('/public/img/adsearch.png');
+  float: right;
+}
+
+.admPatListScroll {
+  overflow-y: auto;
+  max-height: 270px;
+  height: 270px;
+}
+
+.admPatStorageScroll {
+    overflow-y: auto;
+    max-height: 270px;
+    margin-left: -75px;
+    margin-right: 70px;
+}
+
+.admDiagTrHover {
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+.admDiagTrHover:hover {
+  background-color: #f0f0f0;
+}
+
+.preInputStyle {
+  width: 180px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  background-color: #FFFEFB;
+}
+.preInputStyle:focus {
+  outline: none;
+}
+.preInputStyle[readonly] {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.admPat-boxHeader {
+  padding-top: 15px;
+  font-family: 'TheJamsil54Medium';
+  margin-left: 10px;
+  font-size: 22px;
+}
+
+.inputStyle {
+  margin-right: 10px;
+  margin-left: 15px;
+  width: 170px;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 0px 5px 15px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  background-color: #FFFEFB;
+}
+
+.inputStyle:focus {
+  outline: none;
+}
+.inputStyle:read-only {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.buttonStyle {
+  margin-left: 15px;
+  background-color: #427889;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  height:25px;
+  box-shadow: 0 1px 2px 0 lightgray;
+  width:115px;
+  font-family: 'Pretendard-Regular';
+}

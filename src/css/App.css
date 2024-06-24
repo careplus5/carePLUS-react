@@ -1,7 +1,6 @@
 /* ---- 공통 ---- */
  html, body, #root {
   height:auto;
-  margin-top: -40px;
   background-color: #FBF9F2;
 } 
  .background{

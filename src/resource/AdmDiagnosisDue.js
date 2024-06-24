@@ -140,8 +140,8 @@ const AdmDocDiagnosisDue = ({ patient }) => {
     };
 
     return (
-        <div className='backgroud' >
-            <div className="boxHeader" style={{ marginLeft: "30px" }}>
+        <div>
+            <div style={{ marginLeft: "30px" }}>
                 <img id="boxIcon" alt='' style={{width: "40px", height: "40px" }} src="./img/register.png" />&nbsp;
                 <h3 id="LboxHeader" style={{ marginTop: "20px", marginRight: "120px" }}>진료예약</h3>
                 <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"850px"}} onClick={patientDiagnosisRegist}>접수</button>

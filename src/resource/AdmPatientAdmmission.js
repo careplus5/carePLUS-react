@@ -100,11 +100,11 @@ const AdmPatientAdmmission = ({ patient }) => {
 
     return (
         <div>
-            <div className="boxHeader" style={{ marginLeft: "35px" }} >
+            <div style={{ marginLeft: "35px" }} >
                 <img id="boxIcon" style={{ marginTop:'-10px', width: "40px", height: "40px" }} src="./img/admission.png" />&nbsp;
-                <h3 id="LboxHeader" style={{ marginTop:'20px', marginRight: "120px" }}>입원</h3>
+                <h3 id="AmdLboxHeader" style={{ marginTop:'20px', marginRight: "120px" }}>입원</h3>
                 <button onClick={patientAdmissionRegist} style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"1080px"}}>접수</button>
-                <table style={{marginLeft:'100px'}}>
+                <table>
                 <br/><tr>
                         <td >환자번호</td>
                         <td className='adm-tr-style' id='patNum' name='patNum' style={{width:'150px'}} colSpan={2}>{patient && patient.patNum}</td>

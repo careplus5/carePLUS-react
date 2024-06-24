@@ -3,7 +3,7 @@
 const AdmPatientSurgeryDue = ({patient}) => {
     return (
         <div>
-            <div className="boxHeader" style={{ marginLeft: "35px" }}>
+            <div style={{ marginLeft: "35px" }}>
                 <img id="boxIcon" style={{ width: "40px", height: "40px" }} src="./img/surgery.png" />&nbsp;
                 <h3 id="LboxHeader" style={{  marginTop:'20px', marginRight: "120px" }}>수술</h3>
                 <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"920px"}}>접수</button>

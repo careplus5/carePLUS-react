@@ -78,7 +78,7 @@ const AdmPatientInfo = () => {
 
     return (
         <div id="background" >
-            <div id="AdmLbox">
+            <div>
                 <br />
                 <div>
                     <img id="boxIcon" alt='' style={{ marginTop: "5px", marginLeft: "40px", height:'40px' }} src="./img/notice.png" />

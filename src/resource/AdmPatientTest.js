@@ -51,7 +51,7 @@ const AdmPatientTest = ({ patient }) => {
     return (
 
         <div id="">
-            <div className="boxHeader" style={{ marginLeft: "35px" }}>
+            <div style={{ marginLeft: "35px" }}>
                 <img id="boxIcon" style={{ width: "40px", height: "40px" }} src="./img/test.png" />&nbsp;
                 <h3 id="LboxHeader" style={{ marginTop: "20px", marginRight: "120px" }}>검사</h3>
                 <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"920px"}} >접수</button>
@@ -93,7 +93,7 @@ const AdmPatientTest = ({ patient }) => {
                 </table>
                 
                 
-                {/* <div style={{marginLeft:'175px'}}>
+                <div style={{marginLeft:'175px'}}>
                     <br/><span>환자번호</span>
                     <input type="text" name='patNum' value={patient && patient.patNum}
                         className='admInputType' style={{marginLeft: "10px", width: "200px", height: "30px"}} onChange={(e) => setPatNum(e.target.value)} />
@@ -150,7 +150,7 @@ const AdmPatientTest = ({ patient }) => {
                          <br/><button style={{ backgroundColor:'#0081b4', width:'900px', height:'30px'}} onClick={handleUpload}>Upload</button>
                        </div>
                     )}
-                </div><br /> */}
+                </div><br />
             </div>
             {/* 병명 선택 모달 */}
             <Modal isOpen={admDiagDuedisModalIsOpen} toggle={openAdmDiagDueModal} style={{ maxWidth: "1100px" }}>

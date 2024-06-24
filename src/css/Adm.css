@@ -20,8 +20,7 @@
 /* 아코디언 css 코드 모음 */
 .LaccordionBox {
   margin: 0 auto;
-  background-color: red;
-  z-index: 9999;
+  background-color: #FFFDF8;
   margin-left: -30px;
   margin-top: 30px;
   border-radius: 10px;
@@ -332,4 +331,3 @@
   width:115px;
   font-family: 'Pretendard-Regular';
 }
-

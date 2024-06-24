@@ -3,8 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import '../css/SideNotice.css';
 import { url } from '../config';
-// import Notice from './Notice';
-// import NoticeList from './NoticeList';
+import Notice from './Notice';
 
 const SideNotice = () => {
     const [notice, setNotice] = useState({
@@ -26,6 +25,7 @@ const SideNotice = () => {
                     console.log(err);
                 });
         };
+        
     
         const interval = setInterval(fetchData, 60000);
         fetchData(); // 페이지 로딩 시 초기 데이터 불러오기
@@ -89,7 +89,7 @@ const SideNotice = () => {
             )}
             {isNoticeListOpen &&
                 <div>
-                    {/* <NoticeList isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/> */}
+                    <Notice isNoticeListOpen={isNoticeListOpen} setIsNoticeListOpen={setIsNoticeListOpen}/>
                 </div>
             }
         </div>

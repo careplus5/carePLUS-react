@@ -47,7 +47,10 @@ const AdmPatientInfo = () => {
         } else if(menuIdx===3) {  // 입원예약
         } else if(menuIdx===4) {  // 수술예약 
         } else if(menuIdx===5) {  // 처방전 발급
-            axios.get(`${url}/patNumPrescriptionList?patNum=${patient.patNum}`)
+            console.log("patNum:"+patNum);
+            axios.get(`${url}/patNumPrescriptionList`,{params:{
+                patNum:patient.patNum
+            }})
             .then(res => {
                 setPrescriptionList([...res.data]);
             })

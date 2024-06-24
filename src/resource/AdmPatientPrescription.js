@@ -6,7 +6,6 @@ import axios from "axios";
 // 처방전 발급
 const AdmPatientPrescription = ({ prescriptionList }) => {
 
-    // 처방전 조회
     const [prescription, setPrescription] = useState('');
     const [selectedDate, setSelectedDate] = useState();  // 교부년월일
     // 모달 (부서에 대한 정보 검색)
@@ -17,10 +16,11 @@ const AdmPatientPrescription = ({ prescriptionList }) => {
         setAdmDiagDuedisModalIsOpen(true);
 
     }
-
     // 해당 환자의 처방전 조회함수 
     useState(() => {
-        axios.get(`${url}/searchPatientPrescription?patNum=${prescriptionList.prescriptionNum}`)
+        axios.get(`${url}/patNumPrescriptionList`,{params:{
+            patNum:patient.patNum
+        }})
             .then(res => {
                 setPrescription(res.data);
             })

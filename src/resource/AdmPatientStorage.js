@@ -109,7 +109,6 @@ const AdmPatientStorage = ({ patient }) => {
                                         <th>초진일자</th>
                                         <th>진단일자</th>
                                         <th>진료종류</th>
-                                        <th>발급여부</th>
                                         <th>진료확인서</th>
                                     </tr>
                                 </thead>
@@ -129,7 +128,6 @@ const AdmPatientStorage = ({ patient }) => {
                                             diagCheck.docDiagnosisKind === 'adm' ? '입원' :
                                             diagCheck.docDiagnosisKind}
                                         </td>
-                                        <td>미발급</td>
                                         <td><button style={{ backgroundColor: 'black' }} onClick={() => openDiagCheckModal(diagCheck)}>진료확인서</button></td>
                                     </tr>)}
                                 </tbody>

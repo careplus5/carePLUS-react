@@ -1,10 +1,18 @@
+import '../css/Admt.css';
 import { useState, useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
+import { Input, Modal, ModalHeader, ModalBody, Table, Button } from 'reactstrap';
 import axios from 'axios';
 import { url } from '../config';
 
-
 const AdmDocDiagnosisDue = ({ patient }) => {
+    const inputStyle = {
+        display: "inlineBolck",
+        height: "35px",
+        marginLeft: "15px",
+        textAlign: "center",
+        border: "1px solid lightgray",
+        borderRadius: "10px"
+    }
 
     // 모달 (부서에 대한 정보 검색)
     const [admDiagDuedisModalIsOpen, setAdmDiagDuedisModalIsOpen] = useState(false);
@@ -15,10 +23,7 @@ const AdmDocDiagnosisDue = ({ patient }) => {
     // 의사관련
     const [doctors, setDoctors] = useState([]);
     const [diagnosisDueDtoList, setDiagnosisDueDtoList] = useState([]);
-    const [selectedDoctor, setSelectedDoctor] = useState({ docNum: '', jobNum: '', docName: '' });
     const [selectedDate, setSelectedDate] = useState();
-    const [selectedTime, setSelectedTime] = useState('');
-    const [selectedDocNum, setSelectedDocNum] = useState('');
 
     // 진료예약관련
     const [diagnosisDue, setDiagnosisDue] = useState({
@@ -105,8 +110,6 @@ const AdmDocDiagnosisDue = ({ patient }) => {
     // 모달에서 시간 셀 클릭 핸들러 
     const handleTimeCellClick = (time, doctor) => {
         // 선택된 의사의 정보 가져오기
-        console.log(time)
-        console.log(selectedDate.toISOString().split('T')[0])
         setDiagnosisDue({
             ...diagnosisDue,
             diagnosisDueDate: selectedDate.toISOString().split('T')[0],
@@ -139,136 +142,108 @@ const AdmDocDiagnosisDue = ({ patient }) => {
             });
     };
 
+    const dateChange = (e) => {
+        setSelectedDate(new Date(e.target.value));
+    }
+
     return (
         <div>
-            <div style={{ marginLeft: "30px" }}>
-                <img id="boxIcon" alt='' style={{width: "40px", height: "40px" }} src="./img/register.png" />&nbsp;
-                <h3 id="LboxHeader" style={{ marginTop: "20px", marginRight: "120px" }}>진료예약</h3>
-                <button style={{backgroundColor:'#0081b4', height:'30px', marginLeft:"850px"}} onClick={patientDiagnosisRegist}>접수</button>
-                <table style={{marginLeft:'150px', textAlign:'right'}}>
-                <br/><tr>
-                        <td >환자번호</td>
-                        <td  style={{width:'150px'}}>
-                        <input type="text" name='patNum' id='patNum' value={patient && patient.patNum}
-                                 style={{border:'none',width: "100%", height: "30px"}}  onChange={changeValue} />
-                        </td>
-                        <td >이름</td>
-                        <td  style={{width:'150px'}}>
-                        <input type="text" name='patName' id='patName' value={patient && patient.patName}
-                                 style={{border:'none',width: "100%", height: "30px"}}   onChange={changeValue}/>
-                        </td>
-                        <td >주민등록번호</td>
-                        <td  colSpan={3}>
-                        <input type="text" name='patJumin' id='patJumin' value={patient && patient.patJumin}
-                                 style={{border:'none',width: "100%", height: "30px"}}  onChange={changeValue} />
-                        </td>
-                    </tr><br/>
-                    <tr>
-                        <td >연락처</td>
-                        <td  colSpan={3}>
-                        <input type="text" name='patTel' id='patTel' value={patient && patient.patTel}
-                                 style={{border:'none',width: "100%", height: "30px"}}   onChange={changeValue}/>
-                        </td>
-                        <td >주소</td>
-                        <td colSpan={3}>
-                        <input name='patGender' id='patGender' type="text" value={patient && patient.patAddress}
-                                 style={{border:'none',width: "100%", height: "30px"}} 
-                                onChange={changeValue} />
-                        </td>
-                    </tr><br/>
-                    <tr>
-                        <td >성별</td>
-                        <td  style={{width:'150px'}}>
-                        <input name='patGender' id='patGender' type="text" value={patient && patient.patGender}
-                                 style={{border:'none',width: "100%", height: "30px"}} 
-                                onChange={changeValue} />
-                        </td>
-                        <td >키</td>
-                        <td  style={{width:'150px'}}>
-                        <input name='patHeight' id='patHeight' type="text" value={patient && patient.patHeight}
-                                 style={{border:'none',width: "100%", height: "30px"}} 
-                                onChange={changeValue} />
-                        </td>
-                        <td >몸무게</td>
-                        <td  style={{width:'150px'}}>
-                        <input name='patWeight' id='patWeight' type="text" value={patient && patient.patWeight}
-                                 style={{border:'none',width: "100%", height: "30px"}} 
-                                onChange={changeValue} />
-                        </td>
-                        <td >혈액형</td>
-                        <td  style={{width:'150px'}}>
-                        <input name='patBloodType' id='patBloodType' type="text" value={patient && patient.patBloodType}
-                                 style={{border:'none',width: "100%", height: "30px"}} 
-                                onChange={changeValue} />
-                        </td>
-                    </tr><br/>
-                    <tr>
-                        <td >과거병력</td>
-                        <td  colSpan={7}>
-                        <input name='patHistory' id='patHistory' type="text" value={patient && patient.patHistory}
-                                 style={{border:'none',width: "100%", height: "30px"}} 
-                                onChange={changeValue} />
-                        </td>
-                    </tr><br/>
-                    <tr>
-                        <td >진료과</td>
-                        <td >
-                            {/* 진료과 선택 selectbox */}
-                            <select className='adminInputType' style={{width:'100%', textAlign:'center'}}
-                                value={selectedDepartment} onChange={handleDepartmentChange}
-                                name="departmentName"
-                            >
-                                <option value=""> 진료과 선택 </option>
-                                {departments.map((department) => (
-                                    <option key={department.departmentNum} value={department.departmentNum}>
-                                        {department.departmentName}
-                                    </option>
-                                ))}
-                            </select>
-                        </td>
-                        <td onClick={openAdmDiagDueModal} >주치의</td>
-                        <td  style={{width:'150px'}}>
-                        <input name='' type="text" value={diagnosisDue.docName}
-                                 style={{border:'none',width: "100%", height: "30px"}}  />
-                        </td>
-                        <td >예약일자</td>
-                        <td  style={{width:'150px'}}>
-                        <input type="text" value={diagnosisDue.diagnosisDueDate}
-                                 style={{border:'none',width: "100%", height: "30px"}}  />
-                        </td>
-                        <td >예약시간</td>
-                        <td  style={{width:'150px'}}>
-                        <input type="text" value={diagnosisDue.diagnosisDueDate}
-                                style={{border:'none',width: "100%", height: "30px"}}  />
-                        </td>
-                    </tr><br/>
-                    <tr>
-                        <td >증상</td>
-                        <td  colSpan={3}>
-                        <input type="text" name="diagnosisDueState"
-                                style={{border:'none',width: "100%", height: "30px"}} onChange={changeValue} />
-                        </td>
-                        <td >특이사항</td>
-                        <td  colSpan={3}>
-                        <input type="text" name="diagnosisDueEtc"
-                                style={{border:'none',width: "100%", height: "30px"}} onChange={changeValue} />
-                        </td>
-                    </tr>
-                </table>
+            <div style={{ marginLeft: "35px", paddingBottom:"34px" }}>
+                <img alt='' style={{ marginTop: "0px", width: "40px", height: "40px" }} src="/img/register.png" />&nbsp;
+                <h3 id="LboxHeader" style={{ marginTop: "34px", marginRight: "20px" }}>진료예약</h3><br/><br/>
+                <Table bordered style={{width:"90%"}}>
+                    <tbody>
+                        <tr>
+                            <th width="190px">등록번호</th>
+                            <td width="150px">{patient && patient.patNum}</td>
+                            <th width="90px">이름</th>
+                            <td width="150px">{patient && patient.patName}</td>
+                            <th width="150px">주민등록번호</th>
+                            <td width="190px">{patient && patient.patJumin}</td>
+                            <th width="100px">연락처</th>
+                            <td width="150px">{patient && patient.patTel}</td>
+                            <th width="100px">주소</th>
+                            <td>{patient && patient.patAddress}</td>
+                        </tr>
+                        <tr>
+                            <th>성별</th>
+                            <td>{patient && patient.patGender}</td>
+                            <th>키</th>
+                            <td>{patient && patient.patHeight}</td>
+                            <th>몸무게</th>
+                            <td>{patient && patient.patWeight}</td>
+                            <th>혈액형</th>
+                            <td>{patient && patient.patBloodType}</td>
+                            <th>과거병력</th>
+                            <td>
+                                <input name='patHistory' type="text" value={patient && patient.patHistory}
+                                    style={{border:'none',display:'inline-block', width:'100%',outline:'none'}}
+                                    onChange={changeValue} />                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>증상</th>
+                            <td colSpan={5}>
+                                <input type="text" name="diagnosisDueState"
+                                    style={{border:'none',display:'inline-block', width:'100%',outline:'none'}} onChange={changeValue} />
+                            </td>
+                            <th>특이사항</th>
+                            <td  colSpan={3}>
+                                <input type="text" name="diagnosisDueEtc" 
+                                    style={{border:'none',display:'inline-block', width:'100%',outline:'none'}} onChange={changeValue} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <select id="admStatus" style={{ ...inputStyle, width: "150px" }}
+                                    value={selectedDepartment} onChange={handleDepartmentChange}
+                                    name="departmentName">
+                                    <option value=""> 진료과 선택 </option>
+                                    {departments.map((department) => (
+                                        <option key={department.departmentNum} value={department.departmentNum}>
+                                            {department.departmentName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </th>
+                            <td><Button onClick={openAdmDiagDueModal}>예약시간</Button></td>
+                            <th>주치의</th>
+                            <td>{diagnosisDue.docName}</td>
+                            <th>예약일자</th>
+                            <td>{diagnosisDue.diagnosisDueDate}</td>
+                            <th>예약시간</th>
+                            <td>{diagnosisDue.diagnosisDueTime}</td>
+                            <th colSpan={2}><Button>진료접수</Button></th>
+                        </tr>
+                    </tbody>
+                </Table>
             </div>
+
+            {/* 병명 선택 모달 */}
             <Modal isOpen={admDiagDuedisModalIsOpen} style={{ maxWidth: `${tableWidth + 180}px` }}>
-                <ModalHeader toggle={() => setAdmDiagDuedisModalIsOpen(false)} className='modalTitle' >{selectedDepartmentName}&nbsp;:&nbsp;{selectedDate && selectedDate.toISOString().split('T')[0]}</ModalHeader>
+                <ModalHeader toggle={() => setAdmDiagDuedisModalIsOpen(false)} className='modalTitle' >
+                    {selectedDepartmentName}&nbsp;:&nbsp;{selectedDate && selectedDate.toISOString().split('T')[0]}
+                </ModalHeader>
                 <ModalBody className='amdDiagDueModalBodyStyle'>
                     <table>
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td>
+                               <Input type="date" value={selectedDate && selectedDate.toISOString().split('T')[0]} onChange={dateChange}/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <button onClick={() => modalChangeDate(-1)}>
-                                        <img src="img/prev.png" alt='' width="30px" height="30px" />
+                                        <img src="/prev.png" alt='' width="50px" />
                                     </button>&nbsp;
                                 </td>
                                 <td>
-                                    <Table bordered style={{width: `${tableWidth}px` }}>
+                                    <Table bordered style={{ width: `${tableWidth}px` }}>
                                         <thead >
                                             <tr >
                                                 <th style={{ width: '100px' }}>예약시간</th>
@@ -301,7 +276,7 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                                 </td>
                                 <td>&nbsp;
                                     <button onClick={() => modalChangeDate(+1)}>
-                                        <img src="img/next.png" alt='' width="30px" />
+                                        <img src="/next.png" alt='' width="50px" />
                                     </button>
                                 </td>
 

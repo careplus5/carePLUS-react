@@ -1,0 +1,10 @@
+.admbutton {
+    height: 35px;
+    color: white;
+    background-color: lightslategray;
+    padding: 5px 20px 5px 20px;
+  }
+  
+  .surgery-modal-style {
+    min-height: 300px;
+  }

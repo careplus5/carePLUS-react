@@ -5,10 +5,10 @@
   .current-date::before {
     content: attr(data-date);
     position: absolute;
-    top: 10px; /* 부모 요소의 상단으로부터의 거리 설정 */
-    left: 50px;
-    width: 21px; /* 원 지름 설정 */
-    height: 21px; /* 원 지름 설정 */
+    top: 13px; /* 부모 요소의 상단으로부터의 거리 설정 */
+    left: 65px;
+    width: 24px; /* 원 지름 설정 */
+    height: 24px; /* 원 지름 설정 */
     background-color: red; /* 빨간색 배경 */
     border-radius: 50%; /* 원 모양 설정 */
     color: white; /* 숫자 색상 */
@@ -17,31 +17,32 @@
     text-align: center;
     padding-inline: 0.5px;
     padding-top: 1px;
-    margin-top: -1.5px;
+    margin-top: -0.5px;
   }
 
   .userInfo{
+    margin-left: -30px;
+    margin-top: 10px;
+    margin-bottom: -10px;
     padding-top: 20px;
-    width: 90%; /* 전체 폭을 차지하게 함 */
-    text-align: left;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
+    color: #00648b;
   }
   
   .monthYear {
-    width: 90%; /* 전체 폭을 차지하게 함 */
-    text-align: left;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
-    margin-bottom: 10px;
+    display: inline-block;
+    color: #0f516b;
   }
   
   .day {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 500;
     text-align: right;
-    padding: 11px;
-    margin-bottom: -10px;
+    padding: 11.5px;
+    margin-bottom: -7px;
     width: 90px;
     height: 20px;  
     box-sizing: unset;
@@ -51,9 +52,9 @@
       color: rgb(233, 34, 34); /* 일요일은 빨간색 */
     }
     
-    /* .day:nth-child(7) , .date:nth-child(7) .date-style {
-      color: rgb(48, 48, 186); /* 토요일은 파란색 
-    } */
+    .day:nth-child(3) , .date:nth-child(3) .date-style {
+      color: rgb(0, 0, 0);
+    }
   
   .date, .next-month, .prev-month {
     font-size: 18px;
@@ -67,8 +68,8 @@
   }
   
   .prev-month, .next-month {
-    background: #f9f9f9;
-    color: #ddd;  
+    background: #ebf3f6;
+    color: #0081b429;  
   }
 
 
@@ -104,3 +105,44 @@
     margin-left: -5px;
     color: #fff; /* 공휴일의 텍스트 색상 */
   }
+
+  .calendarleft {
+    margin-left: -100px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 42px;
+    font-weight: bold;
+    color: #0081b41e;
+  }
+  .calendarright {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 42px;
+    font-weight: bold;
+    color: #0081b41e;
+  }
+
+  .calendarleft:hover {
+    cursor: pointer;
+    font-size: 42px;
+    font-weight: bold;
+    color: #0081b4;
+  }
+  .calendarright:hover{
+    cursor: pointer;
+    font-size: 42px;
+    font-weight: bold;
+    color: #0081b4;
+  }
+
+  .calendar-button {
+    background-color: #0081B4;
+    color: #c7dfe9;
+    padding-inline: 10px;
+    margin-inline: 5px;
+  }
+
+  .fullbooked{
+    background-color: #fffed3;
+    color: #747474;
+}

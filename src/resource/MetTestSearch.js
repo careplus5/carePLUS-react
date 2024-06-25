@@ -72,7 +72,7 @@ const MetTestResult = ({ selectedPatient, userInfo }) => {
 
     const handleCloseModal = () => {
         setImagePath([]); // 모달 닫을 때 파일 경로 초기화
-        setTestResultSelect(null); // 선택된 테스트 결과 초기화
+        setTestResultSelect(null); // 선택된 결과 초기화
     };
 
     return (
@@ -108,7 +108,6 @@ const MetTestResult = ({ selectedPatient, userInfo }) => {
                             </li>
                         ))}
                     </ul>
-                    
                         {testResultSelect && (
                             <MetTestSearchDetail
                                 testResultSelect={testResultSelect}

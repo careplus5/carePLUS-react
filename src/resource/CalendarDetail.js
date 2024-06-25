@@ -126,9 +126,9 @@ const EventModal = ({ date, events, addEvent, deleteEvent, editEvent, onClose, m
       <div className="eventpopup-content">
         <span className="close-btn" onClick={onClose}>&times;</span>
         <h2>{year}년 {month}월 {day}일</h2>
-        {mode === 'local' && (
+        {mode === '개인' && (
           <>
-            <ul>
+            <ul  className='calul'>
               {eventList.map((event, index) => (
                 <li key={index}>
                   {editingIndex === index ? (
@@ -170,7 +170,7 @@ const EventModal = ({ date, events, addEvent, deleteEvent, editEvent, onClose, m
             <button onClick={handleAddEvent}>추가</button>
           </>
         )}
-        {mode === 'db' && (
+        {mode === '근무' && (
           <>
             <ul>
               {dbEvents[date]?.map((event, index) => (

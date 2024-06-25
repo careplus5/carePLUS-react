@@ -139,10 +139,8 @@
 }
 
 .dailyList{
-    display: block;
     margin-left:5px;
     position: relative;
-    height:190px;
     background-color: #FFFDF8;
     
 }
@@ -177,7 +175,7 @@ background-color: #427889;
 
 .scroll-box {
     width: 1550px;
-    height: 230px;
+    height: 430px;
     overflow-y:scroll; /* 세로 스크롤 */
     background-color: transparent;
     border: none;

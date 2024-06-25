@@ -35,10 +35,6 @@ const Header = () => {
         Menu.forEach(element => {
             element.style.display = "block";
         })
-        // setMenuVis(prevState => ({
-        //     ...prevState,
-        //     [e]:true
-        // }));
     }
 
     const logout = () => {

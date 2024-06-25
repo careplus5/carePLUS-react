@@ -124,28 +124,28 @@ width:"1590px"
     <div className="leftBox">
         <div className="patProfile">
         <div className="boxHeader">
-            <img id="boxIcon" src="/img/memo.png"/> &nbsp;
+            <img id="boxIcons" src="/img/memo.png"/> &nbsp;
             <h3 className="sboxHeader">환자 입원 정보 &nbsp;</h3>{
                 admission.admissionStatus === 'ing'?
-                <button style={{backgroundColor:"gray", color:"black", width:"50px", height: "24px", color:"white"}} onClick={openDisModal}>퇴원</button> :''}
+                <button style={{position:"relative", backgroundColor:"gray", color:"black", width:"50px", height: "24px", top:"12px", color:"white"}} onClick={openDisModal}>퇴원</button> :''}
             {disModalOpen && <NurDisAdmModal admissionNum={admissionNum} closeDisModal={closeDisModal}/>}
         </div>
         <div className="nurPatInfoContent">
-        <br/><br/>
-          <div className="dueInfoRow" style={{width:"600px", position:"relative"}}>
-                            <div>이름<input className='inputStyle'style={{width:"60px", height:"35px"}} value={admission.patName} readOnly/></div>
-
-
-                            <div>성별<input className='inputStyle'style={{width:"70px", height:"35px",textAlign:"center"
+        <br/>
+          <div className="dueInfoRow" style={{width:"500px",marginLeft:"10px",paddingBottom:"10px", position:"relative"}}>
+                            <div style={{marginRight:"30px"}}>이름<input className='inputStyle'style={{width:"68px", height:"35px", backgroundColor:"white"}} value={admission.patName} readOnly/></div>
+                        &nbsp;&nbsp;
+                            <div style={{marginRight:"30px"}}>성별<input className='inputStyle'style={{width:"70px", height:"35px",textAlign:"center", backgroundColor:"white"
                             }} value={admission.patGender} readOnly/></div>
-
-                            <div style={{marginLeft:"-12px"}}>생년월일<input className='inputStyle' style={{width:"70px", height:"35px"}}
+&nbsp;&nbsp;&nbsp;
+                            <div style={{marginLeft:"-12px"}}>생년월일<input className='inputStyle' style={{width:"79px", backgroundColor:"white", height:"35px"}}
                             value={admission.patBirth}
                             readOnly/></div>
                         </div>
-                            <div >환자 번호<input className='inputStyle' value={admission.patNum}style={{width:"400px"}} disabled/></div>
+                            <div style={{marginTop:"10px"}}>환자 번호<input className='inputStyle' value={admission.patNum}style={{width:"400px", backgroundColor:"white"}} disabled/></div>
                             <br/>
-                            <div>입원 내용<input className='inputStyle' value={admission.admissionReason} style={{width:"400px", height:"35px"}} disabled /></div>
+                            <div>입원 내용<input className='inputStyle' value={admission.admissionReason} style={{width:"400px", height:"35px", backgroundColor:"white"
+                            }} disabled /></div>
                             <br/>
                             </div>
                             

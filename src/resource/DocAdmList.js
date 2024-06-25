@@ -38,7 +38,7 @@ const admissionNum = admission.admissionNum;
             <img id="boxIcon" src="/img/memo.png"/>
             <h3 className="sboxHeader">&nbsp;의사 입원 진료</h3>
         </div>
-        <div className="dailyList scroll-box" style={{marginLeft:"30px"}}>
+        <div className="dailyList scroll-box1" style={{marginLeft:"30px", height:"230px", width:"1550px"}}>
         {filteredDocRecordsList.map((docRec, index) => (
           <div key={index} className="docInfo">
             <br/>

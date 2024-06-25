@@ -139,15 +139,15 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                     <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                     <h3 className="sboxHeader">&nbsp;수술 기록</h3>
                 </div>
-                <div>
+                <div style={{marginLeft:"100px"}}>
                     <div className='surInfoRow'>
                         <div className='surTimeStyle'>수술 시작 시간 <input className='surRecordInputStyle' name='startTime' value={startTime} onChange={inputChange} readOnly/>
                             <button className='buttonStyle' onClick={clickSurStart}>수술 시작</button>
                         </div>
-                        <div className='surTimeStyle'>수술 종료 시간 <input className='surRecordInputStyle' name='endTime' value={endTime} onChange={inputChange} readOnly/>
+                        <div className='surTimeStyle' style={{marginLeft:"100px"}}>수술 종료 시간 <input className='surRecordInputStyle' name='endTime' value={endTime} onChange={inputChange} readOnly/>
                             <button className='buttonStyle' onClick={clickSurEnd}>수술 종료</button>
                         </div>
-                        <div style={{width:'30%'}}>총 수술시간 <input className='surRecordInputStyle' name='surTotalTime' value={totalTime} readOnly/></div>
+                        <div style={{width:'30%', marginLeft:"100px"}}>총 수술시간 <input className='surRecordInputStyle' name='surTotalTime' value={totalTime} readOnly/></div>
                     </div>
                     <div className='surInfoRow'>
                         <div style={{width:'25%'}}>마취 종류 
@@ -161,7 +161,7 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                                     <option>진정 마취 (Sedation)</option>
                                 </select>
                         </div>
-                        <div style={{width:'22%'}}>마취 부위 
+                        <div style={{width:'22%', marginLeft:"65px"}}>마취 부위 
                             <input className='surRecordInputStyle' name='surAnesthesiaPart' value={surRecord.surAnesthesiaPart} onChange={inputChange}/>
                         </div>
                         <div style={{width:'44%', display:"flex", alignItems:'center'}}>혈액팩 사용 여부
@@ -179,7 +179,7 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                                     <option>Type O Rh-</option>
                                     <option>Type AB Rh-</option>
                                 </select>
-                                <input type='number' className='surRecordInputStyle' placeholder="사용 개수" disabled={!isUsed} name='surBloodPackCnt' value={surRecord.surBloodPackCnt} onChange={inputChange}/>
+                                <input type='number' className='surRecordInputStyle' placeholder="사용 개수" disabled={!isUsed} name='surBloodPackCnt' style={{width:"168px"}} value={surRecord.surBloodPackCnt} onChange={inputChange}/>
                             </div>
                             <div className='radioStyle'>
                                 <input type='radio' id='unused' name='radio' style={{marginRight:"5px"}} value='unused' checked={!isUsed} onChange={useBloodPack}/>
@@ -188,12 +188,12 @@ const SurgeryWrite = ({surgeryInfo, surPatList, setSurPatList, clearSurgeryInfo,
                         </div>
                     </div>
                     <div className='surInfoRow'>
-                        <div style={{width:'48%', display:'flex'}}>수술 기록 <textarea className='surRecordInputStyle textareaStyle' style={{width:'85%', height:'70px'}} name='surResult' value={surRecord.surResult} onChange={inputChange}/></div>
-                        <div style={{width:'48%', display:'flex'}}>특이사항 <textarea className='surRecordInputStyle textareaStyle' style={{width:'85%', height:'70px'}} name='surEtc' value={surRecord.surEtc} onChange={inputChange}/></div>
+                        <div style={{width:'48%', display:'flex'}}>수술 기록 <textarea className='surRecordInputStyle textareaStyle' style={{width:'60%', height:'70px'}} name='surResult' value={surRecord.surResult} onChange={inputChange}/></div>
+                        <div style={{width:'48%', marginRight:"30px", display:'flex'}}>특이사항 <textarea className='surRecordInputStyle textareaStyle' style={{width:'76%', height:'70px'}} name='surEtc' value={surRecord.surEtc} onChange={inputChange}/></div>
                     </div>
                 </div>
                 <div>
-                    <button className='buttonStyle' style={{margin:"0 80px 15px 0", float:"right"}} onClick={submitSurRecord}>저장</button>
+                    <button className='buttonStyle' style={{margin:"0 140px 15px 0", float:"right"}} onClick={submitSurRecord}>저장</button>
                 </div>
             </div>
         </div>

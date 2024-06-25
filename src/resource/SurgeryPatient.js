@@ -83,7 +83,7 @@ const SurgeryPatient = () => {
         <div className="background">
             <div id="firstRow" style={{height: "340px"}}>
                 <div id="sboxLeft">
-                    <div className="diagBoxHeader" style={{position:"sticky"}}>
+                    <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 목록</h3>
                     </div>
@@ -130,20 +130,20 @@ const SurgeryPatient = () => {
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 정보</h3>
-                    </div>
+                    </div><br/>
                     <div style={{marginLeft:'45px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
                             <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={surgeryInfo.patName} readOnly/></div>
-                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={surgeryInfo.patJumin} readOnly/></div>
+                            <div style={{marginLeft:"80px"}}>주민번호 <input className='inputStyle' value={surgeryInfo.patJumin} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'7px'}}>
                             <div>환자번호 <input className='inputStyle' value={surgeryInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                            <div style={{marginLeft:"108px"}}>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
                                     value={surgeryInfo.surgeryState === 'ing' ? '수술중' : surgeryInfo.surgeryState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'34px'}}>
                             <div>성별 <input className='inputStyle' value={surgeryInfo.patGender}  readOnly/></div>
-                            <div style={{marginLeft:'-13px'}}>혈액형 <input className='inputStyle' value={surgeryInfo.patBloodType} readOnly/></div>
+                            <div style={{marginLeft:'95px'}}>혈액형 <input className='inputStyle' value={surgeryInfo.patBloodType} readOnly/></div>
                         </div>
                     </div>
                 </div>
@@ -152,9 +152,9 @@ const SurgeryPatient = () => {
                 <div id="surInfoBox">
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                        <h3 className="sboxHeader">&nbsp; 수술 정보</h3>
+                        <h3 className="sboxHeader"> 수술 정보</h3>
                     </div>
-                    <div>
+                    <div style={{marginLeft:"30px"}}>
                         <div className='surInfoRow'>
                             <div style={{marginRight:'-25px'}}>담당의 사번 <input className='surInfoInputStyle' value={surgeryInfo.docNum} readOnly/></div>
                             <div style={{marginRight:'-25px'}}>담당의명 <input className='surInfoInputStyle' value={surgeryInfo.docName} readOnly/></div>
@@ -165,17 +165,17 @@ const SurgeryPatient = () => {
                         <div className='surInfoRow'>
                             <div>수술 예상 시간 <input className='surInfoInputStyle' value={surgeryInfo.surPeriod} readOnly/></div>
                             <div>수술실 <input className='surInfoInputStyle' value={surgeryInfo.operationRoomNum} readOnly/></div>
-                            <div>수술 예정 시간 <input className='surInfoInputStyle' value={surgeryInfo.surgeryStartTime} readOnly/></div>
+                            <div style={{marginLeft:"100px"}}>수술 예정 시간 <input className='surInfoInputStyle' value={surgeryInfo.surgeryStartTime} readOnly/></div>
                         </div>
                         <div className='surInfoRow'>
-                            <div>수술 내용 <input className='surInfoInputStyle' style={{width: "930px", marginBottom:'5px'}} value={surgeryInfo.surReason} readOnly/></div>
+                            <div>수술 내용 <input className='surInfoInputStyle' style={{width: "910px", marginBottom:'5px'}} value={surgeryInfo.surReason} readOnly/></div>
                         </div>
                     </div>
                 </div>
                 <div id='surNurseListBox'>
                     <div className="diagBoxHeader">
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
-                        <h3 className="sboxHeader">&nbsp; 참여 간호사</h3>
+                        <h3 className="sboxHeader">참여 간호사</h3>
                     </div>
                     <table className="docDiagList" style={{margin:'0'}} borderless>
                         <tbody>

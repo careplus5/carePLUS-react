@@ -437,7 +437,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                         </tbody>
                     </table>
                     <div>
-                        <button className='buttonStyle' style={{margin:"15px 55px 15px 0", float:"right"}} onClick={submitForm}>진료 완료</button>
+                        <button className='buttonStyle' style={{margin:"15px 90px 15px 0", float:"right"}} onClick={submitForm}>진료 완료</button>
                     </div>
                 </div>
             </div>

@@ -238,10 +238,10 @@ const NurDailyPrescription = () => {
                     </div>
                    
             </div>
-            <div className="rightBox1" style={{right:"100px"}}>
-                <div className="LboxHeader">
-                    <img id="boxIcon" style={{marginTop:"-10px"}}src="./img/write.png"/>
-                    <h3 id="LboxHeader" style={{marginLeft:"10px"}}> 처방 일지</h3>
+            <div className="rightBox1">
+                <div className="LboxHeader" style={{display:"flex"}}>
+                    <img id="boxIcons" style={{marginLeft:"30px", marginTop:"7px"}}src="./img/prescriptionIcon.png"/>
+                    <h3 id="sboxHeader"> 처방 일지</h3>
                 </div>
                 <br/>
                 <div className="presDailyExp">

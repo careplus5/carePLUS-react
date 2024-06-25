@@ -24,6 +24,7 @@ const MetTestSearchDetail = ({ testResultSelect, imagePath, onClose }) => {
                             <img src={`${url}/image/${searchDetail.testFileNum}`} alt="Test Result" style={{ maxWidth: '100%'}} />
                                     <br/>
                                     검사자 : {searchDetail.testMetNum}&nbsp;&nbsp;&nbsp;&nbsp;검사일 : {year}년 {month}월 {day}일
+                                    &nbsp;&nbsp;&nbsp;특이사항 : {testResultSelect.testNotice}
                                 </li>
                         ))}
                         </ul>   

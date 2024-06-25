@@ -5,7 +5,8 @@
 .sidebar{
     position:absolute;
     /* min-height: 150vh; */
-    min-height: 210vh;
+    min-height:1000px;
+    height: auto;
     width:250px;
     background-color: #FFFDF8;
     box-shadow: 2px 1px 5px 0 lightgray;
@@ -15,7 +16,7 @@
 
   
   #memoButton{
-    margin-left:170px;
+    margin-left:150px;
     font-size: 13px;
     font-weight: bold;
     margin-top:5px;
@@ -28,13 +29,13 @@
 
   .sideMemo{
     position: relative;
-    width: 250px;
+    width: 245px;
     padding-inline: 20px;
   }
   
   
   .memo{
-  width: 214px;
+  width: 200px;
   height:80px;
   background-color: #FFFEFB;
   box-shadow: 0px 0px 4px 1px lightgray inset;
@@ -53,6 +54,7 @@
     font-size: 20px;
     font-weight: bold;
     vertical-align:top;
+    font-family: 'Arial';
   }
   
   .meticon {

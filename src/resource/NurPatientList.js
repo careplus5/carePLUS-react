@@ -125,14 +125,13 @@ const enterPress = (e) =>{
         <div className="background">
             <div id="Lbox" style={{backgroundColor:"#FFFDF8"}}>
             <br/>
-                <div id="LboxHeader"
-                >
-                <img id="boxIcon" style={{marginTop:"-5px"}} src="./img/notice.png"/> &nbsp;&nbsp;
-                <h3 id="sboxHeader" style={{fontSize:"15px"}}>입퇴원 조회
+                <div id="LboxHeader" style={{display:"flex"}}>
+                <img id="boxIcons" style={{marginTop:"8px"}} src="./img/admissionList.png"/> &nbsp;&nbsp;
+                <h3 id="sboxHeader" style={{fontSize:"20px"}}>입퇴원 조회
                 </h3>
                 </div>
                 <div className="searchLine">
-                    <select id="status" onChange={statusChange}> 
+                    <select id="status" style={{fontSize:"15px"}} onChange={statusChange}> 
                         <option value=""> 상태 </option>
                         <option id="admissionStatus" value="wait"> 대기 중 </option>
                         <option id="admissionStatus" value="ing"> 입원 중 </option>
@@ -190,8 +189,8 @@ const enterPress = (e) =>{
                         <td>{admission.bedsNum}</td>
                         <td>{admission.admissionDischargeDueDate}</td>
                         <td>{admission.admissionDischargeDate}</td>
-                        {admission.admissionStatus === 'ing' && <td style={{color:"green"}}>입원 중</td>}
-                        {admission.admissionStatus === 'wait' && <td style={{color:"yellow"}}>대기 중</td>}
+                        {admission.admissionStatus === 'ing' && <td style={{color:"#007212"}}>입원 중</td>}
+                        {admission.admissionStatus === 'wait' && <td style={{color:"#F09000"}}>대기 중</td>}
                         {admission.admissionStatus === 'end' && <td style={{color:"gray"}}>퇴원</td>}
                     </tr>))}
                     </tbody>

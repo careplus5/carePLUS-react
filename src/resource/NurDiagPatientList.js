@@ -118,21 +118,20 @@ const enterPress = (e) =>{
         <>
 
         <div className="background">
-            <div id="Lbox" style={{backgroundColor:"white"}}>
+            <div id="Lbox">
             <br/>
-                <div id="LboxHeader" 
-                >
-                <img id="boxIcon" style={{marginTop:"-5px"}} src="./img/notice.png"/> &nbsp;&nbsp;
-                <h3 id="boxHeader">환자 조회
+                <div id="LboxHeader" style={{display:"flex"}}>
+                <img id="boxIcons" style={{marginTop:"8px"}} src="./img/patient.png"/>
+                <h3 id="sboxHeader" style={{fontSize:"20px"}}>환자 조회
                 </h3>
                 </div>
                 <div className="searchLine">
-                    <select id="status" onChange={statusChange}> 
+                    <select id="status" onChange={statusChange} style={{fontSize:"15px"}}> 
                         <option value=""> 상태 </option>
                         <option id="nurDiagStatus" value="wait"> 대기 중 </option>
                         <option id="nurDiagStatus" value="end"> 완료 </option>
                     </select>
-                    <div className="searchbar">
+                    <div className="searchbar" style={{fontSize:"15px"}}>
                    
                     <select id="keywordSort" name="keyword" onChange={(e) => setKeyword(e.target.value)}>
                     <option value="">구분</option>
@@ -178,7 +177,7 @@ const enterPress = (e) =>{
                         <td>{diagnosis.departmentName}</td>
                         <td>{diagnosis.docName}</td>
                         <td>ㅋㅋ</td>
-                        {diagnosis.nurDiagStatus === 'wait' && <td style={{color:"yellow"}}>대기 중</td>}
+                        {diagnosis.nurDiagStatus === 'wait' && <td style={{color:"#F09000"}}>대기 중</td>}
                         {diagnosis.nurDiagStatus === 'end' && <td style={{color:"gray"}}>완료</td>}
                     </tr>))}
                     </tbody>

@@ -77,41 +77,41 @@ return (<div className="background">
     <div className="leftBox">
         <div className="patProfile">
         <div className="boxHeader">
-            <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">환자 접수 정보 &nbsp;</h3>
-        </div>
-        <div style={{marginLeft:"60px"}}>
-          <div className="admInfo">
-                            <div>이름&nbsp; <input className='inputStyle' value={diagnosis.patName} disabled/></div>
-                            <div style={{marginLeft:"-30px"}}>생년월일 <input className='inputStyle' value={diagnosis.patBirth} disabled/></div>
+            <img id="boxIcons" src="/img/memo.png"/>
+            <h3 id="sboxHeader">환자 접수 정보 &nbsp;</h3>
+        </div><br/>
+        <div style={{marginLeft:"60px", fontSize:"15px"}}>
+          <div style={{display:"flex",marginBottom:"20px",marginLeft:"6px"}}>
+                            <div>이름&nbsp; <input className='inputStyle' style={{backgroundColor:"white"}} value={diagnosis.patName} disabled/></div>
+                            <div>생년월일 <input className='inputStyle' style={{backgroundColor:"white"}} value={diagnosis.patBirth} disabled/></div>
                         </div>
-                            <div>환자 번호<input className='inputStyle' value={diagnosis.patNum}style={{width:"405px"}} disabled/></div>
+                            <div>환자 번호<input className='inputStyle' value={diagnosis.patNum} style={{width:"405px",backgroundColor:"white"}} disabled/></div>
                             <br/>
-                            <div>주요 증상<input className='inputStyle' style={{width:"405px"}} value={diagnosis.docDiagnosisContent} disabled/></div>
+                            <div>주요 증상<input className='inputStyle' style={{width:"405px",backgroundColor:"white"}} value={diagnosis.docDiagnosisContent} disabled/></div>
                             <br/>
-                            <div>접수 메모<input className='inputStyle' style={{width:"405px"}} disabled/></div>
+                            <div>접수 메모<input className='inputStyle' style={{width:"405px",backgroundColor:"white"}} disabled/></div>
                             <br/>
                             </div>
                             
         </div>
         <div className="docOpinion">
         <div className="boxHeader">
-            <img id="boxIcon" src="/img/memo.png"/> &nbsp;
-            <h3 id="LboxHeader">담당의 요청 사항</h3>
+            <img id="boxIcons" src="/img/memo.png"/> &nbsp;
+            <h3 id="sboxHeader">담당의 요청 사항</h3>
         </div>
         <input type="text" id="docOpin" value={diagnosis.docDiagnosisOrder} disabled/>
         </div>
     </div>
     <div className="rightBox">
         <div className="boxHeader">
-            <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">이전 진료 내역</h3>
+            <img id="boxIcons" src="/img/memo.png"/>
+            <h3 id="sboxHeader">이전 진료 내역</h3>
             <br/>
             </div>
             <br/>
             <div className="nurseWrite" style={{position:"relative"}}>
-                <div className="nurseInfo">
-                <table className="docDiagList" style={{marginBottom:'15px'}} borderless>
+                <div className="nurInfo">
+                <table className="diagList"borderless>
                             <tbody>
                                 <tr>
                                     <th>진료일</th>
@@ -152,15 +152,15 @@ return (<div className="background">
 </div>
  <div className="bottomBox2">
  <div className="boxHeader" style={{height:"30px"}}>
-            <img id="boxIcon" src="/img/memo.png"/>
-            <h3 id="LboxHeader">진료 기록</h3>
+            <img id="boxIcons" src="/img/memo.png"/>
+            <h3 id="sboxHeader">진료 기록</h3>
             <br/>
             </div>
             <br/>
             <div className="boxContent">
             <input id="nurDiagContent" name="nurDiagContent" type="text" onChange={(e) => setNurDiagContent(e.target.value)}/>
             </div>&nbsp;
-            <button style={{backgroundColor:"#B9EDE7", color:"black", width:"50px", height: "25px", float:"right", marginRight:"30px",marginTop:"10px"}} onClick={writeSubmit}>등록</button>
+            <button className="buttonStyle" style={{height: "25px", float:"right", marginRight:"30px",marginTop:"10px"}} onClick={writeSubmit}>등록</button>
     </div>
     </div>
 )

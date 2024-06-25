@@ -45,6 +45,7 @@
 } */
 
 .newNotice-content {
+    font-family: 'Pretendard-Regular';
     flex: 4; /* 내용 영역이 3:1 비율로 설정 */
     font-size: 18px;
     overflow: hidden;

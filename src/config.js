@@ -1,2 +1,2 @@
-export const url = 'http://43.202.168.140'
+export const url = 'http://localhost:8090'
 

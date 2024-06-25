@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetAtom, useAtom } from 'jotai';
 import { accessTokenAtom, empAtom, usernameAtom, tokenAtom} from '../config/Atom.js';
 
-// 401 에러 해결하기
+
 const Login = ({ onLoginSuccess }) => {
     // 로그인하려는 직원, 아이디와 비밀번호
     const [emp, setEmp] = useAtom(empAtom);
@@ -22,18 +22,13 @@ const Login = ({ onLoginSuccess }) => {
     }
     const submit = (e) => {
         e.preventDefault();
-    
-        // const token = localStorage.getItem('accessToken');
-        // console.log("토큰에"+token);
-                 // formData => 제일 일반적으로 넘기는 형태 (obtainUsername으로 갖고올때), 기본 default get.parameter!!!
-                 // JSON => 컨트롤러로 어노테이션으로 쓸때.
-
                  if(emp.username === '' || emp.password === ''
                  ){
                     setErrorMessage("아이디와 비밀번호를 모두 입력해 주세요.")
                     alert(errorMessage);
                     return;
                  }
+
                     let formData = new FormData();
         formData.append("username", emp.username);
         formData.append("password", emp.password);
@@ -41,30 +36,24 @@ const Login = ({ onLoginSuccess }) => {
         
         axios.post(`${url}/login`,formData)
             .then(res => {
-                console.log(JSON.stringify(res));
-                console.log(formData.get('username')+"님이 로그인하셨습니다.");
-                const accessToken = res.headers.authorization.accessToken;
-                console.log("accessToken은 "+JSON.stringify(res.headers.authorization.accessToken));
-                
-                // setAccessToken(accessToken);
+                console.log("login try:"+JSON.stringify(res.headers.authorization));
                 setAccessToken(res.headers.authorization.split(",")[0]);
-                console.log("se: "+res.headers.authorization.split(",")[0]);
                 setUsernameAtom(emp.username);
                 setTokenAtom(res.headers.authorization);
-// console.log(accessToken);
-                    // dispatch({type:'emp',payload:res.data})
-                    alert(emp.username+"님이 로그인하셨습니다!");
-                
+                    // alert(emp.username+"님이 로그인하셨습니다!");
                     onLoginSuccess(emp.username); 
+
                    const iden = emp.username.slice(0,2);
                    if(iden==="99"){
                     navigate("/admin")
-                   } else
-                   navigate("/organ");
+                   } else{
+                    navigate("/organ");
+                   }
+                   
             })
             .catch(err => {
                 console.log(formData.get('password'));
-                alert(typeof formData);
+                alert("로그인에 실패하셨습니다:"+formData.get('password')+","+formData.get('username')+":"+err);
             })
                  
         

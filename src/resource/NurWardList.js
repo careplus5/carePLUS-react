@@ -138,7 +138,7 @@ const NurWardList = () => {
             <div className="wardListBox">
             <div id="LboxHeader" 
                 ><br/>
-                <h3 id="boxHeader"><img id="boxIcon" style={{marginTop:"-5px", marginLeft:"-10px"}} src="./img/notice.png"/> &nbsp;&nbsp;병동 조회
+                <h3 id="sboxHeader"><img id="boxIcons" style={{marginTop:"-5px", marginLeft:"-10px"}} src="./img/ward.png"/> 병동 조회
                 </h3>
                 </div>
                 <br/><br/>
@@ -147,7 +147,7 @@ const NurWardList = () => {
                     <h3>담당과</h3>
                     <div id="line" style={{width:"260px"}}></div>
                     <br/>
-                    <div className="wardDepartment">
+                    <div className="wardDepartment" style={{fontSize:"15px"}}>
                      <select size="10" className="deptOption" value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
   <option value="소화기과" style={{marginBottom:"10px"}} onClick={() => getWardsByDepartment(1)}>소화기과</option>
   <option value="순환기과" style={{marginBottom:"10px"}} onClick={() => getWardsByDepartment(2)}>순환기과</option>

@@ -24,7 +24,6 @@ export function requestPermission(setFcmToken, notifications, setNotifications, 
       getToken(messaging, { vapidKey: 'BGxB48zcSFA5fD27n2JUx3fZMlVqItwZaJSSgezYgZ-tr3Ix5rp2HF1MaTi4eRe7558Y_mdahYFVdvvm7kiSS_Y' })
         .then((token) => {
           setFcmToken(token);
-          console.log('setToken했어영~'+token)
         })
         .catch((err) => {
           console.error('An error occurred while retrieving token. ', err);
@@ -40,12 +39,15 @@ export function requestPermission(setFcmToken, notifications, setNotifications, 
     const notificationOptions = {
       body: payload.notification.body,
     };
+    const notificationData = payload.data;
 
     if (Notification.permission === 'granted') {
       new Notification(notificationTitle, notificationOptions);
     }
 
-    const [alarmNum, alarmCategory, alarmSendFlag] = notificationTitle.split(',');
+    const alarmNum = notificationData.alarmNum;
+    const alarmCategory = notificationData.alarmCategory;
+    const alarmSendFlag = notificationData.alarmSendFlag;
 
     console.log(notificationTitle);
 

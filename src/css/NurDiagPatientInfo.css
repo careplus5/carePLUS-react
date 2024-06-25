@@ -6,8 +6,23 @@ width:1590px;
 border-radius:10px;
         position: relative;
        float:left;
-       background-color: white;  
+       background-color: #FFFDF8;  
        box-shadow: 0 2px 2px 0 lightgray;
+}
+
+.nurInfo{
+  display:flex;
+margin:0 auto;
+width:800px;
+
+}
+
+.diagList{
+  position:relative;
+  font-size:15px;
+ width:900px;
+  text-align: center;
+  color:black;
 }
 
 .boxContent{

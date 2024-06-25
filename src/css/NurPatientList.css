@@ -2,7 +2,7 @@
     border:none;
     box-shadow: 0 1px 3px 0 lightgray inset;
     border-radius: 10px;
-    background-color: white;
+    background-color: #f7f7f7;
     width: 70px;
     height: 30px;
     text-align: center;
@@ -36,13 +36,14 @@
     color: #233FA3;
     font-weight: bold;
     margin-right:39px;
-    background-color:white;
+    background-color:#f7f7f7;
 }
 
 #keyword{
     border:none;
     width:450px;
     font-size:15px;
+    background-color: #f7f7f7;
 
 }
 .patList:hover{
@@ -60,6 +61,7 @@
     -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-color: #f7f7f7;
 }
 
 #searchButton{

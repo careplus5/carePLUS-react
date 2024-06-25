@@ -35,23 +35,9 @@ function App() {
     }
 
   }
-
+  
   return (
     <RecoilRoot>
-
-      {/* <Routes>
-        <Route path="/" element={<Login onLoginSuccess={handleLoginSuccess}/>}/>
-        <Route 
-          path="/*" 
-          element={
-            <Common loggedInUsername={loggedInUsername}/>}/>
-      </Routes>
-      {/* <div className={isLoggedIn === true ? 'inCarePlus':'outCarePlus'}>
-        <Header loggedInUsername={loggedInUsername}/>
-        <Sidebar/>
-      </d
-      iv> */}
-
       <Routes>
         <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/*" element={<Common loggedInUsername={loggedInUsername} />} />

@@ -13,6 +13,7 @@
   background-image: url('/Users/orcor/react/careplus/public/img/prescription.png');
   background-repeat: no-repeat;
   background-color: white;
+ 
 }
 
 .printButton{
@@ -221,7 +222,7 @@
   border: none;
   border-radius: 10px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
-  background-color: #FFFEFB;
+  background-color: #f7f7f7;
   text-align: center;
   color: #666;
 }

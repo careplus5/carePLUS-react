@@ -104,7 +104,7 @@ const AlarmIcon = ({ }) => {
                             <button className='optionBtn' onClick={sohwOptionController}><img src='/img/option.png' alt='설정' style={{ width: "30px", height: "30px" }} /></button>
                             <button className="closeBtn" onClick={closeModal}>&times;</button>
                         </div>
-                        <div className='12' style={{ overflowY: 'scroll', maxHeight: '300px' }}>
+                        <div style={{ overflowY: 'scroll', maxHeight: '300px', paddingBottom:"10px"}}>
                             {notifications.map((notification, index) => (
                                 <div key={notification.alarmNum} className="notificationItem" onMouseEnter={() => setIsButtonVisibleIndex(notification.alarmNum)} onMouseLeave={() => setIsButtonVisibleIndex(null)}>
 

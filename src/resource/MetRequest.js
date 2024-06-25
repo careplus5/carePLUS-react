@@ -44,10 +44,10 @@ const MetRequest = () => {
 
     const sortItems = (items) => {
         return items.sort((a, b) => {
-            if (a.testRequestAcpt === '검사요청') return -1;
-            if (b.testRequestAcpt === '검사요청') return 1;
-            if (a.testRequestAcpt === '보류') return b.testRequestAcpt === '검사요청' ? 1 : -1;
-            if (b.testRequestAcpt === '보류') return a.testRequestAcpt === '검사요청' ? -1 : 1;
+            if (a.testRequestAcpt === 'request') return -1;
+            if (b.testRequestAcpt === 'request') return 1;
+            if (a.testRequestAcpt === 'wait') return b.testRequestAcpt === 'request' ? 1 : -1;
+            if (b.testRequestAcpt === 'wait') return a.testRequestAcpt === 'request' ? -1 : 1;
             return 0;
         });
     };
@@ -131,7 +131,7 @@ const MetRequest = () => {
                 return (
                     <li key={i}
                         data-id={item.testRequestNum}
-                        className={`li ${item.testRequestAcpt === '검사요청' ? 'new-item' : ''} ${item.testRequestAcpt === '보류' ? 'pending-item' : ''}`}
+                        className={`li ${item.testRequestAcpt === 'request' ? 'new-item' : ''} ${item.testRequestAcpt === 'wait' ? 'pending-item' : ''}`}
                         onClick={(e) => handlePatientClick(e, item)}>
                         {item.room} {item.patName} ({item.patGender}/{age})<br /> {item.patNum} {item.patBloodType}형
                         <br />

@@ -1,12 +1,19 @@
 .leftBox1{
     display: flex;
     float: left;
-    background-color: white;
+    background-color: #FFFDF8;
     width: 250px;
-    height:970px;
+    height:960px;
     border-radius: 10px;
-    box-shadow: 1px 0 3px 0 lightgray;
+    box-shadow: 0 1px 2px 0 lightgray;
 }
+#sboxHeader {
+    padding-top: 15px;
+    font-family: 'TheJamsil54Medium';
+    margin-left: 5px;
+    font-size: 18px;
+}
+
 .presDailyExp{
     display:flex;
     margin-left:30px;
@@ -35,18 +42,7 @@
     background-color: lightgray;
     text-align: center;
 }
-/* 
-input[type="radio"]{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 140px;
-    height:20px;
-    border: none;
-    margin:0 auto;
-    margin-right:15px;
-    margin-bottom:5px;
-} */
+
 button{
     border-radius: 10px;
     color:white;
@@ -99,12 +95,14 @@ button{
 
 
 .rightBox1{
+    position: relative;
+    left:-39px;
     padding-top:30px;
     float:right;
     border-radius: 10px;
-    background-color: white;
+    background-color: #FFFDF8;
     width: 1300px;
-    height:970px;
+    height:960px;
     box-shadow: 0 1px 2px 0 lightgray;
 }
 
@@ -136,7 +134,7 @@ button{
 .NDsearchbar{
     margin:20px;
     position: relative;
-    background-color: white;
+    background-color: #f7f7f7;
     /* float: right; */
     width: 210px;
     height:25px;

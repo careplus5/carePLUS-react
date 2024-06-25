@@ -134,47 +134,50 @@ const EventModal = ({ date, events, addEvent, deleteEvent, editEvent, onClose, m
                   {editingIndex === index ? (
                     <>
                       <input
-                        type="text"
-                        value={editedEvent.title}
-                        onChange={(e) => setEditedEvent({ ...editedEvent, title: e.target.value })}
-                      />
-                      <input
                         type="color"
-                        value={editedEvent.backgroundColor}
+                        value={editedEvent.backgroundColor}  style={{verticalAlign:'middle'}}
                         onChange={(e) => setEditedEvent({ ...editedEvent, backgroundColor: e.target.value })}
                       />
-                      <button onClick={handleSaveEdit}>저장</button>
+                      <input
+                        type="text"
+                        value={editedEvent.title} 
+                        onChange={(e) => setEditedEvent({ ...editedEvent, title: e.target.value })}
+                      />
+                      &nbsp;
+                      <img className='meticon' style={{cursor:'pointer',verticalAlign:'middle'}} src='./img/TodoList.png' alt='Met Icon' onClick={handleSaveEdit}/>
                     </>
                   ) : (
                     <>
                       <span style={{ backgroundColor: event.backgroundColor, width: '10px', height:'10px', borderRadius:'50%' , display: 'inline-block', marginLeft:'-20px', marginRight:'20px' }}></span>
                       <span>{event.title}</span>
-                      <button onClick={() => handleEditEvent(index)}>수정</button>
-                      <button onClick={() => handleDeleteEvent(index)}>삭제</button>
+                      <img className='calicon' style={{marginLeft:'15px'}} src='./img/Speech.png' alt='Met Icon' onClick={() => handleEditEvent(index)}/>
+                      <img className='calicon' src='./img/Bin.png' alt='Met Icon' onClick={() => handleDeleteEvent(index)}/>
                     </>
                   )}
                 </li>
               ))}
             </ul>
             <input
-              type="text"
-              value={newEvent.title}
-              onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
-              placeholder="새 이벤트 추가"
-            />
-            <input
               type="color"
-              value={newEvent.backgroundColor}
+              value={newEvent.backgroundColor} style={{verticalAlign:'middle'}}
               onChange={(e) => setNewEvent({ ...newEvent, backgroundColor: e.target.value })}
             />
-            <button onClick={handleAddEvent}>추가</button>
+            <input
+              type="text" 
+              value={newEvent.title}
+              onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+              placeholder="  새 일정 추가"
+            />
+            &nbsp;
+            <img className='meticon' style={{cursor:'pointer',verticalAlign:'middle'}} src='./img/plus.png' alt='Met Icon' onClick={handleAddEvent}/>
           </>
         )}
         {mode === '근무' && (
           <>
-            <ul>
+            <ul style={{listStyleType:'none'}}>
               {dbEvents[date]?.map((event, index) => (
-                <li key={index}>{event.title}</li>
+                <li key={index} style={{padding:'5px'}}>
+                  [{event.eventType}] {event.title} {event.content} / {event.startTime} </li>
               ))}
             </ul>
           </>

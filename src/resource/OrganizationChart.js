@@ -1,15 +1,27 @@
 import '../css/OrganizationChart.css';
-import Common from './Common';
+import React, {useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const OrganizationChart = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        // 로그인 여부를 확인하고, 로그인되지 않은 경우에는 알림을 표시하고 로그인 페이지로 리다이
+        console.log("access:"+sessionStorage.getItem('accessToken'));
+        if (!sessionStorage.getItem('accessToken')) {
+            alert('로그인이 필요합니다.');
+            navigate('/login');
+        }
+    }, []);
     return (<>
         <div className="background">
             <div id="Lbox">
                 <br/>
                 <div className="boxHeader">
-                <h3 id="LboxHeader">조직도</h3>
+                <h3 id="sboxHeader" style={{marginLeft:"30px",fontSize:"20px"}}>
+                    <img id="boxIcons" src="./img/organ.png"/>&nbsp;&nbsp;조직도</h3>
                 </div>
 
-                <div className="organ">
+                <div className="organ" style={{marginTop:"70px"}}>
                     <div className="jang">
                         <p id="jang">이사장</p>
                     </div>

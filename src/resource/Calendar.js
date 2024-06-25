@@ -85,32 +85,92 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
     handleNextMonth(month, year, setMonth, setYear);
   };
 
+  const getBackgroundColor = (eventType) => {
+    switch (eventType) {
+        case '검사':
+            return '#b3d4fc'; // Example color for meeting events
+        case '진료':
+            return '#ace4a6'; // Example color for training events
+        case '수술':
+            return '#e9c7e9'; // Example color for training events    
+        default:
+            return '#f0f0f0'; // Default color if eventType is not recognized
+    }
+};
+
   const eventsIndicator = (dateKey) => {
     const eventList = mode === '개인' ? (events[dateKey] || []) : (dbEvents[dateKey] || []);
-    if (eventList.length === 1) {
-      return <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+    if (eventList.length === 1 && mode==='개인') {
+      return <div className="event" >
+                <span style={{ backgroundColor: eventList[0].backgroundColor, width: '9px', height:'9px', borderRadius:'50%' , display: 'inline-block', marginRight:'5px' }}></span>
                 &nbsp;{eventList[0].title}&nbsp;
-            </div>; // 객체의 속성을 사용하여 렌더링
-    } else if (eventList.length === 2) {
+            </div>;
+    } else if (eventList.length === 1 && mode==='근무') {
+        const eventType = eventList[0].eventType;
+        const backgroundColor = getBackgroundColor(eventType);
       return (
         <div>
-          <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
-              &nbsp;{eventList[0].title}&nbsp;
+          <span style={{ backgroundColor: backgroundColor, width: '10px', height:'10px', borderRadius:'50%' , display: 'inline-block', marginRight:'10px', marginBottom:'5px' }}></span>
+          <div className="event" style={{ display:'inline-block' }}>
+          {eventList[0].eventType} 예약
+          </div>
+          <div className='event' style={{ marginTop:'-5px' }}>
+              총 {eventList.length}건&nbsp;
+          </div>
+        </div>
+      );
+    } else if (eventList.length === 2 && mode==='개인') {
+      return (
+        <div>
+          <div className="event" >
+            <span style={{ backgroundColor: eventList[0].backgroundColor, width: '9px', height:'9px', borderRadius:'50%' , display: 'inline-block', marginRight:'5px' }}></span>
+            {eventList[0].title}&nbsp;
           </div> {/* 객체의 속성을 사용하여 렌더링 */}
-          <div className="event" style={{ backgroundColor: eventList[1].backgroundColor }}>
-              &nbsp;{eventList[1].title}&nbsp;
+          <div className="event" >
+            <span style={{ backgroundColor: eventList[1].backgroundColor, width: '9px', height:'9px', borderRadius:'50%' , display: 'inline-block', marginRight:'5px' }}></span>
+            {eventList[1].title}&nbsp;
           </div> {/* 객체의 속성을 사용하여 렌더링 */}
         </div>
       );
-    } else if (eventList.length > 2) {
+    } else if (eventList.length === 2 && mode==='근무') {
+        const eventType = eventList[0].eventType;
+        const backgroundColor = getBackgroundColor(eventType);
       return (
         <div>
-          <div className="event" style={{ backgroundColor: eventList[0].backgroundColor }}>
+          <span style={{ backgroundColor: backgroundColor, width: '10px', height:'10px', borderRadius:'50%' , display: 'inline-block', marginRight:'10px', marginBottom:'5px' }}></span>
+          <div className="event" style={{ display:'inline-block' }}>
+          {eventList[0].eventType} 예약
+          </div>
+          <div className='event' style={{ marginTop:'-5px' }}>
+              총 {eventList.length}건&nbsp;
+          </div>
+        </div>
+      );
+    } else if (eventList.length > 2 && mode==='근무') {
+      const eventType = eventList[0].eventType;
+        const backgroundColor = getBackgroundColor(eventType);
+      return (
+        <div>
+          <span style={{ backgroundColor: backgroundColor, width: '10px', height:'10px', borderRadius:'50%' , display: 'inline-block', marginRight:'10px', marginBottom:'5px' }}></span>
+          <div className="event" style={{ display:'inline-block' }}>
               {/* &nbsp;{eventList[0].title}&nbsp; */}
               {eventList[0].eventType} 예약
           </div> {/* 객체의 속성을 사용하여 렌더링 */}
-          <div className='event' style={{ backgroundColor: eventList[1].backgroundColor }}>
+          <div className='event' style={{ marginTop:'-5px' }}>
               총 {eventList.length}건&nbsp;
+          </div>
+        </div>
+      );
+    } else if (eventList.length > 2 && mode==='개인') {
+      return (
+        <div>
+          <div className="event" >
+            <span style={{ backgroundColor: eventList[0].backgroundColor, width: '9px', height:'9px', borderRadius:'50%' , display: 'inline-block', marginRight:'5px' }}></span>
+            {eventList[0].title}&nbsp;
+          </div>
+          <div className='event' >
+            <span style={{ backgroundColor: eventList[1].backgroundColor, width: '9px', height:'9px', borderRadius:'50%' , display: 'inline-block', marginRight:'5px' }}></span>
+              그 외 {eventList.length-1}건&nbsp;
           </div>
         </div>
       );

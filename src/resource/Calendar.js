@@ -18,12 +18,14 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
   const [dbEvents, setDbEvents] = useState({});
   const userId = useAtomValue(usernameAtom);
   const [userName, setUserName] = useState('');
+  const [deptName, setDeptName] = useState('');
   const [dept2Name, setDept2Name] = useState('');
 
   useEffect(() => {
     axios.get(`${url}/userInfo?userId=${userId}`)
         .then((res)=>{
           setUserName(res.data.empName);
+          setDeptName(res.data.departmentName);
           setDept2Name(res.data.department2Name);
         })
         .catch((err)=>{
@@ -281,7 +283,8 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
             <button className='calendar-button' onClick={() => setMode('근무')}>근무 스케줄</button>
               <div style={{marginLeft:'70px', marginBottom:'40px'}}>
                 <div style={{width:'40%'}}> 
-                  <div key="" className='userInfo'>{` ${dept2Name} ${userName}님의 ${mode}일정`}</div>
+                  {/* <div key="" className='userInfo'>{` ${dept2Name} ${userName}님의 ${mode}일정`}</div> */}
+                  <div key="" className='userInfo'>{` ${dept2Name ? dept2Name : deptName} ${userName}님의 ${mode}일정`}</div>
                   <span onClick={prevMonth} className='calendarleft'>⟨</span>
                   <div key="monthYear" className="monthYear">{`${year}년 ${month+1}월`}</div>
                   <span className='calendarright' onClick={nextMonth}>⟩</span>

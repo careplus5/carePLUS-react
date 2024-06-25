@@ -98,13 +98,8 @@
 }
 
 .admNoticeSearchbar {
-<<<<<<< HEAD
   left: -8px;
   background-color:#f7f7f7;
-=======
->>>>>>> 7e6e42c4e5e73a5dcbd3706d3ed9a8d9ad7eecae
-  position: relative;
-  background-color: white;
   float: right;
   width: 450px;
   height: 40px;

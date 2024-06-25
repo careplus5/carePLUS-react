@@ -55,15 +55,10 @@ const SideNotice = () => {
     return (
         <div className="side-notice">
             <div className='title-box'>
-<<<<<<< HEAD
                 <img className='meticon' src='./img/SideNotice.png' alt='Met Icon'/>
                 <span className='mettitle'>공지사항</span>
                 <a style={{fontSize:"12px", marginTop:"10px",marginLeft:"45px", cursor:'pointer'}} onClick={showMoreList}>+더보기</a>
-=======
-                <img className='meticon' src='./img/SideNotice.png' alt='Met Icon' style={{marginBottom:"2px"}}/>
-                <span className='mettitle' style={{fontFamily:'Pretendard-Regular'}}>공지사항</span>
-                <a style={{fontSize:"14px", marginLeft:"25px", cursor:'pointer'}} onClick={showMoreList}>+더보기</a>
->>>>>>> 7e6e42c4e5e73a5dcbd3706d3ed9a8d9ad7eecae
+
             </div><br/>
             <ul>
                 {noticeList.map((notice) => (

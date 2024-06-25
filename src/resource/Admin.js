@@ -322,13 +322,8 @@ const Admin = () => {
             <div className="left-panel">
                 <div className="section">
                     <div className="title-box">
-<<<<<<< HEAD
                         <img className="boxIcons" src="/img/notice.png" style={{marginTop:"8px"}} alt="Notice Icon" />
                         <span className="section-title" id="sboxHeader" onClick={noticeCleanSearch}>공지사항</span>
-=======
-                        <img className="boxIcon" src="/img/lookUp.png" alt="Notice Icon" />
-                        <span className="section-title" onClick={noticeCleanSearch}>공지사항</span>
->>>>>>> 7e6e42c4e5e73a5dcbd3706d3ed9a8d9ad7eecae
                     </div>
                     <div className='bar-container'>
                         <div className="admNoticeSearchbar" style={{ width: "450px", marginRight: "20px"}}>
@@ -337,13 +332,8 @@ const Admin = () => {
                                 <option value={"category"}>카테고리</option>
                                 <option value={"title"}>제목</option>
                                 <option value={"content"}>내용</option>
-<<<<<<< HEAD
                             </select>&nbsp;|<input type="text" id="keyword" placeholder=' 검색' value={noticeWord} onChange={(e) => setNoticeWord(e.target.value)}/>
                             <label id="searchButton2" htmlFor="searchButton1" style={{position:"relative",marginTop:"-25px"}} onClick={() => searchNotice(1)}><button id="searchButton1"> </button></label>
-=======
-                            </select>|<input type="text" id="keyword" placeholder=' 검색' value={noticeWord} onChange={(e) => setNoticeWord(e.target.value)} />
-                            <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchNotice(1)}><button id="searchButton1"> </button></label>
->>>>>>> 7e6e42c4e5e73a5dcbd3706d3ed9a8d9ad7eecae
                         </div>
                     </div>
                     <br/>

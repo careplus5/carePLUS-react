@@ -137,7 +137,8 @@
 
   .calendar-button {
     background-color: #0081B4;
-    color: #c7dfe9;
+    color: #ffffff;
+    /* color: #c7dfe9; */
     padding-inline: 10px;
     margin-inline: 5px;
     box-shadow: 2px 1px 5px 0 lightgray;

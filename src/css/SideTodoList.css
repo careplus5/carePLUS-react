@@ -30,7 +30,7 @@
 .top-input {
     width: 210px;
     margin-top: 10px;
-    padding: 0 0 5px 0px;
+    padding: 0 5px 2px 0px;
     font-size: 16px;
     border: none;
     text-align: right;
@@ -39,10 +39,12 @@
 }
 
 .todo-button {
-    color: #ffffff;
-    font-size: 12px;
+    color: #6f6f6f;
+    font-size: 10px;
     font-weight: bold;
-    border: 0;
     border-radius: 5px;
     vertical-align: middle;
+    background: none;
+    border: none;
+    cursor: pointer;
 }

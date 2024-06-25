@@ -7,6 +7,64 @@
   left: 60px;
 }
 
+.prescriptionBackground{
+  width:625px;
+  height:830px;
+  background-image: url('/Users/orcor/react/careplus/public/img/prescription.png');
+  background-repeat: no-repeat;
+  background-color: white;
+}
+
+.printButton{
+  background-color: #233FA3;
+  margin: 0 auto;
+  width:230px;
+  font-weight: bold;
+  font-style: none;
+}
+.empty{
+  position: relative;
+  width:300px;
+  height:130px;
+}
+#presInfo{
+  position: relative;
+}
+.medList{
+  font-size:15px;
+ width:627px;
+  text-align: center;
+  color:black;
+}
+#listTop td, #listContent td{
+  border-right:1px solid black;
+  border-bottom: 1px solid black;
+}
+#listTop{
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid black;
+}
+#prescName{
+  position: relative;
+  top:10px;
+  margin-left:230px;
+  display: inline;
+  font-size: 14px;
+}
+
+#prescJumin{
+  position: relative;
+  top:12px;
+  margin-left:193px;
+  display: inline;
+  font-size: 14px;
+}
+#prescDate{
+  position: relative;
+  margin-left:210px;
+  display: inline;
+  font-size: 14px;
+}
 .prescScrollBox{
   height:250px;
   background-color: transparent;

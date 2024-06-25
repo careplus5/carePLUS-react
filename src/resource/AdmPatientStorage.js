@@ -13,6 +13,7 @@ const AdmPatientStorage = ({ patient }) => {
     const [patDiagCheckList, setPatDiagCheckList] = useState([]);
     const [docDiagNum, setDocDiagNum] = useState('');
     const [firstDiagDate, setFirstDiagDate] = useState('');
+    const [patPrescriptionList, setPatPrescriptionList] = useState([]);
 
     const [admCheckModalIsOpen, setAdmCheckModalIsOpen] = useState(false);
     const [patAdmCheckList, setPatAdmCheckList] = useState([]);
@@ -40,6 +41,15 @@ const AdmPatientStorage = ({ patient }) => {
         axios.post(`${url}/patDiagCheckList`, { patNum: patient.patNum })
             .then(res => {
                 setPatDiagCheckList([...res.data]);
+            })
+        toggleTable('prescCheck');
+    }
+
+    // 진료확인서
+    const getPrescriptionList = () => {
+        axios.post(`${url}/patNumPrescriptionList`, { patNum: patient.patNum })
+            .then(res => {
+                setPatPrescriptionList([...res.data]);
             })
         toggleTable('diagCheck');
     }
@@ -109,7 +119,6 @@ const AdmPatientStorage = ({ patient }) => {
                                         <th>초진일자</th>
                                         <th>진단일자</th>
                                         <th>진료종류</th>
-                                        <th>발급여부</th>
                                         <th>진료확인서</th>
                                     </tr>
                                 </thead>
@@ -129,7 +138,6 @@ const AdmPatientStorage = ({ patient }) => {
                                             diagCheck.docDiagnosisKind === 'adm' ? '입원' :
                                             diagCheck.docDiagnosisKind}
                                         </td>
-                                        <td>미발급</td>
                                         <td><button style={{ backgroundColor: 'black' }} onClick={() => openDiagCheckModal(diagCheck)}>진료확인서</button></td>
                                     </tr>)}
                                 </tbody>

@@ -1,61 +1,112 @@
 import { url } from "../config";
 import { useState, useEffect } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Table, Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import axios from "axios";
 
 // 처방전 발급
-const AdmPatientPrescription = ({ prescriptionList }) => {
+const AdmPatientPrescription = ({patNum, patients}) => {
 
+    console.log("next patNum:"+patNum);
+    const patient = patNum;
+    console.log(patients);
+    const patInfo = patients;
+    console.log(patInfo);
+     const [prescriptionList, setPrescriptionList] = useState([]);
     const [prescription, setPrescription] = useState('');
     const [selectedDate, setSelectedDate] = useState();  // 교부년월일
     // 모달 (부서에 대한 정보 검색)
-    const [admDiagDuedisModalIsOpen, setAdmDiagDuedisModalIsOpen] = useState(false);
+
+    const [prescCheckModalIsOpen,setPrescCheckModalIsOpen] = useState(false);
 
     // 모달 오픈
     const openPatientPrescriptionModal = (prescriptionNum) => {
-        setAdmDiagDuedisModalIsOpen(true);
+        setPrescCheckModalIsOpen(true);
 
     }
-    // 해당 환자의 처방전 조회함수 
-    useState(() => {
-        axios.get(`${url}/patNumPrescriptionList`,{params:{
-            patNum:patient.patNum
-        }})
-            .then(res => {
-                setPrescription(res.data);
-            })
-            .catch(err => {
-                setPrescription();
-            })
-    })
-    // 환자(patient), 의사(doctor), 질병(disease), 의약품(medicine)
+    // 해당 환자의 처방전 리스트
+    useEffect(()=>{
+        axios.post(`${url}/patNumPrescriptionList`,{patNum:patient})
+        .then(res => {
+            console.log("관련 데이터는;"+JSON.stringify(res));
+            setPrescriptionList(res.data); // 데이터를 prescriptionList에 설정
+        })
+        .catch(err => {
+            console.log(patNum+"이 왜 조회안될까염?");
+        },[])
+    },[patNum])
+    
+    const getPrescriptionList = () => {
+        axios.post(`${url}/patPrescription`,{patNum:patient})
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
 
+    
+    // 환자(patient), 의사(doctor), 질병(disease), 의약품(medicine)
+    // const getPrescriptionList = () => {
+    //     axios.post(`${url}/patNumPrescriptionList`,{params:{patNum:patient}})
+    //         .then(res => {
+    //            console.log(res.data);
+    //         })
+
+    // }
     return (
         <div id="LaccordionBox">
-            <div className="boxHeader" style={{ marginTop: '30px', marginLeft: "35px" }} >
-                <img id="boxIcon" style={{ width: "40px", height: "40px" }} src="./img/document.png" />&nbsp;
-                <h3 id="LboxHeader" style={{ marginRight: "115px" }}>처방전 발급</h3>
+            <div className="LboxHeader" style={{ display: 'flex', margin:'15px 25px' }} >
+                <img id="boxIcon" sstyle={{ marginTop: "15px", marginLeft: "15px" }}  src="./img/document.png" />&nbsp;
+                <h3 className="admPat-boxHeader" >처방전 발급</h3>
             </div>
             <br />
-            <ul className="admPrescriptionList" style={{marginLeft:'175px'}}>
-                {prescriptionList.map((prescription) => (
-                    <li key={prescription.prescriptionNum} className='admPatientPrescription-item'>
-                        <div className="patientPrescription-info" onClick={openPatientPrescriptionModal}>
-                            <p>처방 번호 : {prescription.prescriptionNum}</p>
-                            <p>환자 이름 : {prescription.patNum}</p>
-                            <p>처방 일자 : {prescription.prescriptionDate}</p>
+            <div style={{marginLeft:'145px'}}>
+                    <span >환자번호</span>
+                    <input type="text" name='patNum' value={patInfo.patNum}
+                        className='inputStyle' style={{width:"90px"}} disabled/>
+                    <span style={{ marginLeft: "20px" }}>주민등록번호</span>
+                    <input type="text" disabled value={patInfo.patJumin}
+                        className='inputStyle'/>
+                    <span style={{ marginLeft: "20px" }}>이름</span>
+                    <input type="text" disabled  value={patInfo && patInfo.patName}
+                        className='inputStyle' style={{width:"90px"}}/>
+                    <span style={{ marginLeft: "20px" }}>성별</span>
+                    <input type="text" disabled value={patInfo && patInfo.patGender}
+                        className='inputStyle' style={{width:"45px"}}/>
+                    <span style={{ marginLeft: "20px" }}>전화번호</span>
+                    <input type="text" disabled value={patInfo && patInfo.patTel}
+                        className='inputStyle'/>
                         </div>
-                    </li>
-                ))}
-            </ul>
-
+            <br/>
+            <div className="prescScrollBox">
+                            <Table bordered style={{ textAlign: 'center', backgroundColor:'#fbf9f2' }}>
+                                <thead>
+                                    <tr>
+                                        <th>환자 이름</th>
+                                        <th>처방전 번호</th>
+                                        <th>처방전 발급일</th>
+                                        <th>처방 발급 상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {prescriptionList.map(prescription => 
+                                    <tr>
+                                        <td>{prescription.patName}</td>
+                                        <td>{prescription.prescription.prescriptionNum}</td>
+                                        <td>{prescription.prescription.prescriptionDate}</td>
+                                        <td><button style={{ backgroundColor: 'black' }} onClick={() => openPatientPrescriptionModal()}>발급</button></td>
+                                    </tr>)}
+                                </tbody>
+                            </Table>
+                        </div>
             {/* 처방전 */}
-            <Modal isOpen={admDiagDuedisModalIsOpen} toggle={openPatientPrescriptionModal} className="modal-content">
+            <Modal isOpen={prescCheckModalIsOpen} toggle={openPatientPrescriptionModal} className="modal-content" style={{ maxWidth: "1400px" }}>
                 <ModalHeader toggle={openPatientPrescriptionModal} className='AdmModalTitle'>
                     <h1 style={{ textAlign: "center", marginTop: "100px" }}>&nbsp;처&nbsp;&nbsp;방&nbsp;&nbsp;전&nbsp;</h1>
                 </ModalHeader>
                 <ModalBody>
-                    <button onClick={(e) => setAdmDiagDuedisModalIsOpen(false)}>pre</button><button >next</button>
+                    <button onClick={(e) => setPrescCheckModalIsOpen(false)}>pre</button><button >next</button>
                     <div >
                         <span>의료보험 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;<span>의료보호 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;
                         <span>산재보험 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;<span>자동차보험 [&nbsp;&nbsp;]</span>&nbsp;&nbsp;
@@ -82,21 +133,21 @@ const AdmPatientPrescription = ({ prescriptionList }) => {
                                     <div>자</div>
                                 </td>
                                 <td style={{ textAlign: "center", width: "130px" }}> 성 명 </td>
-                                <td colSpan="2">(patient.patNum)</td>
+                                <td colSpan="2">{patInfo.patName}</td>
                                 <td>전화번호</td>
-                                <td>031-1111-2222</td>
+                                <td>{patInfo.patTel}</td>
                             </tr>
                             <tr>
                                 <td style={{ textAlign: "center", width: "130px" }}> 주민등록번호 </td>
-                                <td colSpan="2">(patient.patJumin)</td>
+                                <td colSpan="2">{patInfo.patJumin}</td>
                                 <td>팩스번호</td>
                                 <td>031-111-2222</td>
                             </tr>
                             <tr>
                                 <td style={{ textAlign: "center", width: "130px" }}>연락처</td>
-                                <td colSpan="2">(patient.patTel)</td>
+                                <td colSpan="2">{patInfo.patTel}</td>
                                 <td>e-mail주소</td>
-                                <td>careplue@kosta.kr</td>
+                                <td>{patInfo.patMail}</td>
                             </tr>
                             <tr>
                                 <td style={{ textAlign: 'center' }}>
@@ -149,14 +200,6 @@ const AdmPatientPrescription = ({ prescriptionList }) => {
                                 <th>(prescription.prescriptionDosageTotal)</th>
                                 <th>(prescription.prescriptionHowTake)</th>
                             </tr>
-                            {/* <tr style={{fontSize:"15px"}}>
-                        <td>사용기간</td>
-                        <td colSpan="2">교부일부터&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)일간</td>
-                        <td colSpan="4">사용기간에 약국에 제출하여야 합니다.</td>
-                    </tr> */}
-                            {/* <tr style={{ textAlign: "center", fontSize:"15px"}}>
-                        <td colSpan="7">의약품 조제내역</td>
-                    </tr> */}
                             <tr>
                                 <td rowSpan="4" style={{ textAlign: 'center' }}>조제<br />내역</td>
                                 <td>조제기관의 명칭</td>

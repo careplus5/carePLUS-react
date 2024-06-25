@@ -16,7 +16,7 @@ const DiagnosisPatient = () => {
     const [selectPrevDis, setSelectPrevDis] = useState({diseaseNum:'' ,diseaseName:''});
 
     useEffect(()=>{
-        axios.get(`${url}/diagPatientList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diagPatientList?docNum=${username}`)
             .then(res=>{
                 setDiagPatList([...res.data]);
             })
@@ -70,7 +70,6 @@ const DiagnosisPatient = () => {
             .catch(err=>{
                 console.log(err);
             })
-            handleToggle(1);
     }
 
     const handleToggle = (index) => {

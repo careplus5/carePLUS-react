@@ -27,9 +27,9 @@ const MetPatientList = ({ onPatientSelect, userInfo }) => {
             const timeA = new Date(a.testAppointmentTime);
             const timeB = new Date(b.testAppointmentTime);
             const statusPriority = {
-                '대기중': 1,
-                '진행중': 0,
-                '완료': 2
+                'wait': 1,
+                'progress': 0,
+                'complete': 2
             };
 
             // 상태 기준으로 비교
@@ -84,14 +84,14 @@ const MetPatientList = ({ onPatientSelect, userInfo }) => {
                     return (
                         <li key={i} data-id={patient.testNum} className='patient-item'onClick={() => onPatientSelect(patient)}>
                             <select
-                                className={`select-box ${patient.testStatus === '대기중' ? 'waiting' : ''} ${patient.testStatus === '진행중' ? 'in-progress' : ''} ${patient.testStatus === '완료' ? 'completed' : ''}`}
+                                className={`select-box ${patient.testStatus === 'wait' ? 'waiting' : ''} ${patient.testStatus === 'progress' ? 'in-progress' : ''} ${patient.testStatus === 'complete' ? 'completed' : ''}`}
                                 value={patient.testStatus || ''}
                                 onChange={(event) => handleStatusChange(patient.testNum, event)}
                             >
                                 {/* <option value="">상태 선택</option> */}
-                                <option value="대기중">대기중</option>
-                                <option value="진행중">진행중</option>
-                                <option value="완료">완료</option>
+                                <option value="wait">대기중</option>
+                                <option value="progress">진행중</option>
+                                <option value="complete">완료</option>
                             </select><br />
                             {patient.room} {patient.patName} ({patient.patGender}/{age})<br /> {patient.patNum} {patient.patBloodType}형
                             <div style={{fontWeight:'500', paddingTop:'5px'}}>검사 : {patient.testPart}</div>

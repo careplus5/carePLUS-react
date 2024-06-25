@@ -6,7 +6,7 @@
     content: attr(data-date);
     position: absolute;
     top: 13px; /* 부모 요소의 상단으로부터의 거리 설정 */
-    left: 65px;
+    left: 66px;
     width: 24px; /* 원 지름 설정 */
     height: 24px; /* 원 지름 설정 */
     background-color: red; /* 빨간색 배경 */
@@ -140,6 +140,7 @@
     color: #c7dfe9;
     padding-inline: 10px;
     margin-inline: 5px;
+    box-shadow: 2px 1px 5px 0 lightgray;
   }
 
   .fullbooked{

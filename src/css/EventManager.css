@@ -39,3 +39,11 @@
     list-style-type: none;
     padding-inline: 5px;
   }
+
+  .calicon {
+    margin-left: 5px;
+    width: 18px;
+    vertical-align: middle;
+    cursor: pointer;
+
+  }

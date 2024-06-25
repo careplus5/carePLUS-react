@@ -38,9 +38,9 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
                 <span className='metmodal-title'>환자 정보</span>
                 <span>
                     <select className="status-box" value={patient.testRequestAcpt} onChange={handleStatusChange}>
-                        <option value="검사요청">검사요청</option>
-                        <option value="수락">수락</option>
-                        <option value="보류">보류</option>
+                        <option value="request">검사요청</option>
+                        <option value="accept">수락</option>
+                        <option value="wait">보류</option>
                     </select>
                 </span>
                 <p>병실: {patient.room} </p>

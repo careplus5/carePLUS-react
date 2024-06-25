@@ -98,8 +98,8 @@
 }
 
 .admNoticeSearchbar {
-  left: -8px;
-  background-color:#f7f7f7;
+  position: relative;
+  background-color: white;
   float: right;
   width: 450px;
   height: 40px;
@@ -113,7 +113,7 @@
 
 .admSearchbar {
   position: relative;
-  background-color: #f7f7f7;
+  background-color: white;
   float: right;
   width: 450px;
   height: 40px;
@@ -125,8 +125,9 @@
   margin-top: 7px;
 }
 
-#admKeyword {
+#keyword {
   border: none;
+  width: 310px;
   font-size: 15px;
 
 }
@@ -142,7 +143,6 @@
   width: auto;
   margin-right: 15px;
   appearance: none;
-  background-color: #f7f7f7;
 
 }
 
@@ -260,7 +260,15 @@
 #searchButton1 {
   display: none;
 }
+.pageItem{
+position: relative;
+border:none;
+background-color: transparent;
+}
 
+.pageItem:focus{
+  position: relative;
+}
 
 #searchButton2 {
   position: relative;

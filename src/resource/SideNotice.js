@@ -55,13 +55,13 @@ const SideNotice = () => {
     return (
         <div className="side-notice">
             <div className='title-box'>
-                <img className='meticon' src='./img/SideNotice.png' alt='Met Icon'/>
-                <span className='mettitle'>공지사항</span>
+                <img className='meticon' src='./img/SideNotice.png' alt='Met Icon' style={{marginBottom:"2px"}}/>
+                <span className='mettitle' style={{fontFamily:'Pretendard-Regular'}}>공지사항</span>
                 <a style={{fontSize:"14px", marginLeft:"25px", cursor:'pointer'}} onClick={showMoreList}>+더보기</a>
             </div><br/>
             <ul>
                 {noticeList.map((notice) => (
-                    <li key={notice.noticeNum} onClick={(e) => handleNoticeClick(e, notice)}>
+                    <li key={notice.noticeNum} onClick={(e) => handleNoticeClick(e, notice)} style={{fontFamily:'Pretendard-Regular'}}>
                         {notice.noticeTitle}
                     </li>
                 ))}
@@ -82,9 +82,9 @@ const SideNotice = () => {
                         }
                     }}
                 >
-                    <h2>{selectedNotice.noticeTitle}</h2>
+                    <h2 style={{fontFamily:'Pretendard-Regular'}}>{selectedNotice.noticeTitle}</h2>
                     <p style={{width:'550px'}}>{selectedNotice.noticeContent}</p>
-                    <button onClick={closeModal}>닫기</button>
+                    <button onClick={closeModal} style={{float:"left"}}>닫기</button>
                 </Modal>
             )}
             {isNoticeListOpen &&

@@ -196,9 +196,9 @@ const Admin = () => {
                 .then(res => {
                     alert(res.data);
                     setNotice({ noticeCategory: '99', noticeTitle: '', noticeContent: '', noticeNum: '', noticeWriteDate: '' })
-                    searchNotice(1);
+                    searchNotice(noticePageInfo.curPage);
                 }).catch(err => {
-                    alert(err);
+                    console.error(err);
                 })
         }
     }
@@ -219,11 +219,11 @@ const Admin = () => {
         axios.post(`${url}/employeeAdd`, formData)
             .then(res => {
                 alert(res.data);
-                searchEmployee(1);
                 setEmployee({ file: null, jobNum: '99', departmentNum: '', departmentName: '', department2Name: '', empPosition: '', empName: '', empTel: '', empEmail: '', empNum: '9999999', empPassword: '' });
+                searchEmployee(empPageInfo.curPage);
             })
             .catch(err => {
-                alert(err)
+                console.error(err)
             })
     }
 
@@ -245,11 +245,14 @@ const Admin = () => {
         axios.post(`${url}/employeeModify`, formData)
             .then(res => {
                 alert(res.data);
-                searchEmployee(1);
+                setEmployeeList(employeeList.map(emp => {
+                    if (emp.empNum === selEmployee.empNum) return { ...selEmployee }
+                    else return emp;
+                }));
                 toggleAccordion(3);
             })
             .catch(err => {
-                alert(err)
+                console.error(err)
             })
     }
 
@@ -266,7 +269,7 @@ const Admin = () => {
                     }));
                     toggleAccordion(1);
                 }).catch(err => {
-                    alert(err);
+                    console.error(err);
                 })
         }
     }
@@ -282,11 +285,10 @@ const Admin = () => {
         axios.get(`${url}/employeeDelete?empNum=${selEmployee.empNum}`)
             .then(res => {
                 alert("직원 삭제가 완료되었습니다.");
-                searchEmployee(1);
+                searchEmployee(empPageInfo.curPage);
                 toggleAccordion(3);
             }).catch(err => {
                 console.error("직원 삭제 중 오류:", err);
-                alert("직원 삭제 중 오류가 발생했습니다.");
             });
         setShowConfirmDialogEmp(false); // 작업이 완료되면 다이얼로그 닫기
     };
@@ -303,11 +305,10 @@ const Admin = () => {
         axios.get(`${url}/noticeDelete?noticeNum=${selNotice.noticeNum}`)
             .then(res => {
                 alert("공지사항 삭제가 완료되었습니다.");
-                searchNotice(1);
+                searchNotice(noticePageInfo.curPage);
                 toggleAccordion(1);
             }).catch(err => {
                 console.error("공지사항 삭제 중 오류:", err);
-                alert("공지사항 삭제 중 오류가 발생했습니다.");
             });
         setShowConfirmDialogNot(false); // 작업이 완료되면 다이얼로그 닫기
     };
@@ -321,7 +322,7 @@ const Admin = () => {
             <div className="left-panel">
                 <div className="section">
                     <div className="title-box">
-                        <img className="boxIcon" src="/img/notice.png" alt="Notice Icon" />
+                        <img className="boxIcon" src="/img/lookUp.png" alt="Notice Icon" />
                         <span className="section-title" onClick={noticeCleanSearch}>공지사항</span>
                     </div>
                     <div className='bar-container'>
@@ -331,7 +332,7 @@ const Admin = () => {
                                 <option value={"category"}>카테고리</option>
                                 <option value={"title"}>제목</option>
                                 <option value={"content"}>내용</option>
-                            </select>&nbsp;|<input type="text" id="keyword" placeholder=' 검색' value={noticeWord} onChange={(e) => setNoticeWord(e.target.value)} />
+                            </select>|<input type="text" id="keyword" placeholder=' 검색' value={noticeWord} onChange={(e) => setNoticeWord(e.target.value)} />
                             <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchNotice(1)}><button id="searchButton1"> </button></label>
                         </div>
                     </div>
@@ -349,7 +350,7 @@ const Admin = () => {
                                     setAccordion(1);
                                     setSelNotice(notice)
                                 }}
-                                    className='list'>
+                                    className='adminList'>
                                     <td className="notice-date">{notice.noticeWriteDate}</td>
                                     <td className="notice-category">{notice.noticeCategory}</td>
                                     <td className="notice-title">{notice.noticeTitle}</td>
@@ -357,23 +358,24 @@ const Admin = () => {
                             ))}
                         </tbody>
                     </table>
-                    <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "auto", paddingTop: "30px" }}>
+                    <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "auto", paddingTop: "30px"}}>
                         <PaginationItem disabled={noticePageInfo.curPage === noticePageInfo.startPage}>
-                            <PaginationLink previous onClick={() => searchNotice(noticePageInfo.curPage - 1)} />
+                            <PaginationLink previous onClick={() => searchNotice(noticePageInfo.curPage - 1)} style={{marginRight:"5px"}}/>
                         </PaginationItem>
                         {noticePageBtn.map((noticePage) => (
                             <PaginationItem key={noticePage} className={noticePage === noticePageInfo.curPage ? 'active' : ''}>
-                                <PaginationLink onClick={() => searchNotice(noticePage)}>{noticePage}</PaginationLink>
+                                <PaginationLink onClick={() => searchNotice(noticePage)} style={{margin:"0px 5px"}}>{noticePage}</PaginationLink>
                             </PaginationItem>
                         ))}
-                        <PaginationItem disabled={noticePageInfo.curPage === noticePageInfo.endPage}>
+                        <PaginationItem disabled={noticePageInfo.curPage === noticePageInfo.endPage}
+                        style={{marginLeft:"5px"}}>
                             <PaginationLink next onClick={() => searchNotice(noticePageInfo.curPage + 1)} />
                         </PaginationItem>
                     </Pagination>
                 </div>
                 <div className="section">
                     <div className="title-box">
-                        <img className="boxIcon" src="/img/notice.png" alt="Notice Icon" />
+                        <img className="boxIcon" src="/img/lookUp.png" alt="Notice Icon" />
                         <span className="section-title" onClick={employeeCleanSearch}>직원 정보</span>
                     </div>
                     <div bar-container>
@@ -390,8 +392,8 @@ const Admin = () => {
                                     <option>선택</option>
                                     <option value={"departmentName"}>부서</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
+                                </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1) } style={{top:"-35px"}} ><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "12" &&
@@ -401,8 +403,8 @@ const Admin = () => {
                                     <option value={"departmentName"}>부서</option>
                                     <option value={"empPosition"}>구분</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
+                                </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-35px"}}><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "13" &&
@@ -410,8 +412,8 @@ const Admin = () => {
                                 <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
+                                </select >;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-35px"}}><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "14" &&
@@ -420,8 +422,8 @@ const Admin = () => {
                                     <option>선택</option>
                                     <option value={"department2Name"}>소속</option>
                                     <option value={"empName"}>이름</option>
-                                </select >&nbsp;|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} ><button id="searchButton1"> </button></label>
+                                </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-35px"}}><button id="searchButton1"> </button></label>
                             </span>
                         }
                     </div>
@@ -430,10 +432,10 @@ const Admin = () => {
                             <table className='list-table'>
                                 <thead>
                                     <tr>
-                                        <th>사번</th>
-                                        <th>부서</th>
-                                        <th>이름</th>
-                                        <th>이메일</th>
+                                        <th style={{width:"205px"}}>사번</th>
+                                        <th style={{width:"145px"}}>부서</th>
+                                        <th style={{width:"145px"}}>이름</th>
+                                        <th style={{width:"280px"}}>이메일</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -441,25 +443,28 @@ const Admin = () => {
                                         <tr key={employee.empNum} onClick={() => {
                                             setAccordion(3);
                                             setSelEmployee(employee)
-                                        }} className='list'>
-                                            <td>{employee.empNum}</td>
-                                            <td>{employee.departmentName}</td>
-                                            <td>{employee.empName}</td>
-                                            <td>{employee.empEmail}</td>
+                                        }} className='adminList'>
+                                            <td style={{width:"205px"}}>{employee.empNum}</td>
+                                            <td style={{width:"145px"}}>{employee.departmentName}</td>
+                                            <td style={{width:"145px"}}>{employee.empName}</td>
+                                            <td style={{width:"280px"}}>{employee.empEmail}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                             <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "auto", paddingTop: "25px" }}>
-                                <PaginationItem disabled={empPageInfo.curPage === 1 ? true : false}>
+                                <PaginationItem className="pageButton" style={{marginRight:"5px"}}
+                                disabled={empPageInfo.curPage === 1 ? true : false}>
                                     <PaginationLink previous onClick={() => searchEmployee(empPageInfo.curPage - 1)} />
                                 </PaginationItem>
                                 {empPageBtn.map((empPage) => (
                                     <PaginationItem key={empPage} className={empPage == empPageInfo.curPage ? 'active' : ''}>
-                                        <PaginationLink onClick={() => searchEmployee(empPage)}>{empPage}</PaginationLink>
+                                        <PaginationLink onClick={() => searchEmployee(empPage)}
+                                        style={{margin:"0px 5px"}}>{empPage}</PaginationLink>
                                     </PaginationItem>
                                 ))}
-                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}>
+                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}
+                                style={{marginLeft:"5px"}}>
                                     <PaginationLink next onClick={() => searchEmployee(empPageInfo.curPage + 1)} />
                                 </PaginationItem>
                             </Pagination>
@@ -482,7 +487,7 @@ const Admin = () => {
                                         <tr key={employee.empNum} onClick={() => {
                                             setAccordion(3);
                                             setSelEmployee(employee)
-                                        }} className='list'>
+                                        }} className='adminList'>
                                             <td>{employee.empNum}</td>
                                             <td>{employee.departmentName}</td>
                                             <td>{employee.empPosition}</td>
@@ -493,15 +498,18 @@ const Admin = () => {
                                 </tbody>
                             </table>
                             <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "auto", paddingTop: "25px" }}>
-                                <PaginationItem disabled={empPageInfo.curPage === 1 ? true : false}>
+                                <PaginationItem className="pageButton" style={{marginRight:"5px"}}
+                                disabled={empPageInfo.curPage === 1 ? true : false}>
                                     <PaginationLink previous onClick={() => searchEmployee(empPageInfo.curPage - 1)} />
                                 </PaginationItem>
                                 {empPageBtn.map((empPage) => (
                                     <PaginationItem key={empPage} className={empPage == empPageInfo.curPage ? 'active' : ''}>
-                                        <PaginationLink onClick={() => searchEmployee(empPage)}>{empPage}</PaginationLink>
+                                        <PaginationLink onClick={() => searchEmployee(empPage)}
+                                        style={{margin:"0px 5px"}}>{empPage}</PaginationLink>
                                     </PaginationItem>
                                 ))}
-                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}>
+                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}
+                                style={{marginLeft:"5px"}}>
                                     <PaginationLink next onClick={() => searchEmployee(empPageInfo.curPage + 1)} />
                                 </PaginationItem>
                             </Pagination>
@@ -522,7 +530,7 @@ const Admin = () => {
                                         <tr key={employee.empNum} onClick={() => {
                                             setAccordion(3);
                                             setSelEmployee(employee)
-                                        }} className='list'>
+                                        }} className='adminList'>
                                             <td>{employee.empNum}</td>
                                             <td>{employee.empName}</td>
                                             <td>{employee.empEmail}</td>
@@ -531,15 +539,18 @@ const Admin = () => {
                                 </tbody>
                             </table>
                             <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "auto", paddingTop: "25px" }}>
-                                <PaginationItem disabled={empPageInfo.curPage === 1 ? true : false}>
+                                <PaginationItem className="pageButton" style={{marginRight:"5px"}}
+                                disabled={empPageInfo.curPage === 1 ? true : false}>
                                     <PaginationLink previous onClick={() => searchEmployee(empPageInfo.curPage - 1)} />
                                 </PaginationItem>
                                 {empPageBtn.map((empPage) => (
                                     <PaginationItem key={empPage} className={empPage == empPageInfo.curPage ? 'active' : ''}>
-                                        <PaginationLink onClick={() => searchEmployee(empPage)}>{empPage}</PaginationLink>
+                                        <PaginationLink onClick={() => searchEmployee(empPage)}
+                                        style={{margin:"0px 5px"}}>{empPage}</PaginationLink>
                                     </PaginationItem>
                                 ))}
-                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}>
+                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}
+                                style={{marginLeft:"5px"}}>
                                     <PaginationLink next onClick={() => searchEmployee(empPageInfo.curPage + 1)} />
                                 </PaginationItem>
                             </Pagination>
@@ -561,7 +572,7 @@ const Admin = () => {
                                         <tr key={employee.empNum} onClick={() => {
                                             setAccordion(3);
                                             setSelEmployee(employee)
-                                        }} className='list'>
+                                        }} className='adminList'>
                                             <td>{employee.empNum}</td>
                                             <td>{employee.department2Name}</td>
                                             <td>{employee.empName}</td>
@@ -571,15 +582,18 @@ const Admin = () => {
                                 </tbody>
                             </table>
                             <Pagination style={{ justifyContent: 'center', margin: '0 auto', width: "auto", paddingTop: "25px" }}>
-                                <PaginationItem disabled={empPageInfo.curPage === 1 ? true : false}>
+                                <PaginationItem className="pageButton" style={{marginRight:"5px"}}
+                                disabled={empPageInfo.curPage === 1 ? true : false}>
                                     <PaginationLink previous onClick={() => searchEmployee(empPageInfo.curPage - 1)} />
                                 </PaginationItem>
                                 {empPageBtn.map((empPage) => (
                                     <PaginationItem key={empPage} className={empPage == empPageInfo.curPage ? 'active' : ''}>
-                                        <PaginationLink onClick={() => searchEmployee(empPage)}>{empPage}</PaginationLink>
+                                        <PaginationLink onClick={() => searchEmployee(empPage)}
+                                        style={{margin:"0px 5px"}}>{empPage}</PaginationLink>
                                     </PaginationItem>
                                 ))}
-                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}>
+                                <PaginationItem disabled={empPageInfo.curPage === empPageInfo.endPage ? true : false}
+                                style={{marginLeft:"5px"}}>
                                     <PaginationLink next onClick={() => searchEmployee(empPageInfo.curPage + 1)} />
                                 </PaginationItem>
                             </Pagination>
@@ -591,42 +605,45 @@ const Admin = () => {
                 {['공지사항 작성', '공지사항 수정', '직원정보 작성', '직원정보 수정'].map((title, index) => (
                     <div className={`accordion-section ${accordion === index ? 'active' : ''}`} key={index}>
                         <div className="accordion-header" onClick={(index == 2 || index == 0) ? () => toggleAccordion(index) : null}>
-                            <img src='/img/write.png' alt='' className='write-img' />
+                            {index===0 &&<img src='/img/notification.png' alt='' className='write-img' />}
+                            {index===1 &&<img src='/img/notification.png' alt='' className='write-img' style={{width:'30px'}}/>}
+                            {index===2 &&<img src='/img/write.png' alt='' className='write-img' />}
+                            {index===3 &&<img src='/img/write.png' alt='' className='write-img' />}
                             <span className='accordion-header-title'>{title}</span>
                         </div>
                         <div className={`accordion-content ${accordion === index ? 'active' : ''}`}>
                             {index === 0 && (
                                 <div className='accordion-group'>
                                     <div className="input-group">
-                                        <select className="adm-notice-select" name="noticeCategory" value={notice.noticeCategory} onChange={noticeAddChange}>
+                                        <select className="adm-notice-select" name="noticeCategory" value={notice.noticeCategory} onChange={noticeAddChange} style={{fontFamily:"Pretendard-Regular"}}>
                                             <option value={99}>전체</option>
                                             <option value={11}>의사</option>
                                             <option value={12}>간호사</option>
                                             <option value={13}>원무과</option>
                                             <option value={14}>의료기사</option>
-                                        </select>&nbsp;|&nbsp;
-                                        <input type="text" className="notice-input" name='noticeTitle' value={notice.noticeTitle} onChange={noticeAddChange} />
+                                        </select>|
+                                        <input type="text" className="notice-input" name='noticeTitle' value={notice.noticeTitle} onChange={noticeAddChange} style={{fontFamily:"Pretendard-Regular"}}/>
                                     </div>
                                     <div className="textarea">
-                                        <textarea name='noticeContent' style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none' }} value={notice.noticeContent} onChange={noticeAddChange}></textarea>
+                                        <textarea name='noticeContent' style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none', padding:"10px 20px"}} value={notice.noticeContent} onChange={noticeAddChange}></textarea>
                                     </div>
                                     <div className='button-container'>
-                                        <button className="add-button" onClick={addNotice}>등록</button>
+                                        <button className="add-button" onClick={addNotice}>등 록</button>
                                     </div>
                                 </div>
                             )}
                             {index === 1 && (
                                 <div className='accordion-group'>
                                     <div className="input-group" >
-                                        <input type='text' className="adm-notice-select" name='noticeCategory' value={selNotice.noticeCategory} onChange={noticeModifyChange} style={{ width: '55px', backgroundColor: 'white' }} disabled />
+                                        <input type='text' className="adm-notice-select" name='noticeCategory' value={selNotice.noticeCategory} onChange={noticeModifyChange} style={{ width: '55px', backgroundColor: 'white' }} disabled />|
                                         <input type="text" className="notice-input" name='noticeTitle' value={selNotice.noticeTitle} onChange={noticeModifyChange} />
                                     </div>
                                     <div className="textarea">
-                                        <textarea style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none' }} name='noticeContent' value={selNotice.noticeContent} onChange={noticeModifyChange} />
+                                        <textarea style={{ width: '735px', height: '500px', boxShadow: '0 2px 5px 1px lightgray', border: '0', borderRadius: '10px', resize: 'none', padding:"10px 20px"}} name='noticeContent' value={selNotice.noticeContent} onChange={noticeModifyChange} />
                                     </div>
                                     <div className='button-container'>
-                                        <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => noticeDelete(selNotice.noticeNum)}>삭제</button>
-                                        <button className="add-button" style={{ backgroundColor: '#427889' }} onClick={noticeModify}>수정</button>
+                                        <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => noticeDelete(selNotice.noticeNum)}>삭 제</button>
+                                        <button className="add-button" style={{ backgroundColor: '#427889' }} onClick={noticeModify}>수 정</button>
                                     </div>
                                 </div>
                             )}
@@ -695,7 +712,7 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} disabled /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join} disabled>등록</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join} disabled>등 록</button>
                                                 </div>
                                             </>
                                         }
@@ -742,7 +759,7 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등록</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등 록</button>
                                                 </div>
                                             </>
                                         }
@@ -792,7 +809,7 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등록</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등 록</button>
                                                 </div>
                                             </>
                                         }
@@ -831,7 +848,7 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등록</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등 록</button>
                                                 </div>
                                             </>
                                         }
@@ -875,7 +892,7 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등록</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={join}>등 록</button>
                                                 </div>
                                             </>
                                         }
@@ -940,8 +957,8 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empModifyChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭 제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수 정</button>
                                                 </div>
                                             </>
                                         }
@@ -995,8 +1012,8 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empModifyChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭 제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수 정</button>
                                                 </div>
                                             </>
                                         }
@@ -1039,8 +1056,8 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭 제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수 정</button>
                                                 </div>
                                             </>
                                         }
@@ -1087,8 +1104,8 @@ const Admin = () => {
                                                     <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
                                                 </div>
                                                 <div className='button-container'>
-                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭제</button>
-                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수정</button>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭 제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수 정</button>
                                                 </div>
                                             </>
                                         }

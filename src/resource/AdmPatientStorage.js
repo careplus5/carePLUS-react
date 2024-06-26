@@ -78,19 +78,19 @@ const AdmPatientStorage = ({ patient }) => {
                 <div style={{marginLeft:'145px'}}>
                     <span >환자번호</span>
                     <input type="text" name='patNum' value={patient && patient.patNum}
-                        className='inputStyle' style={{width:"90px"}} readOnly/>
+                        className='admInputStyle' style={{width:"90px"}} readOnly/>
                     <span style={{ marginLeft: "20px" }}>주민등록번호</span>
                     <input type="text" value={patient && patient.patJumin}
-                        className='inputStyle' readOnly/>
+                        className='admInputStyle' readOnly/>
                     <span style={{ marginLeft: "20px" }}>이름</span>
                     <input type="text" value={patient && patient.patName}
-                        className='inputStyle' style={{width:"90px"}} readOnly/>
+                        className='admInputStyle' style={{width:"90px"}} readOnly/>
                     <span style={{ marginLeft: "20px" }}>성별</span>
                     <input type="text" value={patient && patient.patGender}
-                        className='inputStyle' style={{width:"45px"}} readOnly/>
+                        className='admInputStyle' style={{width:"45px"}} readOnly/>
                     <span style={{ marginLeft: "20px" }}>전화번호</span>
                     <input type="text" value={patient && patient.patTel}
-                        className='inputStyle' readOnly/>
+                        className='admInputStyle' readOnly/>
                     <button onClick={() => getPatDiagCheckList()} className='admStorButtonStyle' style={{marginLeft:'40px'}}>진료확인서</button>
                     <button onClick={() => getPatAdmCheckList()} className='admStorButtonStyle'>입·퇴원확인서</button>
                     <br /><br />

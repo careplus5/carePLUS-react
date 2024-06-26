@@ -268,7 +268,7 @@ const AdmissionDiag = ({username, admPatList, setAdmPatList, admPatInfo, clearAd
                         </div>
                         <div className="surgeryRequest">
                             <label htmlFor="surgeryDate">희망날짜</label>
-                            <input type='date' className='inputBoxStyle' style={{ width: "130px", marginTop: "-2px" }} name='surDate' value={formData.surDate} onChange={inputChange}/>
+                            <input type='date' min={new Date().toISOString().split('T')[0]} className='inputBoxStyle' style={{ width: "130px", marginTop: "-2px" }} name='surDate' value={formData.surDate} onChange={inputChange}/>
                         </div>
                         <div className="surgeryRequest">
                             <input type='number' className='inputBoxStyle' style={{ marginTop: "4px", width: "185px" }} placeholder="예상 수술 시간" name='surPeriod' value={formData.surPeriod} onChange={inputChange}/>

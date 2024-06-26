@@ -36,6 +36,7 @@ const DiagnosisPatient = () => {
         axios.get(`${url}/diagPatientInfo?docDiagNum=${docDiagNum}`)
         .then(res=>{
             setDiagDueInfo({...res.data});
+            console.log("아진짜"+JSON.stringify(diagDueInfo));
             let tdiagPatList = [...diagPatList];
             tdiagPatList.map(item=>{
                 if(item.docDiagNum === docDiagNum) {

@@ -120,6 +120,7 @@
   box-shadow: 1px 1px 2px 0 lightgray;
   border-radius: 20px;
   color: #233FA3;
+  background-color: "#f7f7f7";
   font-weight: bold;
   margin-right: 30px;
   margin-top: 7px;
@@ -135,6 +136,7 @@
 #admKeywordSort {
   margin-top: 9px;
   color: #233FA3;
+  background-color: "#f7f7f7";
   font-weight: bold;
   font-size: 15px;
   margin-left: 25px;
@@ -149,7 +151,6 @@
 
 
 #searchButton2 {
-  top: -3px;
   margin-right: 20px;
   background-color: transparent;
   border: none;
@@ -260,13 +261,14 @@
 #searchButton1 {
   display: none;
 }
-.pageItem{
-position: relative;
-border:none;
-background-color: transparent;
+
+.pageItem {
+  position: relative;
+  border: none;
+  background-color: transparent;
 }
 
-.pageItem:focus{
+.pageItem:focus {
   position: relative;
 }
 
@@ -293,6 +295,7 @@ background-color: transparent;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
+
 .accordion-header {
   font-family: 'TheJamsil5Bold';
   font-size: 23px;
@@ -328,6 +331,7 @@ accordion-header-title {
 }
 
 .input-group {
+  padding: 1px;
   margin-right: 45px;
   padding-top: 6px;
   background-color: white;
@@ -349,15 +353,15 @@ accordion-header-title {
 
 
 .adm-notice-select {
-font-family: 'Pretendard-Regular';
-color: #233FA3;
-font-weight: bold;
-font-size: 15px;
-margin-left: 25px;
-border: none;
-width: auto;
-margin-bottom: 3px;
-appearance: none;
+  font-family: 'Pretendard-Regular';
+  color: #233FA3;
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: 25px;
+  border: none;
+  width: auto;
+  margin-bottom: 16px;
+  appearance: none;
 }
 
 .notice-input {
@@ -367,7 +371,10 @@ appearance: none;
   padding-left: 15px;
   border: none;
   width: 630px;
+  height: 16px;
+  margin: 3px;
   font-size: 15px;
+  border-right: 1px solid #233FA3;
 }
 
 .add-button {
@@ -388,9 +395,9 @@ appearance: none;
 .del-button {
   background-color: lightgray;
   margin-right: 10px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    padding: 5px 20px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 5px 20px;
 }
 
 .button {

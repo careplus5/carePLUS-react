@@ -10,7 +10,7 @@
 .prescriptionBackground{
   width:625px;
   height:830px;
-  background-image: url('/public/img/prescription.png');
+  /* background-image: url('/Users/orcor/react/careplus/public/img/prescription.png'); */
   background-repeat: no-repeat;
   background-color: white;
  

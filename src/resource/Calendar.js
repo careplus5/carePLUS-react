@@ -20,6 +20,7 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
   const [userName, setUserName] = useState('');
   const [deptName, setDeptName] = useState('');
   const [dept2Name, setDept2Name] = useState('');
+  const [jobNum, setjobNum] = useState('');
 
   useEffect(() => {
     axios.get(`${url}/userInfo?userId=${userId}`)
@@ -27,37 +28,68 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
           setUserName(res.data.empName);
           setDeptName(res.data.departmentName);
           setDept2Name(res.data.department2Name);
+          setjobNum(res.data.jobNum);
         })
         .catch((err)=>{
           console.log(err);
         });
-    if (mode === '근무') {
-      const fetchEvents = async () => {
-        try {
-          const response = await axios.get(`${url}/schedules?userId=${userId}`);
-          
-          const eventsByDate = response.data.reduce((acc, event) => {
-            const dateKey = event.startDate;
-            if (!acc[dateKey]) {
-              acc[dateKey] = [];
-            }
-            acc[dateKey].push({
-              id: event.id,
-              title: event.title,
-              startTime: event.startTime,
-              eventType: event.scheduleType
-            });
-            return acc;
-          }, {});
-          setDbEvents(eventsByDate);
-        } catch (error) {
-          console.error('Error fetching events', error);
-        }
+        const fetchEvents = async () => {
+          try {
+            const response = await axios.get(`${url}/schedules?userId=${userId}`);
+            console.log(response);
+            // 다양한 jobNum 시나리오에 대한 매핑 정의
+      const mappings = {
+        '14': {
+          dateKey: 'testAppointmentDate',
+          title: 'departmentName', // 예시입니다. 실제 필드 이름으로 바꿔주세요
+          startTime: 'testAppointmentTime',
+          eventType: 'scheduleType'
+        },
+        '11': {
+          dateKey: (event) => event.surDate || event.diagnosisDueDate,
+          title: 'title', // 예시입니다. 실제 필드 이름으로 바꿔주세요
+          startTime: 'startTime', // 예시입니다. 실제 필드 이름으로 바꿔주세요
+          eventType: 'eventType' // 예시입니다. 실제 필드 이름으로 바꿔주세요
+        },
+        // 필요에 따라 다른 jobNum 값에 대한 매핑을 추가할 수 있습니다
       };
-      fetchEvents();
-    }
-  }, [mode, userId]);
 
+      const eventsByDate = response.data.reduce((acc, event) => {
+        let { dateKey, title, startTime, eventType } = mappings[jobNum];
+
+        // dateKey가 함수인 경우 동적으로 계산할 수 있습니다
+        if (typeof dateKey === 'function') {
+          dateKey = dateKey(event);
+        } else {
+          dateKey = event[dateKey];
+        }
+
+        if (!acc[dateKey]) {
+          acc[dateKey] = [];
+        }
+
+        acc[dateKey].push({
+          id: event.id,
+          title: event[title], // title 변수를 통해 필드 이름을 동적으로 접근합니다
+          startTime: event[startTime], // startTime 변수를 통해 필드 이름을 동적으로 접근합니다
+          eventType: event[eventType] // eventType 변수를 통해 필드 이름을 동적으로 접근합니다
+        });
+
+        return acc;
+      }, {});
+
+      setDbEvents(eventsByDate);
+    } catch (error) {
+      console.error('이벤트 가져오기 오류', error);
+    }
+  };
+
+  // mode가 '근무'일 때만 이벤트 가져오기
+  if (mode === '근무') {
+    fetchEvents();
+  }
+}, [mode, userId, jobNum]);
+    
   const holidays = {
     // 예시 데이터: 공휴일 정보
     "2024-05-05": "어린이날",

@@ -55,32 +55,32 @@ const AdmPatientPrescription = ({patNum, patients}) => {
 
 
     return (
-        <div id="LaccordionBox">
-            <div className="LboxHeader" style={{ display: 'flex', margin:'15px 25px' }} >
-                <img id="boxIcon" sstyle={{ marginTop: "15px", marginLeft: "15px" }}  src="./img/document.png" />&nbsp;
-                <h3 className="admPat-boxHeader" >처방전 발급</h3>
+            <div className="" style={{ marginLeft: "35px", paddingBottom: "34px" }}>
+                <div className="LboxHeader" style={{ display: 'flex', margin: '15px -5px' }}>
+                <img id="boxIcon" style={{ marginTop: '15px', marginLeft: '15px', height: '25px' }} src="./img/document.png" />
+                <h3 className="admPat-boxHeader">처방전발급</h3>
             </div>
             <br />
-            <div style={{marginLeft:'145px'}}>
+            <div style={{marginLeft:'145px', marginTop:'-25px'}}>
                     <span >환자번호</span>
                     <input type="text" name='patNum' value={patInfo.patNum}
-                        className='inputStyle' style={{width:"90px"}} disabled/>
+                        className='admInputStyle' style={{width:"90px"}} disabled/>
                     <span style={{ marginLeft: "20px" }}>주민등록번호</span>
                     <input type="text" disabled value={patInfo.patJumin}
-                        className='inputStyle'/>
+                        className='admInputStyle'/>
                     <span style={{ marginLeft: "20px" }}>이름</span>
                     <input type="text" disabled  value={patInfo && patInfo.patName}
-                        className='inputStyle' style={{width:"90px"}}/>
+                        className='admInputStyle' style={{width:"90px"}}/>
                     <span style={{ marginLeft: "20px" }}>성별</span>
                     <input type="text" disabled value={patInfo && patInfo.patGender}
-                        className='inputStyle' style={{width:"45px"}}/>
+                        className='admInputStyle' style={{width:"45px"}}/>
                     <span style={{ marginLeft: "20px" }}>전화번호</span>
                     <input type="text" disabled value={patInfo && patInfo.patTel}
-                        className='inputStyle'/>
+                        className='admInputStyle'/>
                         </div>
             <br/>
             <div className="prescScrollBox">
-                            <Table bordered style={{ textAlign: 'center', backgroundColor:'#fbf9f2' }}>
+                            <Table bordered style={{ textAlign: 'center', backgroundColor:'#fbf9f2', width:'95%', marginLeft:'20px' }}>
                                 <thead>
                                     <tr>
                                         <th>환자 이름</th>

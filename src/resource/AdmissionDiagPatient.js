@@ -191,12 +191,12 @@ const AdmissionDiagPatient = () => {
                     </div>
                     <div style={{marginLeft:'45px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={admPatInfo.patName} readOnly/></div>
-                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={admPatInfo.patJumin} readOnly/></div>
+                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' style={{width:"200px"}}value={admPatInfo.patName} readOnly/></div>
+                            <div style={{marginLeft:"60px"}}>주민번호 <input className='inputStyle' style={{width:"200px"}}value={admPatInfo.patJumin} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'6px'}}>
-                            <div>환자번호 <input className='inputStyle' value={admPatInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                            <div>환자번호 <input className='inputStyle' style={{width:"200px"}} value={admPatInfo.patNum} readOnly/></div>
+                            <div style={{marginLeft:"88px"}}>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold', width:"200px"}} 
                                         value={admPatInfo.admissionDiagState === 'ing' ? '진료중' : admPatInfo.admissionDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>

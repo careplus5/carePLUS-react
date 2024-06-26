@@ -10,6 +10,7 @@ import AdmDiagnosisDue from './AdmDiagnosisDue'; // 진료 예약 ?
 import '../css/Adm.css';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
+import AdmPatientTest from './AdmPatientTest';
 
 const AdmPatientInfo = (props) => {
     const [type, setType] = useState('');
@@ -202,7 +203,7 @@ const AdmPatientInfo = (props) => {
                 </Nav>
                 </div>
                 {menuIdx === 1 && <AdmDiagnosisDue patient={selPatient} />}
-                {/* {menuIdx === 2 && <AdmDiagnosisDuePatientTest patient={selPatient} />} */}
+                {menuIdx === 2 && <AdmPatientTest patient={selPatient} />}
                 {menuIdx === 3 && <AdmPatientAdmmission patient={selPatient} />}
                 {menuIdx === 4 && <AdmPatientSurgeryDue patient={selPatient} />}
                 {menuIdx === 5 && <AdmPatientPrescription patNum={patNum} patients={selPatient}/>}

@@ -132,12 +132,16 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                     nurNum1: nurseList[0]?nurseList[0].nurNum : null,
                     nurNum2: nurseList[1]?nurseList[1].nurNum : null,
                     nurNum3: nurseList[2]?nurseList[2].nurNum : null,
+                    surgeryState:'wait'
                     }
         axios.post(`${url}/reserveSurgery`,surgery)
             .then(res=> {
                 console.log(res.data)
                 if(res.data===true) {
                     alert("수술 예약 성공");
+                    setSurReq(null)
+                    setNurseList([null,null,null])
+                    setSelOpRoom(null);
                     setNoReq(true);
                 } else {
                     alert("수술 예약 실패");
@@ -150,12 +154,14 @@ const AdmPatientSurgeryDue = ({ patient }) => {
     }
 
     return (
-        <div style={{width:"90%"}}>
+        <div style={{width:"98%"}}>
             <div className="" style={{ marginLeft: "35px", paddingBottom: "34px" }}>
-                <img style={{ marginTop: "0px", width: "40px", height: "40px" }} alt='' src="./img/surgery.png" />&nbsp;
-                <h3 id="LboxHeader" style={{ marginTop: "34px", marginRight: "20px", display:'inline-block' }}>수술예약</h3>
-                <span style={{color:"red"}}>{message}</span><br/><br/>
-                    <Table bordered style={{width:"90%"}} >
+                <div className="LboxHeader" style={{ display: 'flex', margin: '15px -5px' }}>
+                <img id="boxIcon" style={{ marginTop: '15px', marginLeft: '15px', height: '25px' }} src="./img/surgery.png" />
+                <h3 className="admPat-boxHeader">수술예약</h3>
+                <span style={{ color: 'red', margin: '12px 25px' }}>{message}</span>
+            </div>
+                    <Table bordered >
                         <tbody>
                             <tr>
                                 <th width="100px">환자번호</th>
@@ -165,7 +171,7 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                                 <th width="100px">이름</th>
                                 <td width="150px">{patient && patient.patName}</td>
                                 <th width="100px">성별</th>
-                                <td width="100px">{patient && patient.patGender}</td>
+                                <td width="40px">{patient && patient.patGender}</td>
                                 <th width="100px">혈액형</th>
                                 <td width="100px">{patient && patient.patBloodType}</td>
                             </tr>
@@ -185,28 +191,30 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                                 <th>수술시간</th>
                                 <td onClick={()=>selectOper(selectedDate)}>{selOpRoom && selOpRoom.surgeryDueStartTime}</td>
                                 <th>예상시간</th>
-                                <td colSpan={3}>{surReq && surReq.surPeriod}</td>
+                                <td>{surReq && surReq.surPeriod}</td>
+                                <th>수술희망일</th>
+                                <td>{surReq && surReq.surDate}</td>
                             </tr>
                             <tr>
                                 <th>간호사1</th>
                                 <td onClick={()=>{queryNurse(selectedDate);setNurIdx(1)}}>
                                     {nurseList[0] && nurseList[0].nurName}&nbsp;&nbsp;&nbsp;
                                     {nurseList[0] &&
-                                        <img src="/img/x.png" alt='' width={"20px"} style={{border:"solid 1px lightgray"}} 
+                                        <img src="/img/deleteIcon.png" alt='' width={"20px"} 
                                             onClick={(e)=>nurseDelete(e,1)}/>}
                                 </td>
                                 <th>간호사2</th>
                                 <td onClick={()=>{queryNurse(selectedDate);setNurIdx(2)}}>
                                     {nurseList[1] && nurseList[1].nurName}&nbsp;&nbsp;&nbsp;
                                     {nurseList[1] &&
-                                        <img src="/img/x.png" alt='' width={"20px"} style={{border:"solid 1px lightgray"}} 
+                                        <img src="/img/deleteIcon.png" alt='' width={"20px"}
                                             onClick={(e)=>nurseDelete(e,2)}/>}
                                 </td>
                                 <th>간호사3</th>
                                 <td onClick={()=>{queryNurse(selectedDate);setNurIdx(3)}}>
                                     {nurseList[2] && nurseList[2].nurName}&nbsp;&nbsp;&nbsp;
                                     {nurseList[2] &&
-                                        <img src="/img/x.png" alt='' width={"20px"} style={{border:"solid 1px lightgray"}} 
+                                        <img src="/img/deleteIcon.png" alt='' width={"20px"} 
                                             onClick={(e)=>nurseDelete(e,3)}/>}
                                 </td>
                                 <td colSpan={4}>

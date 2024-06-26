@@ -16,7 +16,7 @@ const DiagnosisPatient = () => {
     const [selectPrevDis, setSelectPrevDis] = useState({diseaseNum:'' ,diseaseName:''});
 
     useEffect(()=>{
-        axios.get(`${url}/diagPatientList?docNum=${username}`)  /* 로그인한 아이디 넣어줄 예정 */
+        axios.get(`${url}/diagPatientList?docNum=${username}`)
             .then(res=>{
                 setDiagPatList([...res.data]);
             })
@@ -70,7 +70,6 @@ const DiagnosisPatient = () => {
             .catch(err=>{
                 console.log(err);
             })
-            handleToggle(1);
     }
 
     const handleToggle = (index) => {
@@ -141,12 +140,12 @@ const DiagnosisPatient = () => {
                     </div>
                     <div style={{marginLeft:'45px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
-                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={diagDueInfo.patName} readOnly/></div>
-                            <div style={{marginLeft:"-30px"}}>주민번호 <input className='inputStyle' value={diagDueInfo.patJumin} readOnly/></div>
+                            <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' style={{width:"200px"}} value={diagDueInfo.patName} readOnly/></div>
+                            <div style={{marginLeft:"60px"}}>주민번호 <input className='inputStyle' style={{width:"200px"}}value={diagDueInfo.patJumin} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow' style={{marginLeft:'6px'}}>
-                            <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} readOnly/></div>
-                            <div>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold'}} 
+                            <div>환자번호 <input className='inputStyle' value={diagDueInfo.patNum} style={{width:"200px"}}readOnly/></div>
+                            <div style={{marginLeft:"90px"}}>상태 <input className='inputStyle' style={{color:'#007212', fontWeight:'bold', width:"200px"}} 
                                         value={diagDueInfo.docDiagState === 'ing' ? '진료중' : diagDueInfo.docDiagState} readOnly/></div>
                         </div>
                         <div id="dueInfoRow" className='dueInfoRow'>

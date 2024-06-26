@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Input, Modal, ModalHeader, ModalBody, Table, Button } from 'reactstrap';
 import axios from 'axios';
 import { url } from '../config';
+import '../css/Adm.css';
 
 const AdmDocDiagnosisDue = ({ patient }) => {
     const inputStyle = {
@@ -26,11 +27,12 @@ const AdmDocDiagnosisDue = ({ patient }) => {
     const [selectedDate, setSelectedDate] = useState();
 
     // 진료예약관련
-    const [diagnosisDue, setDiagnosisDue] = useState({
+    const initDiagnosis = {
         diagnosisDueDate: '', diagnosisDueTime: '', diagnosisDueState: '', diagnosisDueEtc: '',
         patNum: 0, patName: '', patJumin: '', patGender: '', patTel: '', patHeight: '', patWeight: '', patBloodType: '', patAddress: '', patHistory: '',
         docNum: 0, docName: ''
-    });
+    };
+    const [diagnosisDue, setDiagnosisDue] = useState(initDiagnosis);
 
     const [tableWidth, setTableWidth] = useState(0);
 
@@ -135,6 +137,7 @@ const AdmDocDiagnosisDue = ({ patient }) => {
         axios.post(`${url}/patientDiagnosisDueRegist`, sendDiagnosisDue)
             .then(res => {
                 alert("진료예약 완료");
+                setDiagnosisDue(initDiagnosis)
             })
             .catch(err => {
                 console.error("진료예약 실패", err);
@@ -148,21 +151,23 @@ const AdmDocDiagnosisDue = ({ patient }) => {
 
     return (
         <div>
-            <div style={{ marginLeft: "35px", paddingBottom:"34px" }}>
-                <img alt='' style={{ marginTop: "0px", width: "40px", height: "40px" }} src="/img/register.png" />&nbsp;
-                <h3 id="LboxHeader" style={{ marginTop: "34px", marginRight: "20px" }}>진료예약</h3><br/><br/>
-                <Table bordered style={{width:"90%"}}>
+            <div style={{ paddingBottom:"34px" }}>
+                <div className="LboxHeader" style={{ display: 'flex', margin:'15px 25px' }}>
+                    <img id="boxIcon" style={{marginTop:'15px', marginLeft:'15px', height:'25px'}} src="./img/register.png" />
+                    <h3 className="admPat-boxHeader">진료예약</h3>
+                </div>
+                <Table className='admDiagnosisDueInfoTable' bordered>
                     <tbody>
                         <tr>
-                            <th width="190px">등록번호</th>
-                            <td width="150px">{patient && patient.patNum}</td>
-                            <th width="90px">이름</th>
-                            <td width="150px">{patient && patient.patName}</td>
-                            <th width="150px">주민등록번호</th>
-                            <td width="190px">{patient && patient.patJumin}</td>
-                            <th width="100px">연락처</th>
-                            <td width="150px">{patient && patient.patTel}</td>
-                            <th width="100px">주소</th>
+                            <th style={{width:'150px'}}>등록번호</th>
+                            <td style={{width:'100px'}}>{patient && patient.patNum}</td>
+                            <th style={{width:'80px'}}>이름</th>
+                            <td style={{width:'90px'}}>{patient && patient.patName}</td>
+                            <th style={{width:'130px'}}>주민등록번호</th>
+                            <td style={{width:'170px'}}>{patient && patient.patJumin}</td>
+                            <th style={{width:'100px'}}>연락처</th>
+                            <td style={{width:'170px'}}>{patient && patient.patTel}</td>
+                            <th style={{width:'100px'}}>주소</th>
                             <td>{patient && patient.patAddress}</td>
                         </tr>
                         <tr>
@@ -184,18 +189,18 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                         <tr>
                             <th>증상</th>
                             <td colSpan={5}>
-                                <input type="text" name="diagnosisDueState"
+                                <input type="text" name="diagnosisDueState" value={diagnosisDue.diagnosisDueState}
                                     style={{border:'none',display:'inline-block', width:'100%',outline:'none'}} onChange={changeValue} />
                             </td>
                             <th>특이사항</th>
                             <td  colSpan={3}>
-                                <input type="text" name="diagnosisDueEtc" 
+                                <input type="text" name="diagnosisDueEtc" value={diagnosisDue.diagnosisDueEtc}
                                     style={{border:'none',display:'inline-block', width:'100%',outline:'none'}} onChange={changeValue} />
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                <select id="admStatus" style={{ ...inputStyle, width: "150px" }}
+                                <select id="admStatus" style={{ ...inputStyle, margin:"0 5px", width: "150px" }}
                                     value={selectedDepartment} onChange={handleDepartmentChange}
                                     name="departmentName">
                                     <option value=""> 진료과 선택 </option>
@@ -206,31 +211,30 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                                     ))}
                                 </select>
                             </th>
-                            <td><Button onClick={openAdmDiagDueModal}>예약시간</Button></td>
+                            <td><Button style={{paddingBottom:'27px', height:'25px', borderRadius:'10px', backgroundColor:'#427889'}} onClick={openAdmDiagDueModal}>예약시간</Button></td>
                             <th>주치의</th>
                             <td>{diagnosisDue.docName}</td>
                             <th>예약일자</th>
                             <td>{diagnosisDue.diagnosisDueDate}</td>
                             <th>예약시간</th>
                             <td>{diagnosisDue.diagnosisDueTime}</td>
-                            <th colSpan={2}><Button>진료접수</Button></th>
+                            <th colSpan={2}><Button style={{paddingBottom:'27px', height:'25px', borderRadius:'10px', backgroundColor:'#427889'}} onClick={patientDiagnosisRegist}>진료접수</Button></th>
                         </tr>
                     </tbody>
                 </Table>
             </div>
 
-            {/* 병명 선택 모달 */}
             <Modal isOpen={admDiagDuedisModalIsOpen} style={{ maxWidth: `${tableWidth + 180}px` }}>
                 <ModalHeader toggle={() => setAdmDiagDuedisModalIsOpen(false)} className='modalTitle' >
                     {selectedDepartmentName}&nbsp;:&nbsp;{selectedDate && selectedDate.toISOString().split('T')[0]}
                 </ModalHeader>
                 <ModalBody className='amdDiagDueModalBodyStyle'>
-                    <table>
+                    <table style={{marginLeft:'22px'}}>
                         <thead>
                             <tr>
                                 <td></td>
                                 <td>
-                               <Input type="date" value={selectedDate && selectedDate.toISOString().split('T')[0]} onChange={dateChange}/>
+                               <Input type="date" min={new Date().toISOString().split('T')[0]} value={selectedDate && selectedDate.toISOString().split('T')[0]} onChange={dateChange}/>
                             </td>
                             <td></td>
                         </tr>
@@ -238,8 +242,8 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                         <tbody>
                             <tr>
                                 <td>
-                                    <button onClick={() => modalChangeDate(-1)}>
-                                        <img src="/prev.png" alt='' width="50px" />
+                                    <button style={{backgroundColor:'uset'}} onClick={() => modalChangeDate(-1)}>
+                                        <img src="./img/arrowLeft.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>&nbsp;
                                 </td>
                                 <td>
@@ -275,16 +279,14 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                                     </Table>
                                 </td>
                                 <td>&nbsp;
-                                    <button onClick={() => modalChangeDate(+1)}>
-                                        <img src="/next.png" alt='' width="50px" />
+                                    <button style={{backgroundColor:'uset'}} onClick={() => modalChangeDate(+1)}>
+                                        <img src="./img/arrowRight.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>
                                 </td>
 
                             </tr>
                         </tbody>
                     </table>
-
-
                 </ModalBody>
             </Modal>
         </div>

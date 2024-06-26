@@ -362,7 +362,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                         </div>
                         <div id='surgeryCheck'>
                             <div className="checkboxStyle">
-                                <input type='checkbox' id="surgery" name='surChecked' value={formData.surChecked} onChange={inputChange}/>
+                                <input type='checkbox' id="surgery" name='surChecked' checked={formData.surChecked} onChange={inputChange}/>
                                 <label htmlFor="surgery">&nbsp;&nbsp;수술</label>
                             </div>
                             <div className="surgeryRequest">
@@ -437,7 +437,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
                         </tbody>
                     </table>
                     <div>
-                        <button className='buttonStyle' style={{margin:"15px 55px 15px 0", float:"right"}} onClick={submitForm}>진료 완료</button>
+                        <button className='buttonStyle' style={{margin:"15px 90px 15px 0", float:"right"}} onClick={submitForm}>진료 완료</button>
                     </div>
                 </div>
             </div>

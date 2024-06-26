@@ -13,7 +13,6 @@ const AdmPatientStorage = ({ patient }) => {
     const [patDiagCheckList, setPatDiagCheckList] = useState([]);
     const [docDiagNum, setDocDiagNum] = useState('');
     const [firstDiagDate, setFirstDiagDate] = useState('');
-    const [patPrescriptionList, setPatPrescriptionList] = useState([]);
 
     const [admCheckModalIsOpen, setAdmCheckModalIsOpen] = useState(false);
     const [patAdmCheckList, setPatAdmCheckList] = useState([]);
@@ -41,15 +40,6 @@ const AdmPatientStorage = ({ patient }) => {
         axios.post(`${url}/patDiagCheckList`, { patNum: patient.patNum })
             .then(res => {
                 setPatDiagCheckList([...res.data]);
-            })
-        toggleTable('prescCheck');
-    }
-
-    // 진료확인서
-    const getPrescriptionList = () => {
-        axios.post(`${url}/patNumPrescriptionList`, { patNum: patient.patNum })
-            .then(res => {
-                setPatPrescriptionList([...res.data]);
             })
         toggleTable('diagCheck');
     }
@@ -88,21 +78,21 @@ const AdmPatientStorage = ({ patient }) => {
                 <div style={{marginLeft:'145px'}}>
                     <span >환자번호</span>
                     <input type="text" name='patNum' value={patient && patient.patNum}
-                        className='inputStyle' style={{width:"90px"}} />
+                        className='admInputStyle' style={{width:"90px"}} readOnly/>
                     <span style={{ marginLeft: "20px" }}>주민등록번호</span>
                     <input type="text" value={patient && patient.patJumin}
-                        className='inputStyle'/>
+                        className='admInputStyle' readOnly/>
                     <span style={{ marginLeft: "20px" }}>이름</span>
                     <input type="text" value={patient && patient.patName}
-                        className='inputStyle' style={{width:"90px"}}/>
+                        className='admInputStyle' style={{width:"90px"}} readOnly/>
                     <span style={{ marginLeft: "20px" }}>성별</span>
                     <input type="text" value={patient && patient.patGender}
-                        className='inputStyle' style={{width:"45px"}}/>
+                        className='admInputStyle' style={{width:"45px"}} readOnly/>
                     <span style={{ marginLeft: "20px" }}>전화번호</span>
                     <input type="text" value={patient && patient.patTel}
-                        className='inputStyle'/>
-                    <button onClick={() => getPatDiagCheckList()} className='buttonStyle' style={{marginLeft:'40px'}}>진료확인서</button>
-                    <button onClick={() => getPatAdmCheckList()} className='buttonStyle'>입·퇴원확인서</button>
+                        className='admInputStyle' readOnly/>
+                    <button onClick={() => getPatDiagCheckList()} className='admStorButtonStyle' style={{marginLeft:'40px'}}>진료확인서</button>
+                    <button onClick={() => getPatAdmCheckList()} className='admStorButtonStyle'>입·퇴원확인서</button>
                     <br /><br />
                     {/* 진료확인서 */}
                     {showTable === 'diagCheck' && patient && (

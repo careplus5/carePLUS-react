@@ -37,6 +37,7 @@ const AdmPatientStorage = ({ patient }) => {
 
     // 진료확인서
     const getPatDiagCheckList = () => {
+        console.log("ggg");
         axios.post(`${url}/patDiagCheckList`, { patNum: patient.patNum })
             .then(res => {
                 setPatDiagCheckList([...res.data]);

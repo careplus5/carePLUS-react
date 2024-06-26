@@ -243,7 +243,7 @@ const DiagResult = ({username, diagPatList, setDiagPatList, diagDueInfo, clearDi
     }
 
     const addFavMedicine = (medicineNum) => {
-        axios.post(`http://localhost:8090/addFavMedicine`, {docNum:username, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
+        axios.post(`${url}/addFavMedicine`, {docNum:username, medicineNum:medicineNum})  /* 로그인한 아이디 넣어줄 예정 */
             .then(res=>{
                 if (res.data === true) {
                     let tmedicine = medicineList.find(med => med.medicineNum === medicineNum);

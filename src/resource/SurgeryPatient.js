@@ -131,7 +131,7 @@ const SurgeryPatient = () => {
                         <img id="boxIcon" style={{ marginTop: "12px" }} src="./img/notice.png" />&nbsp;
                         <h3 className="sboxHeader">&nbsp;수술 환자 정보</h3>
                     </div><br/>
-                    <div style={{marginLeft:'45px'}}>
+                    <div style={{marginLeft:'25px'}}>
                         <div id="dueInfoRow" className='dueInfoRow'>
                             <div style={{marginLeft:"35px"}}>이름 <input className='inputStyle' value={surgeryInfo.patName} readOnly/></div>
                             <div style={{marginLeft:"80px"}}>주민번호 <input className='inputStyle' value={surgeryInfo.patJumin} readOnly/></div>

@@ -63,19 +63,11 @@ const Header = () => {
         const idenSub = username.substring(3,4);
         console.log(iden);
         if (iden == "12") {
-            if(idenSub == "1"){
-                setMenuItems([
-                    { to: "/nurDiagPatientList", label: "환자 조회" },
-                    { to: "/wardPatientList", label: "입퇴원 조회" },
-                    { to: "/wardDailyPresc", label: "처방 일지" },
-                    { to: "/wardList", label: "병동 조회" }]
-                )
-            } else if(idenSub =="2"){
-                setMenuItems([
-                    { to: "/wardPatientList", label: "입퇴원 조회" },
-                    { to: "/wardDailyPresc", label: "처방 일지" },
-                    { to: "/wardList", label: "병동 조회" }])
-            }
+            setMenuItems([
+                { to: "/nurDiagPatientList", label: "환자 조회" },
+                { to: "/wardPatientList", label: "입퇴원 조회" },
+                { to: "/wardDailyPresc", label: "처방 일지" },
+                { to: "/wardList", label: "병동 조회" }])
             
         } else if (iden == "11") {
 

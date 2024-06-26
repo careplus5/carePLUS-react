@@ -47,8 +47,6 @@ const DocDiagPatient = () => {
                 return 'ing';
             case '퇴원':
                 return 'end';
-            case '입원예정':
-                return 'wait';
             case '수술예정':
                 return 'wait';
             case '완료':
@@ -140,7 +138,7 @@ const DocDiagPatient = () => {
                                             '#848484', fontWeight: "bold"
                                 }}>
                                     {docPat.admState === 'ing' ? '입원중' :
-                                        docPat.admState === 'wait' ? '입원예정' : '퇴원'}</td>
+                                        docPat.admState === 'end' ? '퇴원' : '-'}</td>
                                 <td style={{
                                     color: docPat.surState === 'wait' ? '#F09000' :
                                         docPat.surState === 'ing' ? '#007212' :

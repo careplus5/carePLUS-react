@@ -249,13 +249,13 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                         <tbody>
                             <tr>
                                 <td>
-                                    <button onClick={() => {
+                                    <button style={{backgroundColor:'unset'}} onClick={() => {
                                         const newDate = selectedDate;
                                         newDate.setDate(newDate.getDate()-1);                                
                                         setSelectedDate(newDate);
                                         queryNurse(newDate);
                                     }}>
-                                        <img src="/prev.png" alt='' width="50px" />
+                                        <img src="./img/arrowLeft.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>&nbsp;
                                 </td>
                                 <td>
@@ -291,13 +291,13 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                                     </Table>
                                 </td>
                                 <td>&nbsp;
-                                    <button onClick={() => {
+                                    <button style={{backgroundColor:'unset'}} onClick={() => {
                                         const newDate = selectedDate;
                                         newDate.setDate(newDate.getDate()+1);                                
                                         setSelectedDate(newDate);
                                         queryNurse(newDate);
                                     }}>
-                                        <img src="/next.png" alt='' width="50px" />
+                                        <img src="./img/arrowRight.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>
                                 </td>
 
@@ -330,13 +330,13 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                         <tbody>
                             <tr>
                                 <td>
-                                    <button onClick={() => {
+                                    <button style={{backgroundColor:'unset'}} onClick={() => {
                                         const newDate = selectedDate;
                                         newDate.setDate(newDate.getDate()-1);
                                         setSelectedDate(newDate);
                                         selectOper(newDate);
                                     }}>
-                                        <img src="/prev.png" alt='' width="50px" />
+                                        <img src="./img/arrowLeft.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>&nbsp;
                                 </td>
                                 <td>
@@ -372,13 +372,13 @@ const AdmPatientSurgeryDue = ({ patient }) => {
                                     </Table>
                                 </td>
                                 <td>&nbsp;
-                                    <button onClick={() => {
+                                    <button style={{backgroundColor:'unset'}} onClick={() => {
                                         const newDate = selectedDate;
                                         newDate.setDate(newDate.getDate()+1);
                                         setSelectedDate(newDate);
                                         selectOper(newDate);
                                     }}>
-                                        <img src="/next.png" alt='' width="50px" />
+                                        <img src="./img/arrowRight.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>
                                 </td>
                             </tr>

@@ -242,7 +242,7 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                         <tbody>
                             <tr>
                                 <td>
-                                    <button style={{backgroundColor:'uset'}} onClick={() => modalChangeDate(-1)}>
+                                    <button style={{backgroundColor:'unset'}} onClick={() => modalChangeDate(-1)}>
                                         <img src="./img/arrowLeft.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>&nbsp;
                                 </td>
@@ -279,7 +279,7 @@ const AdmDocDiagnosisDue = ({ patient }) => {
                                     </Table>
                                 </td>
                                 <td>&nbsp;
-                                    <button style={{backgroundColor:'uset'}} onClick={() => modalChangeDate(+1)}>
+                                    <button style={{backgroundColor:'unset'}} onClick={() => modalChangeDate(+1)}>
                                         <img src="./img/arrowRight.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>
                                 </td>

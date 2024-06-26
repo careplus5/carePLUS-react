@@ -89,10 +89,10 @@ const AdmPatientPrescription = ({patNum, patients}) => {
                                 <tbody>
                                     {prescriptionList.map(prescription => 
                                     <tr>
-                                        <td>{prescription.patName}</td>
+                                        <td>{patients.patName}</td>
                                         <td>{prescription.prescriptionNum}</td>
                                         <td>{prescription.prescriptionDate}</td>
-                                        <td><button style={{ backgroundColor: 'black' }} onClick={() => openPatientPrescriptionModal(prescription)}>발급</button></td>
+                                        <td><button style={{ backgroundColor: 'black' }} onClick={() => openPatientPrescriptionModal(prescription)}>처방전발급</button></td>
                                     </tr>)}
                                 </tbody>
                             </Table>

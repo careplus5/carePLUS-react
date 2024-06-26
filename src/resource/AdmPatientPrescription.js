@@ -7,11 +7,8 @@ import axios from "axios";
 // 처방전 발급
 const AdmPatientPrescription = ({patNum, patients}) => {
     const printRef = useRef();
-    console.log("next patNum:"+patNum);
     const patient = patNum;
-    console.log(patients);
     const patInfo = patients;
-    console.log(patInfo);
      const [prescriptionList, setPrescriptionList] = useState([]);
     const [prescription, setPrescription] = useState('');
     const [selectedDate, setSelectedDate] = useState();  // 교부년월일
@@ -35,8 +32,8 @@ const AdmPatientPrescription = ({patNum, patients}) => {
     useEffect(()=>{
         axios.post(`${url}/patNumPrescriptionList`,{patNum:patient})
         .then(res => {
-            console.log("관련 데이터는;"+JSON.stringify(res));
-            setPrescriptionList(res.data); // 데이터를 prescriptionList에 설정
+            console.log("관련 데이터는;"+JSON.stringify(res.data));
+            setPrescriptionList([...res.data]); // 데이터를 prescriptionList에 설정
         })
         .catch(err => {
             console.log(patNum+"이 왜 조회안될까염?");
@@ -93,9 +90,9 @@ const AdmPatientPrescription = ({patNum, patients}) => {
                                     {prescriptionList.map(prescription => 
                                     <tr>
                                         <td>{prescription.patName}</td>
-                                        <td>{prescription.prescription.prescriptionNum}</td>
-                                        <td>{prescription.prescription.prescriptionDate}</td>
-                                        <td><button style={{ backgroundColor: 'black' }} onClick={() => openPatientPrescriptionModal(prescription.prescription)}>발급</button></td>
+                                        <td>{prescription.prescriptionNum}</td>
+                                        <td>{prescription.prescriptionDate}</td>
+                                        <td><button style={{ backgroundColor: 'black' }} onClick={() => openPatientPrescriptionModal(prescription)}>발급</button></td>
                                     </tr>)}
                                 </tbody>
                             </Table>

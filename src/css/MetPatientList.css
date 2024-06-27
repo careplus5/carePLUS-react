@@ -59,11 +59,11 @@
 }
 
 .select-box.waiting {
-    color: rgb(251, 222, 0);
+    color: #fbde00;
 }
 
 .select-box.in-progress {
-    color: rgb(37, 184, 37);
+    color: #25b825;
 }
 
 .select-box.completed {

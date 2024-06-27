@@ -231,7 +231,11 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
       const isHoliday = holidays[dateKey] !== undefined;
       
       const eventList = dbEvents[dateKey] || [];
-      const isFullbooked = eventList.length === 18;
+      
+      const surgeryEvents = eventList.filter(event => event.eventType === '수술');
+      const otherEvents = eventList.filter(event => event.eventType !== '수술');
+
+      const isFullbooked = surgeryEvents.length >= 5 || otherEvents.length >= 18;
       
     
       dateRow.push(

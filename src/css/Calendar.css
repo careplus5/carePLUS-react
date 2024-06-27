@@ -6,7 +6,7 @@
     content: attr(data-date);
     position: absolute;
     top: 13px; /* 부모 요소의 상단으로부터의 거리 설정 */
-    left: 66px;
+    left: 66.5px;
     width: 24px; /* 원 지름 설정 */
     height: 24px; /* 원 지름 설정 */
     background-color: red; /* 빨간색 배경 */
@@ -52,7 +52,7 @@
       color: rgb(233, 34, 34); /* 일요일은 빨간색 */
     }
     
-    .day:nth-child(3) , .date:nth-child(3) .date-style {
+    .day:nth-child(6) , .date:nth-child(6) .date-style {
       color: rgb(0, 0, 0);
     }
   

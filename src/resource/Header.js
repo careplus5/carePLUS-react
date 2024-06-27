@@ -83,7 +83,7 @@ const Header = () => {
         }
         else if (iden == "14") {
             setMenuItems([
-                { to: "/metMain", label: "메인" }
+                { to: "/metMain", label: "CT실" }
             ]);
         }
         else if (iden == "99") {

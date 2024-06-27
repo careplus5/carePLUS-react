@@ -38,7 +38,7 @@ const MetRequest = () => {
 
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 60000);
+        const interval = setInterval(fetchData, 7000);
         return () => clearInterval(interval);
     }, [dept2Name]);
 

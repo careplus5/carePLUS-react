@@ -133,7 +133,6 @@ const AdmDocDiagnosisDue = ({ patient }) => {
             diagnosisDueTime: diagnosisDue.diagnosisDueTime + ':00',
             patNum: patient != null ? patient.patNum : null
         }
-        console.log(sendDiagnosisDue)
         axios.post(`${url}/patientDiagnosisDueRegist`, sendDiagnosisDue)
             .then(res => {
                 alert("진료예약 완료");

@@ -204,8 +204,10 @@ const AdmPatientTest = ({ patient }) => {
                                         console.log(newDate);
                                         setSelectedDate(newDate);
                                         testReserveTime(selTest, newDate);
-                                    }}>
-                                        <img src="/prev.png" alt='' width="50px" />
+                                    }}
+                                    style={{backgroundColor:'unset'}}
+                                    >
+                                        <img src="./img/arrowLeft.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>&nbsp;
                                 </td>
                                 <td>
@@ -235,8 +237,10 @@ const AdmPatientTest = ({ patient }) => {
                                         console.log(newDate);
                                         setSelectedDate(newDate);
                                         testReserveTime(selTest, newDate);
-                                    }}>
-                                        <img src="/next.png" alt='' width="50px" />
+                                    }}
+                                        style={{backgroundColor:'unset'}}
+                                    >
+                                        <img src="./img/arrowRight.png" className='admDiagModalArrowIcon' alt='' width="50px" />
                                     </button>
                                 </td>
 

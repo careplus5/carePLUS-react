@@ -26,7 +26,10 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
           document.removeEventListener('mousedown', handleOutsideClick);
       };
   }, []);
-
+  const patJumin = patient.patJumin;
+  const birthYear = patJumin ? parseInt(patJumin.substring(0, 2)) + 1900 : null;
+  const currentYear = new Date().getFullYear();
+  const age = birthYear ? currentYear - birthYear : null;
     
   
     return (
@@ -43,11 +46,10 @@ const MetPatientModal = ({ patient, onClose, onStatusChange, position }) => {
                         <option value="wait">보류</option>
                     </select>
                 </span>
-                <p>병실: {patient.room} </p>
-                이름: {patient.patName} SA: {patient.patGender}/{patient.patJumin}
-                <p>환자 번호: {patient.patNum}</p>
-                <p>혈액형: {patient.bloodType}</p>
-                <p>검사: {patient.testPart}</p>
+                {/* <p>병실: {patient.room} </p> */}
+                <br/>이름: {patient.patName} SA: {patient.patGender}/{age}
+                <br/>환자 번호: {patient.patNum}
+                <br/>혈액형: {patient.patBloodType}<br/>검사: {patient.testPart}
                 <p>상태: {patient.testRequestAcpt}</p>
             </div>
         </div>

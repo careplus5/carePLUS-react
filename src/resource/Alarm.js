@@ -4,7 +4,7 @@ const Alarm = ({ alarm }) => {
 
     return (
         <>
-            <div className='newNotice-container'>
+            <div className='newNotice-container' style={{padding:"10px"}}>
                 <div className='newNotice-img'>
                     <img src='/img/notification.png' alt='알림 사진'/>
                 </div>

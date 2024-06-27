@@ -20,6 +20,7 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
   const [userName, setUserName] = useState('');
   const [deptName, setDeptName] = useState('');
   const [dept2Name, setDept2Name] = useState('');
+  const [jobNum, setjobNum] = useState('');
 
   useEffect(() => {
     axios.get(`${url}/userInfo?userId=${userId}`)
@@ -27,6 +28,7 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
           setUserName(res.data.empName);
           setDeptName(res.data.departmentName);
           setDept2Name(res.data.department2Name);
+          setjobNum(res.data.jobNum);
         })
         .catch((err)=>{
           console.log(err);
@@ -35,27 +37,34 @@ const Calendar = ({ onClose, onDateSelect,onEventClick, isOpen, }) => { //, isOp
       const fetchEvents = async () => {
         try {
           const response = await axios.get(`${url}/schedules?userId=${userId}`);
-          
+            console.log(response);
+            console.log(jobNum);
           const eventsByDate = response.data.reduce((acc, event) => {
             const dateKey = event.startDate;
+            // acc[dateKey]가 없을 경우 초기화
             if (!acc[dateKey]) {
               acc[dateKey] = [];
             }
+            // acc[dateKey] 배열에 이벤트 추가
             acc[dateKey].push({
               id: event.id,
               title: event.title,
-              startTime: event.startTime,
               eventType: event.scheduleType
             });
-            return acc;
-          }, {});
-          setDbEvents(eventsByDate);
-        } catch (error) {
-          console.error('Error fetching events', error);
-        }
-      };
-      fetchEvents();
+
+        return acc;
+      }, {});
+
+      setDbEvents(eventsByDate); // state 업데이트
+
+    } catch (error) {
+      console.error('Error fetching events', error);
     }
+  };
+
+  fetchEvents(); // 함수 호출
+
+}
   }, [mode, userId]);
 
   const holidays = {

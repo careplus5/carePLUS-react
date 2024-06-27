@@ -189,8 +189,8 @@ const Admin = () => {
     }
 
     const addNotice = (e) => {
-        if (notice.noticeTitle.length > 25) {
-            alert("제목은 25자 미만으로 작성해 주시기 바랍니다");
+        if (notice.noticeTitle.length > 30) {
+            alert("제목은 30자 미만으로 작성해 주시기 바랍니다");
         } else {
             axios.post(`${url}/noticeWrite`, notice)
                 .then(res => {
@@ -257,8 +257,8 @@ const Admin = () => {
     }
 
     const noticeModify = (e) => {
-        if (selNotice.noticeTitle.length > 25) {
-            alert("제목은 25자 미만으로 작성해 주시기 바랍니다");
+        if (selNotice.noticeTitle.length > 30) {
+            alert("제목은 30자 미만으로 작성해 주시기 바랍니다");
         } else {
             axios.post(`${url}/noticeModify`, { ...selNotice, category: null })
                 .then(res => {
@@ -333,7 +333,7 @@ const Admin = () => {
                                 <option value={"title"}>제목</option>
                                 <option value={"content"}>내용</option>
                             </select>|<input type="text" id="keyword" placeholder=' 검색' value={noticeWord} onChange={(e) => setNoticeWord(e.target.value)} />
-                            <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchNotice(1)}><button id="searchButton1"> </button></label>
+                            <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchNotice(1)}><button id="searchButton1" style={{top:"10px"}}> </button></label>
                         </div>
                     </div>
                     <table className='list-table'>
@@ -387,33 +387,33 @@ const Admin = () => {
                             <option value={"14"}>의료기사</option>
                         </select>
                         {searchEmpJobName == "11" &&
-                            <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
+                            <span className="admSearchbar" style={{backgroundColor:"#f7f7f7"}}>
+                                <select id="admKeywordSort" style={{backgroundColor:"#f7f7f7" ,fontSize:"15px"}} name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"departmentName"}>부서</option>
                                     <option value={"empName"}>이름</option>
                                 </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1) } style={{top:"-35px"}} ><button id="searchButton1"> </button></label>
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1) } style={{top:"-30px"}} ><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "12" &&
-                            <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
+                            <span className="admSearchbar" style={{backgroundColor:"#f7f7f7"}}>
+                                <select id="admKeywordSort" style={{backgroundColor:"#f7f7f7" ,fontSize:"15px"}} name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"departmentName"}>부서</option>
                                     <option value={"empPosition"}>구분</option>
                                     <option value={"empName"}>이름</option>
                                 </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-35px"}}><button id="searchButton1"> </button></label>
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-30px"}}><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "13" &&
-                            <span className="admSearchbar">
-                                <select id="admKeywordSort" name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
+                            <span className="admSearchbar" style={{backgroundColor:"#f7f7f7"}}>
+                                <select id="admKeywordSort" style={{backgroundColor:"#f7f7f7" ,fontSize:"15px"}} name='empType' value={empType} onChange={(e) => setEmpType(e.target.value)}>
                                     <option>선택</option>
                                     <option value={"empName"}>이름</option>
                                 </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-35px"}}><button id="searchButton1"> </button></label>
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-30px"}}><button id="searchButton1"> </button></label>
                             </span>
                         }
                         {searchEmpJobName == "14" &&
@@ -423,7 +423,7 @@ const Admin = () => {
                                     <option value={"department2Name"}>소속</option>
                                     <option value={"empName"}>이름</option>
                                 </select >|<input type="text" id="keyword" name='empWord' value={empWord} placeholder=' 검색' onChange={(e) => setEmpWord(e.target.value)} />
-                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)}><button id="searchButton1"> </button></label>
+                                <label id="searchButton2" htmlFor="searchButton1" onClick={() => searchEmployee(1)} style={{top:"-30px"}}><button id="searchButton1"> </button></label>
                             </span>
                         }
                     </div>
@@ -621,7 +621,7 @@ const Admin = () => {
                                             <option value={12}>간호사</option>
                                             <option value={13}>원무과</option>
                                             <option value={14}>의료기사</option>
-                                        </select>|
+                                        </select>
                                         <input type="text" className="notice-input" name='noticeTitle' value={notice.noticeTitle} onChange={noticeAddChange} style={{fontFamily:"Pretendard-Regular", backgroundColor:"#f7f7f7"}}/>
                                     </div>
                                     <div className="textarea">
@@ -635,7 +635,7 @@ const Admin = () => {
                             {index === 1 && (
                                 <div className='accordion-group'>
                                     <div className="input-group" style={{backgroundColor:"#f7f7f7"}}>
-                                        <input type='text' className="adm-notice-select" name='noticeCategory' value={selNotice.noticeCategory} onChange={noticeModifyChange} style={{ width: '55px',backgroundColor:"#f7f7f7" }} disabled />|
+                                        <input type='text' className="adm-notice-select" name='noticeCategory' value={selNotice.noticeCategory} onChange={noticeModifyChange} style={{ width: '55px',backgroundColor:"#f7f7f7" }} disabled />
                                         <input type="text" className="notice-input" name='noticeTitle' style={{backgroundColor:"#f7f7f7"}}value={selNotice.noticeTitle} onChange={noticeModifyChange} />
                                     </div>
                                     <div className="textarea">
@@ -726,7 +726,7 @@ const Admin = () => {
                                                             <option>선택</option>
                                                             <option value={"10,소화기과"}>소화기과</option>
                                                             <option value={"20,순환기과"}>순환기과</option>
-                                                            <option value={"30,순환기과"}>호흡기과</option>
+                                                            <option value={"30,호흡기과"}>호흡기과</option>
                                                             <option value={"40,내분비과"}>내분비과</option>
                                                         </select>
                                                     </div>
@@ -1017,7 +1017,97 @@ const Admin = () => {
                                                 </div>
                                             </>
                                         }
+                                          {selEmployee.jobNum == "13" &&
+                                            <>
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>사번 </div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empNum} name="empNum" onChange={empModifyChangeValue} disabled /></div>
+                                                </div>
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>부서이름 </div>
+                                                    <div className='row-content'><input type="text" name="departmentName" onChange={empModifyChangeValue} disabled /></div>
+                                                </div>
 
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>소속</div>
+                                                    <div className='row-content'>
+                                                        <input type="text" name='department2Name' onChange={empModifyChangeValue} disabled />
+                                                    </div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>이름</div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empName} name='empName' onChange={empModifyChangeValue} /></div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>전화번호</div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empTel} name='empTel' onChange={empModifyChangeValue} /></div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>이메일</div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empEmail} name='empEmail' onChange={empModifyChangeValue} /></div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>비밀번호</div>
+                                                    <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
+                                                </div>
+                                                <div className='button-container'>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭 제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수 정</button>
+                                                </div>
+                                            </>
+                                        }
+
+                                        {selEmployee.jobNum == "14" &&
+                                            <>
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>사번 </div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empNum} name="empNum" onChange={empModifyChangeValue} disabled /></div>
+                                                </div>
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>부서이름 </div>
+                                                    <div className='row-content'><input type="text" name="departmentName" value={"방사선과"} disabled /></div>
+                                                </div>
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>소속 </div>
+                                                    <div className='row-content'>
+                                                        <select type="text" name="department" value={`${selEmployee.departmentNum},${selEmployee.department2Name}`} onChange={department1And2Change} >
+                                                            <option>선택</option>
+                                                            <option value={"56,CT"}>CT</option>
+                                                            <option value={"57,MRI"}>MRI</option>
+                                                            <option value={"58,초음파"}>초음파</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>이름</div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empName} name='empName' onChange={empAddChangeValue} /></div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>전화번호</div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empTel} name='empTel' onChange={empAddChangeValue} /></div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>이메일</div>
+                                                    <div className='row-content'><input type="text" value={selEmployee.empEmail} name='empEmail' onChange={empAddChangeValue} /></div>
+                                                </div>
+
+                                                <div className='emp-right-unit'>
+                                                    <div className='row-title'>비밀번호</div>
+                                                    <div className='row-content'><input type="text" name='empPassword' onChange={empAddChangeValue} /></div>
+                                                </div>
+                                                <div className='button-container'>
+                                                    <button className="del-button" style={{ backgroundColor: 'lightgray' }} onClick={() => employeeDelete(selEmployee.empNum)}>삭 제</button>
+                                                    <button className="emp-add-button" style={{ backgroundColor: '#427889' }} onClick={empModify}>수 정</button>
+                                                </div>
+                                            </>
+                                        }
                              
                                     </div>
                                 </>

@@ -79,7 +79,7 @@ const MetRequest = () => {
     const handleStatusChange = async (newTestRequestAcpt) => {
         if (!selectedPatient) return;
         try {
-            
+
               console.log(selectedPatient.testRequestNum)
             // 백엔드에서 상태 업데이트
             const response = await axios.post(`${url}/updateRequestStatus`, {

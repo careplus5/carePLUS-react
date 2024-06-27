@@ -55,8 +55,8 @@ const Notice = ({ isNoticeListOpen, setIsNoticeListOpen }) => {
                     <span className="section-title">공지사항</span>
                     <button className="noticeClose" onClick={closeModal}>&times;</button>
                 </div>
-                <div className="noticeSearchbar">
-                    <select id="noticeKeyword" onChange={(e) => setNoticeType(e.target.value)}>
+                <div className="noticeSearchbar" style={{backgroundColor:"#f7f7f7"}}>
+                    <select id="noticeKeyword" onChange={(e) => setNoticeType(e.target.value)} style={{backgroundColor:"#f7f7f7"}}>
                         <option>선택</option>
                         <option value={"category"}>카테고리</option>
                         <option value={"title"}>제목</option>

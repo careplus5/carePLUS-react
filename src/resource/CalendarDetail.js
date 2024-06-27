@@ -79,48 +79,34 @@ const EventModal = ({ date, events, addEvent, deleteEvent, editEvent, onClose, m
   const month = dateArray[1]; 
   const day = dateArray[2];
 
-  // return (
-  //   <div className="eventpopup-overlay">
-  //     <div className="eventpopup-content">
-  //       <span className="close-btn" onClick={onClose}>&times;</span>
-  //       <h2>{year}년 {month}월 {day}일</h2>
-  //       {mode === 'local' && (
-  //         <>
-  //           <ul>
-  //             {eventList.map((event, index) => (
-  //               <li key={index}>
-  //                 <span>{event.title}</span>
-  //                 <button onClick={() => handleEditEvent(index)}>수정</button>
-  //                 <button onClick={() => handleDeleteEvent(index)}>삭제</button>
-  //               </li>
-  //             ))}
-  //           </ul>
-  //           <input
-  //             type="text"
-  //             value={newEvent.title}
-  //             onChange={(e) => setNewEvent({...newEvent, title: e.target.value })}
-  //             placeholder="새 이벤트 추가"
-  //           />&nbsp;&nbsp;&nbsp;
-  //           <input
-  //             type="color"
-  //             value={newEvent.backgroundColor}
-  //             onChange={(e) => setNewEvent({ ...newEvent, backgroundColor: e.target.value })}
-  //           />
-  //           <button onClick={handleAddEvent}>추가</button>
-  //         </>
-  //       )}
-  //       {mode === 'db' && (
-  //         <>
-  //           <ul>
-  //             {dbEvents[date]?.map((event, index) => (
-  //               <li key={index}>{event.title}</li>
-  //             ))}
-  //           </ul>
-  //         </>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
+  const getBackgroundColor = (eventType) => {
+    switch (eventType) {
+        case '검사':
+            return '#b3d4fc'; // Example color for meeting events
+        case '진료':
+            return '#ace4a6'; // Example color for training events
+        case '수술':
+            return '#e9c7e9'; // Example color for training events    
+        default:
+            return '#f0f0f0'; // Default color if eventType is not recognized
+    }
+};
+
+// "근무" 모드의 이벤트를 렌더링할 때 사용되는 JSX
+const renderWorkModeEvents = () => {
+  return dbEvents[date]?.map((event, index) => {
+    const backgroundColor = getBackgroundColor(event.eventType);
+    return (
+      <li key={index} style={{padding:'5px'}}>
+        <span style={{ backgroundColor: backgroundColor, width: '10px', height:'10px', borderRadius:'50%' , display: 'inline-block', marginLeft:'-20px', marginRight:'20px' }}></span>
+        [{event.eventType}] {event.title} {event.content}
+      </li>
+    );
+  });
+};
+
+  
+  
   return (
     <div className="eventpopup-overlay">
       <div className="eventpopup-content">
@@ -172,13 +158,21 @@ const EventModal = ({ date, events, addEvent, deleteEvent, editEvent, onClose, m
             <img className='meticon' style={{cursor:'pointer',verticalAlign:'middle'}} src='./img/plus.png' alt='Met Icon' onClick={handleAddEvent}/>
           </>
         )}
-        {mode === '근무' && (
+        {/* {mode === '근무' && (
           <>
             <ul style={{listStyleType:'none'}}>
               {dbEvents[date]?.map((event, index) => (
                 <li key={index} style={{padding:'5px'}}>
-                  [{event.eventType}] {event.title} {event.content} / {event.startTime} </li>
+                  <span style={{ backgroundColor: backgroundColor, width: '10px', height:'10px', borderRadius:'50%' , display: 'inline-block', marginLeft:'-20px', marginRight:'20px' }}></span>
+                  [{event.eventType}] {event.title} {event.content} </li>
               ))}
+            </ul>
+          </>
+        )} */}
+          {mode === '근무' && (
+          <>
+            <ul style={{listStyleType:'none'}}>
+              {renderWorkModeEvents()}
             </ul>
           </>
         )}

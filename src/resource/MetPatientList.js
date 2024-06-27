@@ -24,8 +24,6 @@ const MetPatientList = ({ onPatientSelect, userInfo }) => {
 
     const sortPatients = (patients) => {
         return patients.sort((a, b) => {
-            const timeA = new Date(a.testAppointmentTime);
-            const timeB = new Date(b.testAppointmentTime);
             const statusPriority = {
                 'wait': 1,
                 'progress': 0,
@@ -37,8 +35,8 @@ const MetPatientList = ({ onPatientSelect, userInfo }) => {
             if (statusPriority[a.testStatus] > statusPriority[b.testStatus]) return 1;
 
             // 상태가 같은 경우 예약 시간으로 비교
-            if (timeA < timeB) return -1;
-            if (timeA > timeB) return 1;
+            if (a.testAppointmentTime < b.testAppointmentTime) return -1;
+            if (a.testAppointmentTime > b.testAppointmentTime) return 1;
 
             return 0; // 동일한 경우
         });

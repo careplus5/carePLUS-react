@@ -26,15 +26,14 @@
     margin-right: 30px; /* 각 항목 사이에 간격을 둡니다 */
     display: inline-block; /* 각 항목을 인라인 블록 요소로 설정하여 가로로 정렬되도록 합니다 */
     height: 150px;
+    width: 220px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .patient-info {
-    width: 170px;
     font-size: 15px;
-    /* overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block; */
+    width: 220px;
 }
 /* .patient-item:hover::after {
     content: attr(data-tooltip);

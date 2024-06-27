@@ -89,9 +89,9 @@ const MetPatientList = ({ onPatientSelect, userInfo }) => {
                                 onChange={(event) => handleStatusChange(patient.testNum, event)}
                             >
                                 {/* <option value="">상태 선택</option> */}
-                                <option value="wait" style={{ color: 'black' }}>대기중</option>
-                                <option value="progress" style={{ color: 'black' }}>진행중</option>
-                                <option value="complete" style={{ color: 'black' }}>완료</option>
+                                <option value="wait" style={{ color: 'black', fontSize:'13px',textAlign:'center'}}>대기중</option>
+                                <option value="progress" style={{ color: 'black', fontSize:'13px',textAlign:'center' }}>진행중</option>
+                                <option value="complete" style={{ color: 'black', fontSize:'13px',textAlign:'center' }}>완료</option>
                             </select><br />
                             {patient.room} {patient.patName} ({patient.patGender}/{age})<br /> {patient.patNum} {patient.patBloodType}형
                             <div style={{fontWeight:'500', paddingTop:'5px'}}>검사 : {patient.testPart}</div>

@@ -108,7 +108,7 @@ const enterPress = (e) =>{
             console.error("error:"+err);
         })
        
-    },[count]);
+    },[count, username]);
     // jotai 
     // 토큰 세션스토리지에 넣으렴 .
     useEffect(() => {

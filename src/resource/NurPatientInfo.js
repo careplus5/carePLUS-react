@@ -121,7 +121,6 @@ const NurPatientInfo = () => {
         setWriteButton(!writeButton);
     }
 return (<div className="background">
-<br/>
 {admissionStatus === "end" ? <div className="disChargeBox" style={{
 width:"1590px"
 ,backgroundColor:"#FFFDF8"
@@ -129,11 +128,11 @@ width:"1590px"
 ,height:"100px"
 ,borderRadius:"15px"
 ,boxShadow:"0 1px 1px 0 lightgray"
+,marginBottom:'20px'
 }}><div style={{padding:"10px", backgroundColor:" #FFFDF8"}}>
             <h3 className="sboxHeader" style={{marginLeft:"20px"}}>퇴원 정보</h3></div>
             <div className="dueInfoRow" style={{marginLeft:"30px", backgroundColor:"#FFFDF8"}}>해당 환자는 {admission.admissionDischargeDate}일에 퇴원하였습니다.
             <br/></div></div> : ''}
-<br/>
     <div className="leftBox">
         <div className="patProfile" style={{height:"610px"}}>
         <div className="boxHeader">

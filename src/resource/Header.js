@@ -63,20 +63,10 @@ const Header = () => {
         const idenSub = username.substring(3,4);
         console.log(iden);
         if (iden == "12") {
-            if(idenSub == "1"){
                 setMenuItems([
-                    { to: "/nurDiagPatientList", label: "환자 조회" },
                     { to: "/wardPatientList", label: "입퇴원 조회" },
-                    { to: "/wardDailyPresc", label: "처방 일지" },
                     { to: "/wardList", label: "병동 조회" }]
                 )
-            } else if(idenSub =="2"){
-                setMenuItems([
-                    { to: "/wardPatientList", label: "입퇴원 조회" },
-                    { to: "/wardDailyPresc", label: "처방 일지" },
-                    { to: "/wardList", label: "병동 조회" }])
-            }
-            
         } else if (iden == "11") {
 
             setMenuItems([
@@ -89,7 +79,6 @@ const Header = () => {
         } else if (iden == "13") {
             setMenuItems([
                 { to: "/adm", label: "원무과 업무" },
-                { to: "/wardPatientList", label: "예약 메시지" },
             ]);
         }
         else if (iden == "14") {
@@ -127,7 +116,7 @@ const Header = () => {
                     <Route path="/metMain" element={<MetMain/>}/>
                     <Route path="/docSurgeryDiag" element={<SurgeryPatient/>}/>
                     <Route path="/wardDailyPresc" element={<NurDailyPrescription/>}/>
-                    <Route path="/MetMain" element={<MetMain/>}/>
+                    <Route path="/metMain" element={<MetMain/>}/>
                     <Route path="/nurDiagPatientList" element={<NurDiagPatientList/>}/>
                     <Route path="/adm" element={<Adm/>}/>
                     <Route path="/nurpatientinfo/:admissionNum" element={<NurPatientInfo />} />
@@ -135,9 +124,6 @@ const Header = () => {
                     <Route path="/admin" element={<Admin/>}/>
                     <Route path="/docAdmissionDiag" element={<AdmissionDiagPatient/>}/>
                     <Route path="/docDiagPatient" element={<DocDiagPatient/>}/>
-                    {/* <Route path="/adm" element={<Adm/>}/> */}
-                    {/* <Route path="/wardDailyPresc" element={}/>
-                    <Route path="/wardList" element={}/> */}
                      <Route path="/wardList" element={<NurWardList/>}/>
                     </Routes>
                 </div>

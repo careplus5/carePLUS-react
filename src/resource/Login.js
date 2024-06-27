@@ -46,8 +46,14 @@ const Login = ({ onLoginSuccess }) => {
                    const iden = emp.username.slice(0,2);
                    if(iden==="99"){
                     navigate("/admin")
-                   } else{
-                    navigate("/organ");
+                   } else if(iden==="11"){
+                    navigate("/docDiagPatient");
+                   } else if(iden==="12"){
+                    navigate("/nurPatientList");
+                   } else if(iden==="13"){
+                    navigate("/adm");
+                   } else if(iden==="14"){
+                    navigate("/metMain");
                    }
                    
             })
@@ -81,7 +87,6 @@ const Login = ({ onLoginSuccess }) => {
                             <input type="password" name="password" id="password" onChange={changeValue}/>
                     </div>
                     <div className="loginButton">
-                        <button id="rePw">PW 재설정</button> &nbsp;
                         <button id="loginSuccess" onClick={submit} >로그인</button>
                     </div>
                 </div>

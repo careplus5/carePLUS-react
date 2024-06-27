@@ -3,7 +3,7 @@ import '../css/App.css';
 import axios from 'axios';
 import {useNavigate, Routes, Route, Link} from 'react-router-dom';
 import { url } from '../config';
-const NurDisAdmModal = ({ admissionNum }) => {
+const NurDisAdmModal = ({ admissionNum,toggle }) => {
     // 퇴원 버튼 눌렀을 때 나오는 모달
     const navigate = useNavigate();
     function admDischargeSaved () {
@@ -28,7 +28,8 @@ console.log(day);
         .then(res=>{
         console.log(admissionDischargeDate);
             console.log(res);
-            navigate("/nurPatientInfo/"+admissionNum);
+            toggle(false); // Close the modal upon successful submission
+            navigate(`/nurPatientInfo/${admissionNum}`); // Redirect to another page
         })
         .catch(err=>{
             console.log(err);

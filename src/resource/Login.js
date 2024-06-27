@@ -47,7 +47,7 @@ const Login = ({ onLoginSuccess }) => {
                    if(iden==="99"){
                     navigate("/admin")
                    } else if(iden==="11"){
-                    navigate("/docDiagPatient");
+                    navigate("/docDiagnosis");
                    } else if(iden==="12"){
                     navigate("/nurPatientList");
                    } else if(iden==="13"){

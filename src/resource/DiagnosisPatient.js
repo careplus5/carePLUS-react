@@ -15,7 +15,7 @@ const DiagnosisPatient = () => {
     const [accodionIndex, setAccodionIndex] = useState(null);
     const [selectPrevDis, setSelectPrevDis] = useState({diseaseNum:'' ,diseaseName:''});
 
-    useEffect(()=>{
+    const fetchData = () => {
         axios.get(`${url}/diagPatientList?docNum=${username}`)
             .then(res=>{
                 setDiagPatList([...res.data]);
@@ -23,7 +23,13 @@ const DiagnosisPatient = () => {
             .catch(err=>{
                 console.log(err);
             })
-    }, [username])
+    };
+
+    useEffect(() => {
+        fetchData();
+        const interval = setInterval(fetchData, 7000);
+        return () => clearInterval(interval);
+    }, [username]);
 
     const clickDiagnosis = (diagPat) => {
         let docDiagNum = diagPat.docDiagNum;

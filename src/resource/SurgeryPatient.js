@@ -15,7 +15,7 @@ const SurgeryPatient = () => {
     });
     const [surNurList, setSurNurList] = useState([]);
 
-    useEffect(()=>{
+    const fetchData = () => {
         axios.get(`${url}/surPatientList?docNum=${username}`)
             .then(res=>{
                 setSurPatList([...res.data]);
@@ -23,7 +23,13 @@ const SurgeryPatient = () => {
             .catch(err=>{
                 console.log(err);
             })
-    },[username])
+    };
+
+    useEffect(() => {
+        fetchData();
+        const interval = setInterval(fetchData, 7000);
+        return () => clearInterval(interval);
+    }, [username]);
 
     const clickSurgery = (surPat) => {
         let surgeryNum = surPat.surgeryNum;
@@ -165,7 +171,7 @@ const SurgeryPatient = () => {
                         <div className='surInfoRow'>
                             <div>수술 예상 시간 <input className='surInfoInputStyle' value={surgeryInfo.surPeriod} readOnly/></div>
                             <div>수술실 <input className='surInfoInputStyle' value={surgeryInfo.operationRoomNum} readOnly/></div>
-                            <div style={{marginLeft:"100px"}}>수술 예정 시간 <input className='surInfoInputStyle' value={surgeryInfo.surgeryStartTime} readOnly/></div>
+                            <div style={{marginLeft:"100px"}}>수술 예정 시간 <input className='surInfoInputStyle' value={surgeryInfo.surPeriod} readOnly/></div>
                         </div>
                         <div className='surInfoRow'>
                             <div>수술 내용 <input className='surInfoInputStyle' style={{width: "910px", marginBottom:'5px'}} value={surgeryInfo.surReason} readOnly/></div>

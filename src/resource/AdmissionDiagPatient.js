@@ -25,16 +25,22 @@ const AdmissionDiagPatient = () => {
     const [newRecordDate, setNewRecordDate] = useState('');
     const [isAddButtonClick, setIsAddButtonClick] = useState(false);
 
-    useEffect(()=>{
+    const fetchData = () => {
         axios.get(`${url}/admDiagPatientList?docNum=${username}`)
-            .then(res=>{
-                setAdmPatList([...res.data]);
-                setDocName(res.data[0].docName);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
-    }, [username])
+        .then(res=>{
+            setAdmPatList([...res.data]);
+            setDocName(res.data[0].docName);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    };
+
+    useEffect(() => {
+        fetchData();
+        const interval = setInterval(fetchData, 7000);
+        return () => clearInterval(interval);
+    }, [username]);
 
     const clickDiagnosis = (admPat) => {
         let admNum = admPat.admissionNum;

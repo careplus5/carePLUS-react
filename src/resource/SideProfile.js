@@ -15,7 +15,7 @@ const SideProfile = () => {
                 const res = await axios.get(`${url}/userInfo?userId=${userId}`);
                 const { empName, departmentName, department2Name, profNum } = res.data;
                 const ProfileData = {
-                    profileImg: `${url}/image/${profNum}`,
+                    profileImg: `${url}/profile/${profNum}`,
                     name: `${empName} 님`,
                     department: departmentName,
                     department2: department2Name,

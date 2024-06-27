@@ -30,7 +30,7 @@ const AdmPatientAdmmission = ({ patient }) => {
                     docNum: resAdmissionRequest.docNum,
                     jobNum: resAdmissionRequest.jobNum,
                     patNum: resAdmissionRequest.patNum,
-                    departmentNum: resAdmissionRequest.departmentNum,
+                    jobNum: resAdmissionRequest.departmentNum,
                     admissionReason: resAdmissionRequest.admissionRequestReason,
                     admissionStatus: 'ing', //?
                 })

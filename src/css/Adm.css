@@ -411,3 +411,11 @@ background-image: url('/public/img/prescription.png');
 .admDiagModalArrowIcon {
   width: 30px;
 }
+
+.admCheckModalprintButton {
+  float: right;
+  width: 106px;
+  margin: 10px 20px;
+  margin-top: -5px;
+
+}

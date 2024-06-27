@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../css/AdmDiagCheckModal.css';
 import axios from 'axios';
 import { url } from '../config';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import ReactToPrint from "react-to-print";
 
 const AdmDischargeCheckModal = ({admCheckModalIsOpen, openAdmCheckModal, admNum, getCurrentDate}) => {
 
@@ -12,6 +13,7 @@ const AdmDischargeCheckModal = ({admCheckModalIsOpen, openAdmCheckModal, admNum,
         admissionRecordDate:'', admissionRecordContent:'', diseaseName:''
     });
     const [admDiagList, setAdmDiagList] = useState([]);
+    const printRef = useRef();
 
     useEffect(()=>{
         axios.get(`${url}/patAdmCheckInfo?admNum=${admNum}`)
@@ -34,7 +36,9 @@ const AdmDischargeCheckModal = ({admCheckModalIsOpen, openAdmCheckModal, admNum,
     return (
         <Modal isOpen={admCheckModalIsOpen} toggle={openAdmCheckModal} style={{ maxWidth: "850px" }}>
             <ModalBody className='diagCheckModalBody'>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex" }}
+                    ref={printRef}
+                >
                     <div className='diagCheckContainer'>
                         <div className='diagCheckTitle'>입 · 퇴 원 확 인 서</div>
                         <table className="diagCheckFormat" border='1' style={{ padding: "var(--bs-modal-padding)", width: "95%", marginBottom:'20px' }}>
@@ -107,6 +111,12 @@ const AdmDischargeCheckModal = ({admCheckModalIsOpen, openAdmCheckModal, admNum,
                                 </tr>
                             </tbody>
                         </table>
+                    <ReactToPrint
+                        trigger={() => <button className="printButton admCheckModalprintButton">프린트</button>}
+                        content={() => printRef.current
+                        }
+                        pageStyle="@page { size: A4; margin: 20mm; } body { -webkit-print-color-adjust: exact; width: 210mm; height: 297mm; display: flex; justify-content: center; align-items: center; }"
+                    />
                     </div>
                 </div>
             </ModalBody>

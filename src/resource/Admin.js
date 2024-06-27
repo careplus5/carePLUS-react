@@ -189,8 +189,8 @@ const Admin = () => {
     }
 
     const addNotice = (e) => {
-        if (notice.noticeTitle.length > 25) {
-            alert("제목은 25자 미만으로 작성해 주시기 바랍니다");
+        if (notice.noticeTitle.length > 30) {
+            alert("제목은 30자 미만으로 작성해 주시기 바랍니다");
         } else {
             axios.post(`${url}/noticeWrite`, notice)
                 .then(res => {
@@ -257,8 +257,8 @@ const Admin = () => {
     }
 
     const noticeModify = (e) => {
-        if (selNotice.noticeTitle.length > 25) {
-            alert("제목은 25자 미만으로 작성해 주시기 바랍니다");
+        if (selNotice.noticeTitle.length > 30) {
+            alert("제목은 30자 미만으로 작성해 주시기 바랍니다");
         } else {
             axios.post(`${url}/noticeModify`, { ...selNotice, category: null })
                 .then(res => {

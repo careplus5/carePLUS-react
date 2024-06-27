@@ -212,6 +212,7 @@
     min-height: 700px;
     max-height: 700px;
     overflow-y: auto;
+    margin-right: 10px;
 }
 
 .diagModalBodyStyle.modal-body {

@@ -92,6 +92,7 @@
 .docPatListScroll {
     overflow-y: auto;
     max-height: 170px;
+    margin-right: 10px;
 }
 
 

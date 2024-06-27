@@ -78,9 +78,23 @@ const MetPatientList = ({ onPatientSelect, userInfo }) => {
             <ul className="patient-list">
                 {sortPatients(patients).map((patient, i) => {
                     const patJumin = patient.patJumin;
-                    const birthYear = patJumin ? (parseInt(patJumin.substring(0, 2)) + (patJumin[6] <= '2' ? 1900 : 2000)) : null;
+                    let birthYear = null;
+    
+                    if (patJumin) {
+                        const yearPart = parseInt(patJumin.substring(0, 2), 10);
+                        const genderDigit = patJumin[7]; // '-' 이후의 첫 번째 숫자 (성별)
+    
+                        if (genderDigit === '1' || genderDigit === '2') {
+                            birthYear = 1900 + yearPart;
+                        } else if (genderDigit === '3' || genderDigit === '4') {
+                            birthYear = 2000 + yearPart;
+                        }
+                    }
+    
                     const currentYear = new Date().getFullYear();
                     const age = birthYear ? currentYear - birthYear : null;
+                    
+                    
                     return (
                         <li key={i} data-id={patient.testNum} className='patient-item'onClick={() => onPatientSelect(patient)}>
                             <select

@@ -21,7 +21,7 @@ const MetTestSearchDetail = ({ testResultSelect, imagePath, onClose }) => {
                             <li key={i} style={{ padding:'20px'}}>
                             <span  style={{ fontSize:'18px', fontWeight:'500' }}>검사부위 : {testResultSelect.testPart}</span>
                             <br/>
-                            <img src={`${url}/image/${searchDetail.testFileNum}`} alt="Test Result" style={{ maxWidth: '100%'}} />
+                            <img src={`${url}/file/${searchDetail.testFileNum}`} alt="Test Result" style={{ maxWidth: '100%'}} />
                                     <br/>
                                     검사자 : {searchDetail.testMetNum}&nbsp;&nbsp;&nbsp;&nbsp;검사일 : {year}년 {month}월 {day}일
                                     &nbsp;&nbsp;&nbsp;특이사항 : {testResultSelect.testNotice}
